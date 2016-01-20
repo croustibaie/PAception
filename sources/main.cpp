@@ -16,8 +16,7 @@ SDL_Surface* gScreenSurface = NULL;
 
 //The image we will load and show on the screen
 SDL_Surface* gHelloWorld = NULL;
-// Image for the red square
-SDL_Surface* gRed=NULL;
+
 //Renderer linked to the gWindow
 SDL_Renderer* gRenderer;
 // 1st controller
@@ -27,8 +26,10 @@ int JOYSTICK_DEAD_ZONE = 8000;
 
 int main( int argc, char* args[] )
 {
+    SDL_Texture* helloTexture;
+    SDL_Texture* redTexture;
     //Start up SDL and create window
-    if( !init(&gWindow,&gScreenSurface,&gGameController) )
+    if( !init(&gWindow,&gRenderer,&gGameController) )
     {
         printf( "Failed to initialize!\n" );
     }
@@ -36,19 +37,18 @@ int main( int argc, char* args[] )
     {
         //Load media
         char* path = "/home/croustibaie/Documents/PAception/hello_world.bmp";
-        loadMedia(&gHelloWorld,path);
+        loadMedia(&helloTexture,&gRenderer,path);
         path= "/home/croustibaie/Documents/PAception/red.bmp";
-        loadMedia(&gRed,path);
+        loadMedia(&redTexture,&gRenderer,path);
         //Apply the image
-        bloc b = bloc(path) ;
-        int f=0;
+        bloc b = bloc(&gRenderer,path) ;
         int xDir=0;
         int yDir=0;
         SDL_Event e;
         bool quit = false;
         while (!quit)
         {
-           while (SDL_PollEvent(&e) != 0)
+           while (SDL_PollEvent(&e) != 0 && !quit)
            {
                if( e.type == SDL_QUIT )
                {
@@ -57,13 +57,13 @@ int main( int argc, char* args[] )
                else if( e.type == SDL_JOYAXISMOTION )
                {
                    //Motion on controller 0
-                   printf("detected move\n");
+                   //printf("detected move\n");
                    if( e.jaxis.which == 0 )
                    {
                        //X axis motion
                        if( e.jaxis.axis == 0 )
                        {
-                           printf("x : %d\n", e.jaxis.value);
+                           //printf("x : %d\n", e.jaxis.value);
                            //Left of dead zone
                            if( e.jaxis.value < -JOYSTICK_DEAD_ZONE )
                            {
@@ -82,6 +82,7 @@ int main( int argc, char* args[] )
                            //Y axis motion
                        else if( e.jaxis.axis == 1 )
                        {
+                     //      printf("y : %d\n", e.jaxis.value);
                            //Below of dead zone
                            if( e.jaxis.value < -JOYSTICK_DEAD_ZONE )
                            {
@@ -100,45 +101,9 @@ int main( int argc, char* args[] )
                    }
                }
 
-            b.move(xDir,yDir);
-                /*if(e.type==SDL_JOYAXISMOTION)
-                {
-                    if (e.jaxis.value<-DEADZONE )
-                    {
-                        if (e.jaxis.axis==0)
-                        {
-                            std::cout<<"x :"<< e.jaxis.value<<std::endl;
-                            if (e.jaxis.value < - DEADZONE)
-                            {
-                                b.move(-4,0);
-                            }
-                            else if(e.jaxis.value > DEADZONE)
-                            {
-                                std::cout<<"right"<<std::endl;
-                                b.move(4,0);
-                            }
-                        }
-                        else if (e.jaxis.axis==1)
-                        {
-                            std::cout<<"y :"<< e.jaxis.value<<std::endl;
-                            if (e.jaxis.value< -DEADZONE)
-                            {
-                                b.move(0,4);
-                            }
-                            else if (e.jaxis.value>DEADZONE)
-                            {
-                                b.move(0,-4);
-                            }
-                        }
-                    }
-                }*/
-                if (e.type == SDL_QUIT)
-                {
-                    std::cout<<"quit request"<<std::endl;
-                    quit=true;
-                }
 
-                else if (e.type==SDL_KEYDOWN)
+
+                if (e.type==SDL_KEYDOWN)
                 {
                     switch (e.key.keysym.sym)
                     {
@@ -160,13 +125,17 @@ int main( int argc, char* args[] )
                             break;
                     }
                 }
-                SDL_BlitScaled(gHelloWorld, NULL, gScreenSurface, NULL);
-                b.draw(gScreenSurface);
 
-                f++;
-                //Update the surface
-                SDL_UpdateWindowSurface(gWindow);
             }
+            b.move(xDir*4,yDir*4);
+            SDL_BlitScaled(gHelloWorld, NULL, gScreenSurface, NULL);
+            SDL_RenderClear(gRenderer);
+            SDL_RenderCopy(gRenderer,helloTexture, NULL, NULL );
+            b.draw(gRenderer);
+
+
+            //Update the surface
+            SDL_RenderPresent(gRenderer);
         }
 
 
