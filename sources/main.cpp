@@ -18,10 +18,12 @@ SDL_Surface* gScreenSurface = NULL;
 SDL_Surface* gHelloWorld = NULL;
 // Image for the red square
 SDL_Surface* gRed=NULL;
+//Renderer linked to the gWindow
+SDL_Renderer* gRenderer;
 // 1st controller
 SDL_GameController* gGameController = NULL;
 // Joystick deadzone
-int DEADZONE = 8000;
+int JOYSTICK_DEAD_ZONE = 8000;
 
 int main( int argc, char* args[] )
 {
@@ -32,7 +34,6 @@ int main( int argc, char* args[] )
     }
     else
     {
-
         //Load media
         char* path = "/home/croustibaie/Documents/PAception/hello_world.bmp";
         loadMedia(&gHelloWorld,path);
@@ -41,13 +42,68 @@ int main( int argc, char* args[] )
         //Apply the image
         bloc b = bloc(path) ;
         int f=0;
+        int xDir=0;
+        int yDir=0;
         SDL_Event e;
         bool quit = false;
         while (!quit)
         {
-            while (SDL_PollEvent(&e) != 0) {
-                if(e.type==SDL_JOYAXISMOTION) {
-                    if (e.jaxis.value<-1000 )
+           while (SDL_PollEvent(&e) != 0)
+           {
+               if( e.type == SDL_QUIT )
+               {
+                   quit = true;
+               }
+               else if( e.type == SDL_JOYAXISMOTION )
+               {
+                   //Motion on controller 0
+                   printf("detected move\n");
+                   if( e.jaxis.which == 0 )
+                   {
+                       //X axis motion
+                       if( e.jaxis.axis == 0 )
+                       {
+                           printf("x : %d\n", e.jaxis.value);
+                           //Left of dead zone
+                           if( e.jaxis.value < -JOYSTICK_DEAD_ZONE )
+                           {
+                               xDir = -1;
+                           }
+                               //Right of dead zone
+                           else if( e.jaxis.value > JOYSTICK_DEAD_ZONE )
+                           {
+                               xDir =  1;
+                           }
+                           else
+                           {
+                               xDir = 0;
+                           }
+                       }
+                           //Y axis motion
+                       else if( e.jaxis.axis == 1 )
+                       {
+                           //Below of dead zone
+                           if( e.jaxis.value < -JOYSTICK_DEAD_ZONE )
+                           {
+                               yDir = -1;
+                           }
+                               //Above of dead zone
+                           else if( e.jaxis.value > JOYSTICK_DEAD_ZONE )
+                           {
+                               yDir =  1;
+                           }
+                           else
+                           {
+                               yDir = 0;
+                           }
+                       }
+                   }
+               }
+
+            b.move(xDir,yDir);
+                /*if(e.type==SDL_JOYAXISMOTION)
+                {
+                    if (e.jaxis.value<-DEADZONE )
                     {
                         if (e.jaxis.axis==0)
                         {
@@ -75,7 +131,7 @@ int main( int argc, char* args[] )
                             }
                         }
                     }
-                }
+                }*/
                 if (e.type == SDL_QUIT)
                 {
                     std::cout<<"quit request"<<std::endl;
