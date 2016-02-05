@@ -13,43 +13,28 @@ class bloc {
 
 private:
     SDL_Rect rect;
-    SDL_Surface *texture;
+    SDL_Texture *texture;
+    int speed;
+    SDL_Renderer* gRenderer;
+    int blocId;
+    static int nextBlocId;
 
 
 public:
     /* Move the bloc of x pixels in horizontal and y in vertical */
 
 
-    bloc ()
-    {
-        this->rect.x=0;
-        this->rect.y =0;
-        this->rect.w=10;
-        this->rect.h=10;
-        texture=NULL;
-    }
+    bloc ();
 
-    bloc (char* path)
-    {
-        this->rect.x=0;
-        this->rect.y=0;
-        this->rect.w=50;
-        this->rect.h=50;
-        texture=NULL;
-        loadMedia(&texture,path);
-    }
+    bloc (SDL_Renderer** gRenderer,const char* path);
 
-    ~bloc() {};
+    ~bloc();
 
-    void draw(SDL_Surface* gScreenSurface)
-    {
-        SDL_BlitScaled( texture, NULL, gScreenSurface, &rect );
-    }
-    void move(int x , int y)
-    {
-        this->rect.x+=x;
-        this->rect.y+=y;
-    }
+    void react(struct controllerState* state,unsigned int elapsedTime);
+    void draw();
+    void move(int x , int y);
+    void setSpeed(int speed);
+    int getBlocId();
 
 
 };

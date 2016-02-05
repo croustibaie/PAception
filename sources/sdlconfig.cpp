@@ -6,7 +6,9 @@
 const int SCREEN_WIDTH = 820;
 const int SCREEN_HEIGHT = 640;
 
-bool init(SDL_Window** gWindow, SDL_Surface** gScreenSurface, SDL_GameController** gGameController)
+
+
+bool init(SDL_Window** gWindow, SDL_Renderer** gRenderer, SDL_GameController** gGameController)
 {
     //Initialization flag
     bool success = true;
@@ -51,39 +53,46 @@ bool init(SDL_Window** gWindow, SDL_Surface** gScreenSurface, SDL_GameController
         else
         {
             //Get window surface
-            *gScreenSurface = SDL_GetWindowSurface( *gWindow );
+            *gRenderer = SDL_CreateRenderer( *gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+            if( *gRenderer == NULL )
+            {
+                printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
+                success = false;
+            }
         }
     }
 
     return success;
 }
 
-bool loadMedia(SDL_Surface** gSurface, char const* path)
+bool loadMedia(SDL_Texture** gTexture,SDL_Renderer** gRender, char const* path)
 {
     //Loading success flag
     bool success = true;
-
+    SDL_Surface* gSurface;
     //Load splash image
-    *gSurface = SDL_LoadBMP(path);
-    if( *gSurface == NULL )
+    gSurface = SDL_LoadBMP(path);
+    if( gSurface == NULL )
     {
         printf( "Unable to load image %s! SDL Error: %s\n", "hello_world.bmp", SDL_GetError() );
         success = false;
+    }
+    else
+    {
+        *gTexture=SDL_CreateTextureFromSurface(*gRender,gSurface);
     }
 
     return success;
 }
 
-void close(SDL_Surface* gSurface, SDL_Window* gWindow, SDL_GameController* gGameController)
+void close(SDL_Renderer* gRenderer, SDL_Window* gWindow, SDL_GameController* gGameController)
 {
     //Deallocate surface
-    SDL_FreeSurface( gSurface );
+    SDL_DestroyRenderer(gRenderer);
     SDL_GameControllerClose( gGameController );
     gGameController=NULL;
     //Destroy window
     SDL_DestroyWindow( gWindow );
-
-
     //Quit SDL subsystems
     SDL_Quit();
 }
