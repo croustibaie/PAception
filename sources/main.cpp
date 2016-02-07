@@ -24,20 +24,19 @@ int main( int argc, char* args[] )
     }
     else
     {
-        //Load media
+        //Load medias for background image and red square
         const char* path = "/home/croustibaie/Documents/PAception/hello_world.bmp";
         loadMedia(&helloTexture,&gRenderer,path);
         std::cout<<"Media loaded"<<std::endl;
         path= "/home/croustibaie/Documents/PAception/red.bmp";
         loadMedia(&redTexture,&gRenderer,path);
         std::cout<<"Media loaded"<<std::endl;
-        //Apply the image
+
+        //Create the red bloc
         bloc b = bloc(&gRenderer,path) ;
         std::cout<<"Bloc loaded"<<std::endl;
-       /* SDL_RenderClear(gRenderer);
-        SDL_RenderCopy(gRenderer,helloTexture,NULL,NULL);
-        SDL_RenderPresent(gRenderer);*/
 
+        //Create the level
         level l = level(&b,1,helloTexture,gRenderer);
         std::cout<<"level created"<<std::endl;
         l.play();
@@ -46,6 +45,7 @@ int main( int argc, char* args[] )
     //Free resources and close SDL
     SDL_DestroyTexture(redTexture);
     SDL_DestroyTexture(helloTexture);
+
     close(gRenderer,gWindow,gGameController);
 
     return 0;

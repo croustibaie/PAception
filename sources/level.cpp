@@ -16,27 +16,33 @@ level::level()
 
 level::level (bloc* array,int numBlocs,SDL_Texture* Texture,SDL_Renderer* gRenderer)
 {
-    blocArray= array;
+    blocArray.reserve(numBlocs);
+
+    for (int i=0 ; i<numBlocs;i++)
+    {
+        blocArray.push_back(&array[i]);
+    }
     this->numBlocs=numBlocs;
-    backGroundTexture= Texture;
+    this->backGroundTexture= Texture;
     this->gRenderer=gRenderer;
     this->controller->aButton=false;
-    controller->xButton=false;
-    controller->yButton=false;
-    controller->bButton=false;
-    controller->leftStickDown=false;
-    controller->leftStickLeft=false;
-    controller->leftStickUp=false;
-    controller->leftStickRight=false;
-    controller->rightStickDown=false;
-    controller->rightStickLeft=false;
-    controller->rightStickUp=false;
-    controller->rightStickRight=false;
-    controller->startButton=false;
+    this->controller->xButton=false;
+    this->controller->yButton=false;
+    this->controller->bButton=false;
+    this->controller->leftStickDown=false;
+    this->controller->leftStickLeft=false;
+    this->controller->leftStickUp=false;
+    this->controller->leftStickRight=false;
+    this->controller->rightStickDown=false;
+    this->controller->rightStickLeft=false;
+    this->controller->rightStickUp=false;
+    this->controller->rightStickRight=false;
+    this->controller->startButton=false;
 }
 
 level::~level()
 {
+    delete controller;
 }
 
 /* returns false with a quit command was sent and true if the event queue is null*/
@@ -44,9 +50,9 @@ level::~level()
 
 void level::blocReactions()
 {
-    for (int i=0; i<numBlocs;i++)
+    for (unsigned int i=0; i<numBlocs;i++)
     {
-        blocArray[i].react(controller,elapsedTime);
+        blocArray.at(i)->react(controller,elapsedTime);
     }
 }
 
@@ -56,21 +62,22 @@ void level::blocDraw()
     SDL_RenderCopy(gRenderer,backGroundTexture,NULL,NULL);
     for (int i=0; i<numBlocs; i++)
     {
-        blocArray[i].draw();
+        blocArray.at(i)->draw();
     }
     SDL_RenderPresent(gRenderer);
 }
 enum gameStatus level::play ()
 {
     lastTime=SDL_GetTicks();
+    elapsedTime=20; // We have to initialize the elapsed time for the very first frame, chose 20ms by default
     while (scanInputs()==true)
     {
         blocReactions();
-        unsigned tmptime= SDL_GetTicks();
+        unsigned tmptime= SDL_GetTicks(); //Get the number of milliseconds since the game started
         blocDraw();
         elapsedTime= tmptime-lastTime;
         lastTime=tmptime;
-        printf("elapsed time:%u \n", elapsedTime);
+        //printf("elapsed time:%u \n", elapsedTime);
     }
 
     return PLAY;

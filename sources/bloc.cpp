@@ -35,8 +35,22 @@ bloc::bloc (SDL_Renderer** gRender,const char* path)
     this->speed=8;
     this->gRenderer=*gRender;
     loadMedia(&texture,gRender,path);
+    if (texture==NULL)
+    {
+        std::cout<<"no texture loaded"<<std::endl;
+    }
     this->blocId=nextBlocId;
     nextBlocId++;
+}
+
+bloc::bloc(const bloc& b)
+{
+    this->gRenderer=b.getRenderer();
+    loadMedia(&texture,&gRenderer,"/home/croustibaie/Documents/PAception/red.bmp");
+    // this->texture=b.getTexture();
+    this->rect=b.getRect();
+    this->speed=b.getSpeed();
+    this->blocId=b.getBlocId();
 }
 
 bloc::~bloc()
@@ -56,6 +70,10 @@ void bloc::react(struct controllerState* state,unsigned int elapsedTime)
 
 void bloc::draw()
 {
+    if (texture==NULL)
+    {
+        std::cout<<"no texture"<<std::endl;
+    }
     SDL_RenderCopy(gRenderer,texture, NULL, &rect );
 }
 
@@ -70,7 +88,27 @@ void bloc::setSpeed(int speed)
     this->speed=speed;
 }
 
-int bloc::getBlocId()
+int bloc::getBlocId() const
 {
     return blocId;
+}
+
+ SDL_Renderer* bloc::getRenderer() const
+{
+    return gRenderer;
+}
+
+SDL_Texture* bloc::getTexture() const
+{
+    return texture;
+}
+
+SDL_Rect bloc::getRect() const
+{
+    return rect;
+}
+
+int bloc::getSpeed() const
+{
+    return speed;
 }

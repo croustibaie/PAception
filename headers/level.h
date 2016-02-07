@@ -4,7 +4,7 @@
 
 #ifndef PACEPTION_LEVEL_H
 #define PACEPTION_LEVEL_H
-#include <map>
+#include <vector>
 
 enum gameStatus {PAUSE,PLAY,GAMEOVER};
 
@@ -14,26 +14,29 @@ enum gameStatus {PAUSE,PLAY,GAMEOVER};
 class level
 {
 private:
-    bloc* blocArray;
+    std::vector<bloc*> blocArray;
+    //bloc* blocArray;
     int numBlocs;
     SDL_Texture* backGroundTexture;
     SDL_Renderer* gRenderer;
-    struct controllerState* controller;
+    struct controllerState* controller = new controllerState();
     /* lastTime and elapsedTime will mesure the time consumed for each frame. This will help adapting speeds*/
-    unsigned int lastTime;
-    unsigned int elapsedTime;
+    unsigned int lastTime; // In milliseconds
+    unsigned int elapsedTime;//In milliseconds
     SDL_Event e;
 
 public:
     level();
-
     level (bloc* array,int numBlocs,SDL_Texture* Texture,SDL_Renderer* gRenderer);
     ~level();
 
-    /* returns false with a quit command was sent and true if the event queue is null*/
+    /* Scan inputs modify level's controller state and returns false if a quit command was sent and true if the event queue is null*/
     bool scanInputs ();
+    //blocReactions get the reaction of every bloc in the level. The level sends the controller state to every bloc to get the reaction
     void blocReactions();
+    //blocDraw goes through every bloc in the level and draws it to the renderer
     void blocDraw();
+    //play() is a while procedure in wich inputs are scanned, then blocReactions is called then blocDraw()
     enum gameStatus play ();
 };
 #endif //PACEPTION_LEVEL_H

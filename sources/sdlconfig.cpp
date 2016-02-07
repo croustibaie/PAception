@@ -14,7 +14,7 @@ bool init(SDL_Window** gWindow, SDL_Renderer** gRenderer, SDL_GameController** g
     bool success = true;
 
     //Initialize SDL
-    SDL_SetHint(SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS,"1");
+    SDL_SetHint(SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS,"1");//Seems to be essential if we want to capture correct inputs
     if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER ) < 0 )
     {
         printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
@@ -30,10 +30,10 @@ bool init(SDL_Window** gWindow, SDL_Renderer** gRenderer, SDL_GameController** g
         {
             *gGameController = SDL_GameControllerOpen( 0 );
             SDL_Joystick* joystick=SDL_GameControllerGetJoystick(*gGameController);
-            std::cout<< "axes :"<<SDL_JoystickNumAxes(joystick)<<std::endl;
+            /*std::cout<< "axes :"<<SDL_JoystickNumAxes(joystick)<<std::endl;
             std::cout<<"buttons :" <<SDL_JoystickNumButtons(joystick)<<std::endl;
             std::cout<<"hats :" <<SDL_JoystickNumHats(joystick)<<std::endl;
-
+            */ // Unquote to get joystick's specs
             if( *gGameController == NULL )
             {
                 std::cout << "unable to open controller"<<std::endl;
@@ -90,7 +90,6 @@ void close(SDL_Renderer* gRenderer, SDL_Window* gWindow, SDL_GameController* gGa
     //Deallocate surface
     SDL_DestroyRenderer(gRenderer);
     SDL_GameControllerClose( gGameController );
-    gGameController=NULL;
     //Destroy window
     SDL_DestroyWindow( gWindow );
     //Quit SDL subsystems
