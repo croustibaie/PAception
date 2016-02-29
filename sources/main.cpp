@@ -30,7 +30,6 @@ int main( int argc, char* args[] )
 
         //Create the red bloc
         bloc b = bloc(&gRenderer,path) ;
-
         //Create the level
         level l = level(&b,1,helloTexture,gRenderer);
         l.play();
@@ -40,6 +39,5 @@ int main( int argc, char* args[] )
     SDL_DestroyTexture(helloTexture);
 
     close(gRenderer,gWindow,gGameController);
-
     return 0;
 }

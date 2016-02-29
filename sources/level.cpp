@@ -16,14 +16,11 @@ level::level()
 
 level::level (bloc* array,int numBlocs,SDL_Texture* Texture,SDL_Renderer* gRenderer)
 {
-    blocArray.reserve(numBlocs);
 
     for (int i=0 ; i<numBlocs;i++)
     {
-        blocArray.push_back(&array[i]);
-        blocMap.insert(std::pair<int,bloc*>(array[i].getBlocId(),&array[i]));
+        blocMap.insert(std::pair<int,bloc*>(array[i].getBlocId(),&array[i])); // When inserting in a map, we need to insert a pair
     }
-    this->numBlocs=numBlocs;
     this->backGroundTexture= Texture;
     this->gRenderer=gRenderer;
 }
@@ -33,9 +30,6 @@ level::~level()
     delete ui;
 }
 
-/* returns false with a quit command was sent and true if the event queue is null*/
-
-
 void level::blocReactions()
 {
     std::map<int,bloc*>::iterator it;
@@ -44,13 +38,12 @@ void level::blocReactions()
         it->second->react(ui->getCS(),elapsedTime);
     }
 }
-
 void level::blocDraw()
 {
     SDL_RenderClear(gRenderer);
     SDL_RenderCopy(gRenderer,backGroundTexture,NULL,NULL);
     std::map<int,bloc*>::iterator it;
-    for (it= blocMap.begin();it!=blocMap.end();it++)//Make sure blocMap.end is recomputed on every loop
+    for (it= blocMap.begin();it!=blocMap.end();it++)//Make sure blocMap.end is recomputed on every loop, could be the cause of seg faults
     {
         it->second->draw();
     }
@@ -73,7 +66,16 @@ enum gameStatus level::play ()
 
     return PLAY;
 }
-
-
+void level::deleteBloc(int blocID)
+{
+    blocMap.erase(blocID);
+}
+void level::insertBlocs(bloc *blocArray, int nbBlocs)
+{
+    for (int i=0;i<nbBlocs;i++)
+    {
+        blocMap.insert(std::pair<int, bloc *>(blocArray[i].getBlocId(),&blocArray[i]));
+    }
+}
 
 
