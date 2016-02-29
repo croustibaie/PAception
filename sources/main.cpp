@@ -15,8 +15,7 @@ int main( int argc, char* args[] )
     SDL_Renderer* gRenderer;
 // 1st controller
     SDL_GameController* gGameController = NULL;
-    SDL_Texture* helloTexture;
-    SDL_Texture* redTexture;
+    SDL_Texture* helloTexture; // Texture for background
     //Start up SDL and create window
     if( !init(&gWindow,&gRenderer,&gGameController) )
     {
@@ -25,12 +24,9 @@ int main( int argc, char* args[] )
     else
     {
         //Load medias for background image and red square
-        //const char* path = "/home/croustibaie/Documents/PAceptionDev/hello_world.bmp";
         const char* path = "./hello_world.bmp";
         loadMedia(&helloTexture,&gRenderer,path);
-        //path= "/home/croustibaie/Documents/PAceptionDev/red.bmp";
         path= "./red.bmp";
-        loadMedia(&redTexture,&gRenderer,path);
 
         //Create the red bloc
         bloc b = bloc(&gRenderer,path) ;
@@ -41,7 +37,6 @@ int main( int argc, char* args[] )
     }
 
     //Free resources and close SDL
-    SDL_DestroyTexture(redTexture);
     SDL_DestroyTexture(helloTexture);
 
     close(gRenderer,gWindow,gGameController);
