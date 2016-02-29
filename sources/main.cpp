@@ -25,20 +25,16 @@ int main( int argc, char* args[] )
     else
     {
         //Load medias for background image and red square
-        const char* path = "/home/croustibaie/Documents/PAception/hello_world.bmp";
+        const char* path = "/home/croustibaie/Documents/PAceptionDev/hello_world.bmp";
         loadMedia(&helloTexture,&gRenderer,path);
-        std::cout<<"Media loaded"<<std::endl;
-        path= "/home/croustibaie/Documents/PAception/red.bmp";
+        path= "/home/croustibaie/Documents/PAceptionDev/red.bmp";
         loadMedia(&redTexture,&gRenderer,path);
-        std::cout<<"Media loaded"<<std::endl;
 
         //Create the red bloc
         bloc b = bloc(&gRenderer,path) ;
-        std::cout<<"Bloc loaded"<<std::endl;
 
         //Create the level
         level l = level(&b,1,helloTexture,gRenderer);
-        std::cout<<"level created"<<std::endl;
         l.play();
     }
 

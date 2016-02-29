@@ -5,6 +5,7 @@
 #include "../headers/bloc.h"
 #include "../headers/sdlconfig.h"
 #include"./../headers/level.h"
+#include"./../headers/userInterface.h"
 
 level::level()
 {
@@ -42,6 +43,7 @@ level::level (bloc* array,int numBlocs,SDL_Texture* Texture,SDL_Renderer* gRende
 
 level::~level()
 {
+    delete ui;
     delete controller;
 }
 
@@ -70,8 +72,11 @@ enum gameStatus level::play ()
 {
     lastTime=SDL_GetTicks();
     elapsedTime=20; // We have to initialize the elapsed time for the very first frame, chose 20ms by default
-    while (scanInputs()==true)
+
+    while(ui->play()==true)
+   // while (scanInputs()==true)
     {
+        getInputs(ui->getCS());
         blocReactions();
         unsigned tmptime= SDL_GetTicks(); //Get the number of milliseconds since the game started
         blocDraw();
@@ -82,6 +87,26 @@ enum gameStatus level::play ()
 
     return PLAY;
 }
+
+void level::getInputs( struct controllerState* cs)
+{
+
+    this->controller->aButton=cs->aButton;
+    this->controller->xButton=cs->xButton;
+    this->controller->yButton=cs->yButton;
+    this->controller->bButton=cs->bButton;
+    this->controller->leftStickDown=cs->leftStickDown;
+    this->controller->leftStickLeft=cs->leftStickLeft;
+    this->controller->leftStickUp=cs->leftStickUp;
+    this->controller->leftStickRight=cs->leftStickRight;
+    this->controller->rightStickDown=cs->rightStickDown;
+    this->controller->rightStickLeft=cs->rightStickLeft;
+    this->controller->rightStickUp=cs->rightStickUp;
+    this->controller->rightStickRight=cs->rightStickRight;
+    this->controller->startButton=cs->startButton;
+}
+
+
 
 bool level::scanInputs ()
 {

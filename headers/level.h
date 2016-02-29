@@ -5,6 +5,8 @@
 #ifndef PACEPTION_LEVEL_H
 #define PACEPTION_LEVEL_H
 #include <vector>
+#include"bloc.h"
+#include "userInterface.h"
 
 enum gameStatus {PAUSE,PLAY,GAMEOVER};
 
@@ -16,6 +18,7 @@ class level
 private:
     std::vector<bloc*> blocArray;
     //bloc* blocArray;
+    userInterface* ui= new userInterface();
     int numBlocs;
     SDL_Texture* backGroundTexture;
     SDL_Renderer* gRenderer;
@@ -38,5 +41,7 @@ public:
     void blocDraw();
     //play() is a while procedure in wich inputs are scanned, then blocReactions is called then blocDraw()
     enum gameStatus play ();
+
+    void getInputs(struct controllerState* cs);
 };
 #endif //PACEPTION_LEVEL_H
