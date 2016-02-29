@@ -25,9 +25,11 @@ int main( int argc, char* args[] )
     else
     {
         //Load medias for background image and red square
-        const char* path = "/home/croustibaie/Documents/PAceptionDev/hello_world.bmp";
+        //const char* path = "/home/croustibaie/Documents/PAceptionDev/hello_world.bmp";
+        const char* path = "./hello_world.bmp";
         loadMedia(&helloTexture,&gRenderer,path);
-        path= "/home/croustibaie/Documents/PAceptionDev/red.bmp";
+        //path= "/home/croustibaie/Documents/PAceptionDev/red.bmp";
+        path= "./red.bmp";
         loadMedia(&redTexture,&gRenderer,path);
 
         //Create the red bloc
