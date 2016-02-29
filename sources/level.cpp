@@ -41,7 +41,7 @@ void level::blocReactions()
     std::map<int,bloc*>::iterator it;
     for (it= blocMap.begin();it!=blocMap.end();it++)//Make sure blocMap.end is recomputed on every loop
     {
-        it->second->react(ui->getCS(),elapsedTime);
+        it->second->react(ui->getCS()[0],elapsedTime); // MODIFY FOR MULTIPLAYER
     }
 }
 

@@ -10,7 +10,7 @@
 
 class userInterface {
 private:
-    struct controllerState *cs = new controllerState();
+    struct controllerState **cs = NULL ;
     SDL_Event e;
 
 public:
@@ -20,10 +20,12 @@ public:
         std::cout<<"ui deleted"<<std::endl;
     }
     bool play();
-    struct controllerState* getCS()
+    struct controllerState** getCS()
     {
         return cs;
     }
+
+    void motion(SDL_JoystickID id, SDL_Event e);
 
 
 };
