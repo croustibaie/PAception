@@ -10,14 +10,10 @@ userInterface::userInterface()
     this->cs->xButton=false;
     this->cs->yButton=false;
     this->cs->bButton=false;
-    this->cs->leftStickDown=false;
-    this->cs->leftStickLeft=false;
-    this->cs->leftStickUp=false;
-    this->cs->leftStickRight=false;
-    this->cs->rightStickDown=false;
-    this->cs->rightStickLeft=false;
-    this->cs->rightStickUp=false;
-    this->cs->rightStickRight=false;
+    this->cs->leftStickVertical=0;
+    this->cs->leftStickHorizontal=0;
+    this->cs->rightStickVertical=0;
+    this->cs->rightStickHorizontal=0;
     this->cs->startButton=false;
 }
 
@@ -37,35 +33,25 @@ bool userInterface::play()
                 //X axis motion
                 if( e.jaxis.axis == 0 )
                 {
-                    if( e.jaxis.value < -8000 )
+                    if( abs(e.jaxis.value) > 8000 )
                     {
-                        cs->leftStickLeft=true;
-                    }
-                    else if( e.jaxis.value > 8000 )
-                    {
-                        cs->leftStickRight=true;
+                        cs->leftStickHorizontal=e.jaxis.value;
                     }
                     else
                     {
-                        cs->leftStickLeft=false;
-                        cs->leftStickRight =false;
+                        cs->leftStickHorizontal=0;
                     }
                 }
                     //Y axis motion
                 else if( e.jaxis.axis == 1 )
                 {
-                    if( e.jaxis.value < -8000 )
+                    if( abs(e.jaxis.value) > 8000 )
                     {
-                        cs->leftStickDown=true;
-                    }
-                    else if( e.jaxis.value > 8000 )
-                    {
-                        cs->leftStickUp=true;
+                        cs->leftStickVertical=e.jaxis.value;
                     }
                     else
                     {
-                        cs->leftStickDown=false;
-                        cs->leftStickUp=false;
+                        cs->leftStickVertical=0;
                     }
                 }
             }

@@ -11,14 +11,10 @@
 /* This structure will be used to get the current state of an xBox controller*/
 struct controllerState
 {
-    bool leftStickUp;
-    bool leftStickDown;
-    bool leftStickRight;
-    bool leftStickLeft;
-    bool rightStickUp;
-    bool rightStickDown;
-    bool rightStickRight;
-    bool rightStickLeft;
+    int leftStickHorizontal;
+    int leftStickVertical;
+    int rightStickHorizontal;
+    int rightStickVertical;
     bool aButton;
     bool bButton;
     bool xButton;
