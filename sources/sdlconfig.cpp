@@ -3,8 +3,6 @@
 //
 
 #include "../headers/sdlconfig.h"
-const int SCREEN_WIDTH = 820;
-const int SCREEN_HEIGHT = 640;
 
 
 

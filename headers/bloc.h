@@ -3,9 +3,13 @@
 //
 
 #ifndef PA_BLOC_H
+class level;
 #include <iostream>
 #include <SDL_surface.h>
 #include "sdlconfig.h"
+
+
+
 #define PA_BLOC_H
 
 
@@ -14,10 +18,11 @@ class bloc {
 private:
     SDL_Rect rect;// Bloc's hitbox
     SDL_Texture *texture;//Bloc's sprite
-    int speed;
     SDL_Renderer* gRenderer;
+    level* l;
+    int speed;
     int blocId; //Bloc's unique ID, is it really usefull?
-    static int nextBlocId;
+    static unsigned int nextBlocId;
 
 
 public:
@@ -27,13 +32,15 @@ public:
     bloc ();
     bloc(const bloc& b);
 
-    bloc (SDL_Renderer** gRenderer,const char* path);
+    bloc (SDL_Renderer** gRenderer,const char* path,level* l);
 
     ~bloc();
 
     void react(struct controllerState* state,unsigned int elapsedTime); //Bloc's reactions to given inputs
     void draw();
     void move(int x , int y);
+    void tryMove(int x, int y);
+    void collisionReaction(bloc* b);
     void setSpeed(int speed);
 
     SDL_Rect getRect() const;

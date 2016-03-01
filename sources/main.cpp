@@ -29,9 +29,10 @@ int main( int argc, char* args[] )
         path= "./red.bmp";
 
         //Create the red bloc
-        bloc b = bloc(&gRenderer,path) ;
         //Create the level
-        level l = level(&b,1,helloTexture,gRenderer);
+        level l = level(helloTexture,gRenderer);
+        bloc b = bloc(&gRenderer,path,&l) ;
+        l.insertBlocs(&b,1);
         l.play();
     }
 

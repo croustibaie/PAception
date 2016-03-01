@@ -8,6 +8,8 @@
 #include <string>
 #include<iostream>
 
+const int SCREEN_WIDTH = 820;
+const int SCREEN_HEIGHT = 640;
 /* This structure will be used to get the current state of an xBox controller*/
 struct controllerState
 {

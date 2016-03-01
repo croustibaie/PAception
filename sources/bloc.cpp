@@ -4,9 +4,11 @@
 
 #include<SDL.h>
 #include "../headers/sdlconfig.h"
+#include "../headers/level.h"
 #include "../headers/bloc.h"
 
-int bloc::nextBlocId=0;
+
+unsigned int bloc::nextBlocId=0;
 
 bloc::bloc ()
 {
@@ -21,8 +23,9 @@ bloc::bloc ()
     nextBlocId++;
 }
 
-bloc::bloc (SDL_Renderer** gRender,const char* path)
+bloc::bloc (SDL_Renderer** gRender,const char* path, level* l)
 {
+    this->l=l;
     if (*gRender==NULL)
     {
         std::cout<< "In bloc constructor, no render"<<std::endl;
@@ -64,7 +67,7 @@ bloc::~bloc()
 void bloc::react(struct controllerState* state,unsigned int elapsedTime)
 {
     int correctedSpeed= (int)(round((float)(speed)*(float)elapsedTime/20)); //We have to adapt the initial speed to the frame duration
-    move((int)(correctedSpeed*(float)(state->leftStickHorizontal)/32000),(int)(correctedSpeed*(float)(state->leftStickVertical)/32000) );
+    tryMove((int)(correctedSpeed*(float)(state->leftStickHorizontal)/32000),(int)(correctedSpeed*(float)(state->leftStickVertical)/32000) );
 }
 
 void bloc::draw()
@@ -74,6 +77,41 @@ void bloc::draw()
         std::cout<<"no texture"<<std::endl;
     }
     SDL_RenderCopy(gRenderer,texture, NULL, &rect );
+}
+
+void bloc::tryMove(int x, int y)
+{
+    SDL_Rect a= this->getRect();
+    a.x+=x;
+    a.y+=y;
+
+    int xmove=x;
+    int ymove=y;
+
+    if (this->l->collide(this->blocId,a)!= nullptr) //If there is a collision
+    {
+        this->move(0,0); //TODO: bloc's collision reaction should be there
+    }
+    else //Here we check that we're not trying to go out of the window
+    {
+        if (a.x+a.w>SCREEN_WIDTH)
+        {
+            xmove=SCREEN_WIDTH-(this->getRect().x+this->getRect().w);
+        }
+        if (a.x<0)
+        {
+            xmove=- (this->getRect().x);
+        }
+        if (a.y+a.h>SCREEN_HEIGHT)
+        {
+            ymove=SCREEN_HEIGHT-(this->getRect().y + this->getRect().h);
+        }
+        if (a.y<0)
+        {
+            ymove=- (this->getRect().y);
+        }
+        move(xmove,ymove);
+    }
 }
 
 void bloc::move(int x , int y)
@@ -110,4 +148,9 @@ SDL_Rect bloc::getRect() const
 int bloc::getSpeed() const
 {
     return speed;
+}
+
+void bloc::collisionReaction(bloc *b)
+{
+    tryMove(0,0);
 }

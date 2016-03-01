@@ -27,7 +27,7 @@ private:
 
 public:
     level();
-    level (bloc* array,int numBlocs,SDL_Texture* Texture,SDL_Renderer* gRenderer);
+    level (SDL_Texture* Texture,SDL_Renderer* gRenderer); // TODO: REMOVE FIRST TWO ARGS
     ~level();
     //blocReactions get the reaction of every bloc in the level. The level sends the controller state to every bloc to get the reaction
     void blocReactions();
@@ -37,5 +37,9 @@ public:
     enum gameStatus play ();
     void insertBlocs(bloc* blocArray,int nbBlocs);
     void deleteBloc(int blocID);
+    //Collided checks whether the bloc defined by blocID collides with any other one. If so, it calls the blocs' reactions
+    bloc* collide (int blocID, SDL_Rect potentialPos);
+    // testCollision returns the point of collision between two rectangles. -1,-1 if none
+    bool testCollision (SDL_Rect a, SDL_Rect b);
 };
 #endif //PACEPTION_LEVEL_H

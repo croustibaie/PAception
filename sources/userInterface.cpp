@@ -8,7 +8,8 @@ userInterface::userInterface()
 {
     cs = new controllerState*[SDL_NumJoysticks()];
 
-    for(int i = 0;i<SDL_NumJoysticks();i++) {
+    for(int i = 0;i<SDL_NumJoysticks();i++)
+    {
         cs[i] = new controllerState;
 
         this->cs[i]->aButton = false;
@@ -21,7 +22,7 @@ userInterface::userInterface()
         this->cs[i]->rightStickHorizontal = 0;
         this->cs[i]->startButton = false;
     }
-    }
+}
 
 bool userInterface::play()
 {

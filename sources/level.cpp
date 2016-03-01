@@ -14,13 +14,9 @@ level::level()
     elapsedTime=0;
 }
 
-level::level (bloc* array,int numBlocs,SDL_Texture* Texture,SDL_Renderer* gRenderer)
+level::level (SDL_Texture* Texture,SDL_Renderer* gRenderer)
 {
 
-    for (int i=0 ; i<numBlocs;i++)
-    {
-        blocMap.insert(std::pair<int,bloc*>(array[i].getBlocId(),&array[i])); // When inserting in a map, we need to insert a pair
-    }
     this->backGroundTexture= Texture;
     this->gRenderer=gRenderer;
 }
@@ -75,6 +71,38 @@ void level::insertBlocs(bloc *blocArray, int nbBlocs)
     for (int i=0;i<nbBlocs;i++)
     {
         blocMap.insert(std::pair<int, bloc *>(blocArray[i].getBlocId(),&blocArray[i]));
+    }
+}
+bloc* level::collide(int blocID, SDL_Rect potentialPos)
+{
+    std::map<int,bloc*>::iterator it;
+    for (it=blocMap.begin(); it!=blocMap.end();it++)
+    {
+        if (it->first!=blocID)
+        {
+            if (testCollision(it->second->getRect(), potentialPos))
+            {
+                //std::cout<<"colliding with bloc" + it->second->getBlocId()<<std::endl;
+                return it->second;
+            }
+        }
+    }
+    return nullptr;
+}
+
+bool level::testCollision(SDL_Rect a, SDL_Rect b)
+{
+    if ((a.x + a.w < b.x) || (b.x + b.w < a.x))
+    {
+        return false;
+    }
+    if ((a.y + a.h < b.y) || (b.y + b.h < a.y))
+    {
+        return false;
+    }
+    else
+    {
+        return true;
     }
 }
 
