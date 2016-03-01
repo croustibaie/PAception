@@ -35,7 +35,7 @@ bloc::bloc (SDL_Renderer** gRender,const char* path, level* l)
     this->rect.w=50;
     this->rect.h=50;
     texture=NULL;
-    this->speed=8;
+    this->speed=16;
     this->gRenderer=*gRender;
     loadMedia(&texture,gRender,path);
     if (texture==NULL)

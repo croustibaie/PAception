@@ -13,6 +13,10 @@ set(SOURCE_FILES
         sources/level.cpp
         headers/userInterface.h
         sources/userInterface.cpp
+        headers/playerBloc.h
+        sources/playerBloc.cpp
+        headers/staticBloc.h
+        sources/staticBloc.cpp
         )
 
 add_executable(PAception ${SOURCE_FILES})

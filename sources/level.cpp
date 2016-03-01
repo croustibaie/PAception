@@ -52,7 +52,7 @@ enum gameStatus level::play ()
 
     while(ui->play()==true)
     {
-        blocReactions();
+        this->blocReactions();
         unsigned tmptime= SDL_GetTicks(); //Get the number of milliseconds since the game started
         blocDraw();
         elapsedTime= tmptime-lastTime;

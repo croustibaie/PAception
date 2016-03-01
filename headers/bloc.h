@@ -15,13 +15,13 @@ class level;
 
 class bloc {
 
-private:
+protected:
     SDL_Rect rect;// Bloc's hitbox
     SDL_Texture *texture;//Bloc's sprite
     SDL_Renderer* gRenderer;
     level* l;
     int speed;
-    int blocId; //Bloc's unique ID, is it really usefull?
+    int blocId; //Bloc's unique ID, is it really useful?
     static unsigned int nextBlocId;
 
 
@@ -36,7 +36,7 @@ public:
 
     ~bloc();
 
-    void react(struct controllerState* state,unsigned int elapsedTime); //Bloc's reactions to given inputs
+    virtual void react(struct controllerState* state,unsigned int elapsedTime); //Bloc's reactions to given inputs
     void draw();
     void move(int x , int y);
     void tryMove(int x, int y);
