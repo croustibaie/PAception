@@ -3,9 +3,7 @@
 //
 
 #include "../headers/bloc.h"
-#include "../headers/sdlconfig.h"
 #include"./../headers/level.h"
-#include"./../headers/userInterface.h"
 
 level::level()
 {
@@ -50,7 +48,7 @@ enum gameStatus level::play ()
     lastTime=SDL_GetTicks();
     elapsedTime=20; // We have to initialize the elapsed time for the very first frame, chose 20ms by default
 
-    while(ui->play()==true)
+    while(ui->play())
     {
         this->blocReactions();
         unsigned tmptime= SDL_GetTicks(); //Get the number of milliseconds since the game started

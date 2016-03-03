@@ -1,10 +1,9 @@
 #include <SDL.h>
-#include <iostream>
 #include "../headers/playerBloc.h"
+#include "../headers/laserBloc.h"
 #include "../headers/staticBloc.h"
-#include "../headers/sdlconfig.h"
-#include "../headers/bloc.h"
 #include "../headers/level.h"
+#include "../headers/laserBloc.h"
 //Screen dimension constants
 
 
@@ -34,7 +33,7 @@ int main( int argc, char* args[] )
         //Create the level
         level l = level(helloTexture,gRenderer);
         playerBloc b = playerBloc(&gRenderer,path,&l) ;
-        staticBloc b2= staticBloc(&gRenderer,path,&l);
+        laserBloc b2= laserBloc(&gRenderer,path,&l);
         l.insertBlocs(&b,1);
         l.insertBlocs(&b2,1);
         l.play();

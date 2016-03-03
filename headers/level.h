@@ -27,7 +27,7 @@ private:
 
 public:
     level();
-    level (SDL_Texture* Texture,SDL_Renderer* gRenderer); // TODO: REMOVE FIRST TWO ARGS
+    level (SDL_Texture* Texture,SDL_Renderer* gRenderer);
     ~level();
     //blocReactions get the reaction of every bloc in the level. The level sends the controller state to every bloc to get the reaction
     void blocReactions();

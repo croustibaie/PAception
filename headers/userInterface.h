@@ -23,8 +23,6 @@ public:
 
 
     void motion(SDL_JoystickID id, SDL_Event e);
-
-
 };
 
 

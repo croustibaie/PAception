@@ -5,7 +5,6 @@
 #include<SDL.h>
 #include "../headers/sdlconfig.h"
 #include "../headers/level.h"
-#include "../headers/bloc.h"
 
 
 unsigned int bloc::nextBlocId=0;
@@ -19,6 +18,7 @@ bloc::bloc ()
     this->speed=8;
     texture=NULL;
     gRenderer=NULL;
+    killOnTouch=false;
     this->blocId=nextBlocId;
     nextBlocId++;
 }
@@ -42,6 +42,7 @@ bloc::bloc (SDL_Renderer** gRender,const char* path, level* l)
     {
         std::cout<<"no texture loaded"<<std::endl;
     }
+    killOnTouch=false;
     this->blocId=nextBlocId;
     nextBlocId++;
 }
@@ -153,4 +154,9 @@ int bloc::getSpeed() const
 void bloc::collisionReaction(bloc *b)
 {
     tryMove(0,0);
+}
+
+bool bloc::kill()
+{
+    return killOnTouch;
 }

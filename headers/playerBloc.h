@@ -14,6 +14,7 @@ public:
     playerBloc(SDL_Renderer** gRenderer,const char* path,level* l);
     ~playerBloc();
     void react(struct controllerState* state,unsigned int elapsedTime);
+    void tryMove(int x, int y);
 
 
 };

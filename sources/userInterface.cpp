@@ -6,7 +6,7 @@
 
 userInterface::userInterface()
 {
-    cs = new controllerState*[SDL_NumJoysticks()];
+    cs = new controllerState*[SDL_NumJoysticks()]; //TODO : Add a delete controller state
 
     for(int i = 0;i<SDL_NumJoysticks();i++)
     {

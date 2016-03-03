@@ -1,23 +1,24 @@
 //
-// Created by croustibaie on 3/1/16.
+// Created by croustibaie on 3/3/16.
 //
 
-#include "../headers/staticBloc.h"
+#include "../headers/laserBloc.h"
 
-staticBloc::staticBloc()
+laserBloc::laserBloc()
 {
-    this->rect.x=50;
-    this->rect.y =50;
+    this->rect.x=0;
+    this->rect.y =0;
     this->rect.w=10;
     this->rect.h=10;
-    this->speed=0;
+    this->speed=8;
     texture=NULL;
     gRenderer=NULL;
+    killOnTouch=true;
     this->blocId=nextBlocId;
     nextBlocId++;
 }
 
-staticBloc::staticBloc(SDL_Renderer **gRenderer, const char *path, level *l)
+laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l)
 {
     this->l=l;
     if (*gRenderer==NULL)
@@ -25,23 +26,23 @@ staticBloc::staticBloc(SDL_Renderer **gRenderer, const char *path, level *l)
         std::cout<< "In bloc constructor, no render"<<std::endl;
     }
     this->rect.x=100;
-    this->rect.y=100;
+    this->rect.y=150;
     this->rect.w=50;
     this->rect.h=50;
     texture=NULL;
-    this->speed=0;
+    this->speed=16;
     this->gRenderer=*gRenderer;
     loadMedia(&texture,gRenderer,path);
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;
     }
-    killOnTouch=false;
+    killOnTouch=true;
     this->blocId=nextBlocId;
     nextBlocId++;
 }
 
-staticBloc::~staticBloc()
+laserBloc::~laserBloc()
 {
     if (texture!=NULL)
     {
@@ -49,7 +50,7 @@ staticBloc::~staticBloc()
     }
 }
 
-void staticBloc::react(struct controllerState *state, unsigned int elapsedTime)
+void laserBloc::react(struct controllerState *state, unsigned int elapsedTime)
 {
 
 }

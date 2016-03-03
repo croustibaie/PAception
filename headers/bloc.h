@@ -24,6 +24,8 @@ protected:
     int blocId; //Bloc's unique ID, is it really useful?
     static unsigned int nextBlocId;
 
+    bool killOnTouch; //Does the bloc kill players?
+
 
 public:
     /* Move the bloc of x pixels in horizontal and y in vertical */
@@ -39,7 +41,7 @@ public:
     virtual void react(struct controllerState* state,unsigned int elapsedTime); //Bloc's reactions to given inputs
     void draw();
     void move(int x , int y);
-    void tryMove(int x, int y);
+    virtual void tryMove(int x, int y);
     void collisionReaction(bloc* b);
     void setSpeed(int speed);
 
@@ -48,7 +50,7 @@ public:
     int getBlocId() const;
     SDL_Renderer* getRenderer() const;
     SDL_Texture* getTexture() const;
-
+    bool kill();
 
 };
 
