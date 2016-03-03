@@ -13,7 +13,7 @@ public:
     staticBloc();
     staticBloc(SDL_Renderer** gRenderer,const char* path,level* l);
     ~staticBloc();
-    void react(struct controllerState* state,unsigned int elapsedTime);
+    bool react(struct controllerState* state,unsigned int elapsedTime);
 };
 
 

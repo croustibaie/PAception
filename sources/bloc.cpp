@@ -59,14 +59,11 @@ bloc::bloc(const bloc& b)
 
 bloc::~bloc()
 {
-    if (texture!=NULL)
-    {
-        SDL_DestroyTexture(texture);
-    }
 }
 
-void bloc::react(struct controllerState** state,unsigned int elapsedTime)
+bool bloc::react(struct controllerState** state,unsigned int elapsedTime)
 {
+    return true;
 }
 
 void bloc::draw()
@@ -78,7 +75,7 @@ void bloc::draw()
     SDL_RenderCopy(gRenderer,texture, NULL, &rect );
 }
 
-void bloc::tryMove(int x, int y)
+bool bloc::tryMove(int x, int y)
 {
     SDL_Rect a= this->getRect();
     a.x+=x;
@@ -111,6 +108,7 @@ void bloc::tryMove(int x, int y)
         }
         move(xmove,ymove);
     }
+    return true;
 }
 
 void bloc::move(int x , int y)

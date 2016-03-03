@@ -26,19 +26,21 @@ bool init(SDL_Window** gWindow, SDL_Renderer** gRenderer, SDL_GameController** g
         }
         else
         {
-            *gGameController = SDL_GameControllerOpen( 0 );
-            /*SDL_Joystick* joystick=SDL_GameControllerGetJoystick(*gGameController);
-            std::cout<< "axes :"<<SDL_JoystickNumAxes(joystick)<<std::endl;
-            std::cout<<"buttons :" <<SDL_JoystickNumButtons(joystick)<<std::endl;
-            std::cout<<"hats :" <<SDL_JoystickNumHats(joystick)<<std::endl;
-            */ // Unquote to get joystick's specs
-            if( *gGameController == NULL )
+            for (int i=0;i<SDL_NumJoysticks();i++)
             {
-                std::cout << "unable to open controller"<<std::endl;
-            }
-            if (SDL_IsGameController(0))
-            {
-                std::cout<< "It is a good controller" << std::endl;
+                gGameController[i] = SDL_GameControllerOpen(i);
+
+                /*SDL_Joystick* joystick=SDL_GameControllerGetJoystick(*gGameController);
+                std::cout<< "axes :"<<SDL_JoystickNumAxes(joystick)<<std::endl;
+                std::cout<<"buttons :" <<SDL_JoystickNumButtons(joystick)<<std::endl;
+                std::cout<<"hats :" <<SDL_JoystickNumHats(joystick)<<std::endl;
+                */ // Unquote to get joystick's specs
+                if (gGameController[i] == NULL) {
+                    std::cout << "unable to open controller" << std::endl;
+                }
+                if (SDL_IsGameController(0)) {
+                    std::cout << "It is a good controller" << std::endl;
+                }
             }
         }
         //Create window
@@ -83,11 +85,15 @@ bool loadMedia(SDL_Texture** gTexture,SDL_Renderer** gRender, char const* path)
     return success;
 }
 
-void close(SDL_Renderer* gRenderer, SDL_Window* gWindow, SDL_GameController* gGameController)
+void close(SDL_Renderer* gRenderer, SDL_Window* gWindow, SDL_GameController** gGameController)
 {
     //Deallocate surface
     SDL_DestroyRenderer(gRenderer);
-    SDL_GameControllerClose( gGameController );
+    for (int i=0;i<SDL_NumJoysticks();i++)
+    {
+        SDL_GameControllerClose( gGameController[i] );
+    }
+    delete[] gGameController;
     //Destroy window
     SDL_DestroyWindow( gWindow );
     //Quit SDL subsystems

@@ -27,9 +27,22 @@ level::~level()
 void level::blocReactions()
 {
     std::map<int,bloc*>::iterator it;
-    for (it= blocMap.begin();it!=blocMap.end();it++)//Make sure blocMap.end is recomputed on every loop
+    it= blocMap.begin();
+    int i=0;
+    while (it!=blocMap.end())//Make sure blocMap.end is recomputed on every loop
     {
-        it->second->react(ui->getCS(),elapsedTime); // MODIFY FOR MULTIPLAYER
+        if(!(it->second->react(ui->getCS(),elapsedTime)))
+        {
+            it=blocMap.begin();
+            for (int j=0;j<i;j++)
+            {
+                it++;
+            }
+        }
+        else
+        {
+            it++;
+        }
     }
 }
 void level::blocDraw()

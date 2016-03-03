@@ -30,6 +30,6 @@ bool init(SDL_Window** gWindow, SDL_Renderer** gRenderer, SDL_GameController** g
 bool loadMedia(SDL_Texture** gTexture,SDL_Renderer** gRenderer,char const* path);
 
 //Frees media and shuts down SDL
-void close(SDL_Renderer* gRenderer, SDL_Window* gWindow, SDL_GameController* gGameController );
+void close(SDL_Renderer* gRenderer, SDL_Window* gWindow, SDL_GameController** gGameController );
 
 #endif //PACEPTION_SDLCONFIG_H

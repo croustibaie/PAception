@@ -44,13 +44,9 @@ laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l)
 
 laserBloc::~laserBloc()
 {
-    if (texture!=NULL)
-    {
-        SDL_DestroyTexture(texture);
-    }
 }
 
-void laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
+bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
-
+    return true;
 }

@@ -49,7 +49,7 @@ staticBloc::~staticBloc()
     }
 }
 
-void staticBloc::react(struct controllerState *state, unsigned int elapsedTime)
+bool staticBloc::react(struct controllerState *state, unsigned int elapsedTime)
 {
-
+    return true;
 }

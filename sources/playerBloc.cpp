@@ -45,19 +45,16 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
 
 playerBloc::~playerBloc()
 {
-    if (texture!=NULL)
-    {
-        SDL_DestroyTexture(texture);
-    }
+
 }
 
-void playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
+bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
     int correctedSpeed= (int)(round((float)(speed)*(float)elapsedTime/20)); //We have to adapt the initial speed to the frame duration
-    tryMove((int)(correctedSpeed*(float)(state[playerID]->leftStickHorizontal)/32000),(int)(correctedSpeed*(float)(state[playerID]->leftStickVertical)/32000) );
+    return tryMove((int)(correctedSpeed*(float)(state[playerID]->leftStickHorizontal)/32000),(int)(correctedSpeed*(float)(state[playerID]->leftStickVertical)/32000) );
 }
 
-void playerBloc::tryMove(int x, int y)
+bool playerBloc::tryMove(int x, int y)
 {
 
     SDL_Rect a= this->getRect();
@@ -73,6 +70,7 @@ void playerBloc::tryMove(int x, int y)
         {
             std::cout<<"got killed"<<std::endl;
             this->l->deleteBloc(this->blocId);
+            return false;
         }
         this->move(0,0); //TODO: bloc's collision reaction should be there
     }
@@ -96,4 +94,5 @@ void playerBloc::tryMove(int x, int y)
         }
         move(xmove,ymove);
     }
+    return true;
 }

@@ -15,10 +15,10 @@ int main( int argc, char* args[] )
 //Renderer linked to the gWindow
     SDL_Renderer* gRenderer;
 // 1st controller
-    SDL_GameController* gGameController = NULL;
+    SDL_GameController** gGameController = new SDL_GameController*[4];
     SDL_Texture* helloTexture; // Texture for background
     //Start up SDL and create window
-    if( !init(&gWindow,&gRenderer,&gGameController) )
+    if( !init(&gWindow,&gRenderer,gGameController) )
     {
         printf( "Failed to initialize!\n" );
     }
