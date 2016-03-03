@@ -28,7 +28,7 @@ int main( int argc, char* args[] )
         const char* path = "./hello_world.bmp";
         loadMedia(&helloTexture,&gRenderer,path);
         path= "./red.bmp";
-
+        std::cout<<SDL_NumJoysticks()<<std::endl;
         //Create the red bloc
         //Create the level
         level l = level(helloTexture,gRenderer);

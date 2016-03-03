@@ -35,6 +35,7 @@ bool userInterface::play()
         else if( e.type == SDL_JOYAXISMOTION )
         {
         motion(e.jaxis.which,e);
+            if (e.jaxis.which!=0) std::cout<<e.jaxis.which<<std::endl;
         }
     }
     return true;
