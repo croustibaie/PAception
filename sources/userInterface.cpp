@@ -61,3 +61,15 @@ void userInterface::motion(SDL_JoystickID id, SDL_Event e)
             }
         }
 }
+
+userInterface::~userInterface()
+{
+    std::cout<<"ui deleted"<<std::endl;
+
+    delete[] cs;
+}
+
+struct controllerState** userInterface::getCS()
+{
+    return cs;
+}

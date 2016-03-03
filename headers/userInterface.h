@@ -15,15 +15,12 @@ private:
 
 public:
     userInterface();
-    ~userInterface()
-    {
-        std::cout<<"ui deleted"<<std::endl;
-    }
+    ~userInterface();
+
     bool play();
-    struct controllerState** getCS()
-    {
-        return cs;
-    }
+
+    struct controllerState** getCS();
+
 
     void motion(SDL_JoystickID id, SDL_Event e);
 
