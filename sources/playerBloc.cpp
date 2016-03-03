@@ -18,7 +18,7 @@ playerBloc::playerBloc()
     nextBlocId++;
 }
 
-playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l)
+playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int playerID)
 {
     this->l=l;
     if (*gRenderer==NULL)
@@ -40,6 +40,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l)
     killOnTouch=false;
     this->blocId=nextBlocId;
     nextBlocId++;
+    this->playerID = playerID;
 }
 
 playerBloc::~playerBloc()
@@ -50,10 +51,10 @@ playerBloc::~playerBloc()
     }
 }
 
-void playerBloc::react(struct controllerState *state, unsigned int elapsedTime)
+void playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
     int correctedSpeed= (int)(round((float)(speed)*(float)elapsedTime/20)); //We have to adapt the initial speed to the frame duration
-    tryMove((int)(correctedSpeed*(float)(state->leftStickHorizontal)/32000),(int)(correctedSpeed*(float)(state->leftStickVertical)/32000) );
+    tryMove((int)(correctedSpeed*(float)(state[playerID]->leftStickHorizontal)/32000),(int)(correctedSpeed*(float)(state[playerID]->leftStickVertical)/32000) );
 }
 
 void playerBloc::tryMove(int x, int y)

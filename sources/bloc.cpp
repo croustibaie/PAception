@@ -65,10 +65,8 @@ bloc::~bloc()
     }
 }
 
-void bloc::react(struct controllerState* state,unsigned int elapsedTime)
+void bloc::react(struct controllerState** state,unsigned int elapsedTime)
 {
-    int correctedSpeed= (int)(round((float)(speed)*(float)elapsedTime/20)); //We have to adapt the initial speed to the frame duration
-    tryMove((int)(correctedSpeed*(float)(state->leftStickHorizontal)/32000),(int)(correctedSpeed*(float)(state->leftStickVertical)/32000) );
 }
 
 void bloc::draw()

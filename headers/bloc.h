@@ -38,7 +38,7 @@ public:
 
     ~bloc();
 
-    virtual void react(struct controllerState* state,unsigned int elapsedTime); //Bloc's reactions to given inputs
+    virtual void react(struct controllerState** state,unsigned int elapsedTime); //Bloc's reactions to given inputs
     void draw();
     void move(int x , int y);
     virtual void tryMove(int x, int y);

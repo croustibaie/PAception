@@ -11,7 +11,7 @@ public:
     laserBloc();
     laserBloc(SDL_Renderer** gRenderer,const char* path,level* l);
     ~laserBloc();
-    void react(struct controllerState* state,unsigned int elapsedTime);
+    void react(struct controllerState** state,unsigned int elapsedTime);
 
 
 };

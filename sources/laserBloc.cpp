@@ -50,7 +50,7 @@ laserBloc::~laserBloc()
     }
 }
 
-void laserBloc::react(struct controllerState *state, unsigned int elapsedTime)
+void laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
 
 }
