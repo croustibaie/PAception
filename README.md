@@ -1,2 +1,2 @@
 # PAception 2.0
-On va manger des CHIIIPS !!
+Creation of a videogame in C++ using SDL2 library
