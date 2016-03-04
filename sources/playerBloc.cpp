@@ -93,7 +93,8 @@ bool playerBloc::tryMove(int x, int y)
             this->l->deleteBloc(this->blocId);
             return false;
         }
-        this->move(0,0); //TODO: bloc's collision reaction should be there
+        this->collisionReaction(intersectedBloc);
+        intersectedBloc->collisionReaction(this);
         return true;
     }
     else //Here we check that we're not trying to go out of the window
@@ -127,50 +128,50 @@ void playerBloc::collisionReaction(bloc *b)
     deltaX=0;deltaY=0;
     if ( xMove>0)
     {
-        deltaX= b->getRect().x-(this->getRect().x+this->getRect().w);
+        deltaX= b->getRect().x-(this->getRect().x+this->getRect().w)-1;
     }
     if (xMove<0)
     {
-        deltaX=this->getRect().x-(b->getRect().x+b->getRect().w);
+        deltaX=this->getRect().x-(b->getRect().x+b->getRect().w)-1;
     }
     if (yMove>0)
     {
-        deltaY = b->getRect().y - (this->getRect().y+this->getRect().h);
+        deltaY = b->getRect().y - (this->getRect().y+this->getRect().h)-1;
     }
     if (yMove<0)
     {
-        deltaY= this->getRect().y - (b->getRect().y+b->getRect().h);
+        deltaY= this->getRect().y - (b->getRect().y+b->getRect().h)-1;
     }
     if (xMove==0)
     {
-        move(0, yMove==0 ? 0:yMove/(abs(yMove))*(deltaY-1));
+        tryMove(0, yMove==0 ? 0:yMove/(abs(yMove))*(deltaY));
         return;
     }
     if (yMove==0)
     {
-        move(xMove==0 ? 0 : xMove/(abs(xMove))*(deltaX-1),0 );
+        tryMove(xMove==0 ? 0 : xMove/(abs(xMove))*(deltaX),0 );
         return;
     }
-    if (deltaX<=0)
+    if (deltaX<0)
     {
-        move (xMove, yMove == 0 ? 0: yMove/(abs(yMove))*(deltaY-1));
+        tryMove(xMove, yMove == 0 ? 0: yMove/(abs(yMove))*(deltaY));
         return;
     }
-    if (deltaY<=0)
+    if (deltaY<0)
     {
-        move (xMove == 0 ? 0 : xMove/(abs(xMove))*(deltaX-1),yMove);
+        tryMove(xMove == 0 ? 0 : xMove/(abs(xMove))*(deltaX),yMove);
         return;
     }
     tx=deltaX/xMove;
     ty=deltaY/yMove;
     if (tx<ty)
     {
-        move(xMove/(abs(xMove))*(deltaX-1),yMove);
+        tryMove(xMove/(abs(xMove))*(deltaX),yMove);
         return;
     }
     else
     {
-        move(xMove,yMove/(abs(yMove))*(deltaY-1));
+        tryMove(xMove,yMove/(abs(yMove))*(deltaY));
         return;
     }
 }
