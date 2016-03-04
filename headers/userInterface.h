@@ -10,19 +10,19 @@
 
 class userInterface {
 private:
-    struct controllerState **cs = NULL ;
+    struct controllerState **cs = NULL ; //Array of controllerStates, contains the controllers' states
     SDL_Event e;
 
 public:
-    userInterface();
+    userInterface(); //Destructor automatically detects the number of controllers
     ~userInterface();
 
-    bool play();
+    bool play();  // Goes through the SDL_Event e and updates the controllerStates
 
-    struct controllerState** getCS();
+    struct controllerState** getCS(); //Returns cs
 
 
-    void motion(SDL_JoystickID id, SDL_Event e);
+    void motion(SDL_JoystickID id, SDL_Event e); //Method to update the controllerStates when the even is a JoyAxisMotion
 };
 
 

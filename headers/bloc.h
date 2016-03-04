@@ -38,10 +38,10 @@ public:
 
     ~bloc();
 
-    virtual bool react(struct controllerState** state,unsigned int elapsedTime); //Bloc's reactions to given inputs
+    virtual bool react(struct controllerState** state,unsigned int elapsedTime); //Bloc's reactions to given inputs, returns false if the bloc asked to be killed
     void draw();
     void move(int x , int y);
-    virtual bool tryMove(int x, int y);
+    virtual bool tryMove(int x, int y);//Returns false if the bloc asked to be killed, true otherwise.
     void collisionReaction(bloc* b);
     void setSpeed(int speed);
 

@@ -36,7 +36,8 @@ bloc::bloc (SDL_Renderer** gRender,const char* path, level* l, int x, int y)
     }
     else
     {
-
+        this->rect.x=0; //TODO : see for throwing an exception
+        this->rect.y=0;
     }
     this->rect.w=50;
     this->rect.h=50;

@@ -93,7 +93,7 @@ bloc* level::collide(int blocID, SDL_Rect potentialPos)
         {
             if (testCollision(it->second->getRect(), potentialPos))
             {
-                //std::cout<<"colliding with bloc" + it->second->getBlocId()<<std::endl;
+                std::cout<<"colliding with bloc" + it->second->getBlocId()<<std::endl;
                 return it->second;
             }
         }
@@ -107,14 +107,15 @@ bool level::testCollision(SDL_Rect a, SDL_Rect b)
     {
         return false;
     }
-    if ((a.y + a.h < b.y) || (b.y + b.h < a.y))
+    if (a.y + a.h < b.y)
     {
         return false;
     }
-    else
+    if (b.y + b.h < a.y)
     {
-        return true;
+        return false;
     }
+    return true;
 }
 
 

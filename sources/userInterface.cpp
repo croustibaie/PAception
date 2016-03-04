@@ -6,8 +6,14 @@
 
 userInterface::userInterface()
 {
-    cs = new controllerState*[SDL_NumJoysticks()];
-
+    if (SDL_NumJoysticks()>0)
+    {
+        cs = new controllerState*[SDL_NumJoysticks()];
+    }
+    else
+    {
+        cs= nullptr;
+    }
     for(int i = 0;i<SDL_NumJoysticks();i++)
     {
         cs[i] = new controllerState;
@@ -28,7 +34,7 @@ bool userInterface::play()
 {
     while (SDL_PollEvent(&e)!=0 )
     {
-        if( e.type == SDL_QUIT )
+        if( e.type == SDL_QUIT ) //If someone closes the window
         {
             return false;
         }

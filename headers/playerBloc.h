@@ -15,8 +15,8 @@ public:
     playerBloc();
     playerBloc(SDL_Renderer** gRenderer,const char* path,level* l, int playerID, int x, int y);
     ~playerBloc();
-    bool react(struct controllerState** state,unsigned int elapsedTime);
-    bool tryMove(int x, int y);
+    bool react(struct controllerState** state,unsigned int elapsedTime);//Player bloc's reaction is to do a tryMove and check whether he's dead (false) or not (true)
+    bool tryMove(int x, int y); //Classic tryMove, level will check for any collision (true no destruction) (false destruction)
 
 
 };

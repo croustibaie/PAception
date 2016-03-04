@@ -32,7 +32,8 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
     }
     else
     {
-
+        this->rect.x=0; //TODO : see for throwing an exception
+        this->rect.y=0;
     }
     this->rect.w=50;
     this->rect.h=50;
@@ -56,8 +57,16 @@ playerBloc::~playerBloc()
 
 bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
+
     int correctedSpeed= (int)(round((float)(speed)*(float)elapsedTime/20)); //We have to adapt the initial speed to the frame duration
-    return tryMove((int)(correctedSpeed*(float)(state[playerID]->leftStickHorizontal)/32000),(int)(correctedSpeed*(float)(state[playerID]->leftStickVertical)/32000) );
+    if (state == nullptr)
+    {
+        return true;
+    }
+    else
+    {
+        return tryMove((int)(correctedSpeed*(float)(state[playerID]->leftStickHorizontal)/32000),(int)(correctedSpeed*(float)(state[playerID]->leftStickVertical)/32000) );
+    }
 }
 
 bool playerBloc::tryMove(int x, int y)
@@ -79,6 +88,7 @@ bool playerBloc::tryMove(int x, int y)
             return false;
         }
         this->move(0,0); //TODO: bloc's collision reaction should be there
+        return true;
     }
     else //Here we check that we're not trying to go out of the window
     {

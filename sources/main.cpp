@@ -33,13 +33,13 @@ int main( int argc, char* args[] )
         //Create the level
         level l = level(helloTexture,gRenderer);
         playerBloc b = playerBloc(&gRenderer,path,&l,0,0,0) ;
-        laserBloc b2= laserBloc(&gRenderer,path,&l,150,100);
+        laserBloc b2= laserBloc(&gRenderer,path,&l,100,30);
         staticBloc s1 = staticBloc(&gRenderer,path,&l,300,500);
         l.insertBlocs(&b,1);
         l.insertBlocs(&b2,1);
         l.insertBlocs(&s1,1);
         //l.play();
-        playerBloc b1 = playerBloc(&gRenderer,path,&l,1,0,SCREEN_HEIGHT-60) ;
+        playerBloc b1 = playerBloc(&gRenderer,path,&l,1,0,200) ;
         l.insertBlocs(&b1,1);
         l.play();
     }
