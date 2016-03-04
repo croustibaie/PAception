@@ -28,7 +28,7 @@ int main( int argc, char* args[] )
         const char* path = "./leather.bmp";
         loadMedia(&helloTexture,&gRenderer,path);
         path= "./red.bmp";
-        const char* laserpath="./green.bmp";
+        const char* laserpath="./dead.bmp";
         const char* staticpath="./black.bmp";
         std::cout<<SDL_NumJoysticks()<<std::endl;
         //Create the red bloc
