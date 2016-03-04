@@ -41,5 +41,6 @@ public:
     bloc* collide (int blocID, SDL_Rect potentialPos);
     // testCollision returns the point of collision between two rectangles. -1,-1 if none
     bool testCollision (SDL_Rect a, SDL_Rect b);
+
 };
 #endif //PACEPTION_LEVEL_H

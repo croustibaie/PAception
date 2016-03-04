@@ -61,11 +61,13 @@ bool laserBloc::tryMove(int x, int y)
     SDL_Rect a= this->getRect();
     a.x+=x;
     a.y+=y;
-
     int xmove=x;
     int ymove=y;
+
     bloc* intersectedBloc = this->l->collide(this->blocId,a);
+
     if (intersectedBloc!= nullptr) //If there is a collision
+
     {
 
         this->collisionReaction(intersectedBloc);
@@ -74,23 +76,30 @@ bool laserBloc::tryMove(int x, int y)
     }
     else //Here we check that we're not trying to go out of the window
     {
-        if (a.x+a.w>SCREEN_WIDTH) //TODO : think about a strict or large inequality
+        
+        if (a.x+a.w>=SCREEN_WIDTH) //TODO : think about a strict or large inequality
         {
             xmove=-xmove;
+            this->dx=- this->dx;
         }
         if (a.x<0)
         {
-            xmove=- xmove;
+            this->dx=- this->dx;
+            xmove=-xmove;
         }
         if (a.y+a.h>SCREEN_HEIGHT) //TODO: Same as previously
         {
+            this->dy=- this->dy;
             ymove=-ymove;
+
         }
         if (a.y<0)
         {
+            this->dy=- this->dy;
             ymove=-ymove;
+
         }
-        tryMove(xmove,ymove);
+        move(xmove,ymove);
     }
     return true;
 }
@@ -100,6 +109,7 @@ bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
     int xmove = (int)(dx*float(elapsedTime));
     int ymove = (int)(dy*float(elapsedTime));
+
     tryMove(xmove,ymove);
     return true;
 }
