@@ -59,7 +59,7 @@ bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
     int xmove = (int)(dx*float(elapsedTime));
     int ymove = (int)(dy*float(elapsedTime));
-   tryMove(xmove,ymove);
+    tryMove(xmove,ymove);
     return true;
 }
 

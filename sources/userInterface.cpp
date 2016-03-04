@@ -50,42 +50,57 @@ bool userInterface::play()
 void userInterface::motion(SDL_JoystickID id, SDL_Event e)
 {
         //X axis motion
-        if (e.jaxis.axis == 0) {
-            if (abs(e.jaxis.value) > 8000) {
+        if (e.jaxis.axis == 0)
+        {
+            if (abs(e.jaxis.value) > 8000)
+            {
                 cs[id]->leftStickHorizontal = e.jaxis.value;
             }
-            else {
+            else
+            {
                 cs[id]->leftStickHorizontal = 0;
             }
+            return;
         }
             //Y axis motion
-        else if (e.jaxis.axis == 1) {
-            if (abs(e.jaxis.value) > 8000) {
+        if (e.jaxis.axis == 1)
+        {
+            if (abs(e.jaxis.value) > 8000)
+            {
                 cs[id]->leftStickVertical = e.jaxis.value;
             }
-            else {
+            else
+            {
                 cs[id]->leftStickVertical = 0;
             }
+            return;
         }
 
     //right stick stuff
-    if (e.jaxis.axis == 2) {
-        if (abs(e.jaxis.value) > 8000) {
-            cs[id]->rightStickHorizontal = e.jaxis.value;
+        if (e.jaxis.axis == 2)
+        {
+            if (abs(e.jaxis.value) > 8000)
+            {
+                cs[id]->rightStickHorizontal = e.jaxis.value;
+            }
+            else
+            {
+                cs[id]->rightStickHorizontal = 0;
+            }
+            return;
         }
-        else {
-            cs[id]->rightStickHorizontal = 0;
+        if (e.jaxis.axis == 3)
+        {
+            if (abs(e.jaxis.value) > 8000)
+            {
+                cs[id]->rightStickVertical = e.jaxis.value;
+            }
+            else
+            {
+                cs[id]->rightStickVertical = 0;
+            }
+            return;
         }
-    }
-    else if (e.jaxis.axis == 3) {
-        if (abs(e.jaxis.value) > 8000) {
-            cs[id]->rightStickVertical = e.jaxis.value;
-        }
-        else {
-            cs[id]->rightStickVertical = 0;
-        }
-    }
-
 }
 
 userInterface::~userInterface()
