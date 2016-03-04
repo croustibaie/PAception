@@ -18,15 +18,15 @@ laserBloc::laserBloc()
     nextBlocId++;
 }
 
-laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l)
+laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,int y)
 {
     this->l=l;
     if (*gRenderer==NULL)
     {
         std::cout<< "In bloc constructor, no render"<<std::endl;
     }
-    this->rect.x=100;
-    this->rect.y=150;
+    this->rect.x=x;
+    this->rect.y=y;
     this->rect.w=50;
     this->rect.h=50;
     texture=NULL;

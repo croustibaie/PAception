@@ -23,15 +23,15 @@ bloc::bloc ()
     nextBlocId++;
 }
 
-bloc::bloc (SDL_Renderer** gRender,const char* path, level* l)
+bloc::bloc (SDL_Renderer** gRender,const char* path, level* l, int x, int y)
 {
     this->l=l;
     if (*gRender==NULL)
     {
         std::cout<< "In bloc constructor, no render"<<std::endl;
     }
-    this->rect.x=0;
-    this->rect.y=0;
+    this->rect.x=x;
+    this->rect.y=y;
     this->rect.w=50;
     this->rect.h=50;
     texture=NULL;
@@ -90,7 +90,7 @@ bool bloc::tryMove(int x, int y)
     }
     else //Here we check that we're not trying to go out of the window
     {
-        if (a.x+a.w>SCREEN_WIDTH)
+        if (a.x+a.w>SCREEN_WIDTH) //TODO : think about a strict or large inequality
         {
             xmove=SCREEN_WIDTH-(this->getRect().x+this->getRect().w);
         }
@@ -98,7 +98,7 @@ bool bloc::tryMove(int x, int y)
         {
             xmove=- (this->getRect().x);
         }
-        if (a.y+a.h>SCREEN_HEIGHT)
+        if (a.y+a.h>SCREEN_HEIGHT) //TODO: Same as previously
         {
             ymove=SCREEN_HEIGHT-(this->getRect().y + this->getRect().h);
         }

@@ -9,7 +9,7 @@
 class laserBloc : public bloc {
 public:
     laserBloc();
-    laserBloc(SDL_Renderer** gRenderer,const char* path,level* l);
+    laserBloc(SDL_Renderer** gRenderer,const char* path,level* l, int x,int y);
     ~laserBloc();
     bool react(struct controllerState** state,unsigned int elapsedTime);
 

@@ -34,7 +34,7 @@ public:
     bloc ();
     bloc(const bloc& b);
 
-    bloc (SDL_Renderer** gRenderer,const char* path,level* l);
+    bloc (SDL_Renderer** gRenderer,const char* path,level* l,int x,int y);
 
     ~bloc();
 
