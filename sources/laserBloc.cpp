@@ -18,8 +18,10 @@ laserBloc::laserBloc()
     nextBlocId++;
 }
 
-laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,int y)
+laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,int y,int dx,int dy)
 {
+    this->dx=dx;
+    this->dy=dy;
     this->l=l;
     if (*gRenderer==NULL)
     {
@@ -55,5 +57,9 @@ laserBloc::~laserBloc()
 
 bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
+    int xmove = (int)(dx*float(elapsedTime));
+    int ymove = (int)(dy*float(elapsedTime));
+   tryMove(xmove,ymove);
     return true;
 }
+
