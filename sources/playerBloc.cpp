@@ -87,12 +87,7 @@ bool playerBloc::tryMove(int x, int y)
     bloc* intersectedBloc = this->l->collide(this->blocId,a);
     if (intersectedBloc!= nullptr) //If there is a collision
     {
-        if (intersectedBloc->kill())
-        {
-            std::cout<<"got killed"<<std::endl;
-            this->l->deleteBloc(this->blocId);
-            return false;
-        }
+
         this->collisionReaction(intersectedBloc);
         intersectedBloc->collisionReaction(this);
         return true;
@@ -122,6 +117,12 @@ bool playerBloc::tryMove(int x, int y)
 
 void playerBloc::collisionReaction(bloc *b)
 {
+    if (b->kill())
+    {
+        std::cout<<"got killed"<<std::endl;
+        this->l->deleteBloc(this->blocId);
+        return ;
+    }
     float tx,ty;
     tx=0;ty=0;
     int deltaX,deltaY;
