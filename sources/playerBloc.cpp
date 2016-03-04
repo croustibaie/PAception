@@ -26,8 +26,14 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
         std::cout<< "In bloc constructor, no render"<<std::endl;
     }
     this->playerID = playerID;
-    this->rect.x=x;
-    this->rect.y=y;
+    if((x<SCREEN_WIDTH-50)&&(y<SCREEN_HEIGHT-50)) {
+        this->rect.x = x;
+        this->rect.y = y;
+    }
+    else
+    {
+
+    }
     this->rect.w=50;
     this->rect.h=50;
     texture=NULL;

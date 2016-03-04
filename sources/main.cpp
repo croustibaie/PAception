@@ -39,7 +39,7 @@ int main( int argc, char* args[] )
         l.insertBlocs(&b2,1);
         l.insertBlocs(&s1,1);
         //l.play();
-        playerBloc b1 = playerBloc(&gRenderer,path,&l,1,0,SCREEN_WIDTH-50) ;
+        playerBloc b1 = playerBloc(&gRenderer,path,&l,1,0,SCREEN_HEIGHT-60) ;
         l.insertBlocs(&b1,1);
         l.play();
     }
