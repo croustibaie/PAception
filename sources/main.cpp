@@ -28,13 +28,15 @@ int main( int argc, char* args[] )
         const char* path = "./hello_world.bmp";
         loadMedia(&helloTexture,&gRenderer,path);
         path= "./red.bmp";
+        const char* laserpath="./black.bmp";
+        const char* staticpath="./leather.bmp";
         std::cout<<SDL_NumJoysticks()<<std::endl;
         //Create the red bloc
         //Create the level
         level l = level(helloTexture,gRenderer);
         playerBloc b = playerBloc(&gRenderer,path,&l,0,0,0) ;
-        laserBloc b2= laserBloc(&gRenderer,path,&l,100,30);
-        staticBloc s1 = staticBloc(&gRenderer,path,&l,300,500);
+        laserBloc b2= laserBloc(&gRenderer,laserpath,&l,100,30);
+        staticBloc s1 = staticBloc(&gRenderer,staticpath,&l,300,500);
         l.insertBlocs(&b,1);
         l.insertBlocs(&b2,1);
         l.insertBlocs(&s1,1);

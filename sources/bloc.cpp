@@ -57,7 +57,7 @@ bloc::bloc (SDL_Renderer** gRender,const char* path, level* l, int x, int y)
 bloc::bloc(const bloc& b)
 {
     this->gRenderer=b.getRenderer();
-    loadMedia(&texture,&gRenderer,"/home/croustibaie/Documents/PAception/red.bmp");
+    loadMedia(&texture,&gRenderer,"./red.bmp");
     // this->texture=b.getTexture();
     this->rect=b.getRect();
     this->speed=b.getSpeed();
