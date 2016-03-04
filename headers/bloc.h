@@ -42,7 +42,7 @@ public:
     void draw();
     void move(int x , int y);
     virtual bool tryMove(int x, int y);//Returns false if the bloc asked to be killed, true otherwise.
-    void collisionReaction(bloc* b);
+    virtual void collisionReaction(bloc* b);
     void setSpeed(int speed);
 
     SDL_Rect getRect() const;
