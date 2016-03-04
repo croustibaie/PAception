@@ -6,11 +6,12 @@
 #define PACEPTION_LASERBLOC_H
 #include "./bloc.h"
 #include "./level.h"
+#include <math.h>
 
 class laserBloc : public bloc {
 private:
-    int dx;
-    int dy;
+    float dx;
+    float dy;
 public:
     laserBloc();
     laserBloc(SDL_Renderer** gRenderer,const char* path,level* l, int x,int y,int dx,int dy);

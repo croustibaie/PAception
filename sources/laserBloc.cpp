@@ -20,8 +20,8 @@ laserBloc::laserBloc()
 
 laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,int y,int dx,int dy)
 {
-    this->dx=dx;
-    this->dy=dy;
+    this->dx=(float)dx/sqrt((double)(dx*dx+dy*dy));
+    this->dy=(float)dy/sqrt((double)(dx*dx+dy*dy));
     this->l=l;
     if (*gRenderer==NULL)
     {
@@ -39,7 +39,7 @@ laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
     this->rect.w=50;
     this->rect.h=50;
     texture=NULL;
-    this->speed=16;
+    this->speed=8;
     this->gRenderer=*gRenderer;
     loadMedia(&texture,gRenderer,path);
     if (texture==NULL)
@@ -61,13 +61,11 @@ bool laserBloc::tryMove(int x, int y)
     SDL_Rect a= this->getRect();
     a.x+=x;
     a.y+=y;
+
     int xmove=x;
     int ymove=y;
-
     bloc* intersectedBloc = this->l->collide(this->blocId,a);
-
     if (intersectedBloc!= nullptr) //If there is a collision
-
     {
 
         this->collisionReaction(intersectedBloc);
@@ -76,28 +74,27 @@ bool laserBloc::tryMove(int x, int y)
     }
     else //Here we check that we're not trying to go out of the window
     {
-        
+
         if (a.x+a.w>=SCREEN_WIDTH) //TODO : think about a strict or large inequality
         {
-            xmove=-xmove;
+            xmove=xmove-(a.x+a.w-SCREEN_WIDTH);
             this->dx=- this->dx;
         }
         if (a.x<0)
         {
             this->dx=- this->dx;
-            xmove=-xmove;
+            xmove=xmove-a.x;
         }
         if (a.y+a.h>SCREEN_HEIGHT) //TODO: Same as previously
         {
             this->dy=- this->dy;
-            ymove=-ymove;
+            ymove=ymove-(a.y+a.h-SCREEN_HEIGHT);
 
         }
         if (a.y<0)
         {
             this->dy=- this->dy;
-            ymove=-ymove;
-
+            ymove=ymove-a.y;
         }
         move(xmove,ymove);
     }
@@ -107,9 +104,8 @@ bool laserBloc::tryMove(int x, int y)
 
 bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
-    int xmove = (int)(dx*float(elapsedTime));
-    int ymove = (int)(dy*float(elapsedTime));
-
+    int xmove = (int)(speed*dx*float(elapsedTime)/20);
+    int ymove = (int)(speed*dy*float(elapsedTime)/20);
     tryMove(xmove,ymove);
     return true;
 }

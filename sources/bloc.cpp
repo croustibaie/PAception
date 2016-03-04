@@ -93,7 +93,6 @@ bool bloc::tryMove(int x, int y)
     bloc* intersectedBloc = this->l->collide(this->blocId,a);
     if (intersectedBloc!= nullptr) //If there is a collision
     {
-
         this->collisionReaction(intersectedBloc);
         intersectedBloc->collisionReaction(this);
         return true;

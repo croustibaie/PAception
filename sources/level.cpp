@@ -93,7 +93,7 @@ bloc* level::collide(int blocID, SDL_Rect potentialPos)
         {
             if (testCollision(it->second->getRect(), potentialPos))
             {
-                std::cout<<"colliding with bloc" + it->second->getBlocId()<<std::endl;
+                //std::cout<<"colliding with bloc" + it->second->getBlocId()<<std::endl;
                 return it->second;
             }
         }

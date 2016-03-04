@@ -111,6 +111,8 @@ bool playerBloc::tryMove(int x, int y)
             ymove=- (this->getRect().y);
         }
         move(xmove,ymove);
+        xMove=0;
+        yMove=0;
     }
     return true;
 }
@@ -145,34 +147,40 @@ void playerBloc::collisionReaction(bloc *b)
     }
     if (xMove==0)
     {
-        tryMove(0, yMove==0 ? 0:yMove/(abs(yMove))*(deltaY));
+        yMove= yMove==0 ? 0:yMove/(abs(yMove))*(deltaY);
+        tryMove(0, yMove);
         return;
     }
     if (yMove==0)
     {
-        tryMove(xMove==0 ? 0 : xMove/(abs(xMove))*(deltaX),0 );
+       xMove=  xMove==0 ? 0 : xMove/(abs(xMove))*(deltaX);
+        tryMove(xMove,0 );
         return;
     }
     if (deltaX<0)
     {
-        tryMove(xMove, yMove == 0 ? 0: yMove/(abs(yMove))*(deltaY));
+        yMove= yMove == 0 ? 0: yMove/(abs(yMove))*(deltaY);
+        tryMove(xMove, yMove );
         return;
     }
     if (deltaY<0)
     {
-        tryMove(xMove == 0 ? 0 : xMove/(abs(xMove))*(deltaX),yMove);
+        xMove= xMove == 0 ? 0 : xMove/(abs(xMove))*(deltaX);
+        tryMove(xMove ,yMove);
         return;
     }
     tx=deltaX/xMove;
     ty=deltaY/yMove;
     if (tx<ty)
     {
-        tryMove(xMove/(abs(xMove))*(deltaX),yMove);
+        xMove=xMove/(abs(xMove))*(deltaX);
+        tryMove(xMove,yMove);
         return;
     }
     else
     {
-        tryMove(xMove,yMove/(abs(yMove))*(deltaY));
+        yMove=yMove/(abs(yMove))*(deltaY);
+        tryMove(xMove,yMove);
         return;
     }
 }
