@@ -32,12 +32,12 @@ int main( int argc, char* args[] )
         //Create the red bloc
         //Create the level
         level l = level(helloTexture,gRenderer);
-        playerBloc b = playerBloc(&gRenderer,path,&l,0) ;
+        playerBloc b = playerBloc(&gRenderer,path,&l,0,0,0) ;
         laserBloc b2= laserBloc(&gRenderer,path,&l);
         l.insertBlocs(&b,1);
         l.insertBlocs(&b2,1);
-        l.play();
-        playerBloc b1 = playerBloc(&gRenderer,path,&l,1) ;
+        //l.play();
+        playerBloc b1 = playerBloc(&gRenderer,path,&l,1,0,SCREEN_WIDTH-50) ;
         l.insertBlocs(&b1,1);
         l.play();
     }

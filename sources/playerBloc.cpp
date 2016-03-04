@@ -18,15 +18,16 @@ playerBloc::playerBloc()
     nextBlocId++;
 }
 
-playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int playerID)
+playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int playerID, int x, int y)
 {
     this->l=l;
     if (*gRenderer==NULL)
     {
         std::cout<< "In bloc constructor, no render"<<std::endl;
     }
-    this->rect.x=0;
-    this->rect.y=0;
+    this->playerID = playerID;
+    this->rect.x=x;
+    this->rect.y=y;
     this->rect.w=50;
     this->rect.h=50;
     texture=NULL;
@@ -40,7 +41,6 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
     killOnTouch=false;
     this->blocId=nextBlocId;
     nextBlocId++;
-    this->playerID = playerID;
 }
 
 playerBloc::~playerBloc()
