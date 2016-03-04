@@ -25,11 +25,11 @@ int main( int argc, char* args[] )
     else
     {
         //Load medias for background image and red square
-        const char* path = "./hello_world.bmp";
+        const char* path = "./leather.bmp";
         loadMedia(&helloTexture,&gRenderer,path);
         path= "./red.bmp";
-        const char* laserpath="./black.bmp";
-        const char* staticpath="./leather.bmp";
+        const char* laserpath="./green.bmp";
+        const char* staticpath="./black.bmp";
         std::cout<<SDL_NumJoysticks()<<std::endl;
         //Create the red bloc
         //Create the level
