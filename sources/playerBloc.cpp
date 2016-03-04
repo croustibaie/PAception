@@ -12,6 +12,8 @@ playerBloc::playerBloc()
     this->rect.w=10;
     this->rect.h=10;
     this->speed=8;
+    this->xMove=0;
+    this->yMove=0;
     texture=NULL;
     gRenderer=NULL;
     this->blocId=nextBlocId;
@@ -39,6 +41,8 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
     this->rect.h=50;
     texture=NULL;
     this->speed=16;
+    this->xMove=0;
+    this->yMove=0;
     this->gRenderer=*gRenderer;
     loadMedia(&texture,gRenderer,path);
     if (texture==NULL)
@@ -65,7 +69,9 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
     }
     else
     {
-        return tryMove((int)(correctedSpeed*(float)(state[playerID]->leftStickHorizontal)/32000),(int)(correctedSpeed*(float)(state[playerID]->leftStickVertical)/32000) );
+        xMove=(int)(correctedSpeed*(float)(state[playerID]->leftStickHorizontal)/32000);
+        yMove=(int)(correctedSpeed*(float)(state[playerID]->leftStickVertical)/32000);
+        return tryMove(xMove,yMove );
     }
 }
 
@@ -111,4 +117,60 @@ bool playerBloc::tryMove(int x, int y)
         move(xmove,ymove);
     }
     return true;
+}
+
+void playerBloc::collisionReaction(bloc *b)
+{
+    float tx,ty;
+    tx=0;ty=0;
+    int deltaX,deltaY;
+    deltaX=0;deltaY=0;
+    if ( xMove>0)
+    {
+        deltaX= b->getRect().x-(this->getRect().x+this->getRect().w);
+    }
+    if (xMove<0)
+    {
+        deltaX=this->getRect().x-(b->getRect().x+b->getRect().w);
+    }
+    if (yMove>0)
+    {
+        deltaY = b->getRect().y - (this->getRect().y+this->getRect().h);
+    }
+    if (yMove<0)
+    {
+        deltaY= this->getRect().y - (b->getRect().y+b->getRect().h);
+    }
+    if (xMove==0)
+    {
+        move(0, yMove==0 ? 0:yMove/(abs(yMove))*(deltaY-1));
+        return;
+    }
+    if (yMove==0)
+    {
+        move(xMove==0 ? 0 : xMove/(abs(xMove))*(deltaX-1),0 );
+        return;
+    }
+    if (deltaX<=0)
+    {
+        move (xMove, yMove == 0 ? 0: yMove/(abs(yMove))*(deltaY-1));
+        return;
+    }
+    if (deltaY<=0)
+    {
+        move (xMove == 0 ? 0 : xMove/(abs(xMove))*(deltaX-1),yMove);
+        return;
+    }
+    tx=deltaX/xMove;
+    ty=deltaY/yMove;
+    if (tx<ty)
+    {
+        move(xMove/(abs(xMove))*(deltaX-1),yMove);
+        return;
+    }
+    else
+    {
+        move(xMove,yMove/(abs(yMove))*(deltaY-1));
+        return;
+    }
 }

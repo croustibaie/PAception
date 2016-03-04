@@ -9,7 +9,10 @@
 
 class playerBloc : public bloc{
 
-private: int playerID;
+private:
+    int playerID;
+    int xMove;
+    int yMove;
 
 public:
     playerBloc();
@@ -17,7 +20,7 @@ public:
     ~playerBloc();
     bool react(struct controllerState** state,unsigned int elapsedTime);//Player bloc's reaction is to do a tryMove and check whether he's dead (false) or not (true)
     bool tryMove(int x, int y); //Classic tryMove, level will check for any collision (true no destruction) (false destruction)
-
+    void collisionReaction(bloc* b);
 
 };
 
