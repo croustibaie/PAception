@@ -90,10 +90,13 @@ bool bloc::tryMove(int x, int y)
 
     int xmove=x;
     int ymove=y;
-
-    if (this->l->collide(this->blocId,a)!= nullptr) //If there is a collision
+    bloc* intersectedBloc = this->l->collide(this->blocId,a);
+    if (intersectedBloc!= nullptr) //If there is a collision
     {
-        this->move(0,0); //TODO: bloc's collision reaction should be there
+
+        this->collisionReaction(intersectedBloc);
+        intersectedBloc->collisionReaction(this);
+        return true;
     }
     else //Here we check that we're not trying to go out of the window
     {
