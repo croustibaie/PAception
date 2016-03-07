@@ -24,6 +24,8 @@ laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
 {
     this->dx=(float)(dx/sqrt((double)(dx*dx+dy*dy)));
     this->dy=(float)(dy/sqrt((double)(dx*dx+dy*dy)));
+    this->xMove=round(dx);
+    this->yMove=round(dy);
     this->l=l;
     if (*gRenderer==NULL)
     {

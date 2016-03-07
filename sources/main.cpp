@@ -35,11 +35,15 @@ int main( int argc, char* args[] )
         //Create the level
         level l = level(helloTexture,gRenderer);
         playerBloc b = playerBloc(&gRenderer,path,&l,0,0,0) ;
-        laserBloc b2= laserBloc(&gRenderer,laserpath,&l,100,30,2,3);
-        staticBloc s1 = staticBloc(&gRenderer,staticpath,&l,300,500);
+        staticBloc b2 = staticBloc(&gRenderer,staticpath,&l,0,149);
+        //laserBloc b2= laserBloc(&gRenderer,laserpath,&l,100,30,1,0);
+        laserBloc b3= laserBloc(&gRenderer,laserpath,&l,200,30,0,1);
+        laserBloc b4= laserBloc(&gRenderer,laserpath,&l,400,150,0,1);
+        //staticBloc s1 = staticBloc(&gRenderer,staticpath,&l,300,500);
         l.insertBlocs(&b,1);
         l.insertBlocs(&b2,1);
-        l.insertBlocs(&s1,1);
+        l.insertBlocs(&b3,1);
+        l.insertBlocs(&b4,1);
         //l.play();
         playerBloc b1 = playerBloc(&gRenderer,path,&l,1,0,200) ;
         l.insertBlocs(&b1,1);

@@ -22,6 +22,8 @@ protected:
     level* l;
     int speed;
     int blocId; //Bloc's unique ID, is it really useful?
+    int xMove;
+    int yMove;
     static unsigned int nextBlocId;
 
     bool killOnTouch; //Does the bloc kill players?
