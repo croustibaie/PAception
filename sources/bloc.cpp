@@ -103,22 +103,7 @@ bool bloc::tryMove(int x, int y)
     }
     else //Here we check that we're not trying to go out of the window
     {
-        if (a.x+a.w>SCREEN_WIDTH) //TODO : think about a strict or large inequality
-        {
-            xmove=SCREEN_WIDTH-(this->getRect().x+this->getRect().w);
-        }
-        if (a.x<0)
-        {
-            xmove=- (this->getRect().x);
-        }
-        if (a.y+a.h>SCREEN_HEIGHT) //TODO: Same as previously
-        {
-            ymove=SCREEN_HEIGHT-(this->getRect().y + this->getRect().h);
-        }
-        if (a.y<0)
-        {
-            ymove=- (this->getRect().y);
-        }
+        wallCollision(a);
         move(xmove,ymove);
     }
     return true;
@@ -168,4 +153,33 @@ void bloc::collisionReaction(bloc *b)
 bool bloc::kill()
 {
     return killOnTouch;
+}
+
+void bloc::wallCollision(SDL_Rect a)
+{
+    bool changedMovement=false; // Set to true if xMove or yMove was changed ( = if there is a collision with a border
+    if (a.x+a.w>SCREEN_WIDTH)
+    {
+        this->xMove=SCREEN_WIDTH-(this->getRect().x+this->getRect().w);
+        changedMovement=true;
+    }
+    if (a.x<0)
+    {
+        this->xMove=- (this->getRect().x);
+        changedMovement=true;
+    }
+    if (a.y+a.h>SCREEN_HEIGHT)
+    {
+        this->yMove=SCREEN_HEIGHT-(this->getRect().y + this->getRect().h);
+        changedMovement=true;
+    }
+    if (a.y<0)
+    {
+        this->yMove=- (this->getRect().y);
+        changedMovement=true;
+    }
+    if (changedMovement)
+    {
+        tryMove(xMove, yMove);
+    }
 }

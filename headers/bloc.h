@@ -27,7 +27,7 @@ protected:
     static unsigned int nextBlocId;
 
     bool killOnTouch; //Does the bloc kill players?
-    virtual enum kind;
+//    virtual enum kind;
 
 public:
     /* Move the bloc of x pixels in horizontal and y in vertical */
@@ -45,6 +45,7 @@ public:
     void move(int x , int y);
     virtual bool tryMove(int x, int y);//Returns false if the bloc asked to be killed, true otherwise.
     virtual void collisionReaction(bloc* b);
+    virtual void wallCollision(SDL_Rect a);
     void setSpeed(int speed);
 
     SDL_Rect getRect() const;

@@ -117,10 +117,10 @@ bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
 }
 
 void laserBloc::collisionReaction(bloc *b) {
-    if (b->kind) {
+/*    if (b->kind) {
 
         return;
-    }
+    }*/
     float tx, ty;
     tx = 0;
     ty = 0;
