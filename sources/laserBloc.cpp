@@ -11,6 +11,8 @@ laserBloc::laserBloc()
     this->rect.w=10;
     this->rect.h=10;
     this->speed=8;
+    this->xMove=0; //direction of the bloc following x axis
+    this->yMove=0; //direction of the bloc following y axis
     texture=NULL;
     gRenderer=NULL;
     killOnTouch=true;
@@ -20,8 +22,10 @@ laserBloc::laserBloc()
 
 laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,int y,int dx,int dy)
 {
-    this->dx=(float)dx/sqrt((double)(dx*dx+dy*dy));
-    this->dy=(float)dy/sqrt((double)(dx*dx+dy*dy));
+    this->dx=(float)(dx/sqrt((double)(dx*dx+dy*dy)));
+    this->dy=(float)(dy/sqrt((double)(dx*dx+dy*dy)));
+    this->xMove=round(dx);
+    this->yMove=round(dy);
     this->l=l;
     if (*gRenderer==NULL)
     {
@@ -106,7 +110,67 @@ bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
     int xmove = (int)(speed*dx*float(elapsedTime)/20);
     int ymove = (int)(speed*dy*float(elapsedTime)/20);
+    this->xMove=xmove;
+    this->yMove=ymove;
     tryMove(xmove,ymove);
     return true;
 }
 
+void laserBloc::collisionReaction(bloc *b) {
+    if (b->kind) {
+
+        return;
+    }
+    float tx, ty;
+    tx = 0;
+    ty = 0;
+    int deltaX, deltaY;
+    deltaX = 0;
+    deltaY = 0;
+    if (xMove > 0) {
+        deltaX = b->getRect().x - (this->getRect().x + this->getRect().w) - 1;
+    }
+    if (xMove < 0) {
+        deltaX = this->getRect().x - (b->getRect().x + b->getRect().w) - 1;
+    }
+    if (yMove > 0) {
+        deltaY = b->getRect().y - (this->getRect().y + this->getRect().h) - 1;
+    }
+    if (yMove < 0) {
+        deltaY = this->getRect().y - (b->getRect().y + b->getRect().h) - 1;
+    }
+    if ((xMove == 0) ) {
+        yMove = yMove == 0 ? 0 : yMove / (abs(yMove)) * (deltaY);
+        tryMove(0, yMove);
+        return;
+    }
+    if ((yMove == 0) ) {
+        xMove = xMove == 0 ? 0 : xMove / (abs(xMove)) * (deltaX);
+        tryMove(xMove, 0);
+        return;
+    }
+    if (deltaX<0)
+    {
+        yMove= yMove == 0 ? 0: -yMove/(abs(yMove))*(deltaY);
+        tryMove(xMove, yMove );
+        return;
+    }
+    if (deltaY<0)
+    {
+        xMove= xMove == 0 ? 0 : -xMove/(abs(xMove))*(deltaX);
+        tryMove(xMove ,yMove);
+        return;
+    }
+    tx = deltaX / xMove;
+    ty = deltaY / yMove;
+    if (tx < ty) {
+        xMove = xMove / (abs(xMove)) * (deltaX);
+        tryMove(xMove, yMove);
+        return;
+    }
+    else {
+        yMove = yMove / (abs(yMove)) * (deltaY);
+        tryMove(xMove, yMove);
+        return;
+    }
+}

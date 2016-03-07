@@ -11,6 +11,8 @@ staticBloc::staticBloc()
     this->rect.w=10;
     this->rect.h=10;
     this->speed=0;
+    this->xMove=0;
+    this->yMove=0;
     texture=NULL;
     gRenderer=NULL;
     this->blocId=nextBlocId;
@@ -37,6 +39,8 @@ staticBloc::staticBloc(SDL_Renderer **gRenderer, const char *path, level *l,int 
     this->rect.h=50;
     texture=NULL;
     this->speed=0;
+    this->xMove=0;
+    this->yMove=0;
     this->gRenderer=*gRenderer;
     loadMedia(&texture,gRenderer,path);
     if (texture==NULL)

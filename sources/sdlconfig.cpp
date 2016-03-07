@@ -99,3 +99,9 @@ void close(SDL_Renderer* gRenderer, SDL_Window* gWindow, SDL_GameController** gG
     //Quit SDL subsystems
     SDL_Quit();
 }
+
+enum kind {
+    player,
+    laser,
+    stat,
+   };

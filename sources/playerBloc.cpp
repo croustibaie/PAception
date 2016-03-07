@@ -82,8 +82,6 @@ bool playerBloc::tryMove(int x, int y)
     a.x+=x;
     a.y+=y;
 
-    int xmove=x;
-    int ymove=y;
     bloc* intersectedBloc = this->l->collide(this->blocId,a);
     if (intersectedBloc!= nullptr) //If there is a collision
     {
@@ -96,23 +94,23 @@ bool playerBloc::tryMove(int x, int y)
     {
         if (a.x+a.w>SCREEN_WIDTH)
         {
-            xmove=SCREEN_WIDTH-(this->getRect().x+this->getRect().w);
+            this->xMove=SCREEN_WIDTH-(this->getRect().x+this->getRect().w);
         }
         if (a.x<0)
         {
-            xmove=- (this->getRect().x);
+            this->xMove=- (this->getRect().x);
         }
         if (a.y+a.h>SCREEN_HEIGHT)
         {
-            ymove=SCREEN_HEIGHT-(this->getRect().y + this->getRect().h);
+            this->yMove=SCREEN_HEIGHT-(this->getRect().y + this->getRect().h);
         }
         if (a.y<0)
         {
-            ymove=- (this->getRect().y);
+            this->yMove=- (this->getRect().y);
         }
-        move(xmove,ymove);
-        xMove=0;
-        yMove=0;
+        move(this->xMove,this->yMove);
+        this->xMove=0;
+        this->yMove=0;
     }
     return true;
 }

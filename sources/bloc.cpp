@@ -18,6 +18,8 @@ bloc::bloc ()
     this->rect.w=10;
     this->rect.h=10;
     this->speed=8;
+    this->xMove=0;
+    this->yMove=0;
     texture=NULL;
     gRenderer=NULL;
     killOnTouch=false;
@@ -47,6 +49,8 @@ bloc::bloc (SDL_Renderer** gRender,const char* path, level* l, int x, int y)
     this->rect.h=50;
     texture=NULL;
     this->speed=16;
+    this->xMove=0;
+    this->yMove=0;
     this->gRenderer=*gRender;
     loadMedia(&texture,gRender,path);
     if (texture==NULL)

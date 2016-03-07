@@ -11,8 +11,6 @@ class playerBloc : public bloc{
 
 private:
     int playerID;
-    int xMove;
-    int yMove;
 
 public:
     playerBloc();
