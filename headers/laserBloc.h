@@ -15,8 +15,8 @@ private:
     float dy;
     int xMove;
     int yMove;
-    enum kind myKind;
-public:
+
+    public:
     laserBloc();
     laserBloc(SDL_Renderer** gRenderer,const char* path,level* l, int x,int y,int dx,int dy);
     ~laserBloc();

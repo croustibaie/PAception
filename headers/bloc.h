@@ -27,7 +27,7 @@ protected:
     static unsigned int nextBlocId;
 
     bool killOnTouch; //Does the bloc kill players?
-//    virtual enum kind;
+    enum kind myKind;
 
 public:
     /* Move the bloc of x pixels in horizontal and y in vertical */
@@ -54,6 +54,7 @@ public:
     SDL_Renderer* getRenderer() const;
     SDL_Texture* getTexture() const;
     bool kill();
+    enum kind getKind();
 
 };
 

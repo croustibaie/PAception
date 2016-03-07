@@ -9,9 +9,6 @@
 
 class staticBloc: public bloc {
 
-private:
-    enum kind myKind;
-
 public:
     staticBloc();
     staticBloc(SDL_Renderer** gRenderer,const char* path,level* l,int x,int y);

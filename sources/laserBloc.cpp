@@ -117,10 +117,10 @@ bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
 }
 
 void laserBloc::collisionReaction(bloc *b) {
-/*    if (b->kind) {
-
+    if (b->getKind()!=STATIC) {
+        move(xMove,yMove);
         return;
-    }*/
+    }
     float tx, ty;
     tx = 0;
     ty = 0;
@@ -140,24 +140,28 @@ void laserBloc::collisionReaction(bloc *b) {
         deltaY = this->getRect().y - (b->getRect().y + b->getRect().h) - 1;
     }
     if ((xMove == 0) ) {
-        yMove = yMove == 0 ? 0 : yMove / (abs(yMove)) * (deltaY);
+        yMove = yMove == 0 ? 0 : -yMove / (abs(yMove)) * (deltaY);
+        dy=-dy;
         tryMove(0, yMove);
         return;
     }
     if ((yMove == 0) ) {
-        xMove = xMove == 0 ? 0 : xMove / (abs(xMove)) * (deltaX);
+        xMove = xMove == 0 ? 0 : -xMove / (abs(xMove)) * (deltaX);
+        dx=-dx;
         tryMove(xMove, 0);
         return;
     }
     if (deltaX<0)
     {
         yMove= yMove == 0 ? 0: -yMove/(abs(yMove))*(deltaY);
+        dy=-dy;
         tryMove(xMove, yMove );
         return;
     }
     if (deltaY<0)
     {
         xMove= xMove == 0 ? 0 : -xMove/(abs(xMove))*(deltaX);
+        dx=-dx;
         tryMove(xMove ,yMove);
         return;
     }

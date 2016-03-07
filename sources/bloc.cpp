@@ -211,3 +211,8 @@ void bloc::wallCollision(SDL_Rect a)
         tryMove(xMove, yMove);
     }
 }
+
+enum kind bloc::getKind()
+{
+    return(this->myKind);
+}
