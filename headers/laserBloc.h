@@ -7,6 +7,7 @@
 #include "./bloc.h"
 #include "./level.h"
 #include <math.h>
+#include "./sdlconfig.h"
 
 class laserBloc : public bloc {
 private:
@@ -14,6 +15,7 @@ private:
     float dy;
     int xMove;
     int yMove;
+    enum kind myKind;
 public:
     laserBloc();
     laserBloc(SDL_Renderer** gRenderer,const char* path,level* l, int x,int y,int dx,int dy);
@@ -21,6 +23,7 @@ public:
     bool react(struct controllerState** state,unsigned int elapsedTime);
     bool tryMove(int x, int y);
     void collisionReaction(bloc* b);
+
 };
 
 

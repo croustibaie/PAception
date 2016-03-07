@@ -32,4 +32,10 @@ bool loadMedia(SDL_Texture** gTexture,SDL_Renderer** gRenderer,char const* path)
 //Frees media and shuts down SDL
 void close(SDL_Renderer* gRenderer, SDL_Window* gWindow, SDL_GameController** gGameController );
 
+enum kind {
+    PLAYER,
+    LASER,
+    STATIC,
+};
+
 #endif //PACEPTION_SDLCONFIG_H

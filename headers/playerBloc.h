@@ -11,6 +11,7 @@ class playerBloc : public bloc{
 
 private:
     int playerID;
+    enum kind myKind;
 
 public:
     playerBloc();

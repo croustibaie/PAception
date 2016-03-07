@@ -42,6 +42,7 @@ staticBloc::staticBloc(SDL_Renderer **gRenderer, const char *path, level *l,int 
     this->xMove=0;
     this->yMove=0;
     this->gRenderer=*gRenderer;
+    this->myKind=STATIC;
     loadMedia(&texture,gRenderer,path);
     if (texture==NULL)
     {
