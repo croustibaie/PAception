@@ -33,7 +33,7 @@ public:
     void blocReactions();
     //blocDraw goes through every bloc in the level and draws it to the renderer
     void blocDraw();
-    //play() is a while procedure in wich inputs are scanned, then blocReactions is called then blocDraw()
+    //play() is a while procedure in which inputs are scanned, then blocReactions is called then blocDraw()
     enum gameStatus play ();
     void insertBlocs(bloc* blocArray,int nbBlocs);
     void deleteBloc(int blocID);

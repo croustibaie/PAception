@@ -19,13 +19,13 @@ set(SOURCE_FILES
         sources/staticBloc.cpp
         headers/laserBloc.h
         sources/laserBloc.cpp
-        )  #Set l'ensembke des sources, ici peu élégant
+        )  #Set l'ensemble des sources, ici peu élégant
 
-add_executable(PAception ${SOURCE_FILES}) #éxécutable PAception génération par les fichiers sources
+add_executable(PAception ${SOURCE_FILES}) #exécutable PAception génération par les fichiers sources
 
 INCLUDE(FindPkgConfig) #Inclut le module Pkg qui permet de rechercher des librairies
 
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2) #pkg cherche la librairie sdl2, je ne comprends pas complétement la syntaxe
 
 INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ) #inclut les répertoires dont SDL2 a besoin, SDL2_INCLUDE_DIRS et probablement set grâce à pkg
-TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${SDL2_LIBRARIES})  #Lors de la compilition du projet PROJECT_NAME, linker les libs SDL2
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${SDL2_LIBRARIES})  #Lors de la compilation du projet PROJECT_NAME, linker les libs SDL2
