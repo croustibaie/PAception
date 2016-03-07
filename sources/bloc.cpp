@@ -9,6 +9,8 @@
 
 unsigned int bloc::nextBlocId=0;
 
+// Default constructor
+
 bloc::bloc ()
 {
     this->rect.x=0;
@@ -24,6 +26,8 @@ bloc::bloc ()
     this->blocId=nextBlocId;
     nextBlocId++;
 }
+
+// Parametrized constructor
 
 bloc::bloc (SDL_Renderer** gRender,const char* path, level* l, int x, int y)
 {
@@ -58,6 +62,8 @@ bloc::bloc (SDL_Renderer** gRender,const char* path, level* l, int x, int y)
     nextBlocId++;
 }
 
+// Copy constructor
+
 bloc::bloc(const bloc& b)
 {
     this->gRenderer=b.getRenderer();
@@ -68,6 +74,8 @@ bloc::bloc(const bloc& b)
     this->blocId=b.getBlocId();
 }
 
+// Destructor
+
 bloc::~bloc()
 {
 }
@@ -77,6 +85,8 @@ bool bloc::react(struct controllerState** state,unsigned int elapsedTime)
     return true;
 }
 
+// Display block
+
 void bloc::draw()
 {
     if (texture==NULL)
@@ -85,6 +95,8 @@ void bloc::draw()
     }
     SDL_RenderCopy(gRenderer,texture, NULL, &rect );
 }
+
+// Move attempt
 
 bool bloc::tryMove(int x, int y)
 {
@@ -109,36 +121,50 @@ bool bloc::tryMove(int x, int y)
     return true;
 }
 
+// Displacement
+
 void bloc::move(int x , int y)
 {
     this->rect.x+=x;
     this->rect.y+=y;
 }
 
+// Modify speed
+
 void bloc::setSpeed(int speed)
 {
     this->speed=speed;
 }
+
+// Determine bloc type
 
 int bloc::getBlocId() const
 {
     return blocId;
 }
 
+// Get SDL Renderer
+
  SDL_Renderer* bloc::getRenderer() const
 {
     return gRenderer;
 }
+
+// Get bloc texture
 
 SDL_Texture* bloc::getTexture() const
 {
     return texture;
 }
 
+// Get bloc dimensions
+
 SDL_Rect bloc::getRect() const
 {
     return rect;
 }
+
+// Get bloc speed
 
 int bloc::getSpeed() const
 {
@@ -149,6 +175,8 @@ void bloc::collisionReaction(bloc *b)
 {
     tryMove(0,0);
 }
+
+// Kill bloc
 
 bool bloc::kill()
 {
