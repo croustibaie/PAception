@@ -40,8 +40,8 @@ laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
         this->rect.x=0; //TODO : see for throwing an exception
         this->rect.y=0;
     }
-    this->rect.w=50;
-    this->rect.h=50;
+    this->rect.w=20;
+    this->rect.h=20;
     texture=NULL;
     this->speed=8;
     this->gRenderer=*gRenderer;
@@ -118,9 +118,11 @@ bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
 
 void laserBloc::collisionReaction(bloc *b) {
     if (b->getKind()!=STATIC) {
-        move(xMove,yMove);
+        this->l->deleteBloc(this->blocId);
         return;
     }
+
+
     float tx, ty;
     tx = 0;
     ty = 0;
@@ -177,4 +179,5 @@ void laserBloc::collisionReaction(bloc *b) {
         tryMove(xMove, yMove);
         return;
     }
+
 }

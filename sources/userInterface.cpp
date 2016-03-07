@@ -39,10 +39,14 @@ bool userInterface::play()
         {
             return false;
         }
-        else if( e.type == SDL_JOYAXISMOTION )
+        if( e.type == SDL_JOYAXISMOTION )
         {
             motion(e.jaxis.which,e);
         }
+        if(e.type == SDL_JOYBUTTONDOWN)
+        { std::cout <<"detecte"<< std::endl ;
+        }
+
     }
     return true;
 }
