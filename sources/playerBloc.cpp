@@ -40,7 +40,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
     this->rect.w=50;
     this->rect.h=50;
     texture=NULL;
-    this->speed=16;
+    this->speed=4;
     this->xMove=0;
     this->yMove=0;
     this->gRenderer=*gRenderer;
@@ -93,22 +93,7 @@ bool playerBloc::tryMove(int x, int y)
     }
     else //Here we check that we're not trying to go out of the window
     {
-        if (a.x+a.w>SCREEN_WIDTH)
-        {
-            this->xMove=SCREEN_WIDTH-(this->getRect().x+this->getRect().w);
-        }
-        if (a.x<0)
-        {
-            this->xMove=- (this->getRect().x);
-        }
-        if (a.y+a.h>SCREEN_HEIGHT)
-        {
-            this->yMove=SCREEN_HEIGHT-(this->getRect().y + this->getRect().h);
-        }
-        if (a.y<0)
-        {
-            this->yMove=- (this->getRect().y);
-        }
+        wallCollision(a);
         move(this->xMove,this->yMove);
         this->xMove=0;
         this->yMove=0;

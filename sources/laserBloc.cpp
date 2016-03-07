@@ -4,7 +4,6 @@
 
 #include "../headers/laserBloc.h"
 
-
 laserBloc::laserBloc()
 {
     this->rect.x=0;
@@ -14,7 +13,6 @@ laserBloc::laserBloc()
     this->speed=8;
     this->xMove=0; //direction of the bloc following x axis
     this->yMove=0; //direction of the bloc following y axis
-    this->myKind=LASER;
     texture=NULL;
     gRenderer=NULL;
     killOnTouch=true;
@@ -26,8 +24,8 @@ laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
 {
     this->dx=(float)(dx/sqrt((double)(dx*dx+dy*dy)));
     this->dy=(float)(dy/sqrt((double)(dx*dx+dy*dy)));
-    this->xMove=dx;
-    this->yMove=dy;
+    this->xMove=round(dx);
+    this->yMove=round(dy);
     this->l=l;
     if (*gRenderer==NULL)
     {
@@ -119,10 +117,10 @@ bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
 }
 
 void laserBloc::collisionReaction(bloc *b) {
-    if (b->myKind != LASER) {
+/*    if (b->kind) {
 
         return;
-    }
+    }*/
     float tx, ty;
     tx = 0;
     ty = 0;
