@@ -25,9 +25,9 @@ int main( int argc, char* args[] )
     else
     {
         //Load medias for background image and red square
-        const char* path = "./leather.bmp";
+        const char* path = "./cannabis.bmp";
         loadMedia(&helloTexture,&gRenderer,path);
-        path= "./red.bmp";
+        path= "./leopard.bmp";
         const char* laserpath="./dead.bmp";
         const char* staticpath="./black.bmp";
         std::cout<<SDL_NumJoysticks()<<std::endl;
@@ -35,7 +35,7 @@ int main( int argc, char* args[] )
         //Create the level
         level l = level(helloTexture,gRenderer);
         playerBloc b = playerBloc(&gRenderer,path,&l,0,0,0) ;
-        laserBloc b2= laserBloc(&gRenderer,laserpath,&l,100,30,1,1);
+        laserBloc b2= laserBloc(&gRenderer,laserpath,&l,100,30,2,3);
         staticBloc s1 = staticBloc(&gRenderer,staticpath,&l,300,500);
         l.insertBlocs(&b,1);
         l.insertBlocs(&b2,1);

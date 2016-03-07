@@ -25,7 +25,7 @@ protected:
     static unsigned int nextBlocId;
 
     bool killOnTouch; //Does the bloc kill players?
-
+    virtual enum kind;
 
 public:
     /* Move the bloc of x pixels in horizontal and y in vertical */

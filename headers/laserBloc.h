@@ -12,13 +12,15 @@ class laserBloc : public bloc {
 private:
     float dx;
     float dy;
+    int xMove;
+    int yMove;
 public:
     laserBloc();
     laserBloc(SDL_Renderer** gRenderer,const char* path,level* l, int x,int y,int dx,int dy);
     ~laserBloc();
     bool react(struct controllerState** state,unsigned int elapsedTime);
     bool tryMove(int x, int y);
-
+    void collisionReaction(bloc* b);
 };
 
 
