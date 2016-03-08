@@ -64,38 +64,6 @@ laserBloc::~laserBloc()
 }
 
 
-bool laserBloc::tryMove(int x, int y)
-{
-    SDL_Rect a= this->getRect();
-    a.x+=x;
-    a.y+=y;
-
-    this->xMove=x;
-    this->yMove=y;
-    bool isAlive=true;
-    bloc* intersectedBloc = this->l->collide(this->blocId,a);
-    if (intersectedBloc!= nullptr) //If there is a collision
-    {
-
-        isAlive=this->collisionReaction(intersectedBloc);
-        intersectedBloc->collisionReaction(this);
-        return isAlive;
-    }
-    else //Here we check that we're not trying to go out of the window
-    {
-        isAlive=wallCollision(a);
-        if (!isAlive)
-        {
-            return isAlive;
-        }
-        if (!wallCollided)
-        {
-            move(xMove,yMove);
-        }
-        return isAlive;
-    }
-
-}
 
 
 bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
@@ -104,8 +72,7 @@ bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
     int ymove = (int)(speed*dy*float(elapsedTime)/20);
     this->xMove=xmove;
     this->yMove=ymove;
-    tryMove(xmove,ymove);
-    return true;
+    return tryMove(this->xMove,this->yMove);
 }
 
 bool laserBloc::collisionReaction(bloc *b)
@@ -186,7 +153,6 @@ bool laserBloc::collisionReaction(bloc *b)
 bool laserBloc::wallCollision(SDL_Rect a)
 {
     this->wallCollided=false;
-    bool isAlive=true;
     if (a.x+a.w>SCREEN_WIDTH)
     {
         xMove=xMove-(a.x+a.w-SCREEN_WIDTH);
@@ -212,11 +178,8 @@ bool laserBloc::wallCollision(SDL_Rect a)
         yMove=yMove-a.y;
         this->wallCollided=true;
     }
-    if (wallCollided)
-    {
-        isAlive=tryMove(xMove,yMove);
-    }
-return isAlive;
+
+return this->wallCollided;
 }
 void laserBloc::setDirection(float xMove, float yMove)
 {

@@ -43,9 +43,9 @@ public:
     virtual bool react(struct controllerState** state,unsigned int elapsedTime); //Bloc's reactions to given inputs, returns false if the bloc asked to be killed
     void draw(); // The bloc draws itself to the renderer
     void move(int x , int y); // The bloc applies the movement, this should be done after having checked that there are no collisions
-    virtual bool tryMove(int x, int y);//The bloc changes xMove and yMove and then asks level for collisions.Returns false if the bloc asked to be killed, true otherwise.
+    bool tryMove(int x, int y);//The bloc changes xMove and yMove and then asks level for collisions.Returns false if the bloc asked to be killed, true otherwise.
     virtual bool collisionReaction(bloc* b);//Bloc's reaction to a collision with another bloc. Returns false if it dies
-    virtual bool wallCollision(SDL_Rect a); // Checks if the bloc collides a border, if yes, stop it in one direction calls tryMove for the movement in another direction and returns whether it's alive, do nothing otherwise
+    virtual bool wallCollision(SDL_Rect a); // Checks if the bloc collides a border, if yes, stop it in one direction calls tryMove for the movement in another direction and returns whether it collided, do nothing otherwise
     void setSpeed(int speed);
 
     SDL_Rect getRect() const;

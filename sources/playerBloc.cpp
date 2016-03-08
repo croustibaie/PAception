@@ -55,7 +55,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
     this->lastShotTimer = 0;
     for (int i = 0; i < 20; i++)
     {
-        this->laser[i] = new laserBloc(gRenderer, "./dead.bmp", l, 50, 50, 1, 1);
+        this->laser[i] = new laserBloc(gRenderer, "./dead.bmp", l, 50, 50, 1, 0);
     }
     this->nextLaser=0;
     this->wallCollided=false;
@@ -228,7 +228,7 @@ void playerBloc::shoot( struct controllerState **state)
         {
             yPos=(int)(rect.y  + a*stheta/ctheta );
         }*/
-        double rLaser = sqrt(double(LASER_HEIGHT*LASER_HEIGHT+LASER_WIDTH*LASER_WIDTH));
+        double rLaser = sqrt(double(LASER_HEIGHT/2*LASER_HEIGHT/2+LASER_WIDTH/2*LASER_WIDTH/2));
         xPos =(int)(rect.x + a + (r+rLaser+1)*ctheta);
         yPos =(int)(rect.y + b + (r+rLaser+1)*stheta);
         laser[nextLaser]->setPosition(xPos,yPos);

@@ -69,7 +69,7 @@ bloc::~bloc()
 {
 }
 
-bool bloc::react(struct controllerState** state,unsigned int elapsedTime)
+bool bloc::react(struct controllerState** state,unsigned int elapsedTime)//This class is overcharged, bloc::react should never be used
 {
     return true;
 }
@@ -89,33 +89,34 @@ void bloc::draw()
 
 bool bloc::tryMove(int x, int y)
 {
-    SDL_Rect a= this->getRect();// a is the theoretical bloc's position if we were to perform the movement
+    SDL_Rect a= this->getRect();
     a.x+=x;
     a.y+=y;
-    bool alive=true;
-    bloc* intersectedBloc = this->l->collide(this->blocId,a); //Get the first bloc that we intersect (could be nullptr)
-    if (intersectedBloc!= nullptr) //If there is a collision with a bloc
+
+    bool isAlive=true;
+    bloc* intersectedBloc = this->l->collide(this->blocId,a);
+    if (intersectedBloc!= nullptr) //If there is a collision
     {
 
-        this->collisionReaction(intersectedBloc); //Apply this bloc's reaction to the intersected bloc
-        intersectedBloc->collisionReaction(this);//The intersected bloc reacts to a collision with us
-        return true; // Note that the reactions will most likely perform a new try move. This function is recursive
+        isAlive=this->collisionReaction(intersectedBloc);
+        intersectedBloc->collisionReaction(this);
+        return isAlive;
     }
     else //Here we check that we're not trying to go out of the window
     {
-        alive=wallCollision(a);
-        if (!alive)
+        if(wallCollision(a))
         {
-            return false;
+            isAlive=tryMove(this->xMove,this->yMove);
         }
-        if(!wallCollided)
+        else
         {
-            move(this->xMove, this->yMove);
-            this->xMove = 0;
-            this->yMove = 0;
+            move(xMove,yMove);
+            this->xMove=0;
+            this->yMove=0;
         }
+        return isAlive;
     }
-    return true;
+
 }
 
 // Displacement
@@ -168,7 +169,7 @@ int bloc::getSpeed() const
     return speed;
 }
 
-bool bloc::collisionReaction(bloc *b)
+bool bloc::collisionReaction(bloc *b) // Method used for static blocs
 {
     return tryMove(0,0);
 }
@@ -182,33 +183,28 @@ bool bloc::kill()
 
 bool bloc::wallCollision(SDL_Rect a)
 {
-    this->wallCollided=false;
-    bool isAlive=true; // Set to true if xMove or yMove was changed ( = if there is a collision with a border
-    if (a.x+a.w>SCREEN_WIDTH)
+    this->wallCollided=false; //This variable is a bit ugly, it is used to know whether we hit the wall. Reset at every tryMove
+    if (a.x+a.w>SCREEN_WIDTH)//Hit the right wall
     {
-        this->xMove=SCREEN_WIDTH-(this->getRect().x+this->getRect().w);
+        this->xMove=SCREEN_WIDTH-(this->getRect().x+this->getRect().w);//xMove is updated so as to stick to the wall
         this->wallCollided=true;
     }
-    if (a.x<0)
+    if (a.x<0) // Hit the left wall
     {
-        this->xMove=- (this->getRect().x);
+        this->xMove=- (this->getRect().x);//Stick to the wall
         this->wallCollided=true;
     }
-    if (a.y+a.h>SCREEN_HEIGHT)
+    if (a.y+a.h>SCREEN_HEIGHT)//Bottom wall. Remember that the y axis is going down
     {
         this->yMove=SCREEN_HEIGHT-(this->getRect().y + this->getRect().h);
         this->wallCollided=true;
     }
-    if (a.y<0)
+    if (a.y<0) //Top wall
     {
         this->yMove=- (this->getRect().y);
         this->wallCollided=true;
     }
-    if (this->wallCollided)
-    {
-        isAlive=tryMove(xMove, yMove);
-    }
-    return isAlive;
+    return this->wallCollided;
 }
 
 enum kind bloc::getKind()
