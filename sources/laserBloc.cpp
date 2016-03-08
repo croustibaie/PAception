@@ -43,8 +43,8 @@ laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
         this->rect.x=0; //TODO : see for throwing an exception
         this->rect.y=0;
     }
-    this->rect.w=20;
-    this->rect.h=20;
+    this->rect.w=LASER_WIDTH;
+    this->rect.h=LASER_HEIGHT;
     texture=NULL;
     this->speed=8;
     this->gRenderer=*gRenderer;
@@ -217,4 +217,9 @@ bool laserBloc::wallCollision(SDL_Rect a)
         isAlive=tryMove(xMove,yMove);
     }
 return isAlive;
+}
+void laserBloc::setDirection(float xMove, float yMove)
+{
+    this->dx=xMove;
+    this->dy=yMove;
 }

@@ -24,6 +24,7 @@ private:
     bool tryMove(int x, int y); //laser tries to perform a movement and asks for collisions
     bool collisionReaction(bloc* b);//Laser's reaction to a collision with a bloc b
     bool wallCollision(SDL_Rect a);
+    void setDirection(float dx, float dy);
 };
 
 

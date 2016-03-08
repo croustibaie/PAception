@@ -83,9 +83,9 @@ void userInterface::motion(SDL_JoystickID id, SDL_Event e)
         }
 
     //right stick stuff
-        if (e.jaxis.axis == 4)
+        if (e.jaxis.axis == 3)
         {
-            if (abs(e.jaxis.value) > 8000)
+            if (abs(e.jaxis.value) > 100)
             {
                 cs[id]->rightStickHorizontal = e.jaxis.value;
             }
@@ -95,9 +95,9 @@ void userInterface::motion(SDL_JoystickID id, SDL_Event e)
             }
             return;
         }
-        if (e.jaxis.axis == 3)
+        if (e.jaxis.axis == 4)
         {
-            if (abs(e.jaxis.value) > 8000)
+            if (abs(e.jaxis.value) > 100)
             {
                 cs[id]->rightStickVertical = e.jaxis.value;
             }

@@ -55,6 +55,8 @@ public:
     SDL_Texture* getTexture() const;
     bool kill();//Does the bloc have the killontouch attribute set to true or false.
     enum kind getKind();
+    void setPosition(int x, int y);
+
 
 };
 

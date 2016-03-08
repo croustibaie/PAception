@@ -4,6 +4,7 @@
 
 #include "../headers/playerBloc.h"
 #include "../headers/level.h"
+#include<math.h>
 
 playerBloc::playerBloc()
 {
@@ -39,7 +40,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
     this->rect.w = 50;
     this->rect.h = 50;
     texture = NULL;
-    this->speed = 4;
+    this->speed = 8;
     this->xMove = 0;
     this->yMove = 0;
     this->gRenderer = *gRenderer;
@@ -68,35 +69,31 @@ playerBloc::~playerBloc()
     }
 }
 
-bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
-{
+bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime) {
 
-    int correctedSpeed= (int)(round((float)(speed)*(float)elapsedTime/20)); //We have to adapt the initial speed to the frame duration
-    if (state == nullptr)
-    {
+    int correctedSpeed = (int) (round(
+            (float) (speed) * (float) elapsedTime / 20)); //We have to adapt the initial speed to the frame duration
+    if (state == nullptr) {
         return true;
     }
-    if (state[playerID]->RT)
-    {
-        int elapsedTime=SDL_GetTicks();
-        elapsedTime-= lastShotTimer;
-        if (elapsedTime>300)
-        {
-            std::cout << "PAN" << std::endl;
-            l->insertBlocs(laser[nextLaser],1);
-            nextLaser=(nextLaser+1)%20;
-            //l->createBloc(LASER);
-            lastShotTimer=SDL_GetTicks();
-        }
-    }
-    xMove=(int)(correctedSpeed*(float)(state[playerID]->leftStickHorizontal)/32000);
-    yMove=(int)(correctedSpeed*(float)(state[playerID]->leftStickVertical)/32000);
-    if (xMove!=0 || yMove!=0)
-    {
-        return tryMove(xMove,yMove );
-    }
-    else return true;
 
+    xMove = (int) (correctedSpeed * (float) (state[playerID]->leftStickHorizontal) / 32000);
+    yMove = (int) (correctedSpeed * (float) (state[playerID]->leftStickVertical) / 32000);
+    bool isAlive;
+    if (xMove != 0 || yMove != 0) {
+        isAlive = tryMove(xMove, yMove);
+
+    }
+    else
+    {
+        isAlive = true;
+    }
+
+    if (state[playerID]->RT) {
+        this->shoot(state);
+    }
+
+    return(isAlive);
 }
 
 
@@ -169,5 +166,76 @@ bool playerBloc::collisionReaction(bloc *b)
         yMove=yMove/(abs(yMove))*(deltaY);
         isAlive=tryMove(xMove,yMove);
         return isAlive;
+    }
+}
+
+void playerBloc::shoot( struct controllerState **state)
+{
+    int elapsedTime=SDL_GetTicks();
+    elapsedTime-= lastShotTimer;
+    if (elapsedTime>300)
+    {
+        std::cout << "PAN" << std::endl;
+        int x1 = state[playerID]->rightStickHorizontal;
+        int y1 = state[playerID]->rightStickVertical;
+        if((x1==0)&&(y1==0))
+        {
+            return;
+        }
+        double ctheta =  x1/sqrt(double(x1*x1+y1*y1));
+        double stheta =  y1/sqrt(double(x1*x1+y1*y1));
+        //int sgx = x1 == 0 ? 0 : x1/(abs(x1));
+        //int sgy = y1 == 0 ? 0 : y1/(abs(y1));
+        double a = double(rect.w)/2.;
+        double b = double(rect.h)/2.;
+        //double lambda = atan(b/a);
+        int xPos,yPos;
+        double r = sqrt(a*a + b*b);
+
+        /*if(fabs(stheta)<=sin(lambda))
+        {
+            switch(sgx) {
+                case -1 :
+                    xPos = rect.x - 1 - LASER_WIDTH;
+                    break;
+                case 0 :
+                    xPos = (int) (rect.x + a);
+                    break;
+                case 1 :
+                    xPos = rect.x + rect.w +1;
+                    break;
+            }
+        }
+        else
+        {
+            xPos= (int)(rect.x + b*ctheta/stheta);
+        }
+        if(fabs(ctheta)<=cos(lambda))
+        {
+            switch(sgy) {
+                case -1 :
+                    yPos = rect.y - 1 - LASER_HEIGHT;
+                    break;
+                case 0 :
+                    yPos = (int) (rect.y + b);
+                    break;
+                case 1 :
+                    yPos = rect.y + rect.h +1;
+                    break;
+            }
+        }
+        else
+        {
+            yPos=(int)(rect.y  + a*stheta/ctheta );
+        }*/
+        double rLaser = sqrt(double(LASER_HEIGHT*LASER_HEIGHT+LASER_WIDTH*LASER_WIDTH));
+        xPos =(int)(rect.x + a + (r+rLaser+1)*ctheta);
+        yPos =(int)(rect.y + b + (r+rLaser+1)*stheta);
+        laser[nextLaser]->setPosition(xPos,yPos);
+        laser[nextLaser]->setDirection(ctheta,stheta);
+        l->insertBlocs(laser[nextLaser],1);
+        nextLaser=(nextLaser+1)%20;
+        //l->createBloc(LASER);
+        lastShotTimer=SDL_GetTicks();
     }
 }

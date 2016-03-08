@@ -215,3 +215,9 @@ enum kind bloc::getKind()
 {
     return(this->myKind);
 }
+
+void bloc::setPosition(int x,int y)
+{
+    this->rect.x=(int)(x-(this->rect.w)/2.);
+    this->rect.y=(int)(y-(this->rect.h/2.));
+}

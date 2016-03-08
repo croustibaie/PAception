@@ -44,8 +44,8 @@ int main( int argc, char* args[] )
         //l.insertBlocs(&b3,1);
         //l.insertBlocs(&b4,1);
         //l.play();
-        //playerBloc b1 = playerBloc(&gRenderer,path,&l,1,0,200) ;
-        //l.insertBlocs(&b1,1);
+        playerBloc b1 = playerBloc(&gRenderer,path,&l,1,0,200) ;
+        l.insertBlocs(&b1,1);
         l.play();
     }
 
