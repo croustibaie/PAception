@@ -2,9 +2,7 @@
 // Created by croustibaie on 12/14/15.
 //
 
-
-#include "../headers/bloc.h"
-
+#include "../headers/level.h"
 
 unsigned int bloc::nextBlocId=0;
 

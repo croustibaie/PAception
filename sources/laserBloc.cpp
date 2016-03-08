@@ -3,6 +3,7 @@
 //
 
 #include "../headers/laserBloc.h"
+#include "../headers/level.h"
 
 laserBloc::laserBloc()
 {

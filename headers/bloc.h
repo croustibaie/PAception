@@ -6,7 +6,6 @@
 #define PA_BLOC_H
 
 class level;
-
 #include <iostream>
 #include <SDL_surface.h>
 #include "sdlconfig.h"

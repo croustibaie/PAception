@@ -5,11 +5,11 @@
 #ifndef PACEPTION_LEVEL_H
 #define PACEPTION_LEVEL_H
 
-class bloc;
-class userInterface;
 
 #include <vector>
 #include <map>
+#include "bloc.h"
+#include "userInterface.h"
 #include "factory.h"
 
 enum gameStatus {PAUSE,PLAY,GAMEOVER};

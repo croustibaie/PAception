@@ -5,9 +5,9 @@
 #ifndef PACEPTION_FACTORY_H
 #define PACEPTION_FACTORY_H
 
-class level;
 class laserBloc;
 class bloc;
+class level;
 
 #include <map>
 #include "sdlconfig.h"
@@ -15,20 +15,20 @@ class bloc;
 class factory {
         private :
             std::map<int, bloc*> blocMap;
-           // level *l;
+            level *l;
 
         public :
             factory();
 
-          //  factory(level *l);
+            factory(level *l);
 
             ~factory();
 
-            bloc *createBloc(enum kind k,level* l);
+            bloc* createBloc(enum kind k,level* l, SDL_Renderer** gRenderer);
 
-            laserBloc *createLaser(level* l);
+            laserBloc *createLaser(level* l, SDL_Renderer** gRenderer);
 
-         //   void setLevel(level *l);
+            void setLevel(level *l);
         };
 
 

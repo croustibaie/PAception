@@ -3,6 +3,7 @@
 //
 
 #include "../headers/playerBloc.h"
+#include "../headers/level.h"
 
 playerBloc::playerBloc()
 {
