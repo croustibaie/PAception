@@ -5,6 +5,7 @@
 #ifndef PACEPTION_PLAYERBLOC_H
 #define PACEPTION_PLAYERBLOC_H
 
+#include "laserBloc.h"
 #include "bloc.h"
 
 class playerBloc : public bloc{
@@ -13,6 +14,8 @@ private:
     int playerID;
     unsigned int lastShotTimer;
     unsigned int currentTimer;
+    laserBloc* laser[20];
+    int nextLaser;
 
 public:
     playerBloc();

@@ -17,13 +17,11 @@ level::level (SDL_Texture* Texture,SDL_Renderer* gRenderer)
 
     this->backGroundTexture= Texture;
     this->gRenderer=gRenderer;
-    myFactory= new factory(this);
 }
 
 level::~level()
 {
     delete ui;
-    delete myFactory;
 }
 
 SDL_Renderer** level::getRenderer()
@@ -125,8 +123,3 @@ bool level::testCollision(SDL_Rect a, SDL_Rect b)
     return true;
 }
 
-void level::createBloc(enum kind k)
-{
-    bloc* b=myFactory->createBloc(k,this,this->getRenderer());
-    blocMap.insert(std::pair<int,bloc*>(b->getBlocId(),b));
-}
