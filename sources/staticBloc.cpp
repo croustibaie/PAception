@@ -18,6 +18,7 @@ staticBloc::staticBloc()
     gRenderer=NULL;
     this->blocId=nextBlocId;
     nextBlocId++;
+    this->wallCollided=false;
 }
 
 staticBloc::staticBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,int y)
@@ -52,6 +53,7 @@ staticBloc::staticBloc(SDL_Renderer **gRenderer, const char *path, level *l,int 
     killOnTouch=false;
     this->blocId=nextBlocId;
     nextBlocId++;
+    this->wallCollided=false;
 }
 
 staticBloc::~staticBloc()

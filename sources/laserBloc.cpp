@@ -20,6 +20,7 @@ laserBloc::laserBloc()
     killOnTouch=true;
     this->blocId=nextBlocId;
     nextBlocId++;
+    this->wallCollided=false;
 }
 
 laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,int y,int dx,int dy)
@@ -55,6 +56,7 @@ laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
     killOnTouch=true;
     this->blocId=nextBlocId;
     nextBlocId++;
+    this->wallCollided=false;
 }
 
 laserBloc::~laserBloc()
@@ -68,43 +70,31 @@ bool laserBloc::tryMove(int x, int y)
     a.x+=x;
     a.y+=y;
 
-    int xmove=x;
-    int ymove=y;
+    this->xMove=x;
+    this->yMove=y;
+    bool isAlive=true;
     bloc* intersectedBloc = this->l->collide(this->blocId,a);
     if (intersectedBloc!= nullptr) //If there is a collision
     {
 
-        this->collisionReaction(intersectedBloc);
+        isAlive=this->collisionReaction(intersectedBloc);
         intersectedBloc->collisionReaction(this);
-        return true;
+        return isAlive;
     }
     else //Here we check that we're not trying to go out of the window
     {
-
-        if (a.x+a.w>SCREEN_WIDTH)
+        isAlive=wallCollision(a);
+        if (!isAlive)
         {
-            xmove=xmove-(a.x+a.w-SCREEN_WIDTH);
-            this->dx=- this->dx;
+            return isAlive;
         }
-        if (a.x<0)
+        if (!wallCollided)
         {
-            this->dx=- this->dx;
-            xmove=xmove-a.x;
+            move(xMove,yMove);
         }
-        if (a.y+a.h>SCREEN_HEIGHT)
-        {
-            this->dy=- this->dy;
-            ymove=ymove-(a.y+a.h-SCREEN_HEIGHT);
-
-        }
-        if (a.y<0)
-        {
-            this->dy=- this->dy;
-            ymove=ymove-a.y;
-        }
-        move(xmove,ymove);
+        return isAlive;
     }
-    return true;
+
 }
 
 
@@ -118,68 +108,113 @@ bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
     return true;
 }
 
-void laserBloc::collisionReaction(bloc *b) {
-    if (b->getKind()!=STATIC) {
+bool laserBloc::collisionReaction(bloc *b)
+{
+    bool isAlive;
+    if (b->getKind()!=STATIC)
+    {
         this->l->deleteBloc(this->blocId);
-        return;
+        isAlive=false;
+        return isAlive;
     }
-
-
     float tx, ty;
     tx = 0;
     ty = 0;
     int deltaX, deltaY;
     deltaX = 0;
     deltaY = 0;
-    if (xMove > 0) {
+    if (xMove > 0)
+    {
         deltaX = b->getRect().x - (this->getRect().x + this->getRect().w) - 1;
     }
-    if (xMove < 0) {
+    if (xMove < 0)
+    {
         deltaX = this->getRect().x - (b->getRect().x + b->getRect().w) - 1;
     }
-    if (yMove > 0) {
+    if (yMove > 0)
+    {
         deltaY = b->getRect().y - (this->getRect().y + this->getRect().h) - 1;
     }
-    if (yMove < 0) {
+    if (yMove < 0)
+    {
         deltaY = this->getRect().y - (b->getRect().y + b->getRect().h) - 1;
     }
-    if ((xMove == 0) ) {
+    if ((xMove == 0) )
+    {
         yMove = yMove == 0 ? 0 : -yMove / (abs(yMove)) * (deltaY);
         dy=-dy;
-        tryMove(0, yMove);
-        return;
+        isAlive=tryMove(0, yMove);
+        return isAlive;
     }
     if ((yMove == 0) ) {
         xMove = xMove == 0 ? 0 : -xMove / (abs(xMove)) * (deltaX);
         dx=-dx;
-        tryMove(xMove, 0);
-        return;
+        isAlive=tryMove(xMove, 0);
+        return isAlive;
     }
     if (deltaX<0)
     {
         yMove= yMove == 0 ? 0: -yMove/(abs(yMove))*(deltaY);
         dy=-dy;
-        tryMove(xMove, yMove );
-        return;
+        isAlive=tryMove(xMove, yMove );
+        return isAlive;
     }
     if (deltaY<0)
     {
         xMove= xMove == 0 ? 0 : -xMove/(abs(xMove))*(deltaX);
         dx=-dx;
-        tryMove(xMove ,yMove);
-        return;
+        isAlive=tryMove(xMove ,yMove);
+        return isAlive;
     }
     tx = deltaX / xMove;
     ty = deltaY / yMove;
-    if (tx < ty) {
+    if (tx < ty)
+    {
         xMove = xMove / (abs(xMove)) * (deltaX);
-        tryMove(xMove, yMove);
-        return;
+        isAlive=tryMove(xMove, yMove);
+        return isAlive;
     }
-    else {
+    else
+    {
         yMove = yMove / (abs(yMove)) * (deltaY);
-        tryMove(xMove, yMove);
-        return;
+        isAlive=tryMove(xMove, yMove);
+        return isAlive;
     }
 
+}
+
+bool laserBloc::wallCollision(SDL_Rect a)
+{
+    this->wallCollided=false;
+    bool isAlive=true;
+    if (a.x+a.w>SCREEN_WIDTH)
+    {
+        xMove=xMove-(a.x+a.w-SCREEN_WIDTH);
+        this->dx=- this->dx;
+        this->wallCollided=true;
+    }
+    if (a.x<0)
+    {
+        this->dx=- this->dx;
+        xMove=xMove-a.x;
+        this->wallCollided=true;
+    }
+    if (a.y+a.h>SCREEN_HEIGHT)
+    {
+        this->dy=- this->dy;
+        yMove=yMove-(a.y+a.h-SCREEN_HEIGHT);
+        this->wallCollided=true;
+
+    }
+    if (a.y<0)
+    {
+        this->dy=- this->dy;
+        yMove=yMove-a.y;
+        this->wallCollided=true;
+    }
+    if (wallCollided)
+    {
+        isAlive=tryMove(xMove,yMove);
+    }
+return isAlive;
 }

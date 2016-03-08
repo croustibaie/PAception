@@ -22,6 +22,7 @@ bloc::bloc ()
     killOnTouch=false;
     this->blocId=nextBlocId;
     nextBlocId++;
+    this->wallCollided=false;
 }
 
 // Parametrized constructor
@@ -57,19 +58,10 @@ bloc::bloc (SDL_Renderer** gRender,const char* path, level* l, int x, int y)
     killOnTouch=false;
     this->blocId=nextBlocId;
     nextBlocId++;
+    this->wallCollided;
 }
 
-// Copy constructor
 
-bloc::bloc(const bloc& b)
-{
-    this->gRenderer=b.getRenderer();
-    loadMedia(&texture,&gRenderer,"./red.bmp");
-    // this->texture=b.getTexture();
-    this->rect=b.getRect();
-    this->speed=b.getSpeed();
-    this->blocId=b.getBlocId();
-}
 
 // Destructor
 
@@ -97,24 +89,31 @@ void bloc::draw()
 
 bool bloc::tryMove(int x, int y)
 {
-    SDL_Rect a= this->getRect();
+    SDL_Rect a= this->getRect();// a is the theoretical bloc's position if we were to perform the movement
     a.x+=x;
     a.y+=y;
-
-    bloc* intersectedBloc = this->l->collide(this->blocId,a);
-    if (intersectedBloc!= nullptr) //If there is a collision
+    bool alive=true;
+    bloc* intersectedBloc = this->l->collide(this->blocId,a); //Get the first bloc that we intersect (could be nullptr)
+    if (intersectedBloc!= nullptr) //If there is a collision with a bloc
     {
 
-        this->collisionReaction(intersectedBloc);
-        intersectedBloc->collisionReaction(this);
-        return true;
+        this->collisionReaction(intersectedBloc); //Apply this bloc's reaction to the intersected bloc
+        intersectedBloc->collisionReaction(this);//The intersected bloc reacts to a collision with us
+        return true; // Note that the reactions will most likely perform a new try move. This function is recursive
     }
     else //Here we check that we're not trying to go out of the window
     {
-        wallCollision(a);
-        move(this->xMove,this->yMove);
-        this->xMove=0;
-        this->yMove=0;
+        alive=wallCollision(a);
+        if (!alive)
+        {
+            return false;
+        }
+        if(!wallCollided)
+        {
+            move(this->xMove, this->yMove);
+            this->xMove = 0;
+            this->yMove = 0;
+        }
     }
     return true;
 }
@@ -169,9 +168,9 @@ int bloc::getSpeed() const
     return speed;
 }
 
-void bloc::collisionReaction(bloc *b)
+bool bloc::collisionReaction(bloc *b)
 {
-    tryMove(0,0);
+    return tryMove(0,0);
 }
 
 // Kill bloc
@@ -181,33 +180,35 @@ bool bloc::kill()
     return killOnTouch;
 }
 
-void bloc::wallCollision(SDL_Rect a)
+bool bloc::wallCollision(SDL_Rect a)
 {
-    bool changedMovement=false; // Set to true if xMove or yMove was changed ( = if there is a collision with a border
+    this->wallCollided=false;
+    bool isAlive=true; // Set to true if xMove or yMove was changed ( = if there is a collision with a border
     if (a.x+a.w>SCREEN_WIDTH)
     {
         this->xMove=SCREEN_WIDTH-(this->getRect().x+this->getRect().w);
-        changedMovement=true;
+        this->wallCollided=true;
     }
     if (a.x<0)
     {
         this->xMove=- (this->getRect().x);
-        changedMovement=true;
+        this->wallCollided=true;
     }
     if (a.y+a.h>SCREEN_HEIGHT)
     {
         this->yMove=SCREEN_HEIGHT-(this->getRect().y + this->getRect().h);
-        changedMovement=true;
+        this->wallCollided=true;
     }
     if (a.y<0)
     {
         this->yMove=- (this->getRect().y);
-        changedMovement=true;
+        this->wallCollided=true;
     }
-    if (changedMovement)
+    if (this->wallCollided)
     {
-        tryMove(xMove, yMove);
+        isAlive=tryMove(xMove, yMove);
     }
+    return isAlive;
 }
 
 enum kind bloc::getKind()
