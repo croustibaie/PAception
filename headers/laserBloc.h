@@ -4,10 +4,9 @@
 
 #ifndef PACEPTION_LASERBLOC_H
 #define PACEPTION_LASERBLOC_H
-#include "./bloc.h"
-#include "./level.h"
 #include <math.h>
-#include "./sdlconfig.h"
+#include "bloc.h"
+#include "sdlconfig.h"
 
 class laserBloc : public bloc {
 private:

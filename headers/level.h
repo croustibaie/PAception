@@ -4,10 +4,13 @@
 
 #ifndef PACEPTION_LEVEL_H
 #define PACEPTION_LEVEL_H
+
+class bloc;
+class userInterface;
+
 #include <vector>
 #include <map>
-#include"bloc.h"
-#include "userInterface.h"
+#include "factory.h"
 
 enum gameStatus {PAUSE,PLAY,GAMEOVER};
 
@@ -24,6 +27,7 @@ private:
     /* lastTime and elapsedTime will mesure the time consumed for each frame. This will help adapting speeds*/
     unsigned int lastTime; // In milliseconds
     unsigned int elapsedTime;//In milliseconds
+    factory* myFactory ;
 
 public:
     level();
@@ -41,6 +45,7 @@ public:
     bloc* collide (int blocID, SDL_Rect potentialPos);
     // testCollision returns the point of collision between two rectangles. -1,-1 if none
     bool testCollision (SDL_Rect a, SDL_Rect b);
-
+    SDL_Renderer** getRenderer();
+    void createBloc(enum kind k);
 };
 #endif //PACEPTION_LEVEL_H

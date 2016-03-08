@@ -28,6 +28,8 @@ userInterface::userInterface()
         this->cs[i]->rightStickVertical = 0;
         this->cs[i]->rightStickHorizontal = 0;
         this->cs[i]->startButton = false;
+        this->cs[i]->RT=false;
+        this->cs[i]->LT=false;
     }
 }
 
@@ -44,7 +46,7 @@ bool userInterface::play()
             motion(e.jaxis.which,e);
         }
         if(e.type == SDL_JOYBUTTONDOWN)
-        { std::cout <<"detecte"<< std::endl ;
+        {
         }
 
     }
@@ -81,7 +83,7 @@ void userInterface::motion(SDL_JoystickID id, SDL_Event e)
         }
 
     //right stick stuff
-        if (e.jaxis.axis == 2)
+        if (e.jaxis.axis == 4)
         {
             if (abs(e.jaxis.value) > 8000)
             {
@@ -105,12 +107,33 @@ void userInterface::motion(SDL_JoystickID id, SDL_Event e)
             }
             return;
         }
+    if (e.jaxis.axis==5)
+    {
+        if (e.jaxis.value>0)
+        {
+            cs[id]->RT=true;
+        }
+        else
+        {
+            cs[id]->RT=false;
+        }
+    }
+    if (e.jaxis.axis==2)
+    {
+        if (e.jaxis.value>0)
+        {
+            cs[id]->LT=true;
+        }
+        else
+        {
+            cs[id]->LT=false;
+        }
+    }
 }
 
 userInterface::~userInterface()
 {
     std::cout<<"ui deleted"<<std::endl;
-
     delete[] cs;
 }
 

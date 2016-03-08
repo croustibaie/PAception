@@ -2,9 +2,8 @@
 // Created by croustibaie on 12/14/15.
 //
 
-#include<SDL.h>
-#include "../headers/sdlconfig.h"
-#include "../headers/level.h"
+
+#include "../headers/bloc.h"
 
 
 unsigned int bloc::nextBlocId=0;
@@ -104,11 +103,10 @@ bool bloc::tryMove(int x, int y)
     a.x+=x;
     a.y+=y;
 
-    int xmove=x;
-    int ymove=y;
     bloc* intersectedBloc = this->l->collide(this->blocId,a);
     if (intersectedBloc!= nullptr) //If there is a collision
     {
+
         this->collisionReaction(intersectedBloc);
         intersectedBloc->collisionReaction(this);
         return true;
@@ -116,7 +114,9 @@ bool bloc::tryMove(int x, int y)
     else //Here we check that we're not trying to go out of the window
     {
         wallCollision(a);
-        move(xmove,ymove);
+        move(this->xMove,this->yMove);
+        this->xMove=0;
+        this->yMove=0;
     }
     return true;
 }

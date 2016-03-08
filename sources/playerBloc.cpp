@@ -3,7 +3,6 @@
 //
 
 #include "../headers/playerBloc.h"
-#include "../headers/level.h"
 
 playerBloc::playerBloc()
 {
@@ -53,6 +52,8 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
     killOnTouch=false;
     this->blocId=nextBlocId;
     nextBlocId++;
+    this->lastShotTimer=0;
+    this->currentTimer=0;
 }
 
 playerBloc::~playerBloc()
@@ -68,38 +69,29 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
     {
         return true;
     }
-    else
+    if (state[playerID]->RT)
     {
-        xMove=(int)(correctedSpeed*(float)(state[playerID]->leftStickHorizontal)/32000);
-        yMove=(int)(correctedSpeed*(float)(state[playerID]->leftStickVertical)/32000);
+        int elapsedTime=SDL_GetTicks();
+        elapsedTime-= lastShotTimer;
+        if (elapsedTime>3000)
+        {
+            std::cout << "PAN" << std::endl;
+            l->createBloc(LASER);
+            lastShotTimer=SDL_GetTicks();
+        }
+    }
+    xMove=(int)(correctedSpeed*(float)(state[playerID]->leftStickHorizontal)/32000);
+    yMove=(int)(correctedSpeed*(float)(state[playerID]->leftStickVertical)/32000);
+    if (xMove!=0 || yMove!=0)
+    {
         return tryMove(xMove,yMove );
     }
+    else return true;
+
 }
 
-bool playerBloc::tryMove(int x, int y)
-{
 
-    SDL_Rect a= this->getRect();
-    a.x+=x;
-    a.y+=y;
 
-    bloc* intersectedBloc = this->l->collide(this->blocId,a);
-    if (intersectedBloc!= nullptr) //If there is a collision
-    {
-
-        this->collisionReaction(intersectedBloc);
-        intersectedBloc->collisionReaction(this);
-        return true;
-    }
-    else //Here we check that we're not trying to go out of the window
-    {
-        wallCollision(a);
-        move(this->xMove,this->yMove);
-        this->xMove=0;
-        this->yMove=0;
-    }
-    return true;
-}
 
 void playerBloc::collisionReaction(bloc *b)
 {

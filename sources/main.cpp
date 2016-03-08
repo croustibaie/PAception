@@ -3,7 +3,6 @@
 #include "../headers/laserBloc.h"
 #include "../headers/staticBloc.h"
 #include "../headers/level.h"
-#include "../headers/laserBloc.h"
 //Screen dimension constants
 
 
@@ -42,8 +41,8 @@ int main( int argc, char* args[] )
         //staticBloc s1 = staticBloc(&gRenderer,staticpath,&l,300,500);
         l.insertBlocs(&b,1);
         l.insertBlocs(&b2,1);
-        l.insertBlocs(&b3,1);
-        l.insertBlocs(&b4,1);
+        //l.insertBlocs(&b3,1);
+        //l.insertBlocs(&b4,1);
         //l.play();
         playerBloc b1 = playerBloc(&gRenderer,path,&l,1,0,200) ;
         l.insertBlocs(&b1,1);

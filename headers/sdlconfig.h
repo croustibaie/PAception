@@ -21,6 +21,8 @@ struct controllerState
     bool bButton;
     bool xButton;
     bool yButton;
+    bool RT;
+    bool LT;
     bool startButton;
 };
 //Starts up SDL and creates window

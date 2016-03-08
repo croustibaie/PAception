@@ -79,7 +79,7 @@ bool laserBloc::tryMove(int x, int y)
     else //Here we check that we're not trying to go out of the window
     {
 
-        if (a.x+a.w>=SCREEN_WIDTH) //TODO : think about a strict or large inequality
+        if (a.x+a.w>SCREEN_WIDTH)
         {
             xmove=xmove-(a.x+a.w-SCREEN_WIDTH);
             this->dx=- this->dx;
@@ -89,7 +89,7 @@ bool laserBloc::tryMove(int x, int y)
             this->dx=- this->dx;
             xmove=xmove-a.x;
         }
-        if (a.y+a.h>SCREEN_HEIGHT) //TODO: Same as previously
+        if (a.y+a.h>SCREEN_HEIGHT)
         {
             this->dy=- this->dy;
             ymove=ymove-(a.y+a.h-SCREEN_HEIGHT);

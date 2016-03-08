@@ -3,14 +3,16 @@
 //
 
 #ifndef PA_BLOC_H
+#define PA_BLOC_H
+
 class level;
+
 #include <iostream>
 #include <SDL_surface.h>
 #include "sdlconfig.h"
 
 
 
-#define PA_BLOC_H
 
 
 class bloc {

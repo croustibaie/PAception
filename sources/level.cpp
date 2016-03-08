@@ -2,7 +2,6 @@
 // Created by croustibaie on 1/23/16.
 //
 
-#include "../headers/bloc.h"
 #include"./../headers/level.h"
 
 level::level()
@@ -22,6 +21,12 @@ level::level (SDL_Texture* Texture,SDL_Renderer* gRenderer)
 level::~level()
 {
     delete ui;
+    delete myFactory;
+}
+
+SDL_Renderer** level::getRenderer()
+{
+    return &(this->gRenderer);
 }
 
 void level::blocReactions()
@@ -118,4 +123,9 @@ bool level::testCollision(SDL_Rect a, SDL_Rect b)
     return true;
 }
 
-
+void level::createBloc(enum kind k)
+{
+   // bloc* b=myFactory->createBloc(k);
+    bloc* b =new laserBloc(&gRenderer,"./dead.bmp",this,150,150,1,0);
+    blocMap.insert(std::pair<int,bloc*>(b->getBlocId(),b));
+}
