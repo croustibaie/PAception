@@ -13,6 +13,7 @@ staticBloc::staticBloc()
     this->speed=0;
     this->xMove=0;
     this->yMove=0;
+    this->myKind=STATIC;
     texture=NULL;
     gRenderer=NULL;
     this->blocId=nextBlocId;

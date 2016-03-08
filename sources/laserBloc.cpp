@@ -14,6 +14,7 @@ laserBloc::laserBloc()
     this->speed=8;
     this->xMove=0; //direction of the bloc following x axis
     this->yMove=0; //direction of the bloc following y axis
+    this->myKind=LASER;
     texture=NULL;
     gRenderer=NULL;
     killOnTouch=true;
@@ -25,8 +26,8 @@ laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
 {
     this->dx=(float)(dx/sqrt((double)(dx*dx+dy*dy)));
     this->dy=(float)(dy/sqrt((double)(dx*dx+dy*dy)));
-    this->xMove=round(dx);
-    this->yMove=round(dy);
+    this->xMove=dx;
+    this->yMove=dy;
     this->l=l;
     if (*gRenderer==NULL)
     {

@@ -14,6 +14,7 @@ playerBloc::playerBloc()
     this->speed=8;
     this->xMove=0;
     this->yMove=0;
+    this->myKind=PLAYER;
     texture=NULL;
     gRenderer=NULL;
     this->blocId=nextBlocId;
