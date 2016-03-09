@@ -78,6 +78,9 @@ bool pulseBloc::collisionReaction(bloc *b)
             }
             else
             {
+                // ATTENDRE UN MOMENT
+                // TIRER
+                // réinitialiser le compteur
                 std::cout << "seuil dépassé" << std::endl;
             }
         }
