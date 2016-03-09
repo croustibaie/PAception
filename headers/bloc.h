@@ -57,7 +57,7 @@ public:
     enum kind getKind();
     void setPosition(int x, int y);
 
-
+    // NB : 
 };
 
 #endif
