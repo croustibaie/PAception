@@ -112,7 +112,7 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
             }
         }
     }
-    std::cout<<"ammo :"<< this->ammo<<std::endl;
+   // std::cout<<"ammo :"<< this->ammo<<std::endl;
     return(isAlive);
 }
 

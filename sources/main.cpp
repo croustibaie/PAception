@@ -4,6 +4,7 @@
 #include "../headers/laserBloc.h"
 #include "../headers/staticBloc.h"
 #include "../headers/level.h"
+#include "../headers/pulseBloc.h"
 //Screen dimension constants
 
 
@@ -33,6 +34,7 @@ int main( int argc, char* args[] )
         path= "./carre.png";
         const char* laserpath="./red.png";
         const char* staticpath="./black.bmp";
+        const char* pulsepath="./leopard.bmp";
         std::cout<<SDL_NumJoysticks()<<std::endl;
         //Create the red bloc
         //Create the level
@@ -42,6 +44,9 @@ int main( int argc, char* args[] )
         //laserBloc b2= laserBloc(&gRenderer,laserpath,&l,100,30,1,0);
         laserBloc b3= laserBloc(&gRenderer,laserpath,&l,200,30,1,1);
         laserBloc b4= laserBloc(&gRenderer,laserpath,&l,400,150,-1,1);
+        pulseBloc b5 = pulseBloc(&gRenderer,pulsepath,&l,66,66);
+        l.insertBlocs(&b5,1);
+        //staticBloc s1 = staticBloc(&gRenderer,staticpath,&l,300,500);
         staticBloc s1 = staticBloc(&gRenderer,staticpath,&l,300,500);
         l.insertBlocs(&b,1);
         l.insertBlocs(&b2,1);
@@ -50,6 +55,8 @@ int main( int argc, char* args[] )
         //l.play();
         playerBloc b1 = playerBloc(&gRenderer,path,&l,1,400,400) ;
         //l.insertBlocs(&b1,1);
+
+        l.insertBlocs(&b1,1);
         l.play();
     }
 

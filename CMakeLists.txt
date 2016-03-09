@@ -19,7 +19,8 @@ set(SOURCE_FILES
         sources/staticBloc.cpp
         headers/laserBloc.h
         sources/laserBloc.cpp
-        )  #Set l'ensemble des sources, ici peu élégant
+        headers/pulseBloc.h
+        sources/pulseBloc.cpp)  #Set l'ensemble des sources, ici peu élégant
 
 add_executable(PAception ${SOURCE_FILES}) #exécutable PAception génération par les fichiers sources
 
