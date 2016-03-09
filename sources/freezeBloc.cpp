@@ -2,10 +2,8 @@
 // Created by emilien on 09/03/16.
 //
 
-
+#include "../headers/bloc.h"
 #include "../headers/freezeBloc.h"
-
-
 freezeBloc::freezeBloc()
 {
     this->rect.x=50;
@@ -68,10 +66,25 @@ freezeBloc::~freezeBloc()
 
 bool freezeBloc::collisionReaction(bloc *b)
 {
-b->setSpeed(b->getSpeed()/2); // divide the speed of any type of bloc colliding this bloc by 2
+    if(b->getKind()==PLAYER)
+    {
+        b->setSpeed(4); // set the speed of a player bloc to 4
+    }
+    frozenbloc.insert(std::pair<bloc*,unsigned int>(b,SDL_GetTicks()));
 }
 
 bool freezeBloc::react(struct controllerState *state, unsigned int elapsedTime)
 {
+
+std::map<bloc*,unsigned int>::iterator it;
+    for (it=frozenbloc.begin(); it!=frozenbloc.end();it++)
+    {
+        if (SDL_GetTicks()-it->second>=FREEZETIME) // after a time of FREEZETIME ms sets the speed of a frozen bloc to INITIALSPEED
+        {
+
+            (it->first)->setSpeed(INITIALSPEED);
+        }
+    }
+
     return true;
 }

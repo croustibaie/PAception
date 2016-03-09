@@ -11,7 +11,8 @@ class level;
 #include "sdlconfig.h"
 
 
-
+#define INITIALSPEED 16
+ // initial speed of a bloc
 
 
 class bloc {

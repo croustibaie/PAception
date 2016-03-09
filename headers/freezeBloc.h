@@ -5,7 +5,9 @@
 #ifndef PACEPTION_FREEZEBLOC_H_H
 #define PACEPTION_FREEZEBLOC_H_H
 #include "bloc.h"
-
+#include <map>
+#define FREEZETIME 3000
+ // time during which a bloc is slowed in ms
 class freezeBloc: public bloc {
 
 public:
@@ -14,6 +16,7 @@ public:
     ~freezeBloc();
     bool react(struct controllerState* state,unsigned int elapsedTime);
     bool collisionReaction(bloc* b);
+     std::map<bloc*,unsigned int> frozenbloc; // contains all the blocs that have been frozen and the time when it happened
 };
 
 #endif //PACEPTION_FREEZEBLOC_H_H

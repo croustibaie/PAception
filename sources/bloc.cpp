@@ -46,7 +46,7 @@ bloc::bloc (SDL_Renderer** gRender,const char* path, level* l, int x, int y)
     this->rect.w=50;
     this->rect.h=50;
     texture=NULL;
-    this->speed=16;
+    this->speed=INITIALSPEED;
     this->xMove=0;
     this->yMove=0;
     this->gRenderer=*gRender;
