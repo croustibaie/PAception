@@ -120,7 +120,6 @@ bool bloc::tryMove(int x, int y)
         }
         return isAlive;
     }
-
 }
 
 // Displacement

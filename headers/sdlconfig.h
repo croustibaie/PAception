@@ -28,6 +28,13 @@ struct controllerState
     bool LT;
     bool startButton;
 };
+
+enum kind {
+    PLAYER,
+    LASER,
+    STATIC,
+    MIRROR
+};
 //Starts up SDL and creates window
 bool init(SDL_Window** gWindow, SDL_Renderer** gRenderer, SDL_GameController** gGameController);
 
@@ -37,10 +44,6 @@ bool loadMedia(SDL_Texture** gTexture,SDL_Renderer** gRenderer,char const* path)
 //Frees media and shuts down SDL
 void close(SDL_Renderer* gRenderer, SDL_Window* gWindow, SDL_GameController** gGameController );
 
-enum kind {
-    PLAYER,
-    LASER,
-    STATIC,
-};
+
 
 #endif //PACEPTION_SDLCONFIG_H
