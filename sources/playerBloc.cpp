@@ -53,7 +53,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
     this->blocId = nextBlocId;
     nextBlocId++;
     this->lastShotTimer = 0;
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < NB_LASERS; i++)
     {
         this->laser[i] = new laserBloc(gRenderer, "./black.bmp", l, 50, 50, 1, 0);
     }
@@ -63,7 +63,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
 
 playerBloc::~playerBloc()
 {
-    for (int i=0;i<20;i++)
+    for (int i=0;i<NB_LASERS;i++)
     {
         delete laser[i];
     }
@@ -200,7 +200,7 @@ void playerBloc::shoot( struct controllerState **state)
 
         l->insertBlocs(laser[nextLaser],1);
 
-        nextLaser=(nextLaser+1)%3;
+        nextLaser=(nextLaser+1)%NB_LASERS;
         lastShotTimer=SDL_GetTicks();
     }
 }

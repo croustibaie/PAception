@@ -28,7 +28,7 @@ int main( int argc, char* args[] )
         SDL_RenderCopy(gRenderer,helloTexture,NULL,NULL);
         SDL_RenderPresent(gRenderer);
         //Load medias for background image and red square
-        const char* path = "./cannabis.bmp";
+        const char* path = "./leather.bmp";
         loadMedia(&helloTexture,&gRenderer,path);
         path= "./carre.png";
         const char* laserpath="./red.png";
