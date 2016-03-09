@@ -19,7 +19,10 @@ set(SOURCE_FILES
         sources/staticBloc.cpp
         headers/laserBloc.h
         sources/laserBloc.cpp
-        headers/freezeBloc.h sources/freezeBloc.cpp)  #Set l'ensemble des sources, ici peu élégant
+        headers/sound.h
+        sources/sound.cpp  #Set l'ensemble des sources, ici peu élégant
+        headers/freezeBloc.h
+        sources/freezeBloc.cpp)  #Set l'ensemble des sources, ici peu élégant
 
 add_executable(PAception ${SOURCE_FILES}) #exécutable PAception génération par les fichiers sources
 
@@ -27,6 +30,7 @@ INCLUDE(FindPkgConfig) #Inclut le module Pkg qui permet de rechercher des librai
 
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2) #pkg cherche la librairie sdl2, je ne comprends pas complétement la syntaxe
 PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
+PKG_SEARCH_MODULE(SDL2MIXER REQUIRED SDL2_mixer)
 
-INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS}  ${SDL2IMAGE_INCLUDE_DIRS}) #inclut les répertoires dont SDL2 a besoin, SDL2_INCLUDE_DIRS et probablement set grâce à pkg
-TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES})  #Lors de la compilation du projet PROJECT_NAME, linker les libs SDL2
+INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS}  ${SDL2IMAGE_INCLUDE_DIRS} ${SDL2MIXER_INCLUDE_DIRS}) #inclut les répertoires dont SDL2 a besoin, SDL2_INCLUDE_DIRS et probablement set grâce à pkg
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2MIXER_LIBRARIES})  #Lors de la compilation du projet PROJECT_NAME, linker les libs SDL2

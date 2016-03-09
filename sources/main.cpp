@@ -1,10 +1,12 @@
 #include <SDL.h>
 #include <unistd.h>
+#include <SDL_mixer.h>
 #include "../headers/playerBloc.h"
 #include "../headers/laserBloc.h"
 #include "../headers/staticBloc.h"
 #include "../headers/level.h"
 #include "../headers/freezeBloc.h"
+#include "../headers/sound.h"
 //Screen dimension constants
 
 
@@ -34,6 +36,7 @@ int main( int argc, char* args[] )
         path= "./carre.png";
         const char* laserpath="./red.png";
         const char* staticpath="./black.bmp";
+        const char* media="./sounds.wav";
         const char* freezepath="./green.bmp";
         std::cout<<SDL_NumJoysticks()<<std::endl;
         //Create the red bloc
@@ -54,6 +57,7 @@ int main( int argc, char* args[] )
         //l.play();
         playerBloc b1 = playerBloc(&gRenderer,path,&l,1,400,400) ;
         //l.insertBlocs(&b1,1);
+        music(media);
         l.play();
     }
 
