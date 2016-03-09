@@ -7,11 +7,11 @@
 
 class level;
 #include <iostream>
+#include <vector>
 #include <SDL_surface.h>
 #include "sdlconfig.h"
 
 
-#define INITIALSPEED 16
  // initial speed of a bloc
 
 
@@ -31,6 +31,7 @@ protected:
     bool killOnTouch; //Does the bloc kill players?
     enum kind myKind; // Kind can be LASER,PLAYER or STATIC so far. Useful to determine a generic bloc's type
     bool wallCollided; //Return true if the bloc collided with a wall and it hasn't been resolved yet
+    std::vector<bloc*> ignoredBlocs;
 public:
     /* Move the bloc of x pixels in horizontal and y in vertical */
 

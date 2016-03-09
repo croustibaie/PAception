@@ -2,8 +2,8 @@
 // Created by emilien on 09/03/16.
 //
 
-#include "../headers/bloc.h"
 #include "../headers/freezeBloc.h"
+#include "../headers/playerBloc.h"
 freezeBloc::freezeBloc()
 {
     this->rect.x=50;
@@ -44,7 +44,7 @@ freezeBloc::freezeBloc(SDL_Renderer **gRenderer, const char *path, level *l,int 
     this->xMove=0;
     this->yMove=0;
     this->gRenderer=*gRenderer;
-    this->myKind=STATIC;
+    this->myKind=FREEZE;
     loadMedia(&texture,gRenderer,path);
     if (texture==NULL)
     {
@@ -73,16 +73,16 @@ bool freezeBloc::collisionReaction(bloc *b)
     frozenbloc.insert(std::pair<bloc*,unsigned int>(b,SDL_GetTicks()));
 }
 
-bool freezeBloc::react(struct controllerState *state, unsigned int elapsedTime)
+bool freezeBloc::react(struct controllerState** state, unsigned int elapsedTime)
 {
-
-std::map<bloc*,unsigned int>::iterator it;
+    std::map<bloc*,unsigned int>::iterator it;
     for (it=frozenbloc.begin(); it!=frozenbloc.end();it++)
     {
         if (SDL_GetTicks()-it->second>=FREEZETIME) // after a time of FREEZETIME ms sets the speed of a frozen bloc to INITIALSPEED
         {
-
+            std::cout<<"reseting speed"<<std::endl;
             (it->first)->setSpeed(INITIALSPEED);
+            frozenbloc.erase(it->first);
         }
     }
 

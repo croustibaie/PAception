@@ -14,7 +14,7 @@ public:
     freezeBloc();
     freezeBloc(SDL_Renderer** gRenderer,const char* path,level* l,int x,int y);
     ~freezeBloc();
-    bool react(struct controllerState* state,unsigned int elapsedTime);
+    bool react(struct controllerState** state,unsigned int elapsedTime);
     bool collisionReaction(bloc* b);
      std::map<bloc*,unsigned int> frozenbloc; // contains all the blocs that have been frozen and the time when it happened
 };

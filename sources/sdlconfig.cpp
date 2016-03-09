@@ -81,7 +81,7 @@ bool loadMedia(SDL_Texture** gTexture,SDL_Renderer** gRender, char const* path)
     gSurface = IMG_Load(path);
     if( gSurface == NULL )
     {
-        printf( "Unable to load image %s! SDL Error: %s\n", "hello_world.bmp", SDL_GetError() );
+        printf( "Unable to load image %s! ", SDL_GetError() );
         success = false;
     }
     else

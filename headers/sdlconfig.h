@@ -33,7 +33,8 @@ enum kind {
     PLAYER,
     LASER,
     STATIC,
-    MIRROR
+    MIRROR,
+    FREEZE
 };
 //Starts up SDL and creates window
 bool init(SDL_Window** gWindow, SDL_Renderer** gRenderer, SDL_GameController** gGameController);

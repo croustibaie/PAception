@@ -7,6 +7,7 @@
 #define MAX_AMMO 10
 #define NB_LASERS 30
 #define PLAYER_HP 3
+#define INITIALSPEED 8
 #include "laserBloc.h"
 #include "bloc.h"
 

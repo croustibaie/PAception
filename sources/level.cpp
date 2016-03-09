@@ -46,6 +46,7 @@ void level::blocReactions()
         }
         else
         {
+            i++;
             it++;
         }
     }
@@ -79,6 +80,7 @@ enum gameStatus level::play ()
 }
 void level::deleteBloc(int blocID)
 {
+    std::cout<<"removing a bloc"<<std::endl;
     blocMap.erase(blocID);
 }
 void level::insertBlocs(bloc *blocArray, int nbBlocs)
@@ -88,7 +90,7 @@ void level::insertBlocs(bloc *blocArray, int nbBlocs)
         blocMap.insert(std::pair<int, bloc *>(blocArray[i].getBlocId(),&blocArray[i]));
     }
 }
-bloc* level::collide(int blocID, SDL_Rect potentialPos)
+bloc* level::collide(int blocID, SDL_Rect potentialPos, std::vector<bloc*> ignoredBlocs)
 {
     std::map<int,bloc*>::iterator it;
     for (it=blocMap.begin(); it!=blocMap.end();it++)
@@ -98,7 +100,18 @@ bloc* level::collide(int blocID, SDL_Rect potentialPos)
             if (testCollision(it->second->getRect(), potentialPos))
             {
                 //std::cout<<"colliding with bloc" + it->second->getBlocId()<<std::endl;
-                return it->second;
+                bool notYetCollided=true;
+                for (int i=0;i<ignoredBlocs.size();i++)
+                {
+                    if ( ignoredBlocs.at(i)->getBlocId() == it->first)
+                    {
+                        notYetCollided=false;
+                    }
+                }
+                if(notYetCollided)
+                {
+                    return it->second;
+                }
             }
         }
     }

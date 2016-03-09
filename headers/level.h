@@ -40,7 +40,7 @@ public:
     void insertBlocs(bloc* blocArray,int nbBlocs);
     void deleteBloc(int blocID);
     //Collided checks whether the bloc defined by blocID collides with any other one. If so, it calls the blocs' reactions
-    bloc* collide (int blocID, SDL_Rect potentialPos);
+    bloc* collide (int blocID, SDL_Rect potentialPos, std::vector<bloc*> ignoredBlocs);
     // testCollision returns the point of collision between two rectangles. -1,-1 if none
     bool testCollision (SDL_Rect a, SDL_Rect b);
     SDL_Renderer** getRenderer();

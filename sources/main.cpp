@@ -27,17 +27,17 @@ int main( int argc, char* args[] )
     }
     else
     {
-        loadMedia(&helloTexture,&gRenderer,"./loading.png");
+        loadMedia(&helloTexture,&gRenderer,"./textures/loading.png");
         SDL_RenderCopy(gRenderer,helloTexture,NULL,NULL);
         SDL_RenderPresent(gRenderer);
         //Load medias for background image and red square
-        const char* path = "./leather.bmp";
+        const char* path = "./textures/leather.bmp";
         loadMedia(&helloTexture,&gRenderer,path);
-        path= "./carre.png";
-        const char* laserpath="./red.png";
-        const char* staticpath="./black.bmp";
+        path= "./textures/carre.png";
+        const char* laserpath="./textures/red.png";
+        const char* staticpath="./textures/black.bmp";
         const char* media="./sounds.wav";
-        const char* freezepath="./green.bmp";
+        const char* freezepath="./textures/green.bmp";
         std::cout<<SDL_NumJoysticks()<<std::endl;
         //Create the red bloc
         //Create the level

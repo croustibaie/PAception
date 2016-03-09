@@ -40,7 +40,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
     this->rect.w = 50;
     this->rect.h = 50;
     texture = NULL;
-    this->speed = 8;
+    this->speed = INITIALSPEED;
     this->xMove = 0;
     this->yMove = 0;
     this->gRenderer = *gRenderer;
@@ -55,7 +55,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
     this->lastShotTimer = 0;
     for (int i = 0; i < NB_LASERS; i++)
     {
-        this->laser[i] = new laserBloc(gRenderer, "./black.bmp", l, 50, 50, 1, 0);
+        this->laser[i] = new laserBloc(gRenderer, "./textures/black.bmp", l, 50, 50, 1, 0);
     }
     this->nextLaser=0;
     this->ammo=MAX_AMMO;
@@ -74,10 +74,15 @@ playerBloc::~playerBloc()
 
 bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
-    if (l->collide(this->blocId,this->getRect())!= nullptr)
+    this->ignoredBlocs.clear();
+    bloc* b=l->collide(this->blocId,this->getRect(),this->ignoredBlocs);
+    if (b!= nullptr) //TODO: MAKE THIS A FUNCTION : Check_Initial_Collision
     {
-        l->deleteBloc(this->blocId);
-        return false;
+        if(b->getKind()!=FREEZE)
+        {
+            l->deleteBloc(this->blocId);
+            return false;
+        }
     }
     int correctedSpeed = (int) (round((float) (speed) * (float) elapsedTime / 20)); //We have to adapt the initial speed to the frame duration
     if (state == nullptr) {
@@ -112,7 +117,7 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
             }
         }
     }
-    std::cout<<"ammo :"<< this->ammo<<std::endl;
+    //std::cout<<"ammo :"<< this->ammo<<std::endl;
     return(isAlive);
 }
 
@@ -122,6 +127,12 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
 bool playerBloc::collisionReaction(bloc *b)
 {
     bool isAlive;
+    if(b->getKind()==FREEZE)
+    {
+        ignoredBlocs.push_back(b);
+        tryMove(this->xMove,this->yMove);
+        return true;
+    }
     if (b->kill())
     {
         this->hp--;
