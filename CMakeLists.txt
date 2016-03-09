@@ -26,6 +26,7 @@ add_executable(PAception ${SOURCE_FILES}) #exécutable PAception génération pa
 INCLUDE(FindPkgConfig) #Inclut le module Pkg qui permet de rechercher des librairies
 
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2) #pkg cherche la librairie sdl2, je ne comprends pas complétement la syntaxe
+PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
 
-INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ) #inclut les répertoires dont SDL2 a besoin, SDL2_INCLUDE_DIRS et probablement set grâce à pkg
-TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${SDL2_LIBRARIES})  #Lors de la compilation du projet PROJECT_NAME, linker les libs SDL2
+INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS}  ${SDL2IMAGE_INCLUDE_DIRS}) #inclut les répertoires dont SDL2 a besoin, SDL2_INCLUDE_DIRS et probablement set grâce à pkg
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES})  #Lors de la compilation du projet PROJECT_NAME, linker les libs SDL2

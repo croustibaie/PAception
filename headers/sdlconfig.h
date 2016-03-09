@@ -5,6 +5,7 @@
 #ifndef PACEPTION_SDLCONFIG_H
 #define PACEPTION_SDLCONFIG_H
 #include <SDL.h>
+
 #include <string>
 #include<iostream>
 

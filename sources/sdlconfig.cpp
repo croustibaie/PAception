@@ -3,7 +3,7 @@
 //
 
 #include "../headers/sdlconfig.h"
-
+#include <SDL_image.h>
 
 
 bool init(SDL_Window** gWindow, SDL_Renderer** gRenderer, SDL_GameController** gGameController)
@@ -43,6 +43,12 @@ bool init(SDL_Window** gWindow, SDL_Renderer** gRenderer, SDL_GameController** g
                 }
             }
         }
+        int imgFlags=IMG_INIT_JPG;
+        if (!(IMG_Init(imgFlags) & imgFlags))
+        {
+            printf("SDL image could not initialize\n");
+            success=false;
+        }
         //Create window
         *gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
         if( *gWindow == NULL )
@@ -71,7 +77,8 @@ bool loadMedia(SDL_Texture** gTexture,SDL_Renderer** gRender, char const* path)
     bool success = true;
     SDL_Surface* gSurface;
     //Load splash image
-    gSurface = SDL_LoadBMP(path);
+   // gSurface = SDL_LoadBMP(path);
+    gSurface = IMG_Load(path);
     if( gSurface == NULL )
     {
         printf( "Unable to load image %s! SDL Error: %s\n", "hello_world.bmp", SDL_GetError() );

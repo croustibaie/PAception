@@ -71,6 +71,10 @@ bloc::~bloc()
 
 bool bloc::react(struct controllerState** state,unsigned int elapsedTime)//This class is overcharged, bloc::react should never be used
 {
+    if (l->collide(this->blocId,this->getRect())!= nullptr)
+    {
+        l->deleteBloc(this->blocId);
+    }
     return true;
 }
 

@@ -13,7 +13,7 @@ class playerBloc : public bloc{
 private:
     int playerID;// Who does this bloc belong to
     unsigned int lastShotTimer;//Timer recording when was the last shot. Used to limit the fire rate
-    laserBloc* laser[20]; //Pool of player's lasers.
+    laserBloc* laser[3]; //Pool of player's lasers.
     int nextLaser; //Number of the nextLaser that should be shot (shoot uses laser[nextLaser])
 
 public:
