@@ -57,7 +57,7 @@ public:
     enum kind getKind();
     void setPosition(int x, int y);
 
-    // NB :
+    // NB : Any bloc that is killed must be killed in his own collisionReaction
 };
 
 #endif

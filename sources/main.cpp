@@ -4,6 +4,7 @@
 #include "../headers/laserBloc.h"
 #include "../headers/staticBloc.h"
 #include "../headers/level.h"
+#include "../headers/freezeBloc.h"
 //Screen dimension constants
 
 
@@ -33,18 +34,21 @@ int main( int argc, char* args[] )
         path= "./carre.png";
         const char* laserpath="./red.png";
         const char* staticpath="./black.bmp";
+        const char* freezepath="./green.bmp";
         std::cout<<SDL_NumJoysticks()<<std::endl;
         //Create the red bloc
         //Create the level
         level l = level(helloTexture,gRenderer);
         playerBloc b = playerBloc(&gRenderer,path,&l,0,0,0) ;
         staticBloc b2 = staticBloc(&gRenderer,staticpath,&l,300,149);
+        freezeBloc b2bis = freezeBloc(&gRenderer,freezepath,&l,100,149);
         //laserBloc b2= laserBloc(&gRenderer,laserpath,&l,100,30,1,0);
         laserBloc b3= laserBloc(&gRenderer,laserpath,&l,200,30,1,1);
         laserBloc b4= laserBloc(&gRenderer,laserpath,&l,400,150,-1,1);
         staticBloc s1 = staticBloc(&gRenderer,staticpath,&l,300,500);
         l.insertBlocs(&b,1);
         l.insertBlocs(&b2,1);
+        l.insertBlocs(&b2bis,1);
         //l.insertBlocs(&b3,1);
         l.insertBlocs(&s1,1);
         //l.play();

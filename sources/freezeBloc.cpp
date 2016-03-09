@@ -4,7 +4,7 @@
 
 
 #include "../headers/freezeBloc.h"
-#include "../headers/freezeBloc.h"
+
 
 freezeBloc::freezeBloc()
 {
@@ -68,7 +68,7 @@ freezeBloc::~freezeBloc()
 
 bool freezeBloc::collisionReaction(bloc *b)
 {
-
+b->setSpeed(b->getSpeed()/2); // divide the speed of any type of bloc colliding this bloc by 2
 }
 
 bool freezeBloc::react(struct controllerState *state, unsigned int elapsedTime)
