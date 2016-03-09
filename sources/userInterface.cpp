@@ -56,6 +56,12 @@ bool userInterface::play()
 void userInterface::motion(SDL_JoystickID id, SDL_Event e)
 {
         //X axis motion
+    if (e.jaxis.axis==5) {
+        std::cout << "5" << std::endl;
+    }
+    if (e.jaxis.axis==6) {
+        std::cout << "5" << std::endl;
+    }
         if (e.jaxis.axis == 0)
         {
             if (abs(e.jaxis.value) > 8000)
@@ -85,7 +91,7 @@ void userInterface::motion(SDL_JoystickID id, SDL_Event e)
     //right stick stuff
         if (e.jaxis.axis == 3)
         {
-            if (abs(e.jaxis.value) > 100)
+            if (abs(e.jaxis.value) >6400)
             {
                 cs[id]->rightStickHorizontal = e.jaxis.value;
             }
@@ -97,7 +103,7 @@ void userInterface::motion(SDL_JoystickID id, SDL_Event e)
         }
         if (e.jaxis.axis == 4)
         {
-            if (abs(e.jaxis.value) > 100)
+            if (abs(e.jaxis.value) > 6400)
             {
                 cs[id]->rightStickVertical = e.jaxis.value;
             }
