@@ -102,8 +102,8 @@ bool bloc::tryMove(int x, int y)
     if (intersectedBloc!= nullptr) //If there is a collision
     {
 
-        isAlive=this->collisionReaction(intersectedBloc);
-        intersectedBloc->collisionReaction(this);
+        isAlive=this->collisionReaction(intersectedBloc); // reaction of the incoming bloc with the receiving bloc
+        intersectedBloc->collisionReaction(this); // reaction of the receiving bloc with the incoming bloc
         return isAlive;
     }
     else //Here we check that we're not trying to go out of the window
