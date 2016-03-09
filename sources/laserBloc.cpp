@@ -46,7 +46,7 @@ laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
     this->rect.w=LASER_WIDTH;
     this->rect.h=LASER_HEIGHT;
     texture=NULL;
-    this->speed=8;
+    this->speed=10;
     this->gRenderer=*gRenderer;
     loadMedia(&texture,gRenderer,path);
     if (texture==NULL)
@@ -57,6 +57,7 @@ laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
     this->blocId=nextBlocId;
     nextBlocId++;
     this->wallCollided=false;
+    this->myKind=LASER;
 }
 
 laserBloc::~laserBloc()
@@ -68,6 +69,11 @@ laserBloc::~laserBloc()
 
 bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
+    if (l->collide(this->blocId,this->getRect())!= nullptr)
+    {
+        l->deleteBloc(this->blocId);
+        return false;
+    }
     int xmove = (int)(speed*dx*float(elapsedTime)/20);
     int ymove = (int)(speed*dy*float(elapsedTime)/20);
     this->xMove=xmove;
@@ -78,7 +84,7 @@ bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
 bool laserBloc::collisionReaction(bloc *b)
 {
     bool isAlive;
-    if (b->getKind()!=STATIC)
+    if (b->getKind()!=MIRROR)
     {
         this->l->deleteBloc(this->blocId);
         isAlive=false;
@@ -178,9 +184,9 @@ bool laserBloc::wallCollision(SDL_Rect a)
         yMove=yMove-a.y;
         this->wallCollided=true;
     }
-
 return this->wallCollided;
 }
+
 void laserBloc::setDirection(float xMove, float yMove)
 {
     this->dx=xMove;
