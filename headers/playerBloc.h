@@ -4,7 +4,9 @@
 
 #ifndef PACEPTION_PLAYERBLOC_H
 #define PACEPTION_PLAYERBLOC_H
-#define NB_LASERS 3
+#define MAX_AMMO 10
+#define NB_LASERS 30
+#define PLAYER_HP 3
 #include "laserBloc.h"
 #include "bloc.h"
 
@@ -15,8 +17,10 @@ private:
     unsigned int lastShotTimer;//Timer recording when was the last shot. Used to limit the fire rate
 
     laserBloc* laser[NB_LASERS]; //Pool of player's lasers.
+    int ammo;
     int nextLaser; //Number of the nextLaser that should be shot (shoot uses laser[nextLaser])
-
+    int hp; //Player's health points
+    unsigned int reloadTimer;
 public:
     playerBloc();
     playerBloc(SDL_Renderer** gRenderer,const char* path,level* l, int playerID, int x, int y);

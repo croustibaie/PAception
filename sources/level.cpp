@@ -73,7 +73,6 @@ enum gameStatus level::play ()
         blocDraw();
         elapsedTime= tmptime-lastTime;
         lastTime=tmptime;
-        printf("elapsed time:%u \n", elapsedTime);
     }
 
     return PLAY;

@@ -49,7 +49,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
     if (texture == NULL) {
         std::cout << "no texture loaded" << std::endl;
     }
-    killOnTouch = false;
+    this->killOnTouch = false;
     this->blocId = nextBlocId;
     nextBlocId++;
     this->lastShotTimer = 0;
@@ -58,7 +58,10 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
         this->laser[i] = new laserBloc(gRenderer, "./black.bmp", l, 50, 50, 1, 0);
     }
     this->nextLaser=0;
+    this->ammo=MAX_AMMO;
     this->wallCollided=false;
+    this->hp= PLAYER_HP;
+    this->reloadTimer=0;
 }
 
 playerBloc::~playerBloc()
@@ -93,10 +96,23 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
         isAlive = true;
     }
 
-    if (state[playerID]->RT) {
+    if (state[playerID]->RT)
+    {
         this->shoot(state);
     }
-
+    else
+    {
+        unsigned int time=SDL_GetTicks();
+        if (time - this->reloadTimer>1000)
+        {
+            this->reloadTimer=SDL_GetTicks();
+            if (this->ammo<MAX_AMMO)
+            {
+                this->ammo++;
+            }
+        }
+    }
+    std::cout<<"ammo :"<< this->ammo<<std::endl;
     return(isAlive);
 }
 
@@ -108,10 +124,14 @@ bool playerBloc::collisionReaction(bloc *b)
     bool isAlive;
     if (b->kill())
     {
-        std::cout<<"got killed"<<std::endl;
-        this->l->deleteBloc(this->blocId);
-        isAlive=false;
-        return isAlive;
+        this->hp--;
+        if(hp==0)
+        {
+            std::cout << "got killed" << std::endl;
+            this->l->deleteBloc(this->blocId);
+            isAlive = false;
+            return isAlive;
+        }
     }
     float tx,ty;
     tx=0;ty=0;
@@ -177,7 +197,7 @@ void playerBloc::shoot( struct controllerState **state)
 {
     int elapsedTime=SDL_GetTicks();
     elapsedTime-= lastShotTimer;
-    if (elapsedTime>300)
+    if (elapsedTime>300 && ammo>0)
     {
         int x1 = state[playerID]->rightStickHorizontal;
         int y1 = state[playerID]->rightStickVertical;
@@ -200,6 +220,7 @@ void playerBloc::shoot( struct controllerState **state)
 
         l->insertBlocs(laser[nextLaser],1);
 
+        ammo--;
         nextLaser=(nextLaser+1)%NB_LASERS;
         lastShotTimer=SDL_GetTicks();
     }
