@@ -1,5 +1,5 @@
 //
-// Created by emilien on 09/03/16.
+// Created by Emilien on 09/03/16.
 //
 
 #include "../headers/freezeBloc.h"
