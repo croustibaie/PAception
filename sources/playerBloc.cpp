@@ -62,40 +62,117 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
     this->wallCollided=false;
     this->hp= PLAYER_HP;
     this->reloadTimer=0;
-    for(int i = 0;i<MAX_AMMO+PLAYER_HP+2;i++)
+    switch(playerID)
     {
-        if ((x < SCREEN_WIDTH - 5) && (y < SCREEN_HEIGHT - 5))
+        case 0:
+        for(int i = 0;i<MAX_AMMO+PLAYER_HP+2;i++)
         {
-            if (i < PLAYER_HP + 1)
-            {
-                this->rectBase[i].x = 5 + 10*i;
-                this->rectBase[i].y = 5;
-                this->rectBase[i].w = 10;
-                this->rectBase[i].h = 10;
-            }
-            else
-            {
-                this->rectBase[i].x = 5 + 10*(i-PLAYER_HP-1);
-                this->rectBase[i].y = 30;
-                if(i==PLAYER_HP+1)
+
+                if (i < PLAYER_HP + 1)
                 {
-                    this->rectBase[i].w=10;
+                    this->rectBase[i].x = 5 + 10*i;
+                    this->rectBase[i].y = 5;
+                    this->rectBase[i].w = 10;
+                    this->rectBase[i].h = 10;
                 }
                 else
                 {
-                    this->rectBase[i].w = 5;
+                    this->rectBase[i].x = 5 + 10*(i-PLAYER_HP-1);
+                    this->rectBase[i].y = 30;
+                    if(i==PLAYER_HP+1)
+                    {
+                        this->rectBase[i].w=10;
+                    }
+                    else
+                    {
+                        this->rectBase[i].w = 5;
+                    }
+                    this->rectBase[i].h = 10;
                 }
-                this->rectBase[i].h = 10;
+
+        }
+        break;
+
+        case 1:
+            for(int i = 0;i<MAX_AMMO+PLAYER_HP+2;i++)
+            {
+
+                if (i < PLAYER_HP + 1)
+                {
+                    this->rectBase[i].x = 5 + 10*i;
+                    this->rectBase[i].y = SCREEN_HEIGHT -10 - 5;
+                    this->rectBase[i].w = 10;
+                    this->rectBase[i].h = 10;
+                }
+                else
+                {
+                    this->rectBase[i].x = 5 + 10*(i-PLAYER_HP-1);
+                    this->rectBase[i].y = SCREEN_HEIGHT - 10 -30;
+                    if(i==PLAYER_HP+1)
+                    {
+                        this->rectBase[i].w=10;
+                    }
+                    else
+                    {
+                        this->rectBase[i].w = 5;
+                    }
+                    this->rectBase[i].h = 10;
+                }
+
             }
-        }
-        else
-        {
-            this->rectBase[i].x = 0; //TODO : see for throwing an exception
-            this->rectBase[i].y = 0;
-        }
+            break;
+
+        case 2:
+            for(int i = 0;i<MAX_AMMO+PLAYER_HP+2 ; i++) {
+
+                if (i < PLAYER_HP + 1) {
+                    this->rectBase[i].x = SCREEN_WIDTH - 10 - 5 - 10 * i;
+                    this->rectBase[i].y = 5;
+                    this->rectBase[i].w = 10;
+                    this->rectBase[i].h = 10;
+                }
+                else {
+                    this->rectBase[i].x = SCREEN_WIDTH - 10 - 5 - 10 * (i - PLAYER_HP - 1);
+                    this->rectBase[i].y = 30;
+                    if (i == PLAYER_HP + 1) {
+                        this->rectBase[i].w = 10;
+                    }
+                    else {
+                        this->rectBase[i].w = 5;
+                    }
+                    this->rectBase[i].h = 10;
+                }
+            }
+
+            break;
+
+        case 3:
+                    for (int i = 0; i < MAX_AMMO + PLAYER_HP + 2; i++) {
+
+                        if (i < PLAYER_HP + 1) {
+                            this->rectBase[i].x = SCREEN_WIDTH - 10 - 5 - 10 * i;
+                            this->rectBase[i].y = SCREEN_HEIGHT - 10 - 5;
+                            this->rectBase[i].w = 10;
+                            this->rectBase[i].h = 10;
+                        }
+                        else {
+                            this->rectBase[i].x = SCREEN_WIDTH - 10 - 5 - 10 * (i - PLAYER_HP - 1);
+                            this->rectBase[i].y = SCREEN_HEIGHT -10 - 30;
+                            if (i == PLAYER_HP + 1) {
+                                this->rectBase[i].w = 10;
+                            }
+                            else {
+                                this->rectBase[i].w = 5;
+                            }
+                            this->rectBase[i].h = 10;
+                        }
+                    }
+            break;
 
 
-    }
+            }
+
+
     hpTexture=NULL;
     loadMedia(&hpTexture,gRenderer,"./textures/red.bmp");
     if (hpTexture==NULL)
