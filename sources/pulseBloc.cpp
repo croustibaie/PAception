@@ -93,7 +93,7 @@ bool pulseBloc::collisionReaction(bloc *b)
                 elapsedTime-= Timer;
                 if (abs(elapsedTime)>3000)
                 {
-                    shoot()
+                    //shoot()
                 }
             }
         }

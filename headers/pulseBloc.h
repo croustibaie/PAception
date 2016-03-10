@@ -26,7 +26,7 @@ public:
     int compteur ;
 
 
-    void shoot( struct controllerState **state, int x_init, int y_init)
+    void shoot( struct controllerState **state, int x_init, int y_init);
 };
 
 
