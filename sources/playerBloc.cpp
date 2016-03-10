@@ -236,3 +236,12 @@ void playerBloc::shoot( struct controllerState **state)
         lastShotTimer=SDL_GetTicks();
     }
 }
+
+void playerBloc::draw()
+{
+    if (texture==NULL)
+    {
+        std::cout<<"no texture"<<std::endl;
+    }
+    SDL_RenderCopy(gRenderer,texture, NULL, &rect );
+}
