@@ -66,6 +66,11 @@ voidBloc::~voidBloc()
     }
 }
 
+bool voidBloc::react(struct controllerState **state, unsigned int elapsedTime)
+{
+    return true;
+}
+
 bool voidBloc::collisionReaction(bloc *b)
 {
 
@@ -78,12 +83,12 @@ bool voidBloc::collisionReaction(bloc *b)
         int b_center_x , b_center_y ;
         int dist_center;
         // coordinates of the center of the void cube
-        void_center_x = this->rect.x + this->rect.w/2 ;
-        void_center_y = this->rect.y + this->rect.h/2 ;
+        void_center_x = this->getRect().x + this->getRect().w/2 ;
+        void_center_y = this->getRect().y + this->getRect().h/2 ;
 
         // coordinates of the center of the player cube
-        b_center_x = b->rect.x + b->rect.w/2 ;
-        b_center_y = b->rect.y + b->rect.h/2 ;
+        b_center_x = b->getRect().x + b->getRect().w/2 ;
+        b_center_y = b->getRect().y + b->getRect().h/2 ;
 
         // square of the euclidian distance
         dist_center = (void_center_x - b_center_x)*(void_center_x - b_center_x)

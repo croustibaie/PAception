@@ -14,6 +14,7 @@ public:
     voidBloc();
     voidBloc(SDL_Renderer** gRenderer,const char* path,level* l,int x,int y);
     ~voidBloc();
+    bool react(struct controllerState** state,unsigned int elapsedTime);
     bool collisionReaction(bloc* b);
 };
 

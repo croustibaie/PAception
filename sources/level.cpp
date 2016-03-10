@@ -16,6 +16,10 @@ level::level (SDL_Texture* Texture,SDL_Renderer* gRenderer)
 {
 
     this->backGroundTexture= Texture;
+    if (backGroundTexture==NULL)
+    {
+        std::cout<<"level has no background texture"<<std::endl;
+    }
     this->gRenderer=gRenderer;
 }
 

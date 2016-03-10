@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <SDL_mixer.h>
 #include "../headers/playerBloc.h"
+#include "../headers/voidBloc.h"
 #include "../headers/laserBloc.h"
 #include "../headers/staticBloc.h"
 #include "../headers/level.h"
@@ -31,7 +32,7 @@ int main( int argc, char* args[] )
         SDL_RenderCopy(gRenderer,helloTexture,NULL,NULL);
         SDL_RenderPresent(gRenderer);
         //Load medias for background image and red square
-        const char* path = "./textures/leather.bmp";
+        const char* path = "./textures/fond1230x960.jpg";
         loadMedia(&helloTexture,&gRenderer,path);
         path= "./textures/carre.png";
         const char* laserpath="./textures/red.png";
@@ -49,6 +50,8 @@ int main( int argc, char* args[] )
         laserBloc b3= laserBloc(&gRenderer,laserpath,&l,200,30,1,1);
         laserBloc b4= laserBloc(&gRenderer,laserpath,&l,400,150,-1,1);
         staticBloc s1 = staticBloc(&gRenderer,staticpath,&l,300,500);
+        voidBloc v= voidBloc(&gRenderer,staticpath,&l,400,400);
+        l.insertBlocs(&v,1);
         l.insertBlocs(&b,1);
         l.insertBlocs(&b2,1);
         l.insertBlocs(&b2bis,1);
