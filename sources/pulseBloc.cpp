@@ -88,16 +88,13 @@ bool pulseBloc::collisionReaction(bloc *b)
             else
             {
                 Timer=SDL_GetTicks();
-                std::cout << "seuil dépassé" << std::endl;
+               // std::cout << "seuil dépassé" << std::endl;
                 int elapsedTime=SDL_GetTicks();
                 elapsedTime-= Timer;
-                if (elapsedTime>3000)
+                if (abs(elapsedTime)>3000)
                 {
-                    // TIRER
+                    shoot()
                 }
-
-                // réinitialiser le compteur
-
             }
         }
 
