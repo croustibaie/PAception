@@ -3,6 +3,7 @@
 //
 
 #include "../headers/pulseBloc.h"
+#include "../headers/level.h"
 
 pulseBloc::pulseBloc()
 {
@@ -56,6 +57,14 @@ pulseBloc::pulseBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
     this->blocId=nextBlocId;
     nextBlocId++;
     this->wallCollided=false;
+    for (int i = 0; i < NB_LASERS2; i++)
+    {
+        this->laser[i] = new laserBloc(gRenderer, "./black.bmp", l, 50, 50, 1, 0);
+    }
+    this->nextLaser=0;
+
+
+
 }
 
 pulseBloc::~pulseBloc()
@@ -78,13 +87,46 @@ bool pulseBloc::collisionReaction(bloc *b)
             }
             else
             {
-                // ATTENDRE UN MOMENT
-                // TIRER
-                // réinitialiser le compteur
+                Timer=SDL_GetTicks();
                 std::cout << "seuil dépassé" << std::endl;
+                int elapsedTime=SDL_GetTicks();
+                elapsedTime-= Timer;
+                if (elapsedTime>3000)
+                {
+                    // TIRER
+                }
+
+                // réinitialiser le compteur
+
             }
         }
 
     return true;
 }
+
+
+void pulseBloc::shoot( struct controllerState **state, int x_init, int y_init)
+    {
+
+
+        for (int i = 0; i < NB_LASERS2; i++)
+        {;
+            laser[nextLaser]->setPosition(x_init,y_init);
+            (double) i;
+            double ctheta = cos(i*45);
+            double stheta = sqrt(1-ctheta*ctheta);
+
+            laser[nextLaser]->setDirection(ctheta,stheta);
+            l->insertBlocs(laser[nextLaser],1);
+
+
+
+            nextLaser=(nextLaser+1)%NB_LASERS2;
+
+        }
+
+
+
+    }
+
 
