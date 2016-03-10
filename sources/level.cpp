@@ -35,64 +35,10 @@ SDL_Renderer** level::getRenderer()
 
 void level::blocReactions()
 {
-    std::map<int,bloc*>::iterator it;
-    it= SolidblocMap.begin();
-    int i=0;
-    while (it!=SolidblocMap.end())//Make sure blocMap.end is recomputed on every loop
-    {
-        if(!(it->second->react(ui->getCS(),elapsedTime)))
-        {
-            it=SolidblocMap.begin();
-            for (int j=0;j<i;j++)
-            {
-                it++;
-            }
-        }
-        else
-        {
-            i++;
-            it++;
-        }
-    }
-    it= NonSolidblocMap.begin();
-    i=0;
-    while (it!=NonSolidblocMap.end())//Make sure blocMap.end is recomputed on every loop
-    {
-        if(!(it->second->react(ui->getCS(),elapsedTime)))
-        {
-            it=NonSolidblocMap.begin();
-            for (int j=0;j<i;j++)
-            {
-                it++;
-            }
-        }
-        else
-        {
-            i++;
-            it++;
-        }
-    }
+    mapReactions(&(this->SolidblocMap));
+    mapReactions(&(this->NonSolidblocMap));
+    mapReactions(&(this->PlayerblocMap));
 
-    it= PlayerblocMap.begin();
-    i=0;
-    while (it!=PlayerblocMap.end())//Make sure blocMap.end is recomputed on every loop
-    {
-        if(!(it->second->react(ui->getCS(),elapsedTime)))
-        {
-            it=PlayerblocMap.begin();
-            for (int j=0;j<i;j++)
-            {
-                it++;
-            }
-        }
-        else
-        {
-            i++;
-            it++;
-        }
-    }
-
-    
 }
 void level::blocDraw()
 {
@@ -140,7 +86,6 @@ void level::deleteBloc(int blocID , enum kind blocKind)
     switch (blocKind)
     {
         case SOLID :
-            std::cout<<"removing a solid bloc"<<std::endl;
             SolidblocMap.erase(blocID);
             break;
         case NONSOLID :
@@ -219,16 +164,16 @@ bloc* level::mapCollide(int blocID, SDL_Rect potentialPos, std::vector<bloc *> i
 }
 
 
-void level::mapReactions(std::map<int, bloc *> map)
+void level::mapReactions(std::map<int, bloc *> *map)
 {
     std::map<int,bloc*>::iterator it;
-    it= map.begin();
+    it= (*map).begin();
     int i=0;
-    while (it!=map.end())//Make sure blocMap.end is recomputed on every loop
+    while (it!=(*map).end())//Make sure blocMap.end is recomputed on every loop
     {
         if(!(it->second->react(ui->getCS(),elapsedTime)))
         {
-            it=map.begin();
+            it=(*map).begin();
             for (int j=0;j<i;j++)
             {
                 it++;

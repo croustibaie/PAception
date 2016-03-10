@@ -30,7 +30,7 @@ private:
     unsigned int elapsedTime;//In milliseconds
 
     bloc* mapCollide(int blocID, SDL_Rect potentialPos, std::vector<bloc*> ignoredBlocs,std::map<int,bloc*> map);
-    void mapReactions(std::map<int,bloc*> map);
+    void mapReactions(std::map<int,bloc*> *map);
 
 public:
     level();
