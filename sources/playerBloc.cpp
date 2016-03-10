@@ -78,9 +78,9 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
     bloc* b=l->collide(this->blocId,this->getRect(),this->ignoredBlocs);
     if (b!= nullptr) //TODO: MAKE THIS A FUNCTION : Check_Initial_Collision
     {
-        if(b->getKind()!=FREEZE)
+        if(b->getKind()!=NONSOLID)
         {
-            l->deleteBloc(this->blocId);
+            l->deleteBloc(this->blocId,this->getKind());
             return false;
         }
     }
@@ -127,7 +127,7 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
 bool playerBloc::collisionReaction(bloc *b)
 {
     bool isAlive;
-    if(b->getKind()==FREEZE)
+    if(b->getKind()==NONSOLID)
     {
         ignoredBlocs.push_back(b);
         tryMove(this->xMove,this->yMove);
@@ -139,7 +139,7 @@ bool playerBloc::collisionReaction(bloc *b)
         if(hp==0)
         {
             std::cout << "got killed" << std::endl;
-            this->l->deleteBloc(this->blocId);
+            this->l->deleteBloc(this->blocId,this->getKind());
             isAlive = false;
             return isAlive;
         }

@@ -15,7 +15,7 @@ voidBloc::voidBloc()
     this->speed=0;
     this->xMove=0;
     this->yMove=0;
-    this->myKind=FREEZE;
+    this->myKind=NONSOLID;
     texture=NULL;
     gRenderer=NULL;
     this->blocId=nextBlocId;
@@ -46,7 +46,7 @@ voidBloc::voidBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,in
     this->xMove=0;
     this->yMove=0;
     this->gRenderer=*gRenderer;
-    this->myKind=FREEZE;
+    this->myKind=NONSOLID;
     loadMedia(&texture,gRenderer,path);
     if (texture==NULL)
     {
@@ -96,7 +96,7 @@ bool voidBloc::collisionReaction(bloc *b)
 
         if (dist_center <= EPS)
         {
-            this->l->deleteBloc(b->getBlocId());
+            this->l->deleteBloc(b->getBlocId(),b->getKind());
         }
 
     }

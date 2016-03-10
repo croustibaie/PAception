@@ -74,7 +74,7 @@ bool bloc::react(struct controllerState** state,unsigned int elapsedTime)//This 
     if (l->collide(this->blocId,this->getRect(),this->ignoredBlocs)!= nullptr)
     {
         std::cout<<"initial collision"<<std::endl;
-        l->deleteBloc(this->blocId);
+        l->deleteBloc(this->blocId,this->getKind());
     }
     return true;
 }

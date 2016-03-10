@@ -19,13 +19,18 @@ enum gameStatus {PAUSE,PLAY,GAMEOVER};
 class level
 {
 private:
-    std::map<int,bloc*> blocMap;
+    std::map<int,bloc*> PlayerblocMap;
+    std::map<int,bloc*> SolidblocMap;
+    std::map<int,bloc*> NonSolidblocMap;
     userInterface* ui= new userInterface();
     SDL_Texture* backGroundTexture;
     SDL_Renderer* gRenderer;
     /* lastTime and elapsedTime will mesure the time consumed for each frame. This will help adapting speeds*/
     unsigned int lastTime; // In milliseconds
     unsigned int elapsedTime;//In milliseconds
+
+    bloc* mapCollide(int blocID, SDL_Rect potentialPos, std::vector<bloc*> ignoredBlocs,std::map<int,bloc*> map);
+    void mapReactions(std::map<int,bloc*> map);
 
 public:
     level();
@@ -38,11 +43,11 @@ public:
     //play() is a while procedure in which inputs are scanned, then blocReactions is called then blocDraw()
     enum gameStatus play ();
     void insertBlocs(bloc* blocArray,int nbBlocs);
-    void deleteBloc(int blocID);
+    void deleteBloc(int blocID, enum kind blocKind);
     //Collided checks whether the bloc defined by blocID collides with any other one. If so, it calls the blocs' reactions
-    bloc* collide (int blocID, SDL_Rect potentialPos, std::vector<bloc*> ignoredBlocs);
+    bloc* collide(int blocID, SDL_Rect potentialPos, std::vector<bloc*> ignoredBlocs);
     // testCollision returns the point of collision between two rectangles. -1,-1 if none
-    bool testCollision (SDL_Rect a, SDL_Rect b);
+    bool testCollision(SDL_Rect a, SDL_Rect b);
     SDL_Renderer** getRenderer();
 };
 #endif //PACEPTION_LEVEL_H

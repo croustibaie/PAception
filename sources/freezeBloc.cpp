@@ -13,7 +13,7 @@ freezeBloc::freezeBloc()
     this->speed=0;
     this->xMove=0;
     this->yMove=0;
-    this->myKind=STATIC;
+    this->myKind=NONSOLID;
     texture=NULL;
     gRenderer=NULL;
     this->blocId=nextBlocId;
@@ -44,7 +44,7 @@ freezeBloc::freezeBloc(SDL_Renderer **gRenderer, const char *path, level *l,int 
     this->xMove=0;
     this->yMove=0;
     this->gRenderer=*gRenderer;
-    this->myKind=FREEZE;
+    this->myKind=NONSOLID;
     loadMedia(&texture,gRenderer,path);
     if (texture==NULL)
     {
