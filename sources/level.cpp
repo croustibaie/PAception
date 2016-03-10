@@ -35,9 +35,64 @@ SDL_Renderer** level::getRenderer()
 
 void level::blocReactions()
 {
-    mapReactions(SolidblocMap) ;
-    mapReactions(NonSolidblocMap) ;
-    mapReactions(PlayerblocMap) ;
+    std::map<int,bloc*>::iterator it;
+    it= SolidblocMap.begin();
+    int i=0;
+    while (it!=SolidblocMap.end())//Make sure blocMap.end is recomputed on every loop
+    {
+        if(!(it->second->react(ui->getCS(),elapsedTime)))
+        {
+            it=SolidblocMap.begin();
+            for (int j=0;j<i;j++)
+            {
+                it++;
+            }
+        }
+        else
+        {
+            i++;
+            it++;
+        }
+    }
+    it= NonSolidblocMap.begin();
+    i=0;
+    while (it!=NonSolidblocMap.end())//Make sure blocMap.end is recomputed on every loop
+    {
+        if(!(it->second->react(ui->getCS(),elapsedTime)))
+        {
+            it=NonSolidblocMap.begin();
+            for (int j=0;j<i;j++)
+            {
+                it++;
+            }
+        }
+        else
+        {
+            i++;
+            it++;
+        }
+    }
+
+    it= PlayerblocMap.begin();
+    i=0;
+    while (it!=PlayerblocMap.end())//Make sure blocMap.end is recomputed on every loop
+    {
+        if(!(it->second->react(ui->getCS(),elapsedTime)))
+        {
+            it=PlayerblocMap.begin();
+            for (int j=0;j<i;j++)
+            {
+                it++;
+            }
+        }
+        else
+        {
+            i++;
+            it++;
+        }
+    }
+
+    
 }
 void level::blocDraw()
 {
@@ -51,7 +106,7 @@ void level::blocDraw()
         it->second->draw();
     }
 
-    for (it= NonSolidblocMap.begin();it!=SolidblocMap.end();it++)//Make sure blocMap.end is recomputed on every loop, could be the cause of seg faults
+    for (it= NonSolidblocMap.begin();it!=NonSolidblocMap.end();it++)//Make sure blocMap.end is recomputed on every loop, could be the cause of seg faults
     {
         it->second->draw();
     }
@@ -81,11 +136,11 @@ enum gameStatus level::play ()
 }
 void level::deleteBloc(int blocID , enum kind blocKind)
 {
-    std::cout<<"removing a bloc"<<std::endl;
 
     switch (blocKind)
     {
         case SOLID :
+            std::cout<<"removing a solid bloc"<<std::endl;
             SolidblocMap.erase(blocID);
             break;
         case NONSOLID :

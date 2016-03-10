@@ -167,6 +167,7 @@ bool laserBloc::tryMove(int x, int y)
     if (intersectedBloc!= nullptr) //If there is a collision
     {
 
+        std::cout<<"laser collision reacting"<<std::endl;
         isAlive=this->collisionReaction(intersectedBloc);
         intersectedBloc->collisionReaction(this);
         return isAlive;

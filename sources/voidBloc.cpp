@@ -74,7 +74,7 @@ bool voidBloc::react(struct controllerState **state, unsigned int elapsedTime)
 bool voidBloc::collisionReaction(bloc *b)
 {
 
-    EPS ; // radius of the small ball around the center of the cube
+     // radius of the small ball around the center of the cube
           // that will determine when the player cube vanishes
 
     if(b->getKind()==PLAYER)
