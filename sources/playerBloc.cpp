@@ -62,6 +62,64 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
     this->wallCollided=false;
     this->hp= PLAYER_HP;
     this->reloadTimer=0;
+    for(int i = 0;i<MAX_AMMO+PLAYER_HP+2;i++)
+    {
+        if ((x < SCREEN_WIDTH - 5) && (y < SCREEN_HEIGHT - 5))
+        {
+            if (i < PLAYER_HP + 1)
+            {
+                this->rectBase[i].x = 5 + 10*i;
+                this->rectBase[i].y = 5;
+                this->rectBase[i].w = 10;
+                this->rectBase[i].h = 10;
+            }
+            else
+            {
+                this->rectBase[i].x = 5 + 10*(i-PLAYER_HP-1);
+                this->rectBase[i].y = 30;
+                if(i==PLAYER_HP+1)
+                {
+                    this->rectBase[i].w=10;
+                }
+                else
+                {
+                    this->rectBase[i].w = 5;
+                }
+                this->rectBase[i].h = 10;
+            }
+        }
+        else
+        {
+            this->rectBase[i].x = 0; //TODO : see for throwing an exception
+            this->rectBase[i].y = 0;
+        }
+
+
+    }
+    hpTexture=NULL;
+    loadMedia(&hpTexture,gRenderer,"./textures/red.bmp");
+    if (hpTexture==NULL)
+    {
+        std::cout<<"no HP texture loaded"<<std::endl;
+    }
+    heartTexture=NULL;
+    loadMedia(&heartTexture,gRenderer,"./textures/heart.png");
+    if (heartTexture==NULL)
+    {
+        std::cout<<"no Heart texture loaded"<<std::endl;
+    }
+    ammoTexture=NULL;
+    loadMedia(&ammoTexture,gRenderer,"./textures/yellow.png");
+    if (ammoTexture==NULL)
+    {
+        std::cout<<"no ammo texture loaded"<<std::endl;
+    }
+    bulletTexture=NULL;
+    loadMedia(&bulletTexture,gRenderer,"./textures/bullet.png");
+    if (bulletTexture==NULL)
+    {
+        std::cout<<"no bullet texture loaded"<<std::endl;
+    }
 }
 
 playerBloc::~playerBloc()
@@ -244,4 +302,31 @@ void playerBloc::draw()
         std::cout<<"no texture"<<std::endl;
     }
     SDL_RenderCopy(gRenderer,texture, NULL, &rect );
+    if (heartTexture==NULL)
+    {
+        std::cout<<"no heart texture"<<std::endl;
+    }
+    SDL_RenderCopy(gRenderer,heartTexture, NULL, &rectBase[0] );
+    if (hpTexture==NULL)
+    {
+        std::cout<<"no hp texture"<<std::endl;
+    }
+    for(int i =1;i<hp+1;i++)
+    {
+        SDL_RenderCopy(gRenderer,hpTexture, NULL, &rectBase[i] );
+    }
+    if (bulletTexture==NULL)
+    {
+        std::cout<<"no bullet texture"<<std::endl;
+    }
+    SDL_RenderCopy(gRenderer,bulletTexture, NULL, &rectBase[PLAYER_HP+1] );
+    if (ammoTexture==NULL)
+    {
+        std::cout<<"no ammo texture"<<std::endl;
+    }
+    for(int i =PLAYER_HP+2;i<PLAYER_HP+ammo+2;i++)
+    {
+        SDL_RenderCopy(gRenderer,ammoTexture, NULL, &rectBase[i] );
+    }
+
 }

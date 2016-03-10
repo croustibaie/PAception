@@ -46,7 +46,6 @@ void level::blocDraw()
     SDL_RenderCopy(gRenderer,backGroundTexture,NULL,NULL);
     std::map<int,bloc*>::iterator it;
 
-
     for (it= SolidblocMap.begin();it!=SolidblocMap.end();it++)//Make sure blocMap.end is recomputed on every loop, could be the cause of seg faults
     {
         it->second->draw();

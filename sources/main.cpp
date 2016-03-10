@@ -58,8 +58,8 @@ int main( int argc, char* args[] )
         //l.insertBlocs(&b3,1);
         l.insertBlocs(&s1,1);
         //l.play();
-        playerBloc b1 = playerBloc(&gRenderer,path,&l,1,400,400) ;
-        //l.insertBlocs(&b1,1);
+        playerBloc b1 = playerBloc(&gRenderer,path,&l,1,400,500) ;
+        l.insertBlocs(&b1,1);
         music(media);
         l.play();
     }
