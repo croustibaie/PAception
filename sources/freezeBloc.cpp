@@ -21,7 +21,7 @@ freezeBloc::freezeBloc()
     this->wallCollided=false;
 }
 
-freezeBloc::freezeBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,int y)
+freezeBloc::freezeBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
 {
     this->l=l;
     if (*gRenderer==NULL)
@@ -45,7 +45,7 @@ freezeBloc::freezeBloc(SDL_Renderer **gRenderer, const char *path, level *l,int 
     this->yMove=0;
     this->gRenderer=*gRenderer;
     this->myKind=NONSOLID;
-    loadMedia(&texture,gRenderer,path);
+    loadMedia(&texture,gRenderer,"./textures/green.bmp");
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;

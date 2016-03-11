@@ -30,7 +30,7 @@ private:
 
 public:
     playerBloc();
-    playerBloc(SDL_Renderer** gRenderer,const char* path,level* l, int playerID, int x, int y);
+    playerBloc(SDL_Renderer** gRenderer,level* l, int playerID, int x, int y);
     ~playerBloc();
     bool react(struct controllerState** state,unsigned int elapsedTime);//Player bloc's reaction is to do a tryMove and check whether he's dead (false) or not (true)
     bool collisionReaction(bloc* b);// Player's reaction to a collision with a bloc b

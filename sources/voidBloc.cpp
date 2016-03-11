@@ -23,7 +23,7 @@ voidBloc::voidBloc()
     this->wallCollided=false;
 }
 
-voidBloc::voidBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,int y)
+voidBloc::voidBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
 {
     this->l=l;
     if (*gRenderer==NULL)
@@ -47,7 +47,7 @@ voidBloc::voidBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,in
     this->yMove=0;
     this->gRenderer=*gRenderer;
     this->myKind=NONSOLID;
-    loadMedia(&texture,gRenderer,path);
+    loadMedia(&texture,gRenderer,"./textures/black.bmp");
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;
@@ -74,9 +74,6 @@ bool voidBloc::react(struct controllerState **state, unsigned int elapsedTime)
 bool voidBloc::collisionReaction(bloc *b)
 {
 
-     // radius of the small ball around the center of the cube
-          // that will determine when the player cube vanishes
-
     if(b->getKind()==PLAYER)
     {
         int void_center_x , void_center_y;
@@ -90,7 +87,7 @@ bool voidBloc::collisionReaction(bloc *b)
         b_center_x = b->getRect().x + b->getRect().w/2 ;
         b_center_y = b->getRect().y + b->getRect().h/2 ;
 
-        // square of the euclidian distance
+        // square of the euclidean distance
         dist_center = (void_center_x - b_center_x)*(void_center_x - b_center_x)
                       + (void_center_y - b_center_y)*(void_center_y - b_center_y) ;
 

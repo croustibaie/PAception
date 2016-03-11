@@ -21,7 +21,7 @@ private:
 
 public:
     pulseBloc();
-    pulseBloc(SDL_Renderer** gRenderer,const char* path,level* l,int x,int y);
+    pulseBloc(SDL_Renderer** gRenderer,level* l,int x,int y);
     ~pulseBloc();
     bool collisionReaction(bloc *b);
     int compteur ;
