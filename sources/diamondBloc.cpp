@@ -114,8 +114,8 @@ void diamondBloc::shoot(int x , int y)
 {
 
     double xPos=0; double yPos=0;
-    double xDir = x/sqrt(double(x*x+y*y)) ;
-    double yDir = y/sqrt(double(x*x+y*y)) ;
+    double xDir = double(x);
+    double yDir = double(y);
 
     if(y == 0)
     {
