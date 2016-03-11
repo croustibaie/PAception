@@ -122,23 +122,23 @@ void diamondBloc::shoot(int x , int y)
         if(x == 1)
         {
             xPos = this->rect.x + rect.w + EPS_SEC;
-            yPos = this->rect.y + rect.h/2. + EPS_SEC;
+            yPos = this->rect.y + rect.h/2.;
         }
         if(x == -1)
         {
-            xPos = this->rect.x + EPS_SEC;
-            yPos = this->rect.y + rect.h/2. + EPS_SEC;
+            xPos = this->rect.x - EPS_SEC;
+            yPos = this->rect.y + rect.h/2.;
         }
     }
     else if(x == 0)
     {
         if (y == 1) {
-            xPos = this->rect.x + rect.w/2. + EPS_SEC;
+            xPos = this->rect.x + rect.w/2.;
             yPos = this->rect.y + EPS_SEC;
         }
         if (y == -1) {
-            xPos = this->rect.x + rect.w/2. + EPS_SEC;
-            yPos = this->rect.y + rect.h + EPS_SEC;
+            xPos = this->rect.x + rect.w/2.;
+            yPos = this->rect.y + rect.h - EPS_SEC;
         }
     }
     else
