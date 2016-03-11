@@ -12,6 +12,7 @@
 #include "userInterface.h"
 
 enum gameStatus {PAUSE,PLAY,GAMEOVER};
+const bool TEST =true;
 
 /* Level's purpose is to control all of the in game action by capturing the inputs and sending the update orders to
  * the blocs*/
@@ -28,13 +29,14 @@ private:
     /* lastTime and elapsedTime will mesure the time consumed for each frame. This will help adapting speeds*/
     unsigned int lastTime; // In milliseconds
     unsigned int elapsedTime;//In milliseconds
+    int numPlayer;// Number of players
 
     bloc* mapCollide(int blocID, SDL_Rect potentialPos, std::vector<bloc*> ignoredBlocs,std::map<int,bloc*> map);
     void mapReactions(std::map<int,bloc*> *map);
 
 public:
     level();
-    level (SDL_Texture* Texture,SDL_Renderer* gRenderer);
+    level (SDL_Texture* Texture,SDL_Renderer* gRenderer,int numPlayer);
     ~level();
     //blocReactions get the reaction of every bloc in the level. The level sends the controller state to every bloc to get the reaction
     void blocReactions();
@@ -49,5 +51,6 @@ public:
     // testCollision returns the point of collision between two rectangles. -1,-1 if none
     bool testCollision(SDL_Rect a, SDL_Rect b);
     SDL_Renderer** getRenderer();
+    int getNum();
 };
 #endif //PACEPTION_LEVEL_H

@@ -12,7 +12,7 @@ level::level()
     elapsedTime=0;
 }
 
-level::level (SDL_Texture* Texture,SDL_Renderer* gRenderer)
+level::level (SDL_Texture* Texture,SDL_Renderer* gRenderer,int numPlayer)
 {
 
     this->backGroundTexture= Texture;
@@ -21,6 +21,7 @@ level::level (SDL_Texture* Texture,SDL_Renderer* gRenderer)
         std::cout<<"level has no background texture"<<std::endl;
     }
     this->gRenderer=gRenderer;
+    this->numPlayer=numPlayer;
 }
 
 level::~level()
@@ -68,7 +69,7 @@ enum gameStatus level::play ()
     lastTime=SDL_GetTicks();
     elapsedTime=20; // We have to initialize the elapsed time for the very first frame, chose 20ms by default
 
-    while(ui->play())
+    while((ui->play())&&((this->numPlayer>1)||TEST))
     {
         this->blocReactions();
         unsigned tmptime= SDL_GetTicks(); //Get the number of milliseconds since the game started
@@ -77,7 +78,14 @@ enum gameStatus level::play ()
         lastTime=tmptime;
     }
 
-    return PLAY;
+    if((this->numPlayer)<=1)
+    {
+        return GAMEOVER;
+    }
+    else
+    {
+        return PLAY;
+    }
 }
 void level::deleteBloc(int blocID , enum kind blocKind)
 {
@@ -92,6 +100,7 @@ void level::deleteBloc(int blocID , enum kind blocKind)
             break;
         case PLAYER :
             PlayerblocMap.erase(blocID);
+            this->numPlayer--;
             break;
     }
 }
@@ -205,3 +214,7 @@ bool level::testCollision(SDL_Rect a, SDL_Rect b)
     return true;
 }
 
+int level::getNum()
+{
+    return(this->numPlayer);
+}
