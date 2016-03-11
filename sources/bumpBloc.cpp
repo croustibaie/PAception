@@ -1,34 +1,34 @@
 //
-// Created by croustibaie on 3/3/16.
+// Created by emilien on 11/03/16.
 //
 
-#include "../headers/laserBloc.h"
-#include "../headers/level.h"
 
-laserBloc::laserBloc()
+
+
+#include "../headers/bumpBloc.h"
+#include "../headers/level.h"
+bumpBloc::bumpBloc()
 {
-    this->rect.x=0;
-    this->rect.y =0;
+    this->rect.x=50;
+    this->rect.y =50;
     this->rect.w=10;
     this->rect.h=10;
-    this->speed=8;
-    this->xMove=0; //direction of the bloc following x axis
-    this->yMove=0; //direction of the bloc following y axis
+    this->speed=0;
+    this->xMove=0;
+    this->yMove=0;
+    this->dx=0;
+    this->dy=0;
     this->myKind=SOLID;
     texture=NULL;
     gRenderer=NULL;
-    killOnTouch=true;
     this->blocId=nextBlocId;
     nextBlocId++;
     this->wallCollided=false;
+    this->bumpededge=NONE;
 }
 
-laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,int y,int dx,int dy)
+bumpBloc::bumpBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,int y,int dx,int dy)
 {
-    this->dx=(float)(dx/sqrt((double)(dx*dx+dy*dy)));
-    this->dy=(float)(dy/sqrt((double)(dx*dx+dy*dy)));
-    this->xMove=dx;
-    this->yMove=dy;
     this->l=l;
     if (*gRenderer==NULL)
     {
@@ -43,46 +43,39 @@ laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
         this->rect.x=0; //TODO : see for throwing an exception
         this->rect.y=0;
     }
-    this->rect.w=LASER_WIDTH;
-    this->rect.h=LASER_HEIGHT;
+    this->rect.w=50;
+    this->rect.h=50;
     texture=NULL;
-    this->speed=10;
+    this->speed=0;
+    this->xMove=0;
+    this->yMove=0;
+    this->dx=(float)(dx/sqrt((double)(dx*dx+dy*dy)));
+    this->dy=(float)(dy/sqrt((double)(dx*dx+dy*dy)));
     this->gRenderer=*gRenderer;
+    this->myKind=SOLID;
     loadMedia(&texture,gRenderer,path);
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;
     }
-    killOnTouch=true;
+    killOnTouch=false;
     this->blocId=nextBlocId;
     nextBlocId++;
     this->wallCollided=false;
-    this->myKind=SOLID;
+    this->bumpededge=NONE;
 }
 
-laserBloc::~laserBloc()
+bumpBloc::~bumpBloc()
 {
-}
-
-
-
-
-bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
-{
-    if (l->collide(this->blocId,this->getRect(),this->ignoredBlocs)!= nullptr)
+    if (texture!=NULL)
     {
-        l->deleteBloc(this->blocId,this->getKind());
-        return false;
+        SDL_DestroyTexture(texture);
     }
-    int xmove = (int)(speed*dx*float(elapsedTime)/20);
-    int ymove = (int)(speed*dy*float(elapsedTime)/20);
-    this->xMove=xmove;
-    this->yMove=ymove;
-    return tryMove(this->xMove,this->yMove);
 }
 
-bool laserBloc::collisionReaction(bloc *b)
+bool bumpBloc::collisionReaction(bloc *b)
 {
+
     bool isAlive;
     if (b->getKind()!=MIRROR)
     {
@@ -157,70 +150,14 @@ bool laserBloc::collisionReaction(bloc *b)
 
 }
 
-bool laserBloc::tryMove(int x, int y)
+bool bumpBloc::react(struct controllerState** state, unsigned int elapsedTime)
 {
-    SDL_Rect a= this->getRect();
-    a.x+=x;
-    a.y+=y;
 
-    bool isAlive=true;
-    bloc* intersectedBloc = this->l->collide(this->blocId,a,this->ignoredBlocs);
-    if (intersectedBloc!= nullptr) //If there is a collision
-    {
 
-        isAlive=this->collisionReaction(intersectedBloc);
-        intersectedBloc->collisionReaction(this);
-        return isAlive;
-    }
-    else //Here we check that we're not trying to go out of the window
-    {
-        if(wallCollision(a))
-        {
-            l->deleteBloc(this->blocId,this->getKind());
-            return false;
-        }
-        else
-        {
-            move(xMove,yMove);
-            this->xMove=0;
-            this->yMove=0;
-        }
-        return isAlive;
-    }
+    return true;
 }
 
-bool laserBloc::wallCollision(SDL_Rect a)
-{
-    this->wallCollided=false;
-    if (a.x+a.w>SCREEN_WIDTH)
-    {
-        xMove=xMove-(a.x+a.w-SCREEN_WIDTH);
-        this->dx=- this->dx;
-        this->wallCollided=true;
-    }
-    if (a.x<0)
-    {
-        this->dx=- this->dx;
-        xMove=xMove-a.x;
-        this->wallCollided=true;
-    }
-    if (a.y+a.h>SCREEN_HEIGHT)
-    {
-        this->dy=- this->dy;
-        yMove=yMove-(a.y+a.h-SCREEN_HEIGHT);
-        this->wallCollided=true;
-
-    }
-    if (a.y<0)
-    {
-        this->dy=- this->dy;
-        yMove=yMove-a.y;
-        this->wallCollided=true;
-    }
-return this->wallCollided;
-}
-
-void laserBloc::setDirection(float xMove, float yMove)
+void bumpBloc::setDirection(float xMove, float yMove)
 {
     this->dx=xMove;
     this->dy=yMove;

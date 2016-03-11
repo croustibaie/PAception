@@ -29,7 +29,7 @@ protected:
     static unsigned int nextBlocId;
 
     bool killOnTouch; //Does the bloc kill players?
-    enum kind myKind; // Kind can be LASER,PLAYER or STATIC so far. Useful to determine a generic bloc's type
+    enum kind myKind; // Kind can be PLAYER, SOLID, NONSOLID  or MIRROR so far. Useful to determine a generic bloc's type
     bool wallCollided; //Return true if the bloc collided with a wall and it hasn't been resolved yet
     std::vector<bloc*> ignoredBlocs;
 public:
