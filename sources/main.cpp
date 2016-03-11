@@ -44,19 +44,21 @@ int main( int argc, char* args[] )
         //laserBloc b2= laserBloc(&gRenderer,laserpath,&l,100,30,1,0);
         laserBloc b3= laserBloc(&gRenderer,laserpath,&l,200,30,1,1);
         laserBloc b4= laserBloc(&gRenderer,laserpath,&l,400,150,-1,1);
-        pulseBloc b5 = pulseBloc(&gRenderer,pulsepath,&l,66,66);
+        pulseBloc b5 = pulseBloc(&gRenderer,pulsepath,&l,369,289);
+
         l.insertBlocs(&b5,1);
+
         //staticBloc s1 = staticBloc(&gRenderer,staticpath,&l,300,500);
         staticBloc s1 = staticBloc(&gRenderer,staticpath,&l,300,500);
         l.insertBlocs(&b,1);
-        l.insertBlocs(&b2,1);
+        //l.insertBlocs(&b2,1);
         //l.insertBlocs(&b3,1);
-        l.insertBlocs(&s1,1);
+       // l.insertBlocs(&s1,1);
         //l.play();
         playerBloc b1 = playerBloc(&gRenderer,path,&l,1,400,400) ;
         //l.insertBlocs(&b1,1);
 
-        l.insertBlocs(&b1,1);
+       // l.insertBlocs(&b1,1);
         l.play();
     }
 

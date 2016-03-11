@@ -2,6 +2,7 @@
 // Created by gael on 09/03/16.
 //
 
+#include <unistd.h>
 #include "../headers/pulseBloc.h"
 #include "../headers/level.h"
 
@@ -87,14 +88,7 @@ bool pulseBloc::collisionReaction(bloc *b)
             }
             else
             {
-                Timer=SDL_GetTicks();
-               // std::cout << "seuil dépassé" << std::endl;
-                int elapsedTime=SDL_GetTicks();
-                elapsedTime-= Timer;
-                if (abs(elapsedTime)>3000)
-                {
-                    //shoot()
-                }
+                pulseBloc::shoot();
             }
         }
 
@@ -102,28 +96,26 @@ bool pulseBloc::collisionReaction(bloc *b)
 }
 
 
-void pulseBloc::shoot( struct controllerState **state, int x_init, int y_init)
+void pulseBloc::shoot()
     {
-
-
         for (int i = 0; i < NB_LASERS2; i++)
-        {;
-            laser[nextLaser]->setPosition(x_init,y_init);
-            (double) i;
-            double ctheta = cos(i*45);
-            double stheta = sqrt(1-ctheta*ctheta);
+        {
+            float x_init = this->rect.x+(this->rect.w)/2;
+            float y_init = this->rect.y+(this->rect.h)/2;
+            float radius = sqrt(((this->rect.w)/2)*((this->rect.w)/2)+((this->rect.h)/2)*((this->rect.h)/2));
+            radius = 2*radius+1;
 
+            std::cout << x_init << std::endl;
+            (double) i;
+            double ctheta = cos(M_PI/4*i);
+            double stheta = sin(M_PI/4*i);
+
+
+            laser[nextLaser]->setPosition(x_init+radius*ctheta,y_init+radius*stheta);
             laser[nextLaser]->setDirection(ctheta,stheta);
             l->insertBlocs(laser[nextLaser],1);
-
-
 
             nextLaser=(nextLaser+1)%NB_LASERS2;
 
         }
-
-
-
     }
-
-

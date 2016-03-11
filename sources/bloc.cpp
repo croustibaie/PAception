@@ -73,6 +73,7 @@ bool bloc::react(struct controllerState** state,unsigned int elapsedTime)//This 
 {
     if (l->collide(this->blocId,this->getRect())!= nullptr)
     {
+        std::cout<<"killing self"<<std::endl;
         l->deleteBloc(this->blocId);
     }
     return true;

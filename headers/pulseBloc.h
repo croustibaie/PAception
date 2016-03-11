@@ -5,7 +5,7 @@
 #ifndef PACEPTION_PULSEBLOC_H
 #define PACEPTION_PULSEBLOC_H
 
-#define NB_LASERS2 16
+#define NB_LASERS2 8
 
 #include "bloc.h"
 #include "laserBloc.h"
@@ -26,7 +26,7 @@ public:
     int compteur ;
 
 
-    void shoot( struct controllerState **state, int x_init, int y_init);
+    void shoot();
 };
 
 
