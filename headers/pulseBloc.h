@@ -25,6 +25,7 @@ public:
     ~pulseBloc();
     bool collisionReaction(bloc *b);
     int compteur ;
+    bool react(struct controllerState** state,unsigned int elapsedTime);
 
 
 

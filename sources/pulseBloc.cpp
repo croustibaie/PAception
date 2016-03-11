@@ -77,43 +77,22 @@ pulseBloc::~pulseBloc()
     }
 }
 
-bool pulseBloc::collisionReaction(bloc *b)
-{
-    int temps_precedent = 0;
-    int temps_actuel = 0;
-        if (b->kill())
+bool pulseBloc::collisionReaction(bloc *b) {
+       if (b->kill())
+    {
 
+        compteur = compteur + 1;
+
+        if (compteur == 4)
         {
-            if (compteur < 4)
-            {
-                compteur = compteur + 1;
+            TimerPulse = SDL_GetTicks();
+            compteur = compteur+1;
 
-                std::cout<<compteur<<std::endl;
-
-            }
-
-            if (compteur == 4)
-            {
-                TimerPulse = SDL_GetTicks();
-                compteur = compteur + 1;
-
-                std::cout<<TimerPulse<<std::endl;
-            }
-
-            if (compteur > 4)
-            {
-
-                std::cout<<SDL_GetTicks()<<std::endl;
-                if (SDL_GetTicks()-TimerPulse > 300)
-                {
-                    pulseBloc::shoot();
-                    compteur = 0;
-                }
-                }
-            }
         }
 
+    }
 
+}
 
 void pulseBloc::shoot()
     {
@@ -137,3 +116,20 @@ void pulseBloc::shoot()
 
         }
     }
+
+
+bool pulseBloc::react(struct controllerState **state, unsigned int elapsedTime)
+{
+    if (compteur > 4)
+        {
+
+            std::cout<<SDL_GetTicks()<<std::endl;
+            if (SDL_GetTicks()-TimerPulse > 3000)
+            {
+                pulseBloc::shoot();
+                compteur = 0;
+            }
+        }
+
+    return true;
+}
