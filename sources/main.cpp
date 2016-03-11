@@ -63,7 +63,7 @@ int main( int argc, char* args[] )
             l.insertBlocs(&s1,1);
             //l.play();
             playerBloc b1 = playerBloc(&gRenderer,path,&l,1,400,500) ;
-            l.insertBlocs(&b1,1);
+            //l.insertBlocs(&b1,1);
             //music(media);
             enum gameStatus  a = l.play();
             if(a == GAMEOVER)

@@ -25,6 +25,8 @@ private:
     std::map<int,bloc*> NonSolidblocMap;
     userInterface* ui= new userInterface();
     SDL_Texture* backGroundTexture;
+    SDL_Texture* pauseTexture;
+    SDL_Rect pauseRect;
     SDL_Renderer* gRenderer;
     /* lastTime and elapsedTime will mesure the time consumed for each frame. This will help adapting speeds*/
     unsigned int lastTime; // In milliseconds
@@ -33,6 +35,7 @@ private:
 
     bloc* mapCollide(int blocID, SDL_Rect potentialPos, std::vector<bloc*> ignoredBlocs,std::map<int,bloc*> map);
     void mapReactions(std::map<int,bloc*> *map);
+    bool gamePaused;
 
 public:
     level();
