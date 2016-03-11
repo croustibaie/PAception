@@ -12,6 +12,7 @@ class userInterface {
 private:
     struct controllerState **cs = NULL ; //Array of controllerStates, contains the controllers' states
     SDL_Event e;
+    bool pause;
 
 public:
     userInterface(); //Destructor automatically detects the number of controllers
@@ -23,6 +24,8 @@ public:
 
 
     void motion(SDL_JoystickID id, SDL_Event e); //Method to update the controllerStates when the even is a JoyAxisMotion
+    void handleButton(SDL_JoystickID id, SDL_Event e);
+    bool isPaused();
 };
 
 

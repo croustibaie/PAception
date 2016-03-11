@@ -16,12 +16,19 @@ level::level (SDL_Texture* Texture,SDL_Renderer* gRenderer,int numPlayer)
 {
 
     this->backGroundTexture= Texture;
+    loadMedia(&pauseTexture,&gRenderer,"./textures/pausescreen.png");
     if (backGroundTexture==NULL)
     {
         std::cout<<"level has no background texture"<<std::endl;
     }
     this->gRenderer=gRenderer;
     this->numPlayer=numPlayer;
+    this->gamePaused=false;
+    this->pauseRect.x=SCREEN_WIDTH/8*3;
+    this->pauseRect.w=SCREEN_WIDTH/4;
+    this->pauseRect.y=SCREEN_HEIGHT/8*3;
+    this->pauseRect.h=SCREEN_HEIGHT/6;
+
 }
 
 level::~level()
@@ -61,6 +68,10 @@ void level::blocDraw()
     {
         it->second->draw();
     }
+    if (gamePaused)
+    {
+        SDL_RenderCopy(gRenderer,pauseTexture,NULL,&(this->pauseRect));
+    }
 
     SDL_RenderPresent(gRenderer);
 }
@@ -71,6 +82,14 @@ enum gameStatus level::play ()
 
     while((ui->play())&&((this->numPlayer>1)||TEST))
     {
+        while(ui->isPaused())
+        {
+            gamePaused=true;
+            blocDraw();
+            ui->play();
+            lastTime=SDL_GetTicks();
+        }
+        gamePaused=false;
         this->blocReactions();
         unsigned tmptime= SDL_GetTicks(); //Get the number of milliseconds since the game started
         blocDraw();

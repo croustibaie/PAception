@@ -41,6 +41,7 @@ bool init(SDL_Window** gWindow, SDL_Renderer** gRenderer, SDL_GameController** g
                 if (SDL_IsGameController(0)) {
                     std::cout << "It is a good controller" << std::endl;
                 }
+                printf("Controller %i is mapped as \"%s\".\n", i, SDL_GameControllerMapping(gGameController[i]));
             }
         }
         int imgFlags=IMG_INIT_JPG;
