@@ -74,9 +74,6 @@ bool voidBloc::react(struct controllerState **state, unsigned int elapsedTime)
 bool voidBloc::collisionReaction(bloc *b)
 {
 
-     // radius of the small ball around the center of the cube
-          // that will determine when the player cube vanishes
-
     if(b->getKind()==PLAYER)
     {
         int void_center_x , void_center_y;
@@ -90,7 +87,7 @@ bool voidBloc::collisionReaction(bloc *b)
         b_center_x = b->getRect().x + b->getRect().w/2 ;
         b_center_y = b->getRect().y + b->getRect().h/2 ;
 
-        // square of the euclidian distance
+        // square of the euclidean distance
         dist_center = (void_center_x - b_center_x)*(void_center_x - b_center_x)
                       + (void_center_y - b_center_y)*(void_center_y - b_center_y) ;
 
