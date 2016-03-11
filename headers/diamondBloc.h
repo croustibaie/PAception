@@ -10,7 +10,7 @@
 #include <map>
 
 #define NB_LASERS3 40
-#define EPS_SEC 3 // small distance to add so that the laser issued by the bloc are
+#define EPS_SEC 20 // small distance to add so that the laser issued by the bloc are
                   // issued from the exterior of the hitbox of the code
 
 class diamondBloc: public bloc {
