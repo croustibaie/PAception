@@ -35,12 +35,7 @@ int main( int argc, char* args[] )
         //Load medias for background image and red square
         const char* path = "./textures/fond1230x960.jpg";
         loadMedia(&helloTexture,&gRenderer,path);
-        path= "./textures/carre.png";
-        const char* laserpath="./textures/red.png";
-        const char* staticpath="./textures/black.bmp";
-        const char* voidpath="./textures/black.bmp";
         const char* media="./sounds.wav";
-        const char* freezepath="./textures/green.bmp";
         std::cout<<SDL_NumJoysticks()<<std::endl;
         //Create the red bloc
         //Create the level
@@ -48,13 +43,12 @@ int main( int argc, char* args[] )
         while(gameOn)
         {
             level l = level(helloTexture,gRenderer,SDL_NumJoysticks());
-            playerBloc b = playerBloc(&gRenderer,path,&l,0,0,0) ;
-            staticBloc b2 = staticBloc(&gRenderer,staticpath,&l,300,149);
-            freezeBloc b2bis = freezeBloc(&gRenderer,freezepath,&l,100,149);
-            //laserBloc b2= laserBloc(&gRenderer,laserpath,&l,100,30,1,0);
-            pulseBloc b5= pulseBloc(&gRenderer, "./textures/leopard.bmp", &l, 600,350);
-            staticBloc s1 = staticBloc(&gRenderer,staticpath,&l,300,500);
-            voidBloc v= voidBloc(&gRenderer,voidpath,&l,400,400);
+            playerBloc b = playerBloc(&gRenderer,&l,0,0,0) ;
+            staticBloc b2 = staticBloc(&gRenderer,&l,300,149);
+            freezeBloc b2bis = freezeBloc(&gRenderer,&l,100,149);
+            pulseBloc b5= pulseBloc(&gRenderer, &l, 600,350);
+            staticBloc s1 = staticBloc(&gRenderer,&l,300,500);
+            voidBloc v= voidBloc(&gRenderer,&l,400,400);
             l.insertBlocs(&v,1);
             l.insertBlocs(&b,1);
             l.insertBlocs(&b5,1);
@@ -63,7 +57,7 @@ int main( int argc, char* args[] )
             //l.insertBlocs(&b3,1);
             l.insertBlocs(&s1,1);
             //l.play();
-            playerBloc b1 = playerBloc(&gRenderer,path,&l,1,400,500) ;
+            playerBloc b1 = playerBloc(&gRenderer,&l,1,400,500) ;
           //  l.insertBlocs(&b1,1);
             //music(media);
             enum gameStatus  a = l.play();
