@@ -3,7 +3,6 @@
 //
 
 #include "../headers/diamondBloc.h"
-#include "../headers/playerBloc.h"
 #include "../headers/level.h"
 #include "../headers/laserBloc.h"
 
@@ -82,6 +81,10 @@ bool diamondBloc::collisionReaction(bloc *b)
 
     if(b->killOnTouch == true)
     {
+        if (laser_counter > 4)
+        {
+            std::cout << " error : wrong argument for laser counter" << std::endl;
+        }
         switch (laser_counter)
         {
             case 1 :

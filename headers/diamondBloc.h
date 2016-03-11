@@ -2,12 +2,13 @@
 // Created by benoit on 10/03/16.
 //
 
-class laserBloc;
-
 #ifndef PACEPTION_DIAMONDBLOC_H
 #define PACEPTION_DIAMONDBLOC_H
+
 #include "bloc.h"
+#include "laserBloc.h"
 #include <map>
+
 #define NB_LASERS 40
 
 class diamondBloc: public bloc {
