@@ -23,7 +23,7 @@ voidBloc::voidBloc()
     this->wallCollided=false;
 }
 
-voidBloc::voidBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,int y)
+voidBloc::voidBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
 {
     this->l=l;
     if (*gRenderer==NULL)
@@ -47,7 +47,7 @@ voidBloc::voidBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,in
     this->yMove=0;
     this->gRenderer=*gRenderer;
     this->myKind=NONSOLID;
-    loadMedia(&texture,gRenderer,path);
+    loadMedia(&texture,gRenderer,"./textures/black.bmp");
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;

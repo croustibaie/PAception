@@ -25,7 +25,7 @@ pulseBloc::pulseBloc()
 
 }
 
-pulseBloc::pulseBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,int y)
+pulseBloc::pulseBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
 {
     this->l=l;
     if (*gRenderer==NULL)
@@ -50,7 +50,7 @@ pulseBloc::pulseBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
     this->gRenderer=*gRenderer;
     this->myKind=SOLID;
     this->compteur=0; // compteur d'absorptions ;
-    loadMedia(&texture,gRenderer,path);
+    loadMedia(&texture,gRenderer,"./textures/leopard.bmp");
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;

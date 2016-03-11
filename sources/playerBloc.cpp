@@ -23,7 +23,7 @@ playerBloc::playerBloc()
     this->wallCollided=false;
 }
 
-playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int playerID, int x, int y) {
+playerBloc::playerBloc(SDL_Renderer **gRenderer, level *l, int playerID, int x, int y) {
     this->l = l;
     if (*gRenderer == NULL) {
         std::cout << "In bloc constructor, no render" << std::endl;
@@ -45,7 +45,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
     this->yMove = 0;
     this->gRenderer = *gRenderer;
     this->myKind = PLAYER;
-    loadMedia(&texture, gRenderer, path);
+    loadMedia(&texture, gRenderer, "./textures/carre.png");
     if (texture == NULL) {
         std::cout << "no texture loaded" << std::endl;
     }
