@@ -90,7 +90,7 @@ bool diamondBloc::collisionReaction(bloc *b)
                 laser_counter +=1;
                 break;
             case 2 :
-                shoot(0,1);
+                shoot(0,-1);
                 laser_counter +=1;
                 break;
             case 3 :
@@ -98,7 +98,7 @@ bool diamondBloc::collisionReaction(bloc *b)
                 laser_counter +=1;
                 break;
             case 4 :
-                shoot(0,-1);
+                shoot(0,1);
                 laser_counter = 1;
                 break;
         }
@@ -132,11 +132,11 @@ void diamondBloc::shoot(int x , int y)
     }
     else if(x == 0)
     {
-        if (y == 1) {
+        if (y == -1) {
             xPos = this->rect.x + rect.w/2.;
             yPos = this->rect.y - EPS_SEC;
         }
-        if (y == -1) {
+        if (y == 1) {
             xPos = this->rect.x + rect.w/2.;
             yPos = this->rect.y + rect.h + EPS_SEC;
         }
