@@ -17,6 +17,7 @@ private:
     unsigned int Timer;//
     laserBloc* laser[NB_LASERS2]; //P
     int nextLaser;
+    unsigned int TimerPulse;
 
 public:
     pulseBloc();
@@ -24,6 +25,7 @@ public:
     ~pulseBloc();
     bool collisionReaction(bloc *b);
     int compteur ;
+
 
 
     void shoot();

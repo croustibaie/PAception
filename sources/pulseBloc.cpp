@@ -79,25 +79,40 @@ pulseBloc::~pulseBloc()
 
 bool pulseBloc::collisionReaction(bloc *b)
 {
+    int temps_precedent = 0;
+    int temps_actuel = 0;
         if (b->kill())
 
         {
-            std::cout<<compteur<<std::endl;
-            if (compteur < 12)
+            if (compteur < 4)
             {
                 compteur = compteur + 1;
 
+                std::cout<<compteur<<std::endl;
+
             }
-            else
+
+            if (compteur == 4)
+            {
+                TimerPulse = SDL_GetTicks();
+                compteur = compteur + 1;
+
+                std::cout<<TimerPulse<<std::endl;
+            }
+
+            if (compteur > 4)
             {
 
-                pulseBloc::shoot();
-                compteur =0;
+                std::cout<<SDL_GetTicks()<<std::endl;
+                if (SDL_GetTicks()-TimerPulse > 300)
+                {
+                    pulseBloc::shoot();
+                    compteur = 0;
+                }
+                }
             }
         }
 
-    return true;
-}
 
 
 void pulseBloc::shoot()
