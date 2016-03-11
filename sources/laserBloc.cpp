@@ -14,7 +14,7 @@ laserBloc::laserBloc()
     this->speed=8;
     this->xMove=0; //direction of the bloc following x axis
     this->yMove=0; //direction of the bloc following y axis
-    this->myKind=LASER;
+    this->myKind=SOLID;
     texture=NULL;
     gRenderer=NULL;
     killOnTouch=true;
@@ -57,7 +57,7 @@ laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
     this->blocId=nextBlocId;
     nextBlocId++;
     this->wallCollided=false;
-    this->myKind=LASER;
+    this->myKind=SOLID;
 }
 
 laserBloc::~laserBloc()
@@ -69,9 +69,9 @@ laserBloc::~laserBloc()
 
 bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
-    if (l->collide(this->blocId,this->getRect())!= nullptr)
+    if (l->collide(this->blocId,this->getRect(),this->ignoredBlocs)!= nullptr)
     {
-        l->deleteBloc(this->blocId);
+        l->deleteBloc(this->blocId,this->getKind());
         return false;
     }
     int xmove = (int)(speed*dx*float(elapsedTime)/20);
@@ -86,7 +86,7 @@ bool laserBloc::collisionReaction(bloc *b)
     bool isAlive;
     if (b->getKind()!=MIRROR)
     {
-        this->l->deleteBloc(this->blocId);
+        this->l->deleteBloc(this->blocId,this->getKind());
         isAlive=false;
         return isAlive;
     }
@@ -154,6 +154,38 @@ bool laserBloc::collisionReaction(bloc *b)
         return isAlive;
     }
 
+}
+
+bool laserBloc::tryMove(int x, int y)
+{
+    SDL_Rect a= this->getRect();
+    a.x+=x;
+    a.y+=y;
+
+    bool isAlive=true;
+    bloc* intersectedBloc = this->l->collide(this->blocId,a,this->ignoredBlocs);
+    if (intersectedBloc!= nullptr) //If there is a collision
+    {
+
+        isAlive=this->collisionReaction(intersectedBloc);
+        intersectedBloc->collisionReaction(this);
+        return isAlive;
+    }
+    else //Here we check that we're not trying to go out of the window
+    {
+        if(wallCollision(a))
+        {
+            l->deleteBloc(this->blocId,this->getKind());
+            return false;
+        }
+        else
+        {
+            move(xMove,yMove);
+            this->xMove=0;
+            this->yMove=0;
+        }
+        return isAlive;
+    }
 }
 
 bool laserBloc::wallCollision(SDL_Rect a)

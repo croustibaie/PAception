@@ -13,7 +13,7 @@ bool init(SDL_Window** gWindow, SDL_Renderer** gRenderer, SDL_GameController** g
 
     //Initialize SDL
     SDL_SetHint(SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS,"1");//Seems to be essential if we want to capture correct inputs
-    if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER ) < 0 )
+    if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER | SDL_INIT_AUDIO ) < 0 )
     {
         printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
         success = false;
@@ -81,7 +81,7 @@ bool loadMedia(SDL_Texture** gTexture,SDL_Renderer** gRender, char const* path)
     gSurface = IMG_Load(path);
     if( gSurface == NULL )
     {
-        printf( "Unable to load image %s! SDL Error: %s\n", "hello_world.bmp", SDL_GetError() );
+        printf( "Unable to load image %s! ", SDL_GetError() );
         success = false;
     }
     else

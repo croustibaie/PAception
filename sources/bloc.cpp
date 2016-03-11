@@ -46,7 +46,7 @@ bloc::bloc (SDL_Renderer** gRender,const char* path, level* l, int x, int y)
     this->rect.w=50;
     this->rect.h=50;
     texture=NULL;
-    this->speed=16;
+    this->speed=8;
     this->xMove=0;
     this->yMove=0;
     this->gRenderer=*gRender;
@@ -71,10 +71,10 @@ bloc::~bloc()
 
 bool bloc::react(struct controllerState** state,unsigned int elapsedTime)//This class is overcharged, bloc::react should never be used
 {
-    if (l->collide(this->blocId,this->getRect())!= nullptr)
+    if (l->collide(this->blocId,this->getRect(),this->ignoredBlocs)!= nullptr)
     {
-        std::cout<<"killing self"<<std::endl;
-        l->deleteBloc(this->blocId);
+        std::cout<<"initial collision"<<std::endl;
+        l->deleteBloc(this->blocId,this->getKind());
     }
     return true;
 }
@@ -99,12 +99,12 @@ bool bloc::tryMove(int x, int y)
     a.y+=y;
 
     bool isAlive=true;
-    bloc* intersectedBloc = this->l->collide(this->blocId,a);
+    bloc* intersectedBloc = this->l->collide(this->blocId,a,this->ignoredBlocs);
     if (intersectedBloc!= nullptr) //If there is a collision
     {
 
-        isAlive=this->collisionReaction(intersectedBloc);
-        intersectedBloc->collisionReaction(this);
+        isAlive=this->collisionReaction(intersectedBloc); // reaction of the incoming bloc with the receiving bloc
+        intersectedBloc->collisionReaction(this); // reaction of the receiving bloc with the incoming bloc
         return isAlive;
     }
     else //Here we check that we're not trying to go out of the window

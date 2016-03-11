@@ -40,7 +40,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
     this->rect.w = 50;
     this->rect.h = 50;
     texture = NULL;
-    this->speed = 8;
+    this->speed = INITIALSPEED;
     this->xMove = 0;
     this->yMove = 0;
     this->gRenderer = *gRenderer;
@@ -55,13 +55,148 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, const char *path, level *l, int
     this->lastShotTimer = 0;
     for (int i = 0; i < NB_LASERS; i++)
     {
-        this->laser[i] = new laserBloc(gRenderer, "./black.bmp", l, 50, 50, 1, 0);
+        this->laser[i] = new laserBloc(gRenderer, "./textures/black.bmp", l, 50, 50, 1, 0);
     }
     this->nextLaser=0;
     this->ammo=MAX_AMMO;
     this->wallCollided=false;
     this->hp= PLAYER_HP;
     this->reloadTimer=0;
+    switch(playerID)
+    {
+        case 0:
+        for(int i = 0;i<MAX_AMMO+PLAYER_HP+2;i++)
+        {
+
+                if (i < PLAYER_HP + 1)
+                {
+                    this->rectBase[i].x = 5 + 10*i;
+                    this->rectBase[i].y = 5;
+                    this->rectBase[i].w = 10;
+                    this->rectBase[i].h = 10;
+                }
+                else
+                {
+                    this->rectBase[i].x = 5 + 10*(i-PLAYER_HP-1);
+                    this->rectBase[i].y = 30;
+                    if(i==PLAYER_HP+1)
+                    {
+                        this->rectBase[i].w=10;
+                    }
+                    else
+                    {
+                        this->rectBase[i].w = 5;
+                    }
+                    this->rectBase[i].h = 10;
+                }
+
+        }
+        break;
+
+        case 1:
+            for(int i = 0;i<MAX_AMMO+PLAYER_HP+2;i++)
+            {
+
+                if (i < PLAYER_HP + 1)
+                {
+                    this->rectBase[i].x = 5 + 10*i;
+                    this->rectBase[i].y = SCREEN_HEIGHT -10 - 5;
+                    this->rectBase[i].w = 10;
+                    this->rectBase[i].h = 10;
+                }
+                else
+                {
+                    this->rectBase[i].x = 5 + 10*(i-PLAYER_HP-1);
+                    this->rectBase[i].y = SCREEN_HEIGHT - 10 -30;
+                    if(i==PLAYER_HP+1)
+                    {
+                        this->rectBase[i].w=10;
+                    }
+                    else
+                    {
+                        this->rectBase[i].w = 5;
+                    }
+                    this->rectBase[i].h = 10;
+                }
+
+            }
+            break;
+
+        case 2:
+            for(int i = 0;i<MAX_AMMO+PLAYER_HP+2 ; i++) {
+
+                if (i < PLAYER_HP + 1) {
+                    this->rectBase[i].x = SCREEN_WIDTH - 10 - 5 - 10 * i;
+                    this->rectBase[i].y = 5;
+                    this->rectBase[i].w = 10;
+                    this->rectBase[i].h = 10;
+                }
+                else {
+                    this->rectBase[i].x = SCREEN_WIDTH - 10 - 5 - 10 * (i - PLAYER_HP - 1);
+                    this->rectBase[i].y = 30;
+                    if (i == PLAYER_HP + 1) {
+                        this->rectBase[i].w = 10;
+                    }
+                    else {
+                        this->rectBase[i].w = 5;
+                    }
+                    this->rectBase[i].h = 10;
+                }
+            }
+
+            break;
+
+        case 3:
+                    for (int i = 0; i < MAX_AMMO + PLAYER_HP + 2; i++) {
+
+                        if (i < PLAYER_HP + 1) {
+                            this->rectBase[i].x = SCREEN_WIDTH - 10 - 5 - 10 * i;
+                            this->rectBase[i].y = SCREEN_HEIGHT - 10 - 5;
+                            this->rectBase[i].w = 10;
+                            this->rectBase[i].h = 10;
+                        }
+                        else {
+                            this->rectBase[i].x = SCREEN_WIDTH - 10 - 5 - 10 * (i - PLAYER_HP - 1);
+                            this->rectBase[i].y = SCREEN_HEIGHT -10 - 30;
+                            if (i == PLAYER_HP + 1) {
+                                this->rectBase[i].w = 10;
+                            }
+                            else {
+                                this->rectBase[i].w = 5;
+                            }
+                            this->rectBase[i].h = 10;
+                        }
+                    }
+            break;
+
+
+            }
+
+
+    hpTexture=NULL;
+    loadMedia(&hpTexture,gRenderer,"./textures/red.bmp");
+    if (hpTexture==NULL)
+    {
+        std::cout<<"no HP texture loaded"<<std::endl;
+    }
+    heartTexture=NULL;
+    loadMedia(&heartTexture,gRenderer,"./textures/heart.png");
+    if (heartTexture==NULL)
+    {
+        std::cout<<"no Heart texture loaded"<<std::endl;
+    }
+    ammoTexture=NULL;
+    loadMedia(&ammoTexture,gRenderer,"./textures/yellow.png");
+    if (ammoTexture==NULL)
+    {
+        std::cout<<"no ammo texture loaded"<<std::endl;
+    }
+    bulletTexture=NULL;
+    loadMedia(&bulletTexture,gRenderer,"./textures/bullet.png");
+    if (bulletTexture==NULL)
+    {
+        std::cout<<"no bullet texture loaded"<<std::endl;
+    }
 }
 
 playerBloc::~playerBloc()
@@ -74,10 +209,15 @@ playerBloc::~playerBloc()
 
 bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
-    if (l->collide(this->blocId,this->getRect())!= nullptr)
+    this->ignoredBlocs.clear();
+    bloc* b=l->collide(this->blocId,this->getRect(),this->ignoredBlocs);
+    if (b!= nullptr) //TODO: MAKE THIS A FUNCTION : Check_Initial_Collision
     {
-        l->deleteBloc(this->blocId);
-        return false;
+        if(b->getKind()!=NONSOLID)
+        {
+            l->deleteBloc(this->blocId,this->getKind());
+            return false;
+        }
     }
     int correctedSpeed = (int) (round((float) (speed) * (float) elapsedTime / 20)); //We have to adapt the initial speed to the frame duration
     if (state == nullptr) {
@@ -112,7 +252,7 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
             }
         }
     }
-   // std::cout<<"ammo :"<< this->ammo<<std::endl;
+    //std::cout<<"ammo :"<< this->ammo<<std::endl;
     return(isAlive);
 }
 
@@ -122,13 +262,19 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
 bool playerBloc::collisionReaction(bloc *b)
 {
     bool isAlive;
+    if(b->getKind()==NONSOLID)
+    {
+        ignoredBlocs.push_back(b);
+        tryMove(this->xMove,this->yMove);
+        return true;
+    }
     if (b->kill())
     {
         this->hp--;
         if(hp==0)
         {
             std::cout << "got killed" << std::endl;
-            this->l->deleteBloc(this->blocId);
+            this->l->deleteBloc(this->blocId,this->getKind());
             isAlive = false;
             return isAlive;
         }
@@ -224,4 +370,40 @@ void playerBloc::shoot( struct controllerState **state)
         nextLaser=(nextLaser+1)%NB_LASERS;
         lastShotTimer=SDL_GetTicks();
     }
+}
+
+void playerBloc::draw()
+{
+    if (texture==NULL)
+    {
+        std::cout<<"no texture"<<std::endl;
+    }
+    SDL_RenderCopy(gRenderer,texture, NULL, &rect );
+    if (heartTexture==NULL)
+    {
+        std::cout<<"no heart texture"<<std::endl;
+    }
+    SDL_RenderCopy(gRenderer,heartTexture, NULL, &rectBase[0] );
+    if (hpTexture==NULL)
+    {
+        std::cout<<"no hp texture"<<std::endl;
+    }
+    for(int i =1;i<hp+1;i++)
+    {
+        SDL_RenderCopy(gRenderer,hpTexture, NULL, &rectBase[i] );
+    }
+    if (bulletTexture==NULL)
+    {
+        std::cout<<"no bullet texture"<<std::endl;
+    }
+    SDL_RenderCopy(gRenderer,bulletTexture, NULL, &rectBase[PLAYER_HP+1] );
+    if (ammoTexture==NULL)
+    {
+        std::cout<<"no ammo texture"<<std::endl;
+    }
+    for(int i =PLAYER_HP+2;i<PLAYER_HP+ammo+2;i++)
+    {
+        SDL_RenderCopy(gRenderer,ammoTexture, NULL, &rectBase[i] );
+    }
+
 }

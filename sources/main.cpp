@@ -1,10 +1,14 @@
 #include <SDL.h>
 #include <unistd.h>
+#include <SDL_mixer.h>
 #include "../headers/playerBloc.h"
+#include "../headers/voidBloc.h"
 #include "../headers/laserBloc.h"
 #include "../headers/staticBloc.h"
 #include "../headers/level.h"
 #include "../headers/pulseBloc.h"
+#include "../headers/freezeBloc.h"
+#include "../headers/sound.h"
 //Screen dimension constants
 
 
@@ -25,41 +29,80 @@ int main( int argc, char* args[] )
     }
     else
     {
-        loadMedia(&helloTexture,&gRenderer,"./loading.png");
+        loadMedia(&helloTexture,&gRenderer,"./textures/loading.png");
         SDL_RenderCopy(gRenderer,helloTexture,NULL,NULL);
         SDL_RenderPresent(gRenderer);
         //Load medias for background image and red square
-        const char* path = "./leather.bmp";
+        const char* path = "./textures/fond1230x960.jpg";
         loadMedia(&helloTexture,&gRenderer,path);
-        path= "./carre.png";
-        const char* laserpath="./red.png";
-        const char* staticpath="./black.bmp";
-        const char* pulsepath="./leopard.bmp";
+        path= "./textures/carre.png";
+        const char* laserpath="./textures/red.png";
+        const char* staticpath="./textures/black.bmp";
+        const char* voidpath="./textures/black.bmp";
+        const char* media="./sounds.wav";
+        const char* freezepath="./textures/green.bmp";
         std::cout<<SDL_NumJoysticks()<<std::endl;
         //Create the red bloc
         //Create the level
-        level l = level(helloTexture,gRenderer);
-        playerBloc b = playerBloc(&gRenderer,path,&l,0,0,0) ;
-        staticBloc b2 = staticBloc(&gRenderer,staticpath,&l,300,149);
-        //laserBloc b2= laserBloc(&gRenderer,laserpath,&l,100,30,1,0);
-        laserBloc b3= laserBloc(&gRenderer,laserpath,&l,200,30,1,1);
-        laserBloc b4= laserBloc(&gRenderer,laserpath,&l,400,150,-1,1);
-        pulseBloc b5 = pulseBloc(&gRenderer,pulsepath,&l,369,289);
-
-        l.insertBlocs(&b5,1);
-
-        //staticBloc s1 = staticBloc(&gRenderer,staticpath,&l,300,500);
-        staticBloc s1 = staticBloc(&gRenderer,staticpath,&l,300,500);
-        l.insertBlocs(&b,1);
-        //l.insertBlocs(&b2,1);
-        //l.insertBlocs(&b3,1);
-       // l.insertBlocs(&s1,1);
-        //l.play();
-        playerBloc b1 = playerBloc(&gRenderer,path,&l,1,400,400) ;
-        //l.insertBlocs(&b1,1);
-
-       // l.insertBlocs(&b1,1);
-        l.play();
+        bool gameOn =true;
+        while(gameOn)
+        {
+            level l = level(helloTexture,gRenderer,SDL_NumJoysticks());
+            playerBloc b = playerBloc(&gRenderer,path,&l,0,0,0) ;
+            staticBloc b2 = staticBloc(&gRenderer,staticpath,&l,300,149);
+            freezeBloc b2bis = freezeBloc(&gRenderer,freezepath,&l,100,149);
+            //laserBloc b2= laserBloc(&gRenderer,laserpath,&l,100,30,1,0);
+            laserBloc b3= laserBloc(&gRenderer,laserpath,&l,200,30,1,1);
+            laserBloc b4= laserBloc(&gRenderer,laserpath,&l,400,150,-1,1);
+            staticBloc s1 = staticBloc(&gRenderer,staticpath,&l,300,500);
+            voidBloc v= voidBloc(&gRenderer,voidpath,&l,400,400);
+            l.insertBlocs(&v,1);
+            l.insertBlocs(&b,1);
+            l.insertBlocs(&b2,1);
+            l.insertBlocs(&b2bis,1);
+            //l.insertBlocs(&b3,1);
+            l.insertBlocs(&s1,1);
+            //l.play();
+            playerBloc b1 = playerBloc(&gRenderer,path,&l,1,400,500) ;
+            l.insertBlocs(&b1,1);
+            //music(media);
+            enum gameStatus  a = l.play();
+            if(a == GAMEOVER)
+            {
+                char result[50];
+                bool input = false;
+                if(l.getNum()>=1)
+                {
+                    std::cout<<"Do you wanna play another game ? "<<std::endl;
+                    std::cout<<"y or n"<<std::endl;
+                    std::cin>>result;
+                    while(!(input))
+                    {
+                        if (strcmp(result, "y") == 0)
+                        {
+                            input = true;
+                            std::cout << "let's play another game !" << std::endl;
+                        }
+                        else if (strcmp(result, "n") == 0)
+                        {
+                            input = true;
+                            gameOn = false;
+                            std::cout << "End of the game" << std::endl;
+                        }
+                        else
+                        {
+                            std::cout << "please type y or n" << std::endl;
+                            std::cin >> result;
+                        }
+                    }
+                }
+                else
+                {
+                    std::cout<<"Please play with at least one joystick"<<std::endl;
+                    gameOn=false;
+                }
+            }
+        }
     }
 
     //Free resources and close SDL

@@ -7,11 +7,12 @@
 
 class level;
 #include <iostream>
+#include <vector>
 #include <SDL_surface.h>
 #include "sdlconfig.h"
 
 
-
+ // initial speed of a bloc
 
 
 class bloc {
@@ -30,6 +31,7 @@ protected:
     bool killOnTouch; //Does the bloc kill players?
     enum kind myKind; // Kind can be LASER,PLAYER or STATIC so far. Useful to determine a generic bloc's type
     bool wallCollided; //Return true if the bloc collided with a wall and it hasn't been resolved yet
+    std::vector<bloc*> ignoredBlocs;
 public:
     /* Move the bloc of x pixels in horizontal and y in vertical */
 
@@ -41,7 +43,7 @@ public:
     ~bloc(); // Destructor
 
     virtual bool react(struct controllerState** state,unsigned int elapsedTime); //Bloc's reactions to given inputs, returns false if the bloc asked to be killed
-    void draw(); // The bloc draws itself to the renderer
+    virtual void draw(); // The bloc draws itself to the renderer
     void move(int x , int y); // The bloc applies the movement, this should be done after having checked that there are no collisions
     bool tryMove(int x, int y);//The bloc changes xMove and yMove and then asks level for collisions.Returns false if the bloc asked to be killed, true otherwise.
     virtual bool collisionReaction(bloc* b);//Bloc's reaction to a collision with another bloc. Returns false if it dies
@@ -57,7 +59,7 @@ public:
     enum kind getKind();
     void setPosition(int x, int y);
 
-
+    // NB : Any bloc that is killed must be killed in his own collisionReaction
 };
 
 #endif
