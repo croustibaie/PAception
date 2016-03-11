@@ -52,19 +52,19 @@ int main( int argc, char* args[] )
             staticBloc b2 = staticBloc(&gRenderer,staticpath,&l,300,149);
             freezeBloc b2bis = freezeBloc(&gRenderer,freezepath,&l,100,149);
             //laserBloc b2= laserBloc(&gRenderer,laserpath,&l,100,30,1,0);
-            laserBloc b3= laserBloc(&gRenderer,laserpath,&l,200,30,1,1);
-            laserBloc b4= laserBloc(&gRenderer,laserpath,&l,400,150,-1,1);
+            pulseBloc b5= pulseBloc(&gRenderer, "./textures/leopard.bmp", &l, 600,350);
             staticBloc s1 = staticBloc(&gRenderer,staticpath,&l,300,500);
             voidBloc v= voidBloc(&gRenderer,voidpath,&l,400,400);
             l.insertBlocs(&v,1);
             l.insertBlocs(&b,1);
-            l.insertBlocs(&b2,1);
+            l.insertBlocs(&b5,1);
             l.insertBlocs(&b2bis,1);
+            l.insertBlocs(&b2,1);
             //l.insertBlocs(&b3,1);
             l.insertBlocs(&s1,1);
             //l.play();
             playerBloc b1 = playerBloc(&gRenderer,path,&l,1,400,500) ;
-            l.insertBlocs(&b1,1);
+          //  l.insertBlocs(&b1,1);
             //music(media);
             enum gameStatus  a = l.play();
             if(a == GAMEOVER)

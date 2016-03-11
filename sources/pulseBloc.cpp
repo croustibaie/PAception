@@ -6,6 +6,7 @@
 #include "../headers/pulseBloc.h"
 #include "../headers/level.h"
 
+
 pulseBloc::pulseBloc()
 {
     this->rect.x=50;
@@ -15,7 +16,7 @@ pulseBloc::pulseBloc()
     this->speed=0;
     this->xMove=0;
     this->yMove=0;
-    this->myKind=STATIC;
+    this->myKind=SOLID;
     texture=NULL;
     gRenderer=NULL;
     this->blocId=nextBlocId;
@@ -47,7 +48,7 @@ pulseBloc::pulseBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
     this->xMove=0;
     this->yMove=0;
     this->gRenderer=*gRenderer;
-    this->myKind=STATIC;
+    this->myKind=SOLID;
     this->compteur=0; // compteur d'absorptions ;
     loadMedia(&texture,gRenderer,path);
     if (texture==NULL)
@@ -60,7 +61,7 @@ pulseBloc::pulseBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
     this->wallCollided=false;
     for (int i = 0; i < NB_LASERS2; i++)
     {
-        this->laser[i] = new laserBloc(gRenderer, "./black.bmp", l, 50, 50, 1, 0);
+        this->laser[i] = new laserBloc(gRenderer, "./textures/red.bmp", l, 50, 50, 1, 0);
     }
     this->nextLaser=0;
 
@@ -78,17 +79,20 @@ pulseBloc::~pulseBloc()
 
 bool pulseBloc::collisionReaction(bloc *b)
 {
-        if (b->getKind() == LASER)
-            std::cout << "touché" << std::endl;
+        if (b->kill())
+
         {
+            std::cout<<compteur<<std::endl;
             if (compteur < 12)
             {
                 compteur = compteur + 1;
-                std::cout << "laser absorbé" << std::endl;
+
             }
             else
             {
+
                 pulseBloc::shoot();
+                compteur =0;
             }
         }
 
@@ -105,7 +109,6 @@ void pulseBloc::shoot()
             float radius = sqrt(((this->rect.w)/2)*((this->rect.w)/2)+((this->rect.h)/2)*((this->rect.h)/2));
             radius = 2*radius+1;
 
-            std::cout << x_init << std::endl;
             (double) i;
             double ctheta = cos(M_PI/4*i);
             double stheta = sin(M_PI/4*i);

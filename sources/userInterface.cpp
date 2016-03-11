@@ -57,10 +57,10 @@ void userInterface::motion(SDL_JoystickID id, SDL_Event e)
 {
         //X axis motion
     if (e.jaxis.axis==5) {
-        std::cout << "5" << std::endl;
+
     }
     if (e.jaxis.axis==6) {
-        std::cout << "5" << std::endl;
+
     }
         if (e.jaxis.axis == 0)
         {

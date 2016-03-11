@@ -20,9 +20,9 @@ set(SOURCE_FILES
         headers/laserBloc.h
         sources/laserBloc.cpp
         headers/pulseBloc.h
-        sources/pulseBloc.cpp)  #Set l'ensemble des sources, ici peu élégant
+        sources/pulseBloc.cpp
         headers/sound.h
-        sources/sound.cpp  #Set l'ensemble des sources, ici peu élégant
+        sources/sound.cpp
         headers/freezeBloc.h
         sources/freezeBloc.cpp
         sources/voidBloc.cpp
