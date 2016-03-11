@@ -65,8 +65,6 @@ laserBloc::~laserBloc()
 }
 
 
-
-
 bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
     if (l->collide(this->blocId,this->getRect(),this->ignoredBlocs)!= nullptr)

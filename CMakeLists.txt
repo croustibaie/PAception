@@ -27,8 +27,10 @@ set(SOURCE_FILES
         sources/freezeBloc.cpp
         sources/voidBloc.cpp
         headers/voidBloc.h
+        sources/diamondBloc.cpp
+        headers/diamondBloc.h
         headers/bumpBloc.h
-        sources/bumpBloc.cpp) #Set l'ensemble des sources, ici peu élégant
+        sources/bumpBloc.cpp)#Set l'ensemble des sources, ici peu élégant
 
 add_executable(PAception ${SOURCE_FILES}) #exécutable PAception génération par les fichiers sources
 

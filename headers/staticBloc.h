@@ -11,7 +11,7 @@ class staticBloc: public bloc {
 
 public:
     staticBloc();
-    staticBloc(SDL_Renderer** gRenderer,const char* path,level* l,int x,int y);
+    staticBloc(SDL_Renderer** gRenderer,level* l,int x,int y);
     ~staticBloc();
     bool react(struct controllerState** state,unsigned int elapsedTime);
 };

@@ -21,7 +21,7 @@ staticBloc::staticBloc()
     this->wallCollided=false;
 }
 
-staticBloc::staticBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,int y)
+staticBloc::staticBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
 {
     this->l=l;
     if (*gRenderer==NULL)
@@ -45,7 +45,7 @@ staticBloc::staticBloc(SDL_Renderer **gRenderer, const char *path, level *l,int 
     this->yMove=0;
     this->gRenderer=*gRenderer;
     this->myKind=SOLID;
-    loadMedia(&texture,gRenderer,path);
+    loadMedia(&texture,gRenderer,"./textures/black.bmp");
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;

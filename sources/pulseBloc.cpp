@@ -25,7 +25,7 @@ pulseBloc::pulseBloc()
 
 }
 
-pulseBloc::pulseBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,int y)
+pulseBloc::pulseBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
 {
     this->l=l;
     if (*gRenderer==NULL)
@@ -50,7 +50,7 @@ pulseBloc::pulseBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
     this->gRenderer=*gRenderer;
     this->myKind=SOLID;
     this->compteur=0; // compteur d'absorptions ;
-    loadMedia(&texture,gRenderer,path);
+    loadMedia(&texture,gRenderer,"./textures/leopard.bmp");
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;
@@ -77,28 +77,22 @@ pulseBloc::~pulseBloc()
     }
 }
 
-bool pulseBloc::collisionReaction(bloc *b)
-{
-        if (b->kill())
+bool pulseBloc::collisionReaction(bloc *b) {
+       if (b->kill())
+    {
 
+        compteur = compteur + 1;
+
+        if (compteur == 4)
         {
-            std::cout<<compteur<<std::endl;
-            if (compteur < 12)
-            {
-                compteur = compteur + 1;
+            TimerPulse = SDL_GetTicks();
+            compteur = compteur+1;
 
-            }
-            else
-            {
-
-                pulseBloc::shoot();
-                compteur =0;
-            }
         }
 
-    return true;
-}
+    }
 
+}
 
 void pulseBloc::shoot()
     {
@@ -122,3 +116,20 @@ void pulseBloc::shoot()
 
         }
     }
+
+
+bool pulseBloc::react(struct controllerState **state, unsigned int elapsedTime)
+{
+    if (compteur > 4)
+        {
+
+            std::cout<<SDL_GetTicks()<<std::endl;
+            if (SDL_GetTicks()-TimerPulse > 3000)
+            {
+                pulseBloc::shoot();
+                compteur = 0;
+            }
+        }
+
+    return true;
+}

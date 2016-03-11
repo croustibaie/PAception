@@ -17,13 +17,16 @@ private:
     unsigned int Timer;//
     laserBloc* laser[NB_LASERS2]; //P
     int nextLaser;
+    unsigned int TimerPulse;
 
 public:
     pulseBloc();
-    pulseBloc(SDL_Renderer** gRenderer,const char* path,level* l,int x,int y);
+    pulseBloc(SDL_Renderer** gRenderer,level* l,int x,int y);
     ~pulseBloc();
     bool collisionReaction(bloc *b);
     int compteur ;
+    bool react(struct controllerState** state,unsigned int elapsedTime);
+
 
 
     void shoot();
