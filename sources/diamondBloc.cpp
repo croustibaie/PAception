@@ -4,8 +4,6 @@
 
 #include "../headers/diamondBloc.h"
 #include "../headers/level.h"
-#include "../headers/laserBloc.h"
-
 
 diamondBloc::diamondBloc()
 {
@@ -79,7 +77,7 @@ bool diamondBloc::react(struct controllerState **state, unsigned int elapsedTime
 bool diamondBloc::collisionReaction(bloc *b)
 {
 
-    if(b->killOnTouch == true)
+    if(b->kill() == true)
     {
         if (laser_counter > 4)
         {
