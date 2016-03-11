@@ -23,7 +23,7 @@ diamondBloc::diamondBloc()
     this->laser_counter = 1;
 }
 
-diamondBloc::diamondBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,int y)
+diamondBloc::diamondBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
 {
     this->l=l;
     if (*gRenderer==NULL)
@@ -47,7 +47,7 @@ diamondBloc::diamondBloc(SDL_Renderer **gRenderer, const char *path, level *l,in
     this->yMove=0;
     this->gRenderer=*gRenderer;
     this->myKind=SOLID;
-    loadMedia(&texture,gRenderer,path);
+    loadMedia(&texture,gRenderer,"./textures/carre2.png");
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;
@@ -56,7 +56,7 @@ diamondBloc::diamondBloc(SDL_Renderer **gRenderer, const char *path, level *l,in
     this->blocId=nextBlocId;
     nextBlocId++;
     this->wallCollided=false;
-    for (int i = 0; i < NB_LASERS; i++)
+    for (int i = 0; i < NB_LASERS3; i++)
     {
         this->laser[i] = new laserBloc(gRenderer, "./textures/black.bmp", l, 50, 50, 1, 0);
     }
@@ -113,7 +113,7 @@ bool diamondBloc::collisionReaction(bloc *b)
 void diamondBloc::shoot(int x , int y)
 {
 
-    int xPos=0; int yPos=0;
+    double xPos=0; double yPos=0;
     double xDir = x/sqrt(double(x*x+y*y)) ;
     double yDir = y/sqrt(double(x*x+y*y)) ;
 
@@ -122,22 +122,22 @@ void diamondBloc::shoot(int x , int y)
         if(x == 1)
         {
             xPos = this->rect.x + rect.w;
-            yPos = this->rect.y + rect.h/2;
+            yPos = this->rect.y + rect.h/2.;
         }
         if(x == -1)
         {
             xPos = this->rect.x;
-            yPos = this->rect.y + rect.h/2;
+            yPos = this->rect.y + rect.h/2.;
         }
     }
     else if(x == 0)
     {
         if (y == 1) {
-            xPos = this->rect.x + rect.w/2;
+            xPos = this->rect.x + rect.w/2.;
             yPos = this->rect.y;
         }
         if (y == -1) {
-            xPos = this->rect.x + rect.w/2;
+            xPos = this->rect.x + rect.w/2.;
             yPos = this->rect.y + rect.h;
         }
     }
@@ -145,10 +145,10 @@ void diamondBloc::shoot(int x , int y)
         std::cout << "fire direction can only be expressed using 0 "
                              "and 1 values for x and y" << std::endl;
 
-        laser[nextLaser]->setPosition(xPos,yPos);
-        laser[nextLaser]->setDirection(xDir,yDir);
+        laser[nextLaser]->setPosition((int)xPos,(int)yPos);
+        laser[nextLaser]->setDirection((float)xDir,(float)yDir);
 
         l->insertBlocs(laser[nextLaser],1);
 
-        nextLaser=(nextLaser+1)%NB_LASERS;
+        nextLaser=(nextLaser+1)%NB_LASERS3;
 }

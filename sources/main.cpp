@@ -4,6 +4,7 @@
 #include "../headers/playerBloc.h"
 #include "../headers/voidBloc.h"
 #include "../headers/laserBloc.h"
+#include "../headers/diamondBloc.h"
 #include "../headers/staticBloc.h"
 #include "../headers/level.h"
 #include "../headers/pulseBloc.h"
@@ -47,7 +48,7 @@ int main( int argc, char* args[] )
             staticBloc b2 = staticBloc(&gRenderer,&l,300,149);
             freezeBloc b2bis = freezeBloc(&gRenderer,&l,100,149);
             pulseBloc b5= pulseBloc(&gRenderer, &l, 600,350);
-            staticBloc s1 = staticBloc(&gRenderer,&l,300,500);
+            diamondBloc s1 = diamondBloc(&gRenderer,&l,300,500);
             voidBloc v= voidBloc(&gRenderer,&l,400,400);
             l.insertBlocs(&v,1);
             l.insertBlocs(&b,1);

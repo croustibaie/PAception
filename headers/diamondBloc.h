@@ -9,18 +9,18 @@
 #include "laserBloc.h"
 #include <map>
 
-#define NB_LASERS 40
+#define NB_LASERS3 40
 
 class diamondBloc: public bloc {
 
 private:
-    laserBloc* laser[NB_LASERS]; //Pool of player's lasers.
+    laserBloc* laser[NB_LASERS3]; //Pool of player's lasers.
     int nextLaser; // Number of next laser that should be shot
     int laser_counter; // defines the vertex of the cube from which the refracted laser
                        // will be issued
 public:
     diamondBloc();
-    diamondBloc(SDL_Renderer** gRenderer,const char* path,level* l,int x,int y);
+    diamondBloc(SDL_Renderer** gRenderer,level* l,int x,int y);
     ~diamondBloc();
     bool react(struct controllerState** state,unsigned int elapsedTime);
     bool collisionReaction(bloc* b);
