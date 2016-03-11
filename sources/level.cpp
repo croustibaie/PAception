@@ -12,15 +12,23 @@ level::level()
     elapsedTime=0;
 }
 
-level::level (SDL_Texture* Texture,SDL_Renderer* gRenderer)
+level::level (SDL_Texture* Texture,SDL_Renderer* gRenderer,int numPlayer)
 {
 
     this->backGroundTexture= Texture;
+    loadMedia(&pauseTexture,&gRenderer,"./textures/pausescreen.png");
     if (backGroundTexture==NULL)
     {
         std::cout<<"level has no background texture"<<std::endl;
     }
     this->gRenderer=gRenderer;
+    this->numPlayer=numPlayer;
+    this->gamePaused=false;
+    this->pauseRect.x=SCREEN_WIDTH/8*3;
+    this->pauseRect.w=SCREEN_WIDTH/4;
+    this->pauseRect.y=SCREEN_HEIGHT/8*3;
+    this->pauseRect.h=SCREEN_HEIGHT/6;
+
 }
 
 level::~level()
@@ -35,71 +43,16 @@ SDL_Renderer** level::getRenderer()
 
 void level::blocReactions()
 {
-    std::map<int,bloc*>::iterator it;
-    it= SolidblocMap.begin();
-    int i=0;
-    while (it!=SolidblocMap.end())//Make sure blocMap.end is recomputed on every loop
-    {
-        if(!(it->second->react(ui->getCS(),elapsedTime)))
-        {
-            it=SolidblocMap.begin();
-            for (int j=0;j<i;j++)
-            {
-                it++;
-            }
-        }
-        else
-        {
-            i++;
-            it++;
-        }
-    }
-    it= NonSolidblocMap.begin();
-    i=0;
-    while (it!=NonSolidblocMap.end())//Make sure blocMap.end is recomputed on every loop
-    {
-        if(!(it->second->react(ui->getCS(),elapsedTime)))
-        {
-            it=NonSolidblocMap.begin();
-            for (int j=0;j<i;j++)
-            {
-                it++;
-            }
-        }
-        else
-        {
-            i++;
-            it++;
-        }
-    }
+    mapReactions(&(this->SolidblocMap));
+    mapReactions(&(this->NonSolidblocMap));
+    mapReactions(&(this->PlayerblocMap));
 
-    it= PlayerblocMap.begin();
-    i=0;
-    while (it!=PlayerblocMap.end())//Make sure blocMap.end is recomputed on every loop
-    {
-        if(!(it->second->react(ui->getCS(),elapsedTime)))
-        {
-            it=PlayerblocMap.begin();
-            for (int j=0;j<i;j++)
-            {
-                it++;
-            }
-        }
-        else
-        {
-            i++;
-            it++;
-        }
-    }
-
-    
 }
 void level::blocDraw()
 {
     SDL_RenderClear(gRenderer);
     SDL_RenderCopy(gRenderer,backGroundTexture,NULL,NULL);
     std::map<int,bloc*>::iterator it;
-
 
     for (it= SolidblocMap.begin();it!=SolidblocMap.end();it++)//Make sure blocMap.end is recomputed on every loop, could be the cause of seg faults
     {
@@ -115,6 +68,10 @@ void level::blocDraw()
     {
         it->second->draw();
     }
+    if (gamePaused)
+    {
+        SDL_RenderCopy(gRenderer,pauseTexture,NULL,&(this->pauseRect));
+    }
 
     SDL_RenderPresent(gRenderer);
 }
@@ -123,8 +80,16 @@ enum gameStatus level::play ()
     lastTime=SDL_GetTicks();
     elapsedTime=20; // We have to initialize the elapsed time for the very first frame, chose 20ms by default
 
-    while(ui->play())
+    while((ui->play())&&((this->numPlayer>1)||TEST))
     {
+        while(ui->isPaused())
+        {
+            gamePaused=true;
+            blocDraw();
+            ui->play();
+            lastTime=SDL_GetTicks();
+        }
+        gamePaused=false;
         this->blocReactions();
         unsigned tmptime= SDL_GetTicks(); //Get the number of milliseconds since the game started
         blocDraw();
@@ -132,7 +97,14 @@ enum gameStatus level::play ()
         lastTime=tmptime;
     }
 
-    return PLAY;
+    if((this->numPlayer)<=1)
+    {
+        return GAMEOVER;
+    }
+    else
+    {
+        return PLAY;
+    }
 }
 void level::deleteBloc(int blocID , enum kind blocKind)
 {
@@ -140,7 +112,6 @@ void level::deleteBloc(int blocID , enum kind blocKind)
     switch (blocKind)
     {
         case SOLID :
-            std::cout<<"removing a solid bloc"<<std::endl;
             SolidblocMap.erase(blocID);
             break;
         case NONSOLID :
@@ -148,6 +119,7 @@ void level::deleteBloc(int blocID , enum kind blocKind)
             break;
         case PLAYER :
             PlayerblocMap.erase(blocID);
+            this->numPlayer--;
             break;
     }
 }
@@ -219,16 +191,16 @@ bloc* level::mapCollide(int blocID, SDL_Rect potentialPos, std::vector<bloc *> i
 }
 
 
-void level::mapReactions(std::map<int, bloc *> map)
+void level::mapReactions(std::map<int, bloc *> *map)
 {
     std::map<int,bloc*>::iterator it;
-    it= map.begin();
+    it= (*map).begin();
     int i=0;
-    while (it!=map.end())//Make sure blocMap.end is recomputed on every loop
+    while (it!=(*map).end())//Make sure blocMap.end is recomputed on every loop
     {
         if(!(it->second->react(ui->getCS(),elapsedTime)))
         {
-            it=map.begin();
+            it=(*map).begin();
             for (int j=0;j<i;j++)
             {
                 it++;
@@ -261,3 +233,7 @@ bool level::testCollision(SDL_Rect a, SDL_Rect b)
     return true;
 }
 
+int level::getNum()
+{
+    return(this->numPlayer);
+}

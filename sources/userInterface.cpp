@@ -31,7 +31,9 @@ userInterface::userInterface()
         this->cs[i]->RT=false;
         this->cs[i]->LT=false;
     }
+    pause=false;
 }
+
 
 bool userInterface::play()
 {
@@ -47,6 +49,7 @@ bool userInterface::play()
         }
         if(e.type == SDL_JOYBUTTONDOWN)
         {
+            handleButton(e.button.which,e);
         }
 
     }
@@ -55,7 +58,8 @@ bool userInterface::play()
 
 void userInterface::motion(SDL_JoystickID id, SDL_Event e)
 {
-        //X axis motion
+
+    //X axis motion
         if (e.jaxis.axis == 0)
         {
             if (abs(e.jaxis.value) > 8000)
@@ -131,6 +135,46 @@ void userInterface::motion(SDL_JoystickID id, SDL_Event e)
     }
 }
 
+void userInterface::handleButton(SDL_JoystickID id,SDL_Event e)
+{
+    if (e.jbutton.button==SDL_CONTROLLER_BUTTON_START )
+    {
+        std::cout<<"pressed select"<<std::endl;
+    }
+    if (e.jbutton.button==SDL_CONTROLLER_BUTTON_A)
+    {
+        std::cout<<"pressed a"<<std::endl;
+    }
+    if (e.jbutton.button==SDL_CONTROLLER_BUTTON_B)
+    {
+        std::cout<<"pressed b"<<std::endl;
+    }
+    if (e.jbutton.button==SDL_CONTROLLER_BUTTON_X)
+    {
+        std::cout<<"pressed 3"<<std::endl;
+    }
+    if (e.jbutton.button==SDL_CONTROLLER_BUTTON_Y)
+    {
+        std::cout<<"pressed 4"<<std::endl;
+    }
+    if (e.jbutton.button==SDL_CONTROLLER_BUTTON_BACK)
+    {
+        std::cout<<"pressed 5"<<std::endl;
+    }
+    if(e.jbutton.button==7)
+    {
+        std::cout<<"pressed start"<<std::endl;
+        if(pause==true)
+        {
+            pause=false;
+        }
+        else
+        {
+            pause = true;
+        }
+    }
+}
+
 userInterface::~userInterface()
 {
     std::cout<<"ui deleted"<<std::endl;
@@ -140,4 +184,9 @@ userInterface::~userInterface()
 struct controllerState** userInterface::getCS()
 {
     return cs;
+}
+
+bool userInterface::isPaused()
+{
+    return pause;
 }
