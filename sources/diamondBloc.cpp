@@ -148,7 +148,7 @@ void diamondBloc::shoot(int x , int y)
         laser[nextLaser]->setPosition((int)xPos,(int)yPos);
         laser[nextLaser]->setDirection((float)xDir,(float)yDir);
 
-        l->insertBlocs(laser[nextLaser],1);
+        l->insertBloc(laser[nextLaser]);
 
         nextLaser=(nextLaser+1)%NB_LASERS3;
 }

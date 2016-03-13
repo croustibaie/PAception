@@ -110,7 +110,7 @@ void pulseBloc::shoot()
 
             laser[nextLaser]->setPosition(x_init+radius*ctheta,y_init+radius*stheta);
             laser[nextLaser]->setDirection(ctheta,stheta);
-            l->insertBlocs(laser[nextLaser],1);
+            l->insertBloc(laser[nextLaser]);
 
             nextLaser=(nextLaser+1)%NB_LASERS2;
 

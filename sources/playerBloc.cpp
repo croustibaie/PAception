@@ -364,7 +364,7 @@ void playerBloc::shoot( struct controllerState **state)
         laser[nextLaser]->setPosition(xPos,yPos);
         laser[nextLaser]->setDirection(ctheta,stheta);
 
-        l->insertBlocs(laser[nextLaser],1);
+        l->insertBloc(laser[nextLaser]);
 
         ammo--;
         nextLaser=(nextLaser+1)%NB_LASERS;

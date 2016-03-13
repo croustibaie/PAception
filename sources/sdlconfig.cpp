@@ -76,7 +76,7 @@ bool loadMedia(SDL_Texture** gTexture,SDL_Renderer** gRender, char const* path)
 {
     //Loading success flag
     bool success = true;
-    SDL_Surface* gSurface;
+    SDL_Surface* gSurface=NULL;
     //Load splash image
    // gSurface = SDL_LoadBMP(path);
     gSurface = IMG_Load(path);

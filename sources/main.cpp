@@ -10,6 +10,7 @@
 #include "../headers/pulseBloc.h"
 #include "../headers/freezeBloc.h"
 #include "../headers/sound.h"
+#include "../headers/levelCreator.h"
 //Screen dimension constants
 
 
@@ -22,7 +23,6 @@ int main( int argc, char* args[] )
     SDL_Renderer* gRenderer;
 // 1st controller
     SDL_GameController** gGameController = new SDL_GameController*[4];
-    SDL_Texture* helloTexture; // Texture for background
     //Start up SDL and create window
     if( !init(&gWindow,&gRenderer,gGameController) )
     {
@@ -30,12 +30,7 @@ int main( int argc, char* args[] )
     }
     else
     {
-        loadMedia(&helloTexture,&gRenderer,"./textures/loading.png");
-        SDL_RenderCopy(gRenderer,helloTexture,NULL,NULL);
-        SDL_RenderPresent(gRenderer);
         //Load medias for background image and red square
-        const char* path = "./textures/fond1230x960.jpg";
-        loadMedia(&helloTexture,&gRenderer,path);
         const char* media="./sounds.wav";
         std::cout<<SDL_NumJoysticks()<<std::endl;
         //Create the red bloc
@@ -43,30 +38,33 @@ int main( int argc, char* args[] )
         bool gameOn =true;
         while(gameOn)
         {
-            level l = level(helloTexture,gRenderer,SDL_NumJoysticks());
-            playerBloc b = playerBloc(&gRenderer,&l,0,0,0) ;
-            staticBloc b2 = staticBloc(&gRenderer,&l,300,149);
-            freezeBloc b2bis = freezeBloc(&gRenderer,&l,100,149);
-            pulseBloc b5= pulseBloc(&gRenderer, &l, 600,350);
-            diamondBloc s1 = diamondBloc(&gRenderer,&l,300,500);
-            voidBloc v= voidBloc(&gRenderer,&l,400,400);
-            l.insertBlocs(&v,1);
-            l.insertBlocs(&b,1);
-            l.insertBlocs(&b5,1);
-            l.insertBlocs(&b2bis,1);
-            l.insertBlocs(&b2,1);
+            //level l = level(gRenderer,SDL_NumJoysticks());
+            levelCreator* lc= new levelCreator(gRenderer);
+            level* l= lc->parse();
+            //level* l = new level(gRenderer,1);
+            playerBloc* b =new playerBloc(&gRenderer,l,0,0,0) ;
+            staticBloc* b2 =new staticBloc(&gRenderer,l,300,149);
+            freezeBloc* b2bis =new freezeBloc(&gRenderer,l,100,149);
+            pulseBloc* b5= new pulseBloc(&gRenderer, l, 600,350);
+            diamondBloc* s1 =new  diamondBloc(&gRenderer,l,300,500);
+            voidBloc* v= new voidBloc(&gRenderer,l,400,400);
+            l->insertBloc(v);
+            l->insertBloc(b);
+            l->insertBloc(b5);
+            l->insertBloc(b2bis);
+            l->insertBloc(b2);
             //l.insertBlocs(&b3,1);
-            l.insertBlocs(&s1,1);
+            l->insertBloc(&*s1);
             //l.play();
-            playerBloc b1 = playerBloc(&gRenderer,&l,1,400,500) ;
+            playerBloc* b1 =new playerBloc(&gRenderer,l,1,400,500) ;
           //  l.insertBlocs(&b1,1);
             //music(media);
-            enum gameStatus  a = l.play();
+            enum gameStatus  a = l->play();
             if(a == GAMEOVER)
             {
                 char result[50];
                 bool input = false;
-                if(l.getNum()>=1)
+                if(l->getNum()>=1)
                 {
                     std::cout<<"Do you wanna play another game ? "<<std::endl;
                     std::cout<<"y or n"<<std::endl;
@@ -97,12 +95,16 @@ int main( int argc, char* args[] )
                     gameOn=false;
                 }
             }
+            delete(b);
+            delete(b2);
+            delete(b2bis);
+            delete(v);
+            delete(b5);
+            delete(s1);
         }
     }
 
     //Free resources and close SDL
-    SDL_DestroyTexture(helloTexture);
-
     close(gRenderer,gWindow,gGameController);
     return 0;
 }

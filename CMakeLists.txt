@@ -28,7 +28,9 @@ set(SOURCE_FILES
         sources/voidBloc.cpp
         headers/voidBloc.h
         sources/diamondBloc.cpp
-        headers/diamondBloc.h) #Set l'ensemble des sources, ici peu élégant
+        headers/diamondBloc.h
+        headers/levelCreator.h
+        sources/levelCreator.cpp) #Set l'ensemble des sources, ici peu élégant
 
 add_executable(PAception ${SOURCE_FILES}) #exécutable PAception génération par les fichiers sources
 
