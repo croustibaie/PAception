@@ -4,6 +4,7 @@
 
 #include "../headers/diamondBloc.h"
 #include "../headers/level.h"
+#include <math.h>
 
 diamondBloc::diamondBloc()
 {
@@ -91,62 +92,96 @@ bool diamondBloc::collisionReaction(bloc *b)
         switch (laser_counter)
         {
             case 1 :
-                shoot(1,0);
+                shoot(0);
                 laser_counter +=1;
                 break;
             case 2 :
-                shoot(0,-1);
+                shoot(M_PI/2);
                 laser_counter +=1;
                 break;
             case 3 :
-                shoot(-1,0);
+                shoot(M_PI);
                 laser_counter +=1;
                 break;
             case 4 :
-                shoot(0,1);
+                shoot(-M_PI/2);
                 laser_counter = 1;
                 break;
         }
-
-
 
     }
 
     return(true);
 }
 
-void diamondBloc::shoot(int x , int y)
+void diamondBloc::shoot(double tht)
 {
 
-    double xPos=0; double yPos=0;
-    double xDir = double(x);
-    double yDir = double(y);
+    double xPos = 0;
+    double yPos = 0;
+    double xDir = cos(tht);
+    double yDir = sin(tht);
 
-    if(y == 0)
+    // right side and vertexes
+
+    if(fabs(tht) < M_PI/4 - EPS_THT) // right side of the cube
     {
-        if(x == 1)
+        xPos = this->rect.x + rect.w + EPS_SEC;
+        yPos = this->rect.y + rect.h / 2.;
+    }
+
+    if(fabs(tht) >= M_PI/4 - EPS_THT)  // right corners
+    {
+        if(fabs(tht) <= M_PI/4 + EPS_THT && tht >0) // up right corner
         {
             xPos = this->rect.x + rect.w + EPS_SEC;
-            yPos = this->rect.y + rect.h/2.;
-        }
-        if(x == -1)
-        {
-            xPos = this->rect.x - EPS_SEC;
-            yPos = this->rect.y + rect.h/2.;
-        }
-    }
-    else if(x == 0)
-    {
-        if (y == -1) {
-            xPos = this->rect.x + rect.w/2.;
             yPos = this->rect.y - EPS_SEC;
         }
-        if (y == 1) {
-            xPos = this->rect.x + rect.w/2.;
+
+        if(fabs(tht) <= M_PI/4 + EPS_THT && tht <0) // down right corner
+        {
+            xPos = this->rect.x + rect.w + EPS_SEC;
             yPos = this->rect.y + rect.h + EPS_SEC;
         }
     }
-    else
+
+    // left side and vertexes
+
+    if(fabs(tht) > 3*M_PI/4 + EPS_THT) // left side of the cube
+    {
+        xPos = this->rect.x - EPS_SEC;
+        yPos = this->rect.y + rect.h / 2.;
+    }
+
+    if(fabs(tht) <= 3*M_PI/4 + EPS_THT)
+    {
+        if(fabs(tht) > 3*M_PI/4 - EPS_THT && tht >0) // up left corner
+        {
+            xPos = this->rect.x - EPS_SEC;
+            yPos = this->rect.y - EPS_SEC;
+        }
+
+        if(fabs(tht) > 3*M_PI/4 - EPS_THT && tht <0) // down left corner
+        {
+            xPos = this->rect.x - EPS_SEC;
+            yPos = this->rect.y + rect.h + EPS_SEC;
+        }
+    }
+
+    // down side and up side
+
+
+    if (tht > M_PI/4 + EPS_THT && tht < 3*M_PI/4) // down side of the cube
+    {
+        xPos = this->rect.x + rect.w/2.;
+        yPos = this->rect.y - EPS_SEC;
+    }
+
+    if (tht < -M_PI/4 - EPS_THT && tht > -3*M_PI/4 + EPS_THT) // upper side of the cube
+    {
+        xPos = this->rect.x + rect.w / 2.;
+        yPos = this->rect.y + rect.h + EPS_SEC;
+    }
         std::cout << "fire direction can only be expressed using 0 "
                              "and 1 values for x and y" << std::endl;
 
