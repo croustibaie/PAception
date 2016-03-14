@@ -4,6 +4,7 @@
 
 #include "../headers/diamondBloc.h"
 #include "../headers/level.h"
+#include <math.h>
 
 diamondBloc::diamondBloc()
 {
@@ -91,62 +92,61 @@ bool diamondBloc::collisionReaction(bloc *b)
         switch (laser_counter)
         {
             case 1 :
-                shoot(1,0);
+                shoot(0);
                 laser_counter +=1;
                 break;
             case 2 :
-                shoot(0,-1);
+                shoot(M_PI/2);
                 laser_counter +=1;
                 break;
             case 3 :
-                shoot(-1,0);
+                shoot(M_PI);
                 laser_counter +=1;
                 break;
             case 4 :
-                shoot(0,1);
+                shoot(-M_PI/2);
                 laser_counter = 1;
                 break;
         }
-
-
 
     }
 
     return(true);
 }
 
-void diamondBloc::shoot(int x , int y)
+void diamondBloc::shoot(double tht)
 {
 
-    double xPos=0; double yPos=0;
-    double xDir = double(x);
-    double yDir = double(y);
+    double xPos = 0;
+    double yPos = 0;
+    double xDir = cos(tht);
+    double yDir = sin(tht);
 
-    if(y == 0)
+
+    if(fabs(tht) < M_PI/4) // right side of the cube
     {
-        if(x == 1)
-        {
-            xPos = this->rect.x + rect.w + EPS_SEC;
-            yPos = this->rect.y + rect.h/2.;
-        }
-        if(x == -1)
-        {
-            xPos = this->rect.x - EPS_SEC;
-            yPos = this->rect.y + rect.h/2.;
-        }
+        xPos = this->rect.x + rect.w + EPS_SEC;
+        yPos = this->rect.y + rect.h / 2.;
     }
-    else if(x == 0)
+
+    if(fabs(M_PI) > 3*M_PI/4) // left side of the cube
     {
-        if (y == -1) {
-            xPos = this->rect.x + rect.w/2.;
-            yPos = this->rect.y - EPS_SEC;
-        }
-        if (y == 1) {
-            xPos = this->rect.x + rect.w/2.;
-            yPos = this->rect.y + rect.h + EPS_SEC;
-        }
+        xPos = this->rect.x - EPS_SEC;
+        yPos = this->rect.y + rect.h / 2.;
     }
-    else
+
+
+    if (yDir < -sqrt(2)/2) // down side of the cube
+    {
+        xPos = this->rect.x + rect.w/2.;
+        yPos = this->rect.y - EPS_SEC;
+    }
+
+    if (yDir > sqrt(2)/2) // upper side of the cube
+    {
+        xPos = this->rect.x + rect.w / 2.;
+        yPos = this->rect.y + rect.h + EPS_SEC;
+    }
         std::cout << "fire direction can only be expressed using 0 "
                              "and 1 values for x and y" << std::endl;
 

@@ -26,7 +26,7 @@ public:
     ~diamondBloc();
     bool react(struct controllerState** state,unsigned int elapsedTime);
     bool collisionReaction(bloc* b);
-    void shoot(int x , int y);
+    void shoot(double tht);
 };
 
 
