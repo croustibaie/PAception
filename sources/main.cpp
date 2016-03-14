@@ -95,6 +95,7 @@ int main( int argc, char* args[] )
                     gameOn=false;
                 }
             }
+            delete(lc);
             delete(b);
             delete(b2);
             delete(b2bis);

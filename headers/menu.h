@@ -20,10 +20,12 @@ private:
     SDL_Rect quitRect;
     userInterface* ui;
     levelCreator* lc;
+    SDL_Renderer* gRenderer;
     int currentSelection;
 
 public:
     void playMenu();
+
 
 };
 

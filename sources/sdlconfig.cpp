@@ -89,6 +89,7 @@ bool loadMedia(SDL_Texture** gTexture,SDL_Renderer** gRender, char const* path)
     {
         *gTexture=SDL_CreateTextureFromSurface(*gRender,gSurface);
     }
+    SDL_FreeSurface(gSurface);
 
     return success;
 }

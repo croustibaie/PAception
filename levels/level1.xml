@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <node1>
+        <type>void</type>
+        <xpos>600</xpos>
+        <ypos>0</ypos>
+    </node1>
+    <node2>
+        <type>static</type>
+        <xpos>500</xpos>
+        <ypos>0</ypos>
+    </node2>
+</root>

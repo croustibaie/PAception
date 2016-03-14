@@ -40,7 +40,8 @@ levelCreator::~levelCreator()
     {
         delete blocArray[i];
     }
-    delete l;
+    delete[](this->blocArray);
+    delete(this->l);
 }
 
 level* levelCreator::parse()
