@@ -19,10 +19,11 @@ private:
     int numPlayers;
     bloc** blocArray;
     int numBloc;
+    int playerIndex;
 
 public:
     levelCreator();
-    levelCreator(SDL_Renderer* gRenderer);
+    levelCreator(SDL_Renderer* gRenderer,int numPlayers);
     ~levelCreator();
     level* parse();
     void createObject(std::string type,int xpos, int ypos);

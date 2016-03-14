@@ -11,6 +11,7 @@
 #include "../headers/freezeBloc.h"
 #include "../headers/sound.h"
 #include "../headers/levelCreator.h"
+#include "../headers/menu.h"
 //Screen dimension constants
 
 
@@ -28,7 +29,9 @@ int main( int argc, char* args[] )
     {
         printf( "Failed to initialize!\n" );
     }
-    else
+    menu m = menu(gRenderer);
+    m.playMenu();
+   /* else
     {
         //Load medias for background image and red square
         const char* media="./sounds.wav";
@@ -103,7 +106,7 @@ int main( int argc, char* args[] )
             delete(b5);
             delete(s1);
         }
-    }
+    }*/
 
     //Free resources and close SDL
     close(gRenderer,gWindow,gGameController);

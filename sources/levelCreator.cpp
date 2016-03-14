@@ -13,7 +13,6 @@
 #include "../libs/rapidxml/rapidxml_utils.hpp"
 
 using namespace rapidxml;
-using namespace std;
 
 
 levelCreator::levelCreator()
@@ -22,7 +21,7 @@ levelCreator::levelCreator()
     numBloc=0;
     l= new level();
 }
-levelCreator::levelCreator(SDL_Renderer* gRenderer)
+levelCreator::levelCreator(SDL_Renderer* gRenderer, int numPlayers)
 {
     blocArray= new bloc*[30];
     numBloc=0;
@@ -32,6 +31,8 @@ levelCreator::levelCreator(SDL_Renderer* gRenderer)
     }
     std::cout<<"lc creating level"<<std::endl;
     this->l= new level(gRenderer,1);
+    this->numPlayers=numPlayers;
+    this->playerIndex=0;
 }
 
 levelCreator::~levelCreator()
@@ -77,7 +78,7 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
     {
         blocArray[numBloc]= new pulseBloc(l->getRenderer(),l,xpos,ypos);
         numBloc++;
-        std::cout<<"creating a laser at"<<xpos<< " , " <<ypos<<std::endl;
+        std::cout<<"creating a pulse at"<<xpos<< " , " <<ypos<<std::endl;
     }
     if (type=="static")
     {
@@ -90,5 +91,15 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
         blocArray[numBloc]= new voidBloc(l->getRenderer(),l,xpos,ypos);
         numBloc++;
         std::cout<<"creating a void at "<<xpos<< " , " <<ypos<<std::endl;
+    }
+    if (type=="player")
+    {
+        if(this->playerIndex<numPlayers)
+        {
+            blocArray[numBloc] = new playerBloc(l->getRenderer(), l, this->playerIndex, xpos, ypos);
+            numBloc++;
+            playerIndex++;
+            std::cout << "creating a player at " << xpos << " , " << ypos << std::endl;
+        }
     }
 }

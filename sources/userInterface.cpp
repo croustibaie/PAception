@@ -49,7 +49,7 @@ bool userInterface::play()
         }
         if(e.type == SDL_JOYBUTTONDOWN)
         {
-            handleButton(e.button.which,e);
+            handleButton(e.jbutton.which,e);
         }
 
     }
@@ -143,6 +143,7 @@ void userInterface::handleButton(SDL_JoystickID id,SDL_Event e)
     }
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_A)
     {
+        cs[id]->aButton=true;
         std::cout<<"pressed a"<<std::endl;
     }
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_B)

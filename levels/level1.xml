@@ -10,4 +10,14 @@
         <xpos>500</xpos>
         <ypos>0</ypos>
     </node2>
+    <node3>
+        <type>player</type>
+        <xpos>0</xpos>
+        <ypos>0</ypos>
+    </node3>
+    <node4>
+        <type>pulse</type>
+        <xpos>80</xpos>
+        <ypos>200</ypos>
+    </node4>
 </root>

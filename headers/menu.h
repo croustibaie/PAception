@@ -4,8 +4,12 @@
 
 #ifndef PACEPTION_MENU_H
 #define PACEPTION_MENU_H
+
+#include "sdlconfig.h"
 class level;
 class userInterface;
+class levelCreator;
+
 
 class menu {
 
@@ -24,8 +28,12 @@ private:
     int currentSelection;
 
 public:
-    void playMenu();
+    menu(SDL_Renderer* gRenderer);
+    ~menu();
 
+    void playMenu();
+    bool handleInputs(controllerState** cs);
+    void drawMenu();
 
 };
 
