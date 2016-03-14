@@ -32,7 +32,7 @@ int main( int argc, char* args[] )
     else
     {
         //Load medias for background image and red square
-        const char* media="./sounds.wav";
+        const char* media="./media/intro.wav";
         std::cout<<SDL_NumJoysticks()<<std::endl;
         //Create the red bloc
         //Create the level
@@ -59,7 +59,7 @@ int main( int argc, char* args[] )
             //l.play();
             playerBloc* b1 =new playerBloc(&gRenderer,l,1,400,500) ;
           //  l.insertBlocs(&b1,1);
-            //music(media);
+            music(media);
             enum gameStatus  a = l->play();
             if(a == GAMEOVER)
             {
