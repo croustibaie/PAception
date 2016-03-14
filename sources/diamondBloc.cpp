@@ -96,7 +96,7 @@ bool diamondBloc::collisionReaction(bloc *b)
                 laser_counter +=1;
                 break;
             case 2 :
-                shoot(M_PI/2);
+                shoot(-M_PI/2);
                 laser_counter +=1;
                 break;
             case 3 :
@@ -104,7 +104,7 @@ bool diamondBloc::collisionReaction(bloc *b)
                 laser_counter +=1;
                 break;
             case 4 :
-                shoot(-M_PI/2);
+                shoot(M_PI/2);
                 laser_counter = 1;
                 break;
         }
