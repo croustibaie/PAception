@@ -12,6 +12,8 @@
 #define NB_LASERS3 40
 #define EPS_SEC 20 // small distance to add so that the laser issued by the bloc are
                   // issued from the exterior of the hitbox of the cude
+#define EPS_THT 0.2 // small angular epsilon for determining if the diamond shoots from a
+                    // side of the cube or from a vertex
 
 class diamondBloc: public bloc {
 

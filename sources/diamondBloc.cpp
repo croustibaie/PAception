@@ -122,27 +122,62 @@ void diamondBloc::shoot(double tht)
     double xDir = cos(tht);
     double yDir = sin(tht);
 
+    // right side and vertexes
 
-    if(fabs(tht) < M_PI/4) // right side of the cube
+    if(fabs(tht) < M_PI/4 - EPS_THT) // right side of the cube
     {
         xPos = this->rect.x + rect.w + EPS_SEC;
         yPos = this->rect.y + rect.h / 2.;
     }
 
-    if(fabs(M_PI) > 3*M_PI/4) // left side of the cube
+    if(fabs(tht) >= M_PI/4 - EPS_THT)  // right corners
+    {
+        if(fabs(tht) <= M_PI/4 + EPS_THT && tht >0) // up right corner
+        {
+            xPos = this->rect.x + rect.w + EPS_SEC;
+            yPos = this->rect.y - EPS_SEC;
+        }
+
+        if(fabs(tht) <= M_PI/4 + EPS_THT && tht <0) // down right corner
+        {
+            xPos = this->rect.x + rect.w + EPS_SEC;
+            yPos = this->rect.y + rect.h + EPS_SEC;
+        }
+    }
+
+    // left side and vertexes
+
+    if(fabs(tht) > 3*M_PI/4 + EPS_THT) // left side of the cube
     {
         xPos = this->rect.x - EPS_SEC;
         yPos = this->rect.y + rect.h / 2.;
     }
 
+    if(fabs(tht) <= 3*M_PI/4 + EPS_THT)
+    {
+        if(fabs(tht) > 3*M_PI/4 - EPS_THT && tht >0) // up left corner
+        {
+            xPos = this->rect.x - EPS_SEC;
+            yPos = this->rect.y - EPS_SEC;
+        }
 
-    if (yDir < -sqrt(2)/2) // down side of the cube
+        if(fabs(tht) > 3*M_PI/4 - EPS_THT && tht <0) // down left corner
+        {
+            xPos = this->rect.x - EPS_SEC;
+            yPos = this->rect.y + rect.h + EPS_SEC;
+        }
+    }
+
+    // down side and up side
+
+
+    if (tht > M_PI/4 + EPS_THT && tht < 3*M_PI/4) // down side of the cube
     {
         xPos = this->rect.x + rect.w/2.;
         yPos = this->rect.y - EPS_SEC;
     }
 
-    if (yDir > sqrt(2)/2) // upper side of the cube
+    if (tht < -M_PI/4 - EPS_THT && tht > -3*M_PI/4 + EPS_THT) // upper side of the cube
     {
         xPos = this->rect.x + rect.w / 2.;
         yPos = this->rect.y + rect.h + EPS_SEC;
