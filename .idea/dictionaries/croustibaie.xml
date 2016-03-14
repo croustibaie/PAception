@@ -3,10 +3,13 @@
     <words>
       <w>iter</w>
       <w>paception</w>
+      <w>rapidxml</w>
       <w>sdlconfig</w>
       <w>tmptime</w>
       <w>xmove</w>
+      <w>xpos</w>
       <w>ymove</w>
+      <w>ypos</w>
     </words>
   </dictionary>
 </component>

@@ -75,6 +75,10 @@ pulseBloc::~pulseBloc()
     {
         SDL_DestroyTexture(texture);
     }
+    for (int i = 0; i < NB_LASERS2; i++)
+    {
+        delete(this->laser[i]);
+    }
 }
 
 bool pulseBloc::collisionReaction(bloc *b) {
@@ -110,7 +114,7 @@ void pulseBloc::shoot()
 
             laser[nextLaser]->setPosition(x_init+radius*ctheta,y_init+radius*stheta);
             laser[nextLaser]->setDirection(ctheta,stheta);
-            l->insertBlocs(laser[nextLaser],1);
+            l->insertBloc(laser[nextLaser]);
 
             nextLaser=(nextLaser+1)%NB_LASERS2;
 
@@ -123,7 +127,6 @@ bool pulseBloc::react(struct controllerState **state, unsigned int elapsedTime)
     if (compteur > 4)
         {
 
-            std::cout<<SDL_GetTicks()<<std::endl;
             if (SDL_GetTicks()-TimerPulse > 3000)
             {
                 pulseBloc::shoot();

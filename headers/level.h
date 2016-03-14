@@ -39,7 +39,7 @@ private:
 
 public:
     level();
-    level (SDL_Texture* Texture,SDL_Renderer* gRenderer,int numPlayer);
+    level (SDL_Renderer* gRenderer,int numPlayer);
     ~level();
     //blocReactions get the reaction of every bloc in the level. The level sends the controller state to every bloc to get the reaction
     void blocReactions();
@@ -47,7 +47,7 @@ public:
     void blocDraw();
     //play() is a while procedure in which inputs are scanned, then blocReactions is called then blocDraw()
     enum gameStatus play ();
-    void insertBlocs(bloc* blocArray,int nbBlocs);
+    void insertBloc(bloc* blocArray);
     void deleteBloc(int blocID, enum kind blocKind);
     //Collided checks whether the bloc defined by blocID collides with any other one. If so, it calls the blocs' reactions
     bloc* collide(int blocID, SDL_Rect potentialPos, std::vector<bloc*> ignoredBlocs);

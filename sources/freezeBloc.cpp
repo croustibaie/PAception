@@ -77,6 +77,8 @@ bool freezeBloc::collisionReaction(bloc *b)
 
 bool freezeBloc::react(struct controllerState** state, unsigned int elapsedTime)
 {
+    bloc* blocarray[frozenbloc.size()];
+    int tmp=0;
     std::map<bloc*,unsigned int>::iterator it;
     for (it=frozenbloc.begin(); it!=frozenbloc.end();it++)
     {
@@ -84,8 +86,13 @@ bool freezeBloc::react(struct controllerState** state, unsigned int elapsedTime)
         {
             std::cout<<"reseting speed"<<std::endl;
             (it->first)->setSpeed(INITIALSPEED);
-            frozenbloc.erase(it->first);
+            blocarray[tmp]=it->first;
+            tmp++;
         }
+    }
+    for (int i=0; i<tmp;i++)
+    {
+        frozenbloc.erase(blocarray[i]);
     }
 
     return true;

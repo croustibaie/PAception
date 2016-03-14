@@ -177,6 +177,10 @@ void userInterface::handleButton(SDL_JoystickID id,SDL_Event e)
 
 userInterface::~userInterface()
 {
+    for(int i = 0;i<SDL_NumJoysticks();i++)
+    {
+        delete (cs[i]);
+    }
     std::cout<<"ui deleted"<<std::endl;
     delete[] cs;
 }

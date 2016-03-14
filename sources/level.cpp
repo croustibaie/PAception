@@ -12,16 +12,27 @@ level::level()
     elapsedTime=0;
 }
 
-level::level (SDL_Texture* Texture,SDL_Renderer* gRenderer,int numPlayer)
+level::level (SDL_Renderer* gRenderer,int numPlayer)
 {
-
-    this->backGroundTexture= Texture;
+    if (gRenderer==NULL)
+    {
+        std::cout<<"In level constructor, no valid renderer"<<std::endl;
+    }
     loadMedia(&pauseTexture,&gRenderer,"./textures/pausescreen.png");
+    loadMedia(&backGroundTexture,&gRenderer,"./textures/fond1230x960.jpg");
     if (backGroundTexture==NULL)
     {
         std::cout<<"level has no background texture"<<std::endl;
     }
     this->gRenderer=gRenderer;
+    if (this->gRenderer==NULL)
+    {
+        std::cout<<"In level constructor, no valid renderer"<<std::endl;
+    }
+    else
+    {
+        std::cout<<"valid renderer"<<std::endl;
+    }
     this->numPlayer=numPlayer;
     this->gamePaused=false;
     this->pauseRect.x=SCREEN_WIDTH/8*3;
@@ -38,6 +49,10 @@ level::~level()
 
 SDL_Renderer** level::getRenderer()
 {
+    if (this->gRenderer==NULL)
+    {
+        std::cout<<"transmitting null renderer";
+    }
     return &(this->gRenderer);
 }
 
@@ -123,24 +138,37 @@ void level::deleteBloc(int blocID , enum kind blocKind)
             break;
     }
 }
-void level::insertBlocs(bloc *blocArray, int nbBlocs)
+void level::insertBloc(bloc *b)
 {
-    for (int i=0;i<nbBlocs;i++)
+    switch (b->getKind())
+    {
+        case SOLID :
+            SolidblocMap.insert(std::pair<int, bloc *>(b->getBlocId(), b));
+            break;
+        case NONSOLID :
+            NonSolidblocMap.insert(std::pair<int, bloc *>(b->getBlocId(), b));
+            break;
+        case PLAYER :
+            PlayerblocMap.insert(std::pair<int, bloc *>(b->getBlocId(), b));
+            break;
+    }
+   /* for (int i=0;i<nbBlocs;i++)
     {
 
-        switch (blocArray[i].getKind())
+        switch (blocArray[i]->getKind())
         {
             case SOLID :
-                SolidblocMap.insert(std::pair<int, bloc *>(blocArray[i].getBlocId(), &blocArray[i]));
+                SolidblocMap.insert(std::pair<int, bloc *>(blocArray[i]->getBlocId(), blocArray[i]));
                 break;
             case NONSOLID :
-                NonSolidblocMap.insert(std::pair<int, bloc *>(blocArray[i].getBlocId(), &blocArray[i]));
+                NonSolidblocMap.insert(std::pair<int, bloc *>(blocArray[i]->getBlocId(), blocArray[i]));
                 break;
             case PLAYER :
-                PlayerblocMap.insert(std::pair<int, bloc *>(blocArray[i].getBlocId(), &blocArray[i]));
+                PlayerblocMap.insert(std::pair<int, bloc *>(blocArray[i]->getBlocId(), blocArray[i]));
                 break;
         }
     }
+    */
 }
 
 

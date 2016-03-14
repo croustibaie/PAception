@@ -67,6 +67,10 @@ diamondBloc::diamondBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
 
 diamondBloc::~diamondBloc()
 {
+    for (int i=0; i< NB_LASERS3;i++)
+    {
+        delete(this->laser[i]);
+    }
 }
 
 bool diamondBloc::react(struct controllerState **state, unsigned int elapsedTime)
@@ -148,7 +152,7 @@ void diamondBloc::shoot(int x , int y)
         laser[nextLaser]->setPosition((int)xPos,(int)yPos);
         laser[nextLaser]->setDirection((float)xDir,(float)yDir);
 
-        l->insertBlocs(laser[nextLaser],1);
+        l->insertBloc(laser[nextLaser]);
 
         nextLaser=(nextLaser+1)%NB_LASERS3;
 }
