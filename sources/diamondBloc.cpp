@@ -173,17 +173,15 @@ void diamondBloc::shoot(double tht)
 
     if (tht > M_PI/4 + EPS_THT && tht < 3*M_PI/4) // down side of the cube
     {
-        xPos = this->rect.x + rect.w/2.;
-        yPos = this->rect.y - EPS_SEC;
+        xPos = this->rect.x + rect.w / 2.;
+        yPos = this->rect.y + rect.h + EPS_SEC;
     }
 
     if (tht < -M_PI/4 - EPS_THT && tht > -3*M_PI/4 + EPS_THT) // upper side of the cube
     {
-        xPos = this->rect.x + rect.w / 2.;
-        yPos = this->rect.y + rect.h + EPS_SEC;
+        xPos = this->rect.x + rect.w/2.;
+        yPos = this->rect.y - EPS_SEC;
     }
-        std::cout << "fire direction can only be expressed using 0 "
-                             "and 1 values for x and y" << std::endl;
 
         laser[nextLaser]->setPosition((int)xPos,(int)yPos);
         laser[nextLaser]->setDirection((float)xDir,(float)yDir);
