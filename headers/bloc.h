@@ -29,6 +29,7 @@ protected:
     static unsigned int nextBlocId;
 
     bool killOnTouch; //Does the bloc kill players?
+    bool reflect; //Does the bloc reflect lasers ?
     enum kind myKind; // Kind can be LASER,PLAYER or STATIC so far. Useful to determine a generic bloc's type
     bool wallCollided; //Return true if the bloc collided with a wall and it hasn't been resolved yet
     std::vector<bloc*> ignoredBlocs;
@@ -58,7 +59,7 @@ public:
     bool kill();//Does the bloc have the killontouch attribute set to true or false.
     enum kind getKind();
     void setPosition(int x, int y);
-
+    bool isReflector();//Does the bloc reflect ?
     // NB : Any bloc that is killed must be killed in his own collisionReaction
 };
 

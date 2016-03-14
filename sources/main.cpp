@@ -9,6 +9,7 @@
 #include "../headers/level.h"
 #include "../headers/pulseBloc.h"
 #include "../headers/freezeBloc.h"
+#include "../headers/mirrorBloc.h"
 #include "../headers/sound.h"
 #include "../headers/levelCreator.h"
 //Screen dimension constants
@@ -43,7 +44,7 @@ int main( int argc, char* args[] )
             level* l= lc->parse();
             //level* l = new level(gRenderer,1);
             playerBloc* b =new playerBloc(&gRenderer,l,0,0,0) ;
-            staticBloc* b2 =new staticBloc(&gRenderer,l,300,149);
+            mirrorBloc* b2 =new mirrorBloc(&gRenderer,l,300,149);
             freezeBloc* b2bis =new freezeBloc(&gRenderer,l,100,149);
             pulseBloc* b5= new pulseBloc(&gRenderer, l, 600,350);
             diamondBloc* s1 =new  diamondBloc(&gRenderer,l,300,500);

@@ -1,10 +1,11 @@
 //
-// Created by croustibaie on 3/1/16.
+// Created by remi on 14/03/16.
 //
 
-#include "../headers/staticBloc.h"
 
-staticBloc::staticBloc()
+#include "../headers/mirrorBloc.h"
+
+mirrorBloc::mirrorBloc()
 {
     this->rect.x=50;
     this->rect.y =50;
@@ -14,6 +15,7 @@ staticBloc::staticBloc()
     this->xMove=0;
     this->yMove=0;
     this->myKind=SOLID;
+    this->reflect=true;
     texture=NULL;
     gRenderer=NULL;
     this->blocId=nextBlocId;
@@ -21,7 +23,7 @@ staticBloc::staticBloc()
     this->wallCollided=false;
 }
 
-staticBloc::staticBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
+mirrorBloc::mirrorBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
 {
     this->l=l;
     if (*gRenderer==NULL)
@@ -45,7 +47,7 @@ staticBloc::staticBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->yMove=0;
     this->gRenderer=*gRenderer;
     this->myKind=SOLID;
-    this->reflect=false;
+    this->reflect=true;
     loadMedia(&texture,gRenderer,"./textures/black.bmp");
     if (texture==NULL)
     {
@@ -57,7 +59,7 @@ staticBloc::staticBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->wallCollided=false;
 }
 
-staticBloc::~staticBloc()
+mirrorBloc::~mirrorBloc()
 {
     if (texture!=NULL)
     {
@@ -65,7 +67,7 @@ staticBloc::~staticBloc()
     }
 }
 
-bool staticBloc::react(struct controllerState **state, unsigned int elapsedTime)
+bool mirrorBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
     return true;
 }

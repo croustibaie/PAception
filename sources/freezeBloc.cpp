@@ -45,6 +45,7 @@ freezeBloc::freezeBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->yMove=0;
     this->gRenderer=*gRenderer;
     this->myKind=NONSOLID;
+    this->reflect=false;
     loadMedia(&texture,gRenderer,"./textures/green.bmp");
     if (texture==NULL)
     {
