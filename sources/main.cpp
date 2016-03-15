@@ -11,6 +11,7 @@
 #include "../headers/freezeBloc.h"
 #include "../headers/sound.h"
 #include "../headers/levelCreator.h"
+#include "../headers/bumpBloc.h"
 //Screen dimension constants
 
 
@@ -48,7 +49,9 @@ int main( int argc, char* args[] )
             pulseBloc* b5= new pulseBloc(&gRenderer, l, 600,350);
             diamondBloc* s1 =new  diamondBloc(&gRenderer,l,300,500);
             voidBloc* v= new voidBloc(&gRenderer,l,400,400);
+            bumpBloc* bp= new bumpBloc(&gRenderer,l,600,200,(float) 0,(float) 0);
             l->insertBloc(v);
+            l->insertBloc(bp);
             l->insertBloc(b);
             l->insertBloc(b5);
             l->insertBloc(b2bis);
@@ -100,6 +103,7 @@ int main( int argc, char* args[] )
             delete(b2);
             delete(b2bis);
             delete(v);
+            delete(bp);
             delete(b5);
             delete(s1);
         }

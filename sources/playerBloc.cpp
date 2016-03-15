@@ -197,6 +197,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, level *l, int playerID, int x, 
     {
         std::cout<<"no bullet texture loaded"<<std::endl;
     }
+
 }
 
 playerBloc::~playerBloc()
@@ -219,13 +220,24 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
             return false;
         }
     }
+
+
     int correctedSpeed = (int) (round((float) (speed) * (float) elapsedTime / 20)); //We have to adapt the initial speed to the frame duration
     if (state == nullptr) {
         return true;
     }
+    if (getBumped()==false)
+    {
+        xMove = (int) (correctedSpeed * (float) (state[playerID]->leftStickHorizontal) / 32000);
+        yMove = (int) (correctedSpeed * (float) (state[playerID]->leftStickVertical) / 32000);
+       setDirection((float) (state[playerID]->leftStickHorizontal) / 32000, (float) (state[playerID]->leftStickVertical) / 32000);
+    }
+    else
+    {
+        xMove = (int) (correctedSpeed * getdx());
+        yMove = (int) (correctedSpeed * getdy());
+    }
 
-    xMove = (int) (correctedSpeed * (float) (state[playerID]->leftStickHorizontal) / 32000);
-    yMove = (int) (correctedSpeed * (float) (state[playerID]->leftStickVertical) / 32000);
     bool isAlive;
     if (xMove != 0 || yMove != 0) {
         isAlive = tryMove(xMove, yMove);
@@ -262,6 +274,7 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
 bool playerBloc::collisionReaction(bloc *b)
 {
     bool isAlive;
+    enum edge touchededge=NONE; // edge of b touched by this bloc
     if(b->getKind()==NONSOLID)
     {
         ignoredBlocs.push_back(b);
@@ -279,10 +292,14 @@ bool playerBloc::collisionReaction(bloc *b)
             return isAlive;
         }
     }
+
+
     float tx,ty;
     tx=0;ty=0;
     int deltaX,deltaY;
     deltaX=0;deltaY=0;
+
+
     if ( xMove>0)
     {
         deltaX= b->getRect().x-(this->getRect().x+this->getRect().w)-1;
@@ -299,44 +316,115 @@ bool playerBloc::collisionReaction(bloc *b)
     {
         deltaY= this->getRect().y - (b->getRect().y+b->getRect().h)-1;
     }
+
+
     if (xMove==0)
     {
         yMove= yMove==0 ? 0:yMove/(abs(yMove))*(deltaY);
-        isAlive=tryMove(0, yMove);
+        if (yMove >0)
+        {
+            touchededge = UP;
+        }
+        else if (yMove<0)
+        {
+            touchededge=DOWN;
+        }
+        setBumped(b->bump(touchededge,this));
+        isAlive=tryMove(xMove, yMove );
         return isAlive;
+
     }
+
     if (yMove==0)
     {
        xMove=  xMove==0 ? 0 : xMove/(abs(xMove))*(deltaX);
-        isAlive=tryMove(xMove,0 );
+
+         if (xMove >0)
+        {
+            touchededge=LEFT;
+        }
+
+        else if (xMove<0)
+        {
+            touchededge=RIGHT;
+        }
+        setBumped(b->bump(touchededge,this));
+        isAlive=tryMove(xMove, yMove );
         return isAlive;
+
     }
+
     if (deltaX<0)
     {
         yMove= yMove == 0 ? 0: yMove/(abs(yMove))*(deltaY);
+
+        if (yMove >0)
+        {
+            touchededge=UP;
+        }
+
+        else if (yMove<0)
+        {
+            touchededge=DOWN;
+        }
+        setBumped(b->bump(touchededge,this));
         isAlive=tryMove(xMove, yMove );
         return isAlive;
+
     }
     if (deltaY<0)
     {
         xMove= xMove == 0 ? 0 : xMove/(abs(xMove))*(deltaX);
-        isAlive=tryMove(xMove ,yMove);
+
+        if (xMove >0)
+        {
+            touchededge=LEFT;
+        }
+
+        else if (xMove<0)
+        {
+            touchededge=RIGHT;
+        }
+        setBumped(b->bump(touchededge,this));
+        isAlive=tryMove(xMove, yMove );
         return isAlive;
+
     }
+
+
     tx=deltaX/xMove;
     ty=deltaY/yMove;
     if (tx<ty)
     {
         xMove=xMove/(abs(xMove))*(deltaX);
-        isAlive=tryMove(xMove,yMove);
+             if (xMove>0)
+            {
+                touchededge=LEFT;
+            }
+            else
+            {
+                touchededge=RIGHT;
+            }
+        b->bump(touchededge,this);
+        isAlive=tryMove(xMove, yMove );
         return isAlive;
     }
     else
     {
         yMove=yMove/(abs(yMove))*(deltaY);
-        isAlive=tryMove(xMove,yMove);
+         if (yMove>0)
+            {
+                touchededge=UP;
+            }
+            else
+            {
+                touchededge=DOWN;
+            }
+        setBumped(b->bump(touchededge,this));
+        isAlive=tryMove(xMove, yMove );
         return isAlive;
     }
+
 }
 
 void playerBloc::shoot( struct controllerState **state)
@@ -374,36 +462,44 @@ void playerBloc::shoot( struct controllerState **state)
 
 void playerBloc::draw()
 {
-    if (texture==NULL)
-    {
-        std::cout<<"no texture"<<std::endl;
+    if (texture == NULL) {
+        std::cout << "no texture" << std::endl;
     }
-    SDL_RenderCopy(gRenderer,texture, NULL, &rect );
-    if (heartTexture==NULL)
-    {
-        std::cout<<"no heart texture"<<std::endl;
+    SDL_RenderCopy(gRenderer, texture, NULL, &rect);
+    if (heartTexture == NULL) {
+        std::cout << "no heart texture" << std::endl;
     }
-    SDL_RenderCopy(gRenderer,heartTexture, NULL, &rectBase[0] );
-    if (hpTexture==NULL)
-    {
-        std::cout<<"no hp texture"<<std::endl;
+    SDL_RenderCopy(gRenderer, heartTexture, NULL, &rectBase[0]);
+    if (hpTexture == NULL) {
+        std::cout << "no hp texture" << std::endl;
     }
-    for(int i =1;i<hp+1;i++)
-    {
-        SDL_RenderCopy(gRenderer,hpTexture, NULL, &rectBase[i] );
+    for (int i = 1; i < hp + 1; i++) {
+        SDL_RenderCopy(gRenderer, hpTexture, NULL, &rectBase[i]);
     }
-    if (bulletTexture==NULL)
-    {
-        std::cout<<"no bullet texture"<<std::endl;
+    if (bulletTexture == NULL) {
+        std::cout << "no bullet texture" << std::endl;
     }
-    SDL_RenderCopy(gRenderer,bulletTexture, NULL, &rectBase[PLAYER_HP+1] );
-    if (ammoTexture==NULL)
-    {
-        std::cout<<"no ammo texture"<<std::endl;
+    SDL_RenderCopy(gRenderer, bulletTexture, NULL, &rectBase[PLAYER_HP + 1]);
+    if (ammoTexture == NULL) {
+        std::cout << "no ammo texture" << std::endl;
     }
-    for(int i =PLAYER_HP+2;i<PLAYER_HP+ammo+2;i++)
-    {
-        SDL_RenderCopy(gRenderer,ammoTexture, NULL, &rectBase[i] );
+    for (int i = PLAYER_HP + 2; i < PLAYER_HP + ammo + 2; i++) {
+        SDL_RenderCopy(gRenderer, ammoTexture, NULL, &rectBase[i]);
     }
 
 }
+void playerBloc::setDirection(float dx, float dy)
+{
+    this->dx=xMove;
+    this->dy=yMove;
+}
+
+float playerBloc::getdx()
+{
+    return(dx);
+};
+
+float playerBloc::getdy()
+{
+    return(dy);
+};

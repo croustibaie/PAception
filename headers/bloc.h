@@ -12,9 +12,13 @@ class level;
 #include "sdlconfig.h"
 
 
- // initial speed of a bloc
-
-
+enum edge {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT,
+    NONE,
+};
 class bloc {
 
 protected:
@@ -29,6 +33,7 @@ protected:
     static unsigned int nextBlocId;
 
     bool killOnTouch; //Does the bloc kill players?
+    bool isBumped; // Is the bloc bumped ?
     enum kind myKind; // Kind can be PLAYER, SOLID, NONSOLID  or MIRROR so far. Useful to determine a generic bloc's type
     bool wallCollided; //Return true if the bloc collided with a wall and it hasn't been resolved yet
     std::vector<bloc*> ignoredBlocs;
@@ -52,13 +57,23 @@ public:
 
     SDL_Rect getRect() const;
     int getSpeed() const;
+    int getxMove() const;
+    int getyMove() const;
     int getBlocId() const;
     SDL_Renderer* getRenderer() const;
     SDL_Texture* getTexture() const;
     bool kill();//Does the bloc have the killontouch attribute set to true or false.
+    bool getBumped();
+    void setBumped(bool Bumped);
     enum kind getKind();
     void setPosition(int x, int y);
 
+    virtual void setDirection(float dx,float dy);
+    virtual float getdx();
+    virtual float getdy();
+    // about the bumping
+
+    virtual bool bump(enum edge touchededge, bloc* b);
     // NB : Any bloc that is killed must be killed in his own collisionReaction
 };
 

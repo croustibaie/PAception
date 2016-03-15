@@ -59,6 +59,7 @@ bloc::bloc (SDL_Renderer** gRender,const char* path, level* l, int x, int y)
     this->blocId=nextBlocId;
     nextBlocId++;
     this->wallCollided;
+
 }
 
 
@@ -173,6 +174,17 @@ int bloc::getSpeed() const
     return speed;
 }
 
+int bloc::getxMove() const
+{
+  return xMove;
+};
+
+int bloc::getyMove() const
+{
+  return yMove;
+};
+
+
 bool bloc::collisionReaction(bloc *b) // Method used for static blocs
 {
     return tryMove(0,0);
@@ -184,6 +196,17 @@ bool bloc::kill()
 {
     return killOnTouch;
 }
+
+//About the bumping
+bool bloc::getBumped()
+{
+    return isBumped;
+};
+
+void bloc::setBumped(bool Bumped)
+{
+    isBumped=Bumped;
+};
 
 bool bloc::wallCollision(SDL_Rect a)
 {
@@ -221,3 +244,12 @@ void bloc::setPosition(int x,int y)
     this->rect.x=(int)(x-(this->rect.w)/2.);
     this->rect.y=(int)(y-(this->rect.h/2.));
 }
+
+void bloc::setDirection(float dx, float dy) //is overcharged, should not be used;
+{ };
+
+float bloc::getdx() { }; //is overcharged, should not be used.
+
+float bloc ::getdy() { }; //is overcharged, should not be used.
+
+bool bloc::bump(enum edge touchededge, bloc *b) { return(false);}; //is overcharged in bumpBloc, should not be used.

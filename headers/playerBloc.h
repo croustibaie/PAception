@@ -27,7 +27,8 @@ private:
     SDL_Texture *heartTexture; //Indicator of health point
     SDL_Texture *ammoTexture; // color of ammunition bar
     SDL_Texture *bulletTexture; // Indicator of ammunition
-
+    float dx;// current x direction if not bumped x direction of bumping otherwise
+    float dy;// current y direction if not bumped y direction of bumping otherwise
 public:
     playerBloc();
     playerBloc(SDL_Renderer** gRenderer,level* l, int playerID, int x, int y);
@@ -36,6 +37,9 @@ public:
     bool collisionReaction(bloc* b);// Player's reaction to a collision with a bloc b
     void draw();
     void shoot(struct controllerState** state);
+    void setDirection(float dx, float dy);
+    float getdx();
+    float getdy();
 };
 
 
