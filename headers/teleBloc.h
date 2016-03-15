@@ -14,16 +14,20 @@
 
 class teleBloc: public bloc {
 
-public:
+private:
     teleBloc* t;
     int x_tele; // là où on se téléporte
     int y_tele;
-    bool BOOLEAN;
+    bool active;
+    int compteur ;
+    int timerTele;
+public:
+
     teleBloc();
     teleBloc(SDL_Renderer** gRenderer,level* l,int x,int y);
     void setteleBloc(teleBloc* t2);
-
     ~teleBloc();
     bool react(struct controllerState** state,unsigned int elapsedTime);
     bool collisionReaction(bloc* b);
+    void setBool(bool b);
 };
