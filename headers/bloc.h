@@ -28,6 +28,7 @@ protected:
     int yMove;// Same as xMove
     static unsigned int nextBlocId;
 
+    bool shield ; // use only for player bloc
     bool killOnTouch; //Does the bloc kill players?
     bool reflect; //Does the bloc reflect lasers ?
     enum kind myKind; // Kind can be LASER,PLAYER or STATIC so far. Useful to determine a generic bloc's type
@@ -61,6 +62,7 @@ public:
     void setPosition(int x, int y);
     bool isReflector();//Does the bloc reflect ?
     // NB : Any bloc that is killed must be killed in his own collisionReaction
+    bool shieldState();
 };
 
 #endif

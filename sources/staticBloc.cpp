@@ -46,6 +46,7 @@ staticBloc::staticBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->gRenderer=*gRenderer;
     this->myKind=SOLID;
     this->reflect=false;
+    this->shield=false;
     loadMedia(&texture,gRenderer,"./textures/black.bmp");
     if (texture==NULL)
     {

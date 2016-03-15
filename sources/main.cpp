@@ -58,8 +58,8 @@ int main( int argc, char* args[] )
             l->insertBloc(&*s1);
             //l.play();
             playerBloc* b1 =new playerBloc(&gRenderer,l,1,400,500) ;
-          //  l.insertBlocs(&b1,1);
-            music(media);
+            l->insertBloc(b1);
+            //music(media);
             enum gameStatus  a = l->play();
             if(a == GAMEOVER)
             {

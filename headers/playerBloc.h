@@ -8,6 +8,7 @@
 #define NB_LASERS 10
 #define PLAYER_HP 3
 #define INITIALSPEED 8
+#define SHIELD_MAX 300
 #include "laserBloc.h"
 #include "bloc.h"
 
@@ -22,6 +23,8 @@ private:
     int nextLaser; //Number of the nextLaser that should be shot (shoot uses laser[nextLaser])
     int hp; //Player's health points
     unsigned int reloadTimer;
+    int shieldTimer;
+    unsigned int lastShieldTimer;
     SDL_Rect rectBase[MAX_AMMO+PLAYER_HP+2]; //size and number of the health point rectangles
     SDL_Texture *hpTexture; // color of health point bar
     SDL_Texture *heartTexture; //Indicator of health point

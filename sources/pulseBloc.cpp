@@ -50,6 +50,7 @@ pulseBloc::pulseBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->gRenderer=*gRenderer;
     this->myKind=SOLID;
     this->reflect=false;
+    this->shield=false;
     this->compteur=0; // compteur d'absorptions ;
     loadMedia(&texture,gRenderer,"./textures/leopard.bmp");
     if (texture==NULL)
@@ -62,7 +63,7 @@ pulseBloc::pulseBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->wallCollided=false;
     for (int i = 0; i < NB_LASERS2; i++)
     {
-        this->laser[i] = new laserBloc(gRenderer, "./textures/red.bmp", l, 50, 50, 1, 0);
+        this->laser[i] = new laserBloc(gRenderer, l, 50, 50, 1, 0);
     }
     this->nextLaser=0;
 

@@ -16,6 +16,7 @@ mirrorBloc::mirrorBloc()
     this->yMove=0;
     this->myKind=SOLID;
     this->reflect=true;
+    this->shield=false;
     texture=NULL;
     gRenderer=NULL;
     this->blocId=nextBlocId;

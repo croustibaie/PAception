@@ -226,3 +226,8 @@ bool bloc::isReflector()
 {
     return(this->reflect);
 }
+
+bool bloc::shieldState()
+{
+    return(shield);
+}

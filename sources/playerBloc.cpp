@@ -56,13 +56,15 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, level *l, int playerID, int x, 
     this->lastShotTimer = 0;
     for (int i = 0; i < NB_LASERS; i++)
     {
-        this->laser[i] = new laserBloc(gRenderer, "./textures/black.bmp", l, 50, 50, 1, 0);
+        this->laser[i] = new laserBloc(gRenderer, l, 50, 50, 1, 0);
     }
     this->nextLaser=0;
     this->ammo=MAX_AMMO;
     this->wallCollided=false;
     this->hp= PLAYER_HP;
     this->reloadTimer=0;
+    this->shieldTimer=0;
+    this->shield=false;
     switch(playerID)
     {
         case 0:
@@ -216,8 +218,11 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
     {
         if(b->getKind()!=NONSOLID)
         {
-            l->deleteBloc(this->blocId,this->getKind());
-            return false;
+            if((b->kill())&&(!(this->shield)))
+            {
+                l->deleteBloc(this->blocId, this->getKind());
+                return false;
+            }
         }
     }
     int correctedSpeed = (int) (round((float) (speed) * (float) elapsedTime / 20)); //We have to adapt the initial speed to the frame duration
@@ -253,7 +258,34 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
             }
         }
     }
-    //std::cout<<"ammo :"<< this->ammo<<std::endl;
+
+
+    this->shield=false;
+
+    if((state[playerID]->LT)&&(this->shieldTimer<SHIELD_MAX))
+    {
+        this->shield =true;
+        std::cout<<"shield on"<<std::endl;
+        this->shieldTimer=this->shieldTimer+elapsedTime;
+        this->lastShieldTimer=SDL_GetTicks();
+    }
+
+    unsigned int time=SDL_GetTicks();
+
+    if ((this->shield)&&(this->shieldTimer >= SHIELD_MAX)) //Shield not available anymore
+    {
+        this->shield = false;
+        std::cout << "shield unavailable" << std::endl;
+    }
+
+    if ((time-this->lastShieldTimer>5000)&&(!(this->shield))&&(this->shieldTimer!=0)) //Time for the shield to be reloaded
+    {
+        this->shieldTimer = 0;
+        std::cout << "shield available" << std::endl;
+    }
+
+
+
     return(isAlive);
 }
 
@@ -269,7 +301,7 @@ bool playerBloc::collisionReaction(bloc *b)
         tryMove(this->xMove,this->yMove);
         return true;
     }
-    if (b->kill())
+    if ((b->kill())&&(!(this->shield)))
     {
         this->hp--;
         if(hp==0)

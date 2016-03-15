@@ -23,13 +23,14 @@ laserBloc::laserBloc()
     this->wallCollided=false;
 }
 
-laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,int y,int dx,int dy)
+laserBloc::laserBloc(SDL_Renderer **gRenderer, level *l,int x,int y,int dx,int dy)
 {
     this->dx=(float)(dx/sqrt((double)(dx*dx+dy*dy)));
     this->dy=(float)(dy/sqrt((double)(dx*dx+dy*dy)));
     this->xMove=dx;
     this->yMove=dy;
     this->l=l;
+    this->shield=false;
     if (*gRenderer==NULL)
     {
         std::cout<< "In bloc constructor, no render"<<std::endl;
@@ -48,7 +49,7 @@ laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
     texture=NULL;
     this->speed=10;
     this->gRenderer=*gRenderer;
-    loadMedia(&texture,gRenderer,path);
+    loadMedia(&texture,gRenderer,"./textures/red.png");
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;
@@ -85,9 +86,12 @@ bool laserBloc::collisionReaction(bloc *b)
     bool isAlive;
     if (!(b->isReflector()))
     {
-        this->l->deleteBloc(this->blocId,this->getKind());
-        isAlive=false;
-        return isAlive;
+        if (!((b->getKind() == PLAYER) && (b->shieldState())))
+        {
+            this->l->deleteBloc(this->blocId, this->getKind());
+            isAlive = false;
+            return isAlive;
+        }
     }
     float tx, ty;
     tx = 0;
