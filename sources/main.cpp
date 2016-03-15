@@ -9,6 +9,7 @@
 #include "../headers/level.h"
 #include "../headers/pulseBloc.h"
 #include "../headers/freezeBloc.h"
+#include "../headers/mirrorBloc.h"
 #include "../headers/sound.h"
 #include "../headers/levelCreator.h"
 #include "../headers/teleBloc.h"
@@ -32,7 +33,7 @@ int main( int argc, char* args[] )
     else
     {
         //Load medias for background image and red square
-        const char* media="./sounds.wav";
+        const char* media="./media/intro.wav";
         std::cout<<SDL_NumJoysticks()<<std::endl;
         //Create the red bloc
         //Create the level
@@ -44,6 +45,12 @@ int main( int argc, char* args[] )
             level* l= lc->parse();
             //level* l = new level(gRenderer,1);
             playerBloc* b =new playerBloc(&gRenderer,l,0,0,0) ;
+            mirrorBloc* b2 =new mirrorBloc(&gRenderer,l,300,149);
+            freezeBloc* b2bis =new freezeBloc(&gRenderer,l,100,149);
+            pulseBloc* b5= new pulseBloc(&gRenderer, l, 600,350);
+            diamondBloc* s1 =new  diamondBloc(&gRenderer,l,300,500);
+            voidBloc* v= new voidBloc(&gRenderer,l,400,400);
+            l->insertBloc(v);
 
 
             teleBloc* t1 = new teleBloc(&gRenderer,l,400,400);
@@ -60,7 +67,7 @@ int main( int argc, char* args[] )
             //l.play();
             playerBloc* b1 =new playerBloc(&gRenderer,l,1,400,500) ;
           //  l.insertBlocs(&b1,1);
-            //music(media);
+            music(media);
             enum gameStatus  a = l->play();
             if(a == GAMEOVER)
             {
