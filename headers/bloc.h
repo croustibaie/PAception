@@ -58,6 +58,7 @@ public:
     bool kill();//Does the bloc have the killontouch attribute set to true or false.
     enum kind getKind();
     void setPosition(int x, int y);
+    std::vector<bloc*> getIgnoreBlocs();
 
     // NB : Any bloc that is killed must be killed in his own collisionReaction
 };

@@ -11,6 +11,7 @@
 #include "../headers/freezeBloc.h"
 #include "../headers/sound.h"
 #include "../headers/levelCreator.h"
+#include "../headers/teleBloc.h"
 //Screen dimension constants
 
 
@@ -43,18 +44,19 @@ int main( int argc, char* args[] )
             level* l= lc->parse();
             //level* l = new level(gRenderer,1);
             playerBloc* b =new playerBloc(&gRenderer,l,0,0,0) ;
-            staticBloc* b2 =new staticBloc(&gRenderer,l,300,149);
-            freezeBloc* b2bis =new freezeBloc(&gRenderer,l,100,149);
-            pulseBloc* b5= new pulseBloc(&gRenderer, l, 600,350);
-            diamondBloc* s1 =new  diamondBloc(&gRenderer,l,300,500);
-            voidBloc* v= new voidBloc(&gRenderer,l,400,400);
-            l->insertBloc(v);
+
+
+            teleBloc* t1 = new teleBloc(&gRenderer,l,400,400);
+            teleBloc* t2 = new teleBloc(&gRenderer,l,100,300);
+            t1->setteleBloc(t2);
+
+            l->insertBloc(t1);
+            l->insertBloc(t2);
+
             l->insertBloc(b);
-            l->insertBloc(b5);
-            l->insertBloc(b2bis);
-            l->insertBloc(b2);
+
             //l.insertBlocs(&b3,1);
-            l->insertBloc(&*s1);
+
             //l.play();
             playerBloc* b1 =new playerBloc(&gRenderer,l,1,400,500) ;
           //  l.insertBlocs(&b1,1);
@@ -97,11 +99,7 @@ int main( int argc, char* args[] )
             }
             delete(lc);
             delete(b);
-            delete(b2);
-            delete(b2bis);
-            delete(v);
-            delete(b5);
-            delete(s1);
+
         }
     }
 
