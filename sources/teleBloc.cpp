@@ -153,7 +153,7 @@ bool teleBloc::react(struct controllerState** state, unsigned int elapsedTime)
 
 bool teleBloc::react(struct controllerState** state, unsigned int elapsedTime)
 {
-        if (SDL_GetTicks()-timerTele > 3000)
+        if (SDL_GetTicks()-timerTele > 500)
         {
             this->active=true;
         }
