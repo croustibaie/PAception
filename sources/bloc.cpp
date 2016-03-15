@@ -59,7 +59,6 @@ bloc::bloc (SDL_Renderer** gRender,const char* path, level* l, int x, int y)
     this->blocId=nextBlocId;
     nextBlocId++;
     this->wallCollided;
-
 }
 
 
@@ -244,7 +243,6 @@ void bloc::setPosition(int x,int y)
     this->rect.x=(int)(x-(this->rect.w)/2.);
     this->rect.y=(int)(y-(this->rect.h/2.));
 }
-
 void bloc::setDirection(float dx, float dy) //is overcharged, should not be used;
 { };
 
@@ -253,3 +251,14 @@ float bloc::getdx() { }; //is overcharged, should not be used.
 float bloc ::getdy() { }; //is overcharged, should not be used.
 
 bool bloc::bump(enum edge touchededge, bloc *b) { return(false);}; //is overcharged in bumpBloc, should not be used.
+
+bool bloc::isReflector()
+{
+    return(this->reflect);
+
+}
+
+std::vector<bloc*> bloc::getIgnoredBlocs()
+{
+    return ignoredBlocs;
+}

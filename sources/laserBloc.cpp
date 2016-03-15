@@ -58,6 +58,7 @@ laserBloc::laserBloc(SDL_Renderer **gRenderer, const char *path, level *l,int x,
     nextBlocId++;
     this->wallCollided=false;
     this->myKind=SOLID;
+    this->reflect=false;
 }
 
 laserBloc::~laserBloc()
@@ -82,7 +83,7 @@ bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
 bool laserBloc::collisionReaction(bloc *b)
 {
     bool isAlive;
-    if (b->getKind()!=MIRROR)
+    if (!(b->isReflector()))
     {
         this->l->deleteBloc(this->blocId,this->getKind());
         isAlive=false;

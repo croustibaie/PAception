@@ -45,6 +45,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, level *l, int playerID, int x, 
     this->yMove = 0;
     this->gRenderer = *gRenderer;
     this->myKind = PLAYER;
+    this->reflect=false;
     loadMedia(&texture, gRenderer, "./textures/carre.png");
     if (texture == NULL) {
         std::cout << "no texture loaded" << std::endl;

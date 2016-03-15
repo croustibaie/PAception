@@ -49,6 +49,7 @@ pulseBloc::pulseBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->yMove=0;
     this->gRenderer=*gRenderer;
     this->myKind=SOLID;
+    this->reflect=false;
     this->compteur=0; // compteur d'absorptions ;
     loadMedia(&texture,gRenderer,"./textures/leopard.bmp");
     if (texture==NULL)
