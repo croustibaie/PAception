@@ -225,4 +225,10 @@ void bloc::setPosition(int x,int y)
 bool bloc::isReflector()
 {
     return(this->reflect);
+
+}
+
+std::vector<bloc*> bloc::getIgnoredBlocs()
+{
+    return ignoredBlocs;
 }

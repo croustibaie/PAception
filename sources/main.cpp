@@ -50,12 +50,12 @@ int main( int argc, char* args[] )
             pulseBloc* b5= new pulseBloc(&gRenderer, l, 600,350);
             diamondBloc* s1 =new  diamondBloc(&gRenderer,l,300,500);
             voidBloc* v= new voidBloc(&gRenderer,l,400,400);
-            l->insertBloc(v);
+            //l->insertBloc(v);
 
 
             teleBloc* t1 = new teleBloc(&gRenderer,l,400,400);
             teleBloc* t2 = new teleBloc(&gRenderer,l,100,300);
-            t1->setteleBloc(t2);
+            t2->setteleBloc(t1);
 
             l->insertBloc(t1);
             l->insertBloc(t2);

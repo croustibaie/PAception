@@ -69,13 +69,16 @@ teleBloc::~teleBloc()
     }
 }
 
+void teleBloc::setSibling(teleBloc *t)
+{
+    this->t=t;
+}
 
-bool teleBloc::collisionReaction(bloc *b) {
+bool teleBloc::collisionReaction(bloc *b)
+{
 
-    if (this->active)
+    if ((this->active)&&(b->getKind()==PLAYER))
     {
-        std::cout << "booléen devrait valoir 1" << std::endl;
-
         int void_center_x, void_center_y;
         int b_center_x, b_center_y;
         int dist_center;
@@ -95,23 +98,28 @@ bool teleBloc::collisionReaction(bloc *b) {
         {
             int Id = this->t->getBlocId(); // je veux l'id de l'autre teleBloc
             SDL_Rect rectTele = this->t->getRect(); // sa position...
-            std::vector<bloc *> ignoreTele = this->t->getIgnoreBlocs(); //et tous les blocs qu'il doit ignorer !
+            std::vector<bloc *> ignoreTele = this->t->getIgnoredBlocs(); //et tous les blocs qu'il doit ignorer !
 
             bloc *bloctest = l->collide(Id, rectTele, ignoreTele);
 
             if (bloctest == NULL)
             {
-                b->setPosition(x_tele, y_tele);
+
+                b->setPosition(this->t->getRect().x+this->t->getRect().w/2, this->t->getRect().y+this->t->getRect().h/2);
                 this->t->setBool(false);
 
                 this->t->timerTele=SDL_GetTicks();
             }
+            else{
+                std::cout<<bloctest->getBlocId()<<std::endl;
+            }
+
         }
         else
         {
-            return (false);
-        }
 
+        }
+        return (true);
     }
 }
 
@@ -119,6 +127,8 @@ bool teleBloc::collisionReaction(bloc *b) {
 
 void teleBloc::setteleBloc(teleBloc* t2)
 {
+    /*
+
     this->x_tele = t2->getRect().x + t2->getRect().w / 2;
     this->y_tele = t2->getRect().y + t2->getRect().h / 2;
 
@@ -127,8 +137,9 @@ void teleBloc::setteleBloc(teleBloc* t2)
     t2->x_tele = this->getRect().x + this->getRect().w / 2;
     t2->y_tele = this->getRect().y + this->getRect().h / 2;
 
+    */
     this->t=t2;
-    t2->t=this;
+    t2->setSibling(this);
 }
 
 /*
@@ -154,6 +165,5 @@ bool teleBloc::react(struct controllerState** state, unsigned int elapsedTime)
 
 void teleBloc::setBool(bool b)
 {
-    std::cout<<"setting boolean"<<std::endl;
-    this->active=b;
+       this->active=b;
 }
