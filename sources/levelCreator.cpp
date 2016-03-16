@@ -21,7 +21,7 @@ levelCreator::levelCreator()
     numBloc=0;
     l= new level();
 }
-levelCreator::levelCreator(SDL_Renderer* gRenderer, int numPlayers)
+levelCreator::levelCreator(SDL_Renderer* gRenderer, int pTeam[4])
 {
     blocArray= new bloc*[30];
     numBloc=0;
@@ -31,8 +31,11 @@ levelCreator::levelCreator(SDL_Renderer* gRenderer, int numPlayers)
     }
     std::cout<<"lc creating level"<<std::endl;
     this->l= new level(gRenderer,1);
-    this->numPlayers=numPlayers;
     this->playerIndex=0;
+    for (int i=0;i<4;i++)
+    {
+        this->pTeam[i]=pTeam[i];
+    }
 }
 
 levelCreator::~levelCreator()
@@ -94,12 +97,17 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
     }
     if (type=="player")
     {
-        if(this->playerIndex<numPlayers)
+        if(pTeam[this->playerIndex]!=0)
         {
-            blocArray[numBloc] = new playerBloc(l->getRenderer(), l, this->playerIndex, xpos, ypos);
+            blocArray[numBloc] = new playerBloc(l->getRenderer(), l, this->playerIndex,this->pTeam[this->playerIndex], xpos, ypos);
             numBloc++;
             playerIndex++;
             std::cout << "creating a player at " << xpos << " , " << ypos << std::endl;
         }
+        else
+        {
+            playerIndex++;
+        }
     }
 }
+

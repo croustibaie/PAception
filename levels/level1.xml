@@ -16,8 +16,18 @@
         <ypos>0</ypos>
     </node3>
     <node4>
-        <type>pulse</type>
-        <xpos>80</xpos>
-        <ypos>200</ypos>
+        <type>player</type>
+        <xpos>700</xpos>
+        <ypos>0</ypos>
     </node4>
+    <node5>
+        <type>player</type>
+        <xpos>800</xpos>
+        <ypos>600</ypos>
+    </node5>
+    <node6>
+        <type>player</type>
+        <xpos>0</xpos>
+        <ypos>600</ypos>
+    </node6>
 </root>

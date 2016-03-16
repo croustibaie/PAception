@@ -23,7 +23,7 @@ playerBloc::playerBloc()
     this->wallCollided=false;
 }
 
-playerBloc::playerBloc(SDL_Renderer **gRenderer, level *l, int playerID, int x, int y) {
+playerBloc::playerBloc(SDL_Renderer **gRenderer, level *l, int playerID,int teamID, int x, int y) {
     this->l = l;
     if (*gRenderer == NULL) {
         std::cout << "In bloc constructor, no render" << std::endl;
@@ -45,7 +45,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, level *l, int playerID, int x, 
     this->yMove = 0;
     this->gRenderer = *gRenderer;
     this->myKind = PLAYER;
-    loadMedia(&texture, gRenderer, "./textures/carre.png");
+    loadMedia(&texture, gRenderer, "./textures/square2.png");
     if (texture == NULL) {
         std::cout << "no texture loaded" << std::endl;
     }
@@ -168,11 +168,9 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, level *l, int playerID, int x, 
                         }
                     }
             break;
-
-
             }
 
-
+    this->teamNumber=teamID; //Make sure that everyone's team is different if teams are not set
     hpTexture=NULL;
     loadMedia(&hpTexture,gRenderer,"./textures/red.bmp");
     if (hpTexture==NULL)
@@ -405,5 +403,4 @@ void playerBloc::draw()
     {
         SDL_RenderCopy(gRenderer,ammoTexture, NULL, &rectBase[i] );
     }
-
 }

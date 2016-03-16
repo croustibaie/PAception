@@ -265,3 +265,28 @@ int level::getNum()
 {
     return(this->numPlayer);
 }
+
+bool level::win()
+{
+    if(getNum() >= 2)
+    {
+        return(0);
+    }
+    else
+    {
+        return(1);
+    }
+}
+
+int level::winnerBloc(std::map<int,bloc*> PlayerblocMap)
+{
+    std::map<int,bloc*>::iterator it;
+    it = PlayerblocMap.begin();
+
+    return(it->first+1);
+}
+
+
+
+
+

@@ -15,6 +15,7 @@ class playerBloc : public bloc{
 
 private:
     int playerID;// Who does this bloc belong to
+    int teamNumber;
     unsigned int lastShotTimer;//Timer recording when was the last shot. Used to limit the fire rate
 
     laserBloc* laser[NB_LASERS]; //Pool of player's lasers.
@@ -30,12 +31,13 @@ private:
 
 public:
     playerBloc();
-    playerBloc(SDL_Renderer** gRenderer,level* l, int playerID, int x, int y);
+    playerBloc(SDL_Renderer** gRenderer,level* l, int playerID, int teamID, int x, int y);
     ~playerBloc();
     bool react(struct controllerState** state,unsigned int elapsedTime);//Player bloc's reaction is to do a tryMove and check whether he's dead (false) or not (true)
     bool collisionReaction(bloc* b);// Player's reaction to a collision with a bloc b
     void draw();
     void shoot(struct controllerState** state);
+    void setTeamNumber(int teamNo);
 };
 
 

@@ -16,17 +16,18 @@ class levelCreator {
 private:
     level* l;
     std::string descriptionFile;
-    int numPlayers;
     bloc** blocArray;
     int numBloc;
     int playerIndex;
+    int pTeam[4];
 
 public:
     levelCreator();
-    levelCreator(SDL_Renderer* gRenderer,int numPlayers);
+    levelCreator(SDL_Renderer* gRenderer, int pTeam[4]);
     ~levelCreator();
     level* parse();
     void createObject(std::string type,int xpos, int ypos);
+    void resetLevel();
 };
 
 

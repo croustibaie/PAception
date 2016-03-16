@@ -49,7 +49,11 @@ bool userInterface::play()
         }
         if(e.type == SDL_JOYBUTTONDOWN)
         {
-            handleButton(e.jbutton.which,e);
+            handleButtonDown(e.jbutton.which,e);
+        }
+        if(e.type == SDL_JOYBUTTONUP)
+        {
+            handleButtonUp(e.jbutton.which,e);
         }
 
     }
@@ -135,28 +139,27 @@ void userInterface::motion(SDL_JoystickID id, SDL_Event e)
     }
 }
 
-void userInterface::handleButton(SDL_JoystickID id,SDL_Event e)
+void userInterface::handleButtonDown(SDL_JoystickID id,SDL_Event e)
 {
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_START )
     {
-        std::cout<<"pressed select"<<std::endl;
+        cs[id]->startButton=true;
     }
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_A)
     {
         cs[id]->aButton=true;
-        std::cout<<"pressed a"<<std::endl;
     }
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_B)
     {
-        std::cout<<"pressed b"<<std::endl;
+        cs[id]->bButton=true;
     }
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_X)
     {
-        std::cout<<"pressed 3"<<std::endl;
+        cs[id]->xButton=true;
     }
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_Y)
     {
-        std::cout<<"pressed 4"<<std::endl;
+        cs[id]->yButton=true;
     }
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_BACK)
     {
@@ -175,6 +178,33 @@ void userInterface::handleButton(SDL_JoystickID id,SDL_Event e)
         }
     }
 }
+void userInterface::handleButtonUp(SDL_JoystickID id,SDL_Event e)
+{
+    if (e.jbutton.button==SDL_CONTROLLER_BUTTON_START )
+    {
+        cs[id]->startButton=false;
+    }
+    if (e.jbutton.button==SDL_CONTROLLER_BUTTON_A)
+    {
+        cs[id]->aButton=false;
+    }
+    if (e.jbutton.button==SDL_CONTROLLER_BUTTON_B)
+    {
+        cs[id]->bButton=false;
+    }
+    if (e.jbutton.button==SDL_CONTROLLER_BUTTON_X)
+    {
+        cs[id]->xButton=false;
+    }
+    if (e.jbutton.button==SDL_CONTROLLER_BUTTON_Y)
+    {
+        cs[id]->yButton=false;
+    }
+    if (e.jbutton.button==SDL_CONTROLLER_BUTTON_BACK)
+    {
+    }
+}
+
 
 userInterface::~userInterface()
 {
