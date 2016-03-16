@@ -83,9 +83,10 @@ bool bumpBloc::collisionReaction(bloc *b)
         tryMove(this->xMove,this->yMove);
         return true;
     }
-
-
-
+    if (b->getKind()==SOLID)
+    {
+        bumpingedge=NONE;
+    }
 
          // edge of the bumpBloc touched by the player
         // warning : it is the contrary to what it is in the playerBloc's collisionReaction
@@ -166,7 +167,8 @@ bool bumpBloc::collisionReaction(bloc *b)
 bool bumpBloc::react(struct controllerState** state, unsigned int elapsedTime)
 {
     // gestion of the bumped blocs
-bloc* blocarray[bumpedbloc.size()];
+    ignoredBlocs.clear();
+    bloc* blocarray[bumpedbloc.size()];
     int tmp=0;
     std::map<bloc*,unsigned int>::iterator it;
     for (it=bumpedbloc.begin(); it!=bumpedbloc.end();it++)
@@ -211,6 +213,7 @@ bloc* blocarray[bumpedbloc.size()];
 if (xMove==0 && yMove==0)
 {
   setDirection(0,0);
+    bumpingedge=NONE;
 };
     tryMove(xMove, yMove);
 
@@ -267,8 +270,6 @@ bool bumpBloc::bump(enum edge touchededge,bloc* b) // touchededge is the edge of
                     break;
            }
            setDirection(0,0);
-           xMove=0;
-           yMove=0;
            bumpingedge=NONE;
            bumpedbloc.insert(std::pair<bloc*,unsigned int>(b,SDL_GetTicks()));
            return(true);
@@ -338,8 +339,6 @@ bool bumpBloc::bump(enum edge touchededge,bloc* b) // touchededge is the edge of
 
                    }
                    setDirection(0,0);
-                    xMove=0;
-                    yMove=0;
                     bumpingedge=NONE;
                     bumpedbloc.insert(std::pair<bloc*,unsigned int>(b,SDL_GetTicks()));
                     return(true);

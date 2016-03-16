@@ -9,6 +9,7 @@
 #include "../headers/pulseBloc.h"
 #include "../headers/voidBloc.h"
 #include "../headers/staticBloc.h"
+#include "../headers/bumpBloc.h"
 #include "../libs/rapidxml/rapidxml.hpp"
 #include "../libs/rapidxml/rapidxml_utils.hpp"
 
@@ -95,6 +96,14 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
         numBloc++;
         std::cout<<"creating a void at "<<xpos<< " , " <<ypos<<std::endl;
     }
+    if (type=="bump")
+    {
+        blocArray[numBloc]= new bumpBloc(l->getRenderer(),l,xpos,ypos,0,0);
+        numBloc++;
+        std::cout<<"creating a bump at "<<xpos<< " , " <<ypos<<std::endl;
+    }
+
+
     if (type=="player")
     {
         if(pTeam[this->playerIndex]!=0)

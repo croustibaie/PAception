@@ -34,7 +34,7 @@ int main( int argc, char* args[] )
     }
     menu m = menu(gRenderer);
     m.playMenu();
-   /* else
+    /*else
     {
         //Load medias for background image and red square
         const char* media="./sounds.wav";
@@ -117,7 +117,7 @@ int main( int argc, char* args[] )
 
         }
     }
-
+*/
     //Free resources and close SDL
     close(gRenderer,gWindow,gGameController);
     return 0;

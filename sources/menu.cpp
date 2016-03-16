@@ -230,7 +230,6 @@ void menu::drawTeamSelectionMenu()
     SDL_Rect tmp;
     for (int i=0;i<SDL_NumJoysticks();i++)
     {
-        std::cout<<SDL_NumJoysticks()<<std::endl;
         switch (i)
         {
             case 0:

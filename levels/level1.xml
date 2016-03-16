@@ -7,9 +7,14 @@
     </node1>
     <node2>
         <type>static</type>
-        <xpos>0</xpos>
-        <ypos>600</ypos>
+        <xpos>400</xpos>
+        <ypos>0</ypos>
     </node2>
+    <node5454>
+        <type>bump</type>
+        <xpos>400</xpos>
+        <ypos>400</ypos>
+    </node5454>
     <node3>
         <type>player</type>
         <xpos>0</xpos>
