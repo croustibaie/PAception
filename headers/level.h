@@ -55,5 +55,7 @@ public:
     bool testCollision(SDL_Rect a, SDL_Rect b);
     SDL_Renderer** getRenderer();
     int getNum();
+    bool win();
+    int winnerBloc(std::map<int,bloc*> PlayerblocMap);
 };
 #endif //PACEPTION_LEVEL_H

@@ -46,7 +46,7 @@ staticBloc::staticBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->gRenderer=*gRenderer;
     this->myKind=SOLID;
     this->reflect=false;
-    loadMedia(&texture,gRenderer,"./textures/black.bmp");
+    loadMedia(&texture,gRenderer,"./textures/blocfixe2.png");
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;

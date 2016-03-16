@@ -9,8 +9,6 @@
 #include "../headers/pulseBloc.h"
 #include "../headers/voidBloc.h"
 #include "../headers/staticBloc.h"
-#include "../headers/diamondBloc.h"
-#include "../headers/mirrorBloc.h"
 #include "../libs/rapidxml/rapidxml.hpp"
 #include "../libs/rapidxml/rapidxml_utils.hpp"
 
@@ -23,7 +21,7 @@ levelCreator::levelCreator()
     numBloc=0;
     l= new level();
 }
-levelCreator::levelCreator(SDL_Renderer* gRenderer, int numPlayers)
+levelCreator::levelCreator(SDL_Renderer* gRenderer, int pTeam[4])
 {
     blocArray= new bloc*[30];
     numBloc=0;
@@ -33,8 +31,11 @@ levelCreator::levelCreator(SDL_Renderer* gRenderer, int numPlayers)
     }
     std::cout<<"lc creating level"<<std::endl;
     this->l= new level(gRenderer,1);
-    this->numPlayers=numPlayers;
     this->playerIndex=0;
+    for (int i=0;i<4;i++)
+    {
+        this->pTeam[i]=pTeam[i];
+    }
 }
 
 levelCreator::~levelCreator()
@@ -53,7 +54,7 @@ level* levelCreator::parse()
     int xpos;
     int ypos;
     xml_document<> doc; //create xml_document object
-    file<> xmlFile("./levels/showDown.xml"); //open file
+    file<> xmlFile("./levels/level1.xml"); //open file
     doc.parse<0>(xmlFile.data()); //parse the contents of file
     xml_node<>* root = doc.first_node("root");//find our root node
     xml_node<>* n;
@@ -96,24 +97,17 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
     }
     if (type=="player")
     {
-        if(this->playerIndex<numPlayers)
+        if(pTeam[this->playerIndex]!=0)
         {
-            blocArray[numBloc] = new playerBloc(l->getRenderer(), l, this->playerIndex, xpos, ypos);
+            blocArray[numBloc] = new playerBloc(l->getRenderer(), l, this->playerIndex,this->pTeam[this->playerIndex], xpos, ypos);
             numBloc++;
             playerIndex++;
             std::cout << "creating a player at " << xpos << " , " << ypos << std::endl;
         }
-    }
-    if(type == "diamond")
-    {
-        blocArray[numBloc]= new diamondBloc(l->getRenderer(),l,xpos,ypos);
-        numBloc++;
-        std::cout<<"creating a diamond at "<<xpos<< " , " <<ypos<<std::endl;
-    }
-    if(type == "mirror")
-    {
-        blocArray[numBloc]= new mirrorBloc(l->getRenderer(),l,xpos,ypos);
-        numBloc++;
-        std::cout<<"creating a mirror at "<<xpos<< " , " <<ypos<<std::endl;
+        else
+        {
+            playerIndex++;
+        }
     }
 }
+
