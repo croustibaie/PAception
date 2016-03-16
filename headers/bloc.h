@@ -34,7 +34,6 @@ protected:
 
     bool shield ; // use only for player bloc
     bool killOnTouch; //Does the bloc kill players?
-    bool killOnTouch; //Does the bloc kill 0players?
     bool isBumped; // Is the bloc bumped ?
     bool reflect; //Does the bloc reflect lasers ?
     enum kind myKind; // Kind can be LASER,PLAYER or STATIC so far. Useful to determine a generic bloc's type
