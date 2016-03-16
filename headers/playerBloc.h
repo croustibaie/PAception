@@ -17,7 +17,7 @@ class playerBloc : public bloc{
 private:
     int playerID;// Who does this bloc belong to
     unsigned int lastShotTimer;//Timer recording when was the last shot. Used to limit the fire rate
-
+    int teamNumber;
     laserBloc* laser[NB_LASERS]; //Pool of player's lasers.
     int ammo;
     int nextLaser; //Number of the nextLaser that should be shot (shoot uses laser[nextLaser])
@@ -30,15 +30,20 @@ private:
     SDL_Texture *heartTexture; //Indicator of health point
     SDL_Texture *ammoTexture; // color of ammunition bar
     SDL_Texture *bulletTexture; // Indicator of ammunition
-
+    float dx;// current x direction if not bumped x direction of bumping otherwise
+    float dy;// current y direction if not bumped y direction of bumping otherwise
 public:
     playerBloc();
-    playerBloc(SDL_Renderer** gRenderer,level* l, int playerID, int x, int y);
+    playerBloc(SDL_Renderer** gRenderer,level* l, int playerID,int teamId, int x, int y);
     ~playerBloc();
     bool react(struct controllerState** state,unsigned int elapsedTime);//Player bloc's reaction is to do a tryMove and check whether he's dead (false) or not (true)
     bool collisionReaction(bloc* b);// Player's reaction to a collision with a bloc b
     void draw();
     void shoot(struct controllerState** state);
+    void setDirection(float dx, float dy);
+    float getdx();
+    float getdy();
+    void setTeamNumber(int teamNo);
 };
 
 

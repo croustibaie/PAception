@@ -24,7 +24,8 @@ public:
 
 
     void motion(SDL_JoystickID id, SDL_Event e); //Method to update the controllerStates when the even is a JoyAxisMotion
-    void handleButton(SDL_JoystickID id, SDL_Event e);
+    void handleButtonDown(SDL_JoystickID id, SDL_Event e);
+    void handleButtonUp(SDL_JoystickID id, SDL_Event e);
     bool isPaused();
 };
 

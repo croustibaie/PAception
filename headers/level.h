@@ -13,7 +13,7 @@
 
 enum gameStatus {PAUSE,PLAY,GAMEOVER};
 const bool TEST =true;
-
+// true if you want to run a test without the menu
 /* Level's purpose is to control all of the in game action by capturing the inputs and sending the update orders to
  * the blocs*/
 
@@ -55,5 +55,7 @@ public:
     bool testCollision(SDL_Rect a, SDL_Rect b);
     SDL_Renderer** getRenderer();
     int getNum();
+    bool win();
+    int winnerBloc(std::map<int,bloc*> PlayerblocMap);
 };
 #endif //PACEPTION_LEVEL_H

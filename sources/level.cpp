@@ -19,7 +19,7 @@ level::level (SDL_Renderer* gRenderer,int numPlayer)
         std::cout<<"In level constructor, no valid renderer"<<std::endl;
     }
     loadMedia(&pauseTexture,&gRenderer,"./textures/pausescreen.png");
-    loadMedia(&backGroundTexture,&gRenderer,"./textures/fond1230x960.jpg");
+    loadMedia(&backGroundTexture,&gRenderer,"./textures/fond_ecran_PA.jpg");
     if (backGroundTexture==NULL)
     {
         std::cout<<"level has no background texture"<<std::endl;
@@ -69,12 +69,14 @@ void level::blocDraw()
     SDL_RenderCopy(gRenderer,backGroundTexture,NULL,NULL);
     std::map<int,bloc*>::iterator it;
 
-    for (it= SolidblocMap.begin();it!=SolidblocMap.end();it++)//Make sure blocMap.end is recomputed on every loop, could be the cause of seg faults
+
+    for (it= NonSolidblocMap.begin();it!=NonSolidblocMap.end();it++)//Make sure blocMap.end is recomputed on every loop, could be the cause of seg faults
     {
         it->second->draw();
     }
 
-    for (it= NonSolidblocMap.begin();it!=NonSolidblocMap.end();it++)//Make sure blocMap.end is recomputed on every loop, could be the cause of seg faults
+
+    for (it= SolidblocMap.begin();it!=SolidblocMap.end();it++)//Make sure blocMap.end is recomputed on every loop, could be the cause of seg faults
     {
         it->second->draw();
     }
@@ -265,3 +267,28 @@ int level::getNum()
 {
     return(this->numPlayer);
 }
+
+bool level::win()
+{
+    if(getNum() >= 2)
+    {
+        return(0);
+    }
+    else
+    {
+        return(1);
+    }
+}
+
+int level::winnerBloc(std::map<int,bloc*> PlayerblocMap)
+{
+    std::map<int,bloc*>::iterator it;
+    it = PlayerblocMap.begin();
+
+    return(it->first+1);
+}
+
+
+
+
+

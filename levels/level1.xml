@@ -2,12 +2,37 @@
 <root>
     <node1>
         <type>void</type>
-        <xpos>600</xpos>
-        <ypos>0</ypos>
+        <xpos>300</xpos>
+        <ypos>300</ypos>
     </node1>
     <node2>
         <type>static</type>
-        <xpos>500</xpos>
+        <xpos>400</xpos>
         <ypos>0</ypos>
     </node2>
+    <node5454>
+        <type>bump</type>
+        <xpos>400</xpos>
+        <ypos>400</ypos>
+    </node5454>
+    <node3>
+        <type>player</type>
+        <xpos>0</xpos>
+        <ypos>0</ypos>
+    </node3>
+    <node4>
+        <type>player</type>
+        <xpos>700</xpos>
+        <ypos>0</ypos>
+    </node4>
+    <node5>
+        <type>player</type>
+        <xpos>800</xpos>
+        <ypos>600</ypos>
+    </node5>
+    <node6>
+        <type>player</type>
+        <xpos>0</xpos>
+        <ypos>600</ypos>
+    </node6>
 </root>

@@ -9,11 +9,11 @@
 #include "../headers/pulseBloc.h"
 #include "../headers/voidBloc.h"
 #include "../headers/staticBloc.h"
+#include "../headers/bumpBloc.h"
 #include "../libs/rapidxml/rapidxml.hpp"
 #include "../libs/rapidxml/rapidxml_utils.hpp"
 
 using namespace rapidxml;
-using namespace std;
 
 
 levelCreator::levelCreator()
@@ -22,7 +22,7 @@ levelCreator::levelCreator()
     numBloc=0;
     l= new level();
 }
-levelCreator::levelCreator(SDL_Renderer* gRenderer)
+levelCreator::levelCreator(SDL_Renderer* gRenderer, int pTeam[4])
 {
     blocArray= new bloc*[30];
     numBloc=0;
@@ -32,6 +32,11 @@ levelCreator::levelCreator(SDL_Renderer* gRenderer)
     }
     std::cout<<"lc creating level"<<std::endl;
     this->l= new level(gRenderer,1);
+    this->playerIndex=0;
+    for (int i=0;i<4;i++)
+    {
+        this->pTeam[i]=pTeam[i];
+    }
 }
 
 levelCreator::~levelCreator()
@@ -77,7 +82,7 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
     {
         blocArray[numBloc]= new pulseBloc(l->getRenderer(),l,xpos,ypos);
         numBloc++;
-        std::cout<<"creating a laser at"<<xpos<< " , " <<ypos<<std::endl;
+        std::cout<<"creating a pulse at"<<xpos<< " , " <<ypos<<std::endl;
     }
     if (type=="static")
     {
@@ -91,4 +96,27 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
         numBloc++;
         std::cout<<"creating a void at "<<xpos<< " , " <<ypos<<std::endl;
     }
+    if (type=="bump")
+    {
+        blocArray[numBloc]= new bumpBloc(l->getRenderer(),l,xpos,ypos,0,0);
+        numBloc++;
+        std::cout<<"creating a bump at "<<xpos<< " , " <<ypos<<std::endl;
+    }
+
+
+    if (type=="player")
+    {
+        if(pTeam[this->playerIndex]!=0)
+        {
+            blocArray[numBloc] = new playerBloc(l->getRenderer(), l, this->playerIndex,this->pTeam[this->playerIndex], xpos, ypos);
+            numBloc++;
+            playerIndex++;
+            std::cout << "creating a player at " << xpos << " , " << ypos << std::endl;
+        }
+        else
+        {
+            playerIndex++;
+        }
+    }
 }
+

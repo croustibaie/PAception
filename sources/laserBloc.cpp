@@ -99,30 +99,31 @@ bool laserBloc::collisionReaction(bloc *b)
     int deltaX, deltaY;
     deltaX = 0;
     deltaY = 0;
-    if (xMove > 0)
+    if (xMove > 0) // intention to move to the right
     {
         deltaX = b->getRect().x - (this->getRect().x + this->getRect().w) - 1;
     }
-    if (xMove < 0)
+    if (xMove < 0) // intention to move to the left
     {
         deltaX = this->getRect().x - (b->getRect().x + b->getRect().w) - 1;
     }
-    if (yMove > 0)
+    if (yMove > 0 ) // intention to move upward
     {
         deltaY = b->getRect().y - (this->getRect().y + this->getRect().h) - 1;
     }
-    if (yMove < 0)
+    if (yMove < 0) // intention to move downward
     {
         deltaY = this->getRect().y - (b->getRect().y + b->getRect().h) - 1;
     }
-    if ((xMove == 0) )
+    if ((xMove == 0) ) // no horizontal move tried
     {
         yMove = yMove == 0 ? 0 : -yMove / (abs(yMove)) * (deltaY);
         dy=-dy;
         isAlive=tryMove(0, yMove);
         return isAlive;
     }
-    if ((yMove == 0) ) {
+    if ((yMove == 0) ) //no vertical move tried
+    {
         xMove = xMove == 0 ? 0 : -xMove / (abs(xMove)) * (deltaX);
         dx=-dx;
         isAlive=tryMove(xMove, 0);
