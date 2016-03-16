@@ -55,4 +55,16 @@
         <ypos>300</ypos>
     </pulse1>
 
+    <player1>
+        <type>player</type>
+        <xpos>0</xpos>
+        <ypos>300</ypos>
+    </player1>
+
+    <player2>
+        <type>player</type>
+        <xpos>840</xpos>
+        <ypos>300</ypos>
+    </player2>
+
 </root>
