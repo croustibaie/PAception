@@ -9,6 +9,7 @@
 #include "../headers/pulseBloc.h"
 #include "../headers/voidBloc.h"
 #include "../headers/staticBloc.h"
+#include "../headers/diamondBloc.h"
 #include "../libs/rapidxml/rapidxml.hpp"
 #include "../libs/rapidxml/rapidxml_utils.hpp"
 
@@ -101,5 +102,11 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
             playerIndex++;
             std::cout << "creating a player at " << xpos << " , " << ypos << std::endl;
         }
+    }
+    if(type == "diamond")
+    {
+        blocArray[numBloc]= new diamondBloc(l->getRenderer(),l,xpos,ypos);
+        numBloc++;
+        std::cout<<"creating a void at "<<xpos<< " , " <<ypos<<std::endl;
     }
 }
