@@ -154,23 +154,6 @@ void level::insertBloc(bloc *b)
             PlayerblocMap.insert(std::pair<int, bloc *>(b->getBlocId(), b));
             break;
     }
-   /* for (int i=0;i<nbBlocs;i++)
-    {
-
-        switch (blocArray[i]->getKind())
-        {
-            case SOLID :
-                SolidblocMap.insert(std::pair<int, bloc *>(blocArray[i]->getBlocId(), blocArray[i]));
-                break;
-            case NONSOLID :
-                NonSolidblocMap.insert(std::pair<int, bloc *>(blocArray[i]->getBlocId(), blocArray[i]));
-                break;
-            case PLAYER :
-                PlayerblocMap.insert(std::pair<int, bloc *>(blocArray[i]->getBlocId(), blocArray[i]));
-                break;
-        }
-    }
-    */
 }
 
 
@@ -200,7 +183,6 @@ bloc* level::mapCollide(int blocID, SDL_Rect potentialPos, std::vector<bloc *> i
         {
             if (testCollision(it->second->getRect(), potentialPos))
             {
-                //std::cout<<"colliding with bloc" + it->second->getBlocId()<<std::endl;
                 bool notYetCollided = true;
                 for (int i = 0; i < ignoredBlocs.size(); i++)
                 {

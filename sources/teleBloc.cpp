@@ -28,6 +28,7 @@ teleBloc::teleBloc()
 teleBloc::teleBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
 {
     this->l=l;
+    this->isBumped=false;
     this->active = true ;
     if (*gRenderer==NULL)
     {

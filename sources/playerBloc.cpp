@@ -37,6 +37,8 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, level *l, int playerID,int team
         this->rect.x = 0; //TODO : see for throwing an exception
         this->rect.y = 0;
     }
+    this->dx=0;
+    this->dy=0;
     this->rect.w = 50;
     this->rect.h = 50;
     texture = NULL;
@@ -174,7 +176,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, level *l, int playerID,int team
 
 
             }
-
+    this->isBumped=false;
     this->teamNumber=teamID; //Make sure that everyone's team is different if teams are not set
     hpTexture=NULL;
     loadMedia(&hpTexture,gRenderer,"./textures/red.bmp");

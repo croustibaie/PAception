@@ -56,6 +56,7 @@ diamondBloc::diamondBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
         std::cout<<"no texture loaded"<<std::endl;
     }
     killOnTouch=false;
+    this->isBumped=false;
     this->blocId=nextBlocId;
     nextBlocId++;
     this->wallCollided=false;

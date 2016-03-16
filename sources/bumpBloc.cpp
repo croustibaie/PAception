@@ -50,6 +50,7 @@ bumpBloc::bumpBloc(SDL_Renderer **gRenderer, level *l,int x,int y,float dx,float
     this->speed=2;
     this->xMove=0;
     this->yMove=0;
+    this->isBumped=false;
     this->dx=(float)(0);
     this->dy=(float)(0);
     this->gRenderer=*gRenderer;
@@ -342,8 +343,6 @@ bool bumpBloc::bump(enum edge touchededge,bloc* b) // touchededge is the edge of
                     bumpingedge=NONE;
                     bumpedbloc.insert(std::pair<bloc*,unsigned int>(b,SDL_GetTicks()));
                     return(true);
-                   break;
-
            }
            return(false);
        }

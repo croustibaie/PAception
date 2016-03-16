@@ -48,6 +48,7 @@ staticBloc::staticBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->reflect=false;
     this->shield=false;
     loadMedia(&texture,gRenderer,"./textures/black.bmp");
+    this->isBumped=false;
     loadMedia(&texture,gRenderer,"./textures/blocfixe2.png");
     if (texture==NULL)
     {

@@ -25,6 +25,7 @@ laserBloc::laserBloc()
 
 laserBloc::laserBloc(SDL_Renderer **gRenderer, level *l,int x,int y,int dx,int dy)
 {
+    this->isBumped=false;
     this->dx=(float)(dx/sqrt((double)(dx*dx+dy*dy)));
     this->dy=(float)(dy/sqrt((double)(dx*dx+dy*dy)));
     this->xMove=dx;

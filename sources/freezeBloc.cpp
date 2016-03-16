@@ -23,6 +23,7 @@ freezeBloc::freezeBloc()
 
 freezeBloc::freezeBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
 {
+    this->isBumped=false;
     this->l=l;
     if (*gRenderer==NULL)
     {
