@@ -13,6 +13,7 @@
 #include "../headers/sound.h"
 #include "../headers/levelCreator.h"
 #include "../headers/bumpBloc.h"
+#include "../headers/menu.h"
 #include "../headers/teleBloc.h"
 //Screen dimension constants
 
@@ -31,10 +32,12 @@ int main( int argc, char* args[] )
     {
         printf( "Failed to initialize!\n" );
     }
-    else
+    menu m = menu(gRenderer);
+    m.playMenu();
+   /* else
     {
         //Load medias for background image and red square
-        const char* media="./media/intro.wav";
+        const char* media="./sounds.wav";
         std::cout<<SDL_NumJoysticks()<<std::endl;
         //Create the red bloc
         //Create the level
@@ -111,13 +114,7 @@ int main( int argc, char* args[] )
             }
             delete(lc);
             delete(b);
-            //delete(b2);
-            //delete(b2bis);
-            //delete(v);
-            delete(bp1);
-            delete(bp2);
-            //delete(b5);
-            //delete(s1);
+
         }
     }
 
