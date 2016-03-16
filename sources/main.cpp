@@ -9,9 +9,11 @@
 #include "../headers/level.h"
 #include "../headers/pulseBloc.h"
 #include "../headers/freezeBloc.h"
+#include "../headers/mirrorBloc.h"
 #include "../headers/sound.h"
 #include "../headers/levelCreator.h"
 #include "../headers/menu.h"
+#include "../headers/teleBloc.h"
 //Screen dimension constants
 
 
@@ -100,11 +102,7 @@ int main( int argc, char* args[] )
             }
             delete(lc);
             delete(b);
-            delete(b2);
-            delete(b2bis);
-            delete(v);
-            delete(b5);
-            delete(s1);
+
         }
     }*/
 

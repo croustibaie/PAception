@@ -23,12 +23,13 @@ protected:
     SDL_Renderer* gRenderer;
     level* l;
     int speed;//speed is used a multiplicative coeff. to compute xMove and yMove
-    int blocId; //Bloc's unique ID, is it really useful?
+    unsigned int blocId; //Bloc's unique ID, is it really useful?
     int xMove; // The x movement that the bloc is willing to perform, level will check for collision and this value will be adapted
     int yMove;// Same as xMove
     static unsigned int nextBlocId;
 
     bool killOnTouch; //Does the bloc kill players?
+    bool reflect; //Does the bloc reflect lasers ?
     enum kind myKind; // Kind can be LASER,PLAYER or STATIC so far. Useful to determine a generic bloc's type
     bool wallCollided; //Return true if the bloc collided with a wall and it hasn't been resolved yet
     std::vector<bloc*> ignoredBlocs;
@@ -58,6 +59,8 @@ public:
     bool kill();//Does the bloc have the killontouch attribute set to true or false.
     enum kind getKind();
     void setPosition(int x, int y);
+    bool isReflector();//Does the bloc reflect ?
+    std::vector<bloc*> getIgnoredBlocs();
 
     // NB : Any bloc that is killed must be killed in his own collisionReaction
 };

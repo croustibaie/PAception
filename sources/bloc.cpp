@@ -221,3 +221,14 @@ void bloc::setPosition(int x,int y)
     this->rect.x=(int)(x-(this->rect.w)/2.);
     this->rect.y=(int)(y-(this->rect.h/2.));
 }
+
+bool bloc::isReflector()
+{
+    return(this->reflect);
+
+}
+
+std::vector<bloc*> bloc::getIgnoredBlocs()
+{
+    return ignoredBlocs;
+}
