@@ -47,11 +47,11 @@ bumpBloc::bumpBloc(SDL_Renderer **gRenderer, level *l,int x,int y,float dx,float
     this->rect.w=50;
     this->rect.h=50;
     texture=NULL;
-    this->speed=0;
+    this->speed=2;
     this->xMove=0;
     this->yMove=0;
-    this->dx=(float)(dx/sqrt((double)(dx*dx+dy*dy)));
-    this->dy=(float)(dy/sqrt((double)(dx*dx+dy*dy)));
+    this->dx=(float)(0);
+    this->dy=(float)(0);
     this->gRenderer=*gRenderer;
     this->myKind=SOLID;
     loadMedia(&texture,gRenderer,"./textures/cannabis.bmp");
@@ -84,12 +84,11 @@ bool bumpBloc::collisionReaction(bloc *b)
         return true;
     }
 
-    if(b->getKind()==PLAYER && b->getxMove()==0 && b->getyMove()==0)
 
-    {
+
+
          // edge of the bumpBloc touched by the player
         // warning : it is the contrary to what it is in the playerBloc's collisionReaction
-        enum edge touchededge =NONE;
         float tx, ty;
         tx = 0;
         ty = 0;
@@ -116,35 +115,16 @@ bool bumpBloc::collisionReaction(bloc *b)
 
         if (xMove == 0)
         {
-            yMove = yMove == 0 ? 0 : yMove / (abs(yMove)) * (deltaY);
 
-            if (yMove >0)
-            {
-                touchededge = DOWN;
-            }
-        else if (yMove<0)
-            {
-                touchededge = UP;
-            }
-           b->setBumped(bump(touchededge,b));
-            isAlive=tryMove(xMove,yMove );
+            yMove = yMove == 0 ? 0 : yMove / (abs(yMove)) * (deltaY);
+            isAlive=tryMove(xMove,yMove);
             return isAlive;
         }
 
         if (yMove == 0)
         {
+
             xMove = xMove == 0 ? 0 : xMove / (abs(xMove)) * (deltaX);
-
-            if (xMove >0)
-            {
-                touchededge=RIGHT;
-            }
-
-        else if (xMove<0)
-            {
-                touchededge=LEFT;
-            }
-            b->setBumped(bump(touchededge,b));
             isAlive = tryMove(xMove,yMove);
             return isAlive;
         }
@@ -154,17 +134,6 @@ bool bumpBloc::collisionReaction(bloc *b)
         {
             yMove = yMove == 0 ? 0 : yMove / (abs(yMove)) * (deltaY);
 
-            if (yMove >0)
-            {
-                touchededge=DOWN;
-            }
-
-            else if (yMove<0)
-            {
-                touchededge=UP;
-            }
-
-            b->setBumped(bump(touchededge,b));
             isAlive = tryMove(xMove,yMove);
             return isAlive;
         }
@@ -172,17 +141,6 @@ bool bumpBloc::collisionReaction(bloc *b)
         if (deltaY < 0)
         {
             xMove = xMove == 0 ? 0 : xMove / (abs(xMove)) * (deltaX);
-
-            if (xMove >0)
-            {
-                touchededge=RIGHT;
-            }
-
-            else if (xMove<0)
-            {
-                touchededge=LEFT;
-            }
-            b->setBumped(bump(touchededge,b));
             isAlive = tryMove(xMove,yMove);
             return isAlive;
         }
@@ -191,38 +149,23 @@ bool bumpBloc::collisionReaction(bloc *b)
         ty = deltaY / yMove;
         if (tx < ty)
         {
-            xMove = xMove / (abs(xMove)) * (deltaX);
-            if (xMove>0)
-            {
-                touchededge=RIGHT;
-            }
-            else
-            {
-                touchededge=LEFT;
-            }
+
+             xMove = xMove / (abs(xMove)) * (deltaX);
         }
         else
         {
-            yMove = yMove / (abs(yMove)) * (deltaY);
-             if (yMove>0)
-            {
-                touchededge=DOWN;
-            }
-            else
-            {
-                touchededge=UP;
-            }
 
+             yMove = yMove / (abs(yMove)) * (deltaY);
         }
 
-        b->setBumped(bump(touchededge,b));
-        isAlive = tryMove(xMove, yMove);
-        return isAlive;
-    }
+    tryMove(xMove, yMove);
+
+    return true;  // the bumpBloc can't die
 }
 
 bool bumpBloc::react(struct controllerState** state, unsigned int elapsedTime)
 {
+    // gestion of the bumped blocs
 bloc* blocarray[bumpedbloc.size()];
     int tmp=0;
     std::map<bloc*,unsigned int>::iterator it;
@@ -235,6 +178,7 @@ bloc* blocarray[bumpedbloc.size()];
                 std::cout << "end of bumping" << std::endl;
 
                 (it->first)->setBumped(false);
+
                 blocarray[tmp] = it->first;
                 tmp++;
             }
@@ -244,6 +188,31 @@ bloc* blocarray[bumpedbloc.size()];
     {
         bumpedbloc.erase(blocarray[i]);
     }
+
+    // gestion of the movement
+
+    this->ignoredBlocs.clear();
+    bloc* b=l->collide(this->blocId,this->getRect(),this->ignoredBlocs);
+    if (b!= nullptr) //TODO: MAKE THIS A FUNCTION : Check_Initial_Collision
+    {
+        if(b->getKind()!=NONSOLID)
+        {
+            l->deleteBloc(this->blocId,this->getKind());
+            return false;
+        }
+    }
+
+
+    int correctedSpeed = (int) (round((float) (speed) * (float) elapsedTime / 20)); //We have to adapt the initial speed to the frame duration
+
+        xMove = (int) (correctedSpeed * getdx());
+        yMove = (int) (correctedSpeed * getdy());
+
+if (xMove==0 && yMove==0)
+{
+  setDirection(0,0);
+};
+    tryMove(xMove, yMove);
 
     return true;
 }
@@ -273,29 +242,35 @@ bool bumpBloc::bump(enum edge touchededge,bloc* b) // touchededge is the edge of
             switch (touchededge) // the bumpBloc wins
            {
                 case UP :
-
-                   b->setDirection(0,dy);
+                   b->setDirection(0,-1);
+               std::cout<<"the bumpBloc wins : UP"<< std::endl;
                     break;
 
                 case DOWN :
-                   b->setDirection(0,dy);
+                   b->setDirection(0,1);
+                   std::cout<<"the bumpBloc wins : DOWN"<< std::endl;
                    break;
 
                 case LEFT :
-                   b->setDirection(dx,0);
+                   b->setDirection(-1,0);
+                   std::cout<<"the bumpBloc wins : LEFT"<< std::endl;
                     break;
 
                 case RIGHT  :
-                   b->setDirection(dx,0);
+                   b->setDirection(1,0);
+                   std::cout<<"the bumpBloc wins : RIGHT"<< std::endl;
                     break;
 
                 case NONE  :
                 std::cout<<"error : les deux blocs sont immobiles et rentrent en collision"<<std::endl ;
+                   return(false);
                     break;
            }
            setDirection(0,0);
            xMove=0;
            yMove=0;
+           bumpingedge=NONE;
+           bumpedbloc.insert(std::pair<bloc*,unsigned int>(b,SDL_GetTicks()));
            return(true);
        }
 
@@ -303,22 +278,71 @@ bool bumpBloc::bump(enum edge touchededge,bloc* b) // touchededge is the edge of
        {
             switch (touchededge) // the bloc b wins if touchededge!=NONE
            {
+
                 case UP :
-                    setDirection(0,b->getdy());
+                    std::cout<<"in bump"<<std::endl;
+                    setDirection(0,1);
+                   bumpingedge=DOWN;
+                   std::cout<<"bumpingedge : DOWN"<<std::endl;
                     break;
                 case DOWN :
-                    setDirection(0,b->getdy());
+                    std::cout<<"in bump"<<std::endl;
+                    setDirection(0,-1);
+                    bumpingedge=UP;
+                    std::cout<<"bumpingedge : UP"<<std::endl;
                     break;
                 case LEFT :
-                    setDirection(b->getdx(),0);
+                    std::cout<<"in bump"<<std::endl;
+                    setDirection(1,0);
+                   bumpingedge=RIGHT;
+                    std::cout<<"bumpingedge : RIGHT"<<std::endl;
                     break;
 
                 case RIGHT :
-                    setDirection(b->getdx(),0);
+                    std::cout<<"in bump"<<std::endl;
+                    setDirection(-1,0);
+                   bumpingedge=LEFT;
+                    std::cout<<"bumpingedge : LEFT"<<std::endl;
                     break;
 
                case NONE : // in this particular case the bloc b doesn't move
                    std::cout<<"error : cas inattendu"<<std::endl ;
+                   switch (bumpingedge) // the bloc b wins if touchededge!=NONE
+                    {
+
+                       case UP :
+
+                           b->setDirection(0,-1);
+                           std::cout<<"the bumpBloc wins : UP"<<std::endl;
+                           break;
+                       case DOWN :
+
+                           b->setDirection(0,1);
+                           std::cout<<"the bumpBloc wins : DOWN"<<std::endl;
+                           break;
+                       case LEFT :
+
+                           b->setDirection(-1,0);
+                           std::cout<<"the bumpBloc wins : LEFT"<<std::endl;
+                           break;
+                       case RIGHT :
+
+                           b->setDirection(1,0);
+                           std::cout<<"the bumpBloc wins : LEFT"<<std::endl;
+                           break;
+
+                       case NONE : // in this particular case the bloc b doesn't move
+                           std::cout<<"error : les deux blocs sont immobiles et rentrent en collision"<<std::endl ;
+
+                           break;
+
+                   }
+                   setDirection(0,0);
+                    xMove=0;
+                    yMove=0;
+                    bumpingedge=NONE;
+                    bumpedbloc.insert(std::pair<bloc*,unsigned int>(b,SDL_GetTicks()));
+                    return(true);
                    break;
 
            }

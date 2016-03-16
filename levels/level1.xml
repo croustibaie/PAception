@@ -2,12 +2,12 @@
 <root>
     <node1>
         <type>void</type>
-        <xpos>600</xpos>
-        <ypos>0</ypos>
+        <xpos>300</xpos>
+        <ypos>300</ypos>
     </node1>
     <node2>
         <type>static</type>
-        <xpos>500</xpos>
-        <ypos>0</ypos>
+        <xpos>0</xpos>
+        <ypos>600</ypos>
     </node2>
 </root>

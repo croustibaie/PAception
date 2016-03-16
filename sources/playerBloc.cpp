@@ -227,7 +227,7 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
     if (state == nullptr) {
         return true;
     }
-    if (getBumped()==false)
+    if (!getBumped())
     {
         xMove = (int) (correctedSpeed * (float) (state[playerID]->leftStickHorizontal) / 32000);
         yMove = (int) (correctedSpeed * (float) (state[playerID]->leftStickVertical) / 32000);
@@ -235,6 +235,8 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
     }
     else
     {
+        std::cout<<getdx()<<std::endl;
+        std::cout<<getdy()<<std::endl;
         xMove = (int) (correctedSpeed * getdx());
         yMove = (int) (correctedSpeed * getdy());
     }
@@ -242,7 +244,6 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
     bool isAlive;
     if (xMove != 0 || yMove != 0) {
         isAlive = tryMove(xMove, yMove);
-
     }
     else
     {
@@ -321,16 +322,20 @@ bool playerBloc::collisionReaction(bloc *b)
 
     if (xMove==0)
     {
-        yMove= yMove==0 ? 0:yMove/(abs(yMove))*(deltaY);
+
         if (yMove >0)
         {
             touchededge = UP;
+            std::cout << "pl : touch UP" << std::endl;
         }
         else if (yMove<0)
         {
             touchededge=DOWN;
+            std::cout << "pl : touch DOWN" << std::endl;
         }
+        yMove= yMove==0 ? 0:yMove/(abs(yMove))*(deltaY);
         setBumped(b->bump(touchededge,this));
+        std::cout<< getBumped()<<std::endl;
         isAlive=tryMove(xMove, yMove );
         return isAlive;
 
@@ -338,55 +343,67 @@ bool playerBloc::collisionReaction(bloc *b)
 
     if (yMove==0)
     {
-       xMove=  xMove==0 ? 0 : xMove/(abs(xMove))*(deltaX);
 
          if (xMove >0)
         {
             touchededge=LEFT;
+            std::cout << "pl : touch LEFT" << std::endl;
         }
 
         else if (xMove<0)
         {
             touchededge=RIGHT;
+            std::cout << "pl : touch RIGHT" << std::endl;
         }
+        xMove=  xMove==0 ? 0 : xMove/(abs(xMove))*(deltaX);
         setBumped(b->bump(touchededge,this));
+        std::cout<< getBumped()<<std::endl;
         isAlive=tryMove(xMove, yMove );
         return isAlive;
-
     }
 
     if (deltaX<0)
     {
-        yMove= yMove == 0 ? 0: yMove/(abs(yMove))*(deltaY);
 
         if (yMove >0)
         {
             touchededge=UP;
+            std::cout << "pl : touch UP" << std::endl;
         }
 
         else if (yMove<0)
         {
             touchededge=DOWN;
+            std::cout << "pl : touch DOWN" << std::endl;
         }
+         yMove= yMove == 0 ? 0: yMove/(abs(yMove))*(deltaY);
         setBumped(b->bump(touchededge,this));
+        std::cout<< getBumped()<<std::endl;
         isAlive=tryMove(xMove, yMove );
         return isAlive;
 
     }
     if (deltaY<0)
     {
-        xMove= xMove == 0 ? 0 : xMove/(abs(xMove))*(deltaX);
 
         if (xMove >0)
         {
             touchededge=LEFT;
+            std::cout << "pl : touch LEFT" << std::endl;
         }
 
         else if (xMove<0)
         {
             touchededge=RIGHT;
+            std::cout << "pl : touch RIGHT" << std::endl;
+        }
+        xMove= xMove == 0 ? 0 : xMove/(abs(xMove))*(deltaX);
+        if (touchededge==NONE)
+        {
+            std::cout<< "transmitting no touched edge"<<std::endl;
         }
         setBumped(b->bump(touchededge,this));
+        std::cout<< getBumped()<<std::endl;
         isAlive=tryMove(xMove, yMove );
         return isAlive;
 
@@ -397,31 +414,38 @@ bool playerBloc::collisionReaction(bloc *b)
     ty=deltaY/yMove;
     if (tx<ty)
     {
-        xMove=xMove/(abs(xMove))*(deltaX);
              if (xMove>0)
             {
                 touchededge=LEFT;
+                std::cout << "pl : touch LEFT" << std::endl;
             }
             else
             {
                 touchededge=RIGHT;
+                std::cout << "pl : touch RIGHT" << std::endl;
             }
-        b->bump(touchededge,this);
+
+        xMove=xMove/(abs(xMove))*(deltaX);
+        setBumped(b->bump(touchededge,this));
+        std::cout<< getBumped()<<std::endl;
         isAlive=tryMove(xMove, yMove );
         return isAlive;
     }
     else
     {
-        yMove=yMove/(abs(yMove))*(deltaY);
          if (yMove>0)
             {
                 touchededge=UP;
+                std::cout << "pl : touch UP" << std::endl;
             }
             else
             {
                 touchededge=DOWN;
+                std::cout << "pl : touch DOWN" << std::endl;
             }
+         yMove=yMove/(abs(yMove))*(deltaY);
         setBumped(b->bump(touchededge,this));
+        std::cout<< getBumped()<<std::endl;
         isAlive=tryMove(xMove, yMove );
         return isAlive;
     }
@@ -489,10 +513,10 @@ void playerBloc::draw()
     }
 
 }
-void playerBloc::setDirection(float dx, float dy)
+void playerBloc::setDirection(float dirx, float diry )
 {
-    this->dx=xMove;
-    this->dy=yMove;
+    dx=dirx;
+    dy=diry;
 }
 
 float playerBloc::getdx()

@@ -45,32 +45,34 @@ int main( int argc, char* args[] )
             levelCreator* lc= new levelCreator(gRenderer);
             level* l= lc->parse();
             //level* l = new level(gRenderer,1);
-            playerBloc* b =new playerBloc(&gRenderer,l,0,0,0) ;
-            mirrorBloc* b2 =new mirrorBloc(&gRenderer,l,300,149);
-            freezeBloc* b2bis =new freezeBloc(&gRenderer,l,100,149);
-            pulseBloc* b5= new pulseBloc(&gRenderer, l, 600,350);
-            diamondBloc* s1 =new  diamondBloc(&gRenderer,l,300,500);
-            voidBloc* v= new voidBloc(&gRenderer,l,400,400);
-            bumpBloc* bp= new bumpBloc(&gRenderer,l,600,200,(float) 0,(float) 0);
-
+            playerBloc* b =new playerBloc(&gRenderer,l,0,400,0) ;
+            //mirrorBloc* b2 =new mirrorBloc(&gRenderer,l,300,149);
+            //freezeBloc* b2bis =new freezeBloc(&gRenderer,l,100,149);
+            //pulseBloc* b5= new pulseBloc(&gRenderer, l, 600,350);
+            //diamondBloc* s1 =new  diamondBloc(&gRenderer,l,300,500);
+            //voidBloc* v= new voidBloc(&gRenderer,l,400,400);
+            bumpBloc* bp1= new bumpBloc(&gRenderer,l,600,200,(float) 0,(float) 0);
+            bumpBloc* bp2= new bumpBloc(&gRenderer,l,400,200,(float) 0,(float) 0);
             //l->insertBloc(v);
-            l->insertBloc(bp);
 
-            teleBloc* t1 = new teleBloc(&gRenderer,l,400,400);
-            teleBloc* t2 = new teleBloc(&gRenderer,l,100,300);
-            t2->setteleBloc(t1);
+            //teleBloc* t1 = new teleBloc(&gRenderer,l,400,400);
+            //teleBloc* t2 = new teleBloc(&gRenderer,l,100,300);
 
-            l->insertBloc(t1);
-            l->insertBloc(t2);
+            //t2->setteleBloc(t1);
+             l->insertBloc(b);
+             l->insertBloc(bp1);
+             l->insertBloc(bp2);
+            //l->insertBloc(t1);
+            //l->insertBloc(t2);
 
-            l->insertBloc(b);
+
 
             //l.insertBlocs(&b3,1);
 
             //l.play();
-            playerBloc* b1 =new playerBloc(&gRenderer,l,1,400,500) ;
+            //playerBloc* b1 =new playerBloc(&gRenderer,l,1,400,500) ;
           //  l.insertBlocs(&b1,1);
-            music(media);
+           // music(media);
             enum gameStatus  a = l->play();
             if(a == GAMEOVER)
             {
@@ -109,12 +111,13 @@ int main( int argc, char* args[] )
             }
             delete(lc);
             delete(b);
-            delete(b2);
-            delete(b2bis);
-            delete(v);
-            delete(bp);
-            delete(b5);
-            delete(s1);
+            //delete(b2);
+            //delete(b2bis);
+            //delete(v);
+            delete(bp1);
+            delete(bp2);
+            //delete(b5);
+            //delete(s1);
         }
     }
 

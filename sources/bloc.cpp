@@ -250,7 +250,7 @@ float bloc::getdx() { }; //is overcharged, should not be used.
 
 float bloc ::getdy() { }; //is overcharged, should not be used.
 
-bool bloc::bump(enum edge touchededge, bloc *b) { return(false);}; //is overcharged in bumpBloc, should not be used.
+ bool bloc::bump(enum edge touchededge, bloc *b) { return(false);}; //is overcharged in bumpBloc, should not be used.
 
 bool bloc::isReflector()
 {
