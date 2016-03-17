@@ -14,6 +14,8 @@ class bumpBloc: public bloc {
 private :
     float dx;// bloc's actual x direction
     float dy;// bloc's y direction
+    float acceleration; // acceleration of the bloc should be always set negative
+    float evolvingspeed; // non integer speed to alllow acceleration
 public:
     bumpBloc();
     bumpBloc(SDL_Renderer** gRenderer,level* l,int x,int y,float dx, float dy);
@@ -25,7 +27,6 @@ public:
     float getdx();
     float getdy();
     enum edge bumpingedge; // edge that will bump a bloc
-    enum edge bumpededge; // last edge in which a bloc bumped this bloc
 
     bool bump(enum edge touchededge,bloc* b); //return true if the bloc b is bumped
 };

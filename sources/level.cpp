@@ -263,7 +263,7 @@ bool level::win()
             return false;
         }
     }
-    std::cout << "team "<< potentialWinner<< " won!"<<std::endl;
+   // std::cout << "team "<< potentialWinner<< " won!"<<std::endl;
 }
 
 

@@ -6,7 +6,7 @@
 #define PACEPTION_VOIDBLOC_H_H
 #include "bloc.h"
 #include <map>
-#define EPS 4
+#define EPS 200
 
 class voidBloc: public bloc {
 

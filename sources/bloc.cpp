@@ -246,11 +246,11 @@ void bloc::setPosition(int x,int y)
 void bloc::setDirection(float dx, float dy) //is overcharged, should not be used;
 { };
 
-float bloc::getdx() { }; //is overcharged, should not be used.
+float bloc::getdx() { }; //is overcharged in bumpbloc and playerBloc only , should not be used.
 
-float bloc ::getdy() { }; //is overcharged, should not be used.
+float bloc::getdy() { }; //is overcharged in bumpbloc and playerBloc only, should not be used.
 
- bool bloc::bump(enum edge touchededge, bloc *b) { return(false);}; //is overcharged in bumpBloc, should not be used.
+ bool bloc::bump(enum edge touchededge, bloc *b) { return(false);}; //is overcharged in bumpBloc only, should not be used.
 
 bool bloc::isReflector()
 {

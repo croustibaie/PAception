@@ -14,7 +14,8 @@ bumpBloc::bumpBloc()
     this->rect.y =50;
     this->rect.w=10;
     this->rect.h=10;
-    this->speed=0;
+    this->speed=6;
+    this->acceleration=float(-0.03);
     this->xMove=0;
     this->yMove=0;
     this->dx=0;
@@ -47,7 +48,9 @@ bumpBloc::bumpBloc(SDL_Renderer **gRenderer, level *l,int x,int y,float dx,float
     this->rect.w=50;
     this->rect.h=50;
     texture=NULL;
-    this->speed=2;
+    this->speed=6;
+    this->evolvingspeed=float(6);
+    this->acceleration=float(-0.12);
     this->xMove=0;
     this->yMove=0;
     this->isBumped=false;
@@ -206,14 +209,33 @@ bool bumpBloc::react(struct controllerState** state, unsigned int elapsedTime)
     }
 
 
-    int correctedSpeed = (int) (round((float) (speed) * (float) elapsedTime / 20)); //We have to adapt the initial speed to the frame duration
+    if (bumpingedge!=NONE)// ie the bloc has been touched
+    {
+         evolvingspeed = (float) (this->evolvingspeed) + this->acceleration * ((float) elapsedTime) / 20; // acceleration phase with negative acceleration
+
+        if (evolvingspeed < 0)
+        {
+           evolvingspeed = 0;
+            bumpingedge=NONE;
+        }
+
+    std::cout<<evolvingspeed<<std::endl;
+    }
+    else
+    {
+        evolvingspeed=(float) speed;
+    }
+
+
+    int correctedSpeed = (int) ((round(evolvingspeed) * (float) elapsedTime / 20)); //We have to adapt the initial speed to the frame duration
+
 
         xMove = (int) (correctedSpeed * getdx());
         yMove = (int) (correctedSpeed * getdy());
 
 if (xMove==0 && yMove==0)
 {
-  setDirection(0,0);
+    setDirection(0,0);
     bumpingedge=NONE;
 };
     tryMove(xMove, yMove);
