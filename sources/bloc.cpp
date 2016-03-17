@@ -267,3 +267,8 @@ bool bloc::shieldState()
 {
     return(shield);
 }
+
+int bloc::getTeamNumber()
+{
+    return -1;
+}

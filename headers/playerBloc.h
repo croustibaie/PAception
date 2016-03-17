@@ -43,7 +43,7 @@ public:
     void setDirection(float dx, float dy);
     float getdx();
     float getdy();
-    void setTeamNumber(int teamNo);
+    int getTeamNumber();
 };
 
 

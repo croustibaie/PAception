@@ -562,3 +562,8 @@ float playerBloc::getdy()
 {
     return(dy);
 };
+
+int playerBloc::getTeamNumber()
+{
+    return this->teamNumber;
+}

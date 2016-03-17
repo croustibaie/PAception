@@ -75,6 +75,7 @@ public:
     virtual void setDirection(float dx,float dy);
     virtual float getdx();
     virtual float getdy();
+    virtual int getTeamNumber(); //Only used by player bloc
     // about the bumping
 
     virtual bool bump(enum edge touchededge, bloc* b);

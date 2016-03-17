@@ -112,6 +112,7 @@ enum gameStatus level::play ()
         blocDraw();
         elapsedTime= tmptime-lastTime;
         lastTime=tmptime;
+        win();
     }
 
     if((this->numPlayer)<=1)
@@ -252,23 +253,19 @@ int level::getNum()
 
 bool level::win()
 {
-    if(getNum() >= 2)
+    std::map<int,bloc*>::iterator it=PlayerblocMap.begin();
+    int potentialWinner = it->second->getTeamNumber();
+    for (;it!=PlayerblocMap.end();it++)
     {
-        return(0);
+        if (it->second->getTeamNumber()!=potentialWinner)
+        {
+            std::cout<<"no winner"<<std::endl;
+            return false;
+        }
     }
-    else
-    {
-        return(1);
-    }
+    std::cout << "team "<< potentialWinner<< " won!"<<std::endl;
 }
 
-int level::winnerBloc(std::map<int,bloc*> PlayerblocMap)
-{
-    std::map<int,bloc*>::iterator it;
-    it = PlayerblocMap.begin();
-
-    return(it->first+1);
-}
 
 
 
