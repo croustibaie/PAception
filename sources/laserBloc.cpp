@@ -4,6 +4,7 @@
 
 #include "../headers/laserBloc.h"
 #include "../headers/level.h"
+#include <math.h>
 
 laserBloc::laserBloc()
 {
@@ -50,7 +51,7 @@ laserBloc::laserBloc(SDL_Renderer **gRenderer, level *l,int x,int y,int dx,int d
     texture=NULL;
     this->speed=10;
     this->gRenderer=*gRenderer;
-    loadMedia(&texture,gRenderer,"./textures/red.png");
+    loadMedia(&texture,gRenderer,"./textures/redarrow.png");
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;
@@ -224,8 +225,38 @@ bool laserBloc::wallCollision(SDL_Rect a)
 return this->wallCollided;
 }
 
-void laserBloc::setDirection(float xMove, float yMove)
+void laserBloc::setDirection(float dx, float dy)
 {
-    this->dx=xMove;
-    this->dy=yMove;
+    this->dx=dx;
+    this->dy=dy;
+}
+
+void laserBloc::draw()
+{
+    SDL_Rect textureRect;
+    textureRect.x= this->rect.x-this->getRect().w/2;
+    textureRect.w=2*this->rect.w;
+    textureRect.y=this->rect.y;
+    textureRect.h=this->rect.h;
+
+    SDL_Point center;
+    center.x=this->rect.w/4*3;
+    center.y=this->rect.h/2;
+
+    double angle;
+    if (this->dy>=0)
+    {
+        angle=acos((this->dx/sqrt(this->dx*this->dx+this->dy*this->dy)));
+    }
+    else
+    {
+        angle=-acos((this->dx/sqrt(this->dx*this->dx+this->dy*this->dy)));
+    }
+    angle = angle*180/M_PI;
+    if (texture==NULL)
+    {
+        std::cout<<"no texture"<<std::endl;
+    }
+    SDL_RenderCopyEx(gRenderer,texture, NULL, &textureRect,angle,&center,SDL_FLIP_NONE );
+    //SDL_RenderCopy(gRenderer,texture, NULL, &textureRect);
 }

@@ -23,6 +23,7 @@ private:
     bool wallCollision(SDL_Rect a);
     void setDirection(float dx, float dy);
     bool tryMove(int x, int y);//The bloc changes xMove and yMove and then asks level for collisions.Returns false if the bloc asked to be killed, true otherwise.
+    void draw();
 };
 
 

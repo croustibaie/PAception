@@ -12,6 +12,8 @@
 #include "../headers/bumpBloc.h"
 #include "../libs/rapidxml/rapidxml.hpp"
 #include "../libs/rapidxml/rapidxml_utils.hpp"
+#include "../headers/mirrorBloc.h"
+#include "../headers/freezeBloc.h"
 
 using namespace rapidxml;
 
@@ -102,7 +104,18 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
         numBloc++;
         std::cout<<"creating a bump at "<<xpos<< " , " <<ypos<<std::endl;
     }
-
+    if (type=="mirror")
+    {
+        blocArray[numBloc]= new mirrorBloc(l->getRenderer(),l,xpos,ypos);
+        numBloc++;
+        std::cout<<"creating a mirro at "<<xpos<< " , " <<ypos<<std::endl;
+    }
+    if (type=="freeze")
+    {
+        blocArray[numBloc]= new freezeBloc(l->getRenderer(),l,xpos,ypos);
+        numBloc++;
+        std::cout<<"creating a freeze at "<<xpos<< " , " <<ypos<<std::endl;
+    }
 
     if (type=="player")
     {

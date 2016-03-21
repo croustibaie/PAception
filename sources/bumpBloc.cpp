@@ -50,7 +50,7 @@ bumpBloc::bumpBloc(SDL_Renderer **gRenderer, level *l,int x,int y,float dx,float
     texture=NULL;
     this->speed=6;
     this->evolvingspeed=float(6);
-    this->acceleration=float(-0.12);
+    this->acceleration=float(-0.05);
     this->xMove=0;
     this->yMove=0;
     this->isBumped=false;
@@ -84,8 +84,12 @@ bool bumpBloc::collisionReaction(bloc *b)
     if(b->getKind()==NONSOLID)
     {
         ignoredBlocs.push_back(b);
-        tryMove(this->xMove,this->yMove);
-        return true;
+         return tryMove(this->xMove,this->yMove);
+    }
+    if (b->kill()) // If we hit a laser
+    {
+        ignoredBlocs.push_back(b);
+        return tryMove(this->xMove,this->yMove);
     }
     if (b->getKind()==SOLID)
     {
@@ -203,15 +207,14 @@ bool bumpBloc::react(struct controllerState** state, unsigned int elapsedTime)
     {
         if(b->getKind()!=NONSOLID)
         {
-            l->deleteBloc(this->blocId,this->getKind());
-            return false;
+           this->ignoredBlocs.push_back(b);
         }
     }
 
 
     if (bumpingedge!=NONE)// ie the bloc has been touched
     {
-         evolvingspeed = (float) (this->evolvingspeed) + this->acceleration * ((float) elapsedTime) / 20; // acceleration phase with negative acceleration
+         evolvingspeed =  (this->evolvingspeed) + this->acceleration * ((float) elapsedTime) / 20; // acceleration phase with negative acceleration
 
         if (evolvingspeed < 0)
         {
@@ -219,7 +222,6 @@ bool bumpBloc::react(struct controllerState** state, unsigned int elapsedTime)
             bumpingedge=NONE;
         }
 
-    std::cout<<evolvingspeed<<std::endl;
     }
     else
     {
@@ -228,19 +230,15 @@ bool bumpBloc::react(struct controllerState** state, unsigned int elapsedTime)
 
 
     int correctedSpeed = (int) ((round(evolvingspeed) * (float) elapsedTime / 20)); //We have to adapt the initial speed to the frame duration
+    xMove = (int) (correctedSpeed * getdx());
+    yMove = (int) (correctedSpeed * getdy());
 
-
-        xMove = (int) (correctedSpeed * getdx());
-        yMove = (int) (correctedSpeed * getdy());
-
-if (xMove==0 && yMove==0)
-{
-    setDirection(0,0);
-    bumpingedge=NONE;
-};
-    tryMove(xMove, yMove);
-
-    return true;
+    if (xMove==0 && yMove==0)
+    {
+        setDirection(0,0);
+        bumpingedge=NONE;
+    }
+    return tryMove(xMove, yMove);
 }
 
 void bumpBloc::setDirection(float xMove, float yMove)
@@ -302,20 +300,22 @@ bool bumpBloc::bump(enum edge touchededge,bloc* b) // touchededge is the edge of
        {
             switch (touchededge) // the bloc b wins if touchededge!=NONE
            {
-
                 case UP :
+                    this->evolvingspeed=this->speed;
                     std::cout<<"in bump"<<std::endl;
                     setDirection(0,1);
                    bumpingedge=DOWN;
                    std::cout<<"bumpingedge : DOWN"<<std::endl;
                     break;
                 case DOWN :
+                    this->evolvingspeed=this->speed;
                     std::cout<<"in bump"<<std::endl;
                     setDirection(0,-1);
                     bumpingedge=UP;
                     std::cout<<"bumpingedge : UP"<<std::endl;
                     break;
                 case LEFT :
+                    this->evolvingspeed=this->speed;
                     std::cout<<"in bump"<<std::endl;
                     setDirection(1,0);
                    bumpingedge=RIGHT;
@@ -323,6 +323,7 @@ bool bumpBloc::bump(enum edge touchededge,bloc* b) // touchededge is the edge of
                     break;
 
                 case RIGHT :
+                    this->evolvingspeed=this->speed;
                     std::cout<<"in bump"<<std::endl;
                     setDirection(-1,0);
                    bumpingedge=LEFT;

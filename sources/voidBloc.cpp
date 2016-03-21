@@ -50,7 +50,7 @@ voidBloc::voidBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->myKind=NONSOLID;
     this->reflect=false;
     this->shield=false;
-    loadMedia(&texture,gRenderer,"./textures/black.bmp");
+    loadMedia(&texture,gRenderer,"./textures/blackhole.png");
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;
@@ -59,6 +59,7 @@ voidBloc::voidBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->blocId=nextBlocId;
     nextBlocId++;
     this->wallCollided=false;
+    this->angle=0;
 }
 
 voidBloc::~voidBloc()
@@ -71,6 +72,7 @@ voidBloc::~voidBloc()
 
 bool voidBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
+    angle=angle+(elapsedTime/5)-((int)(angle+(elapsedTime/5))/360)*360;
     return true;
 }
 
@@ -100,7 +102,15 @@ bool voidBloc::collisionReaction(bloc *b)
         }
 
     }
-
     return(true);
+}
 
+void voidBloc::draw()
+{
+    if (texture==NULL)
+    {
+        std::cout<<"no texture"<<std::endl;
+    }
+    printf("%f \n",this->angle);
+    SDL_RenderCopyEx(gRenderer,texture, NULL, &this->rect,angle,NULL,SDL_FLIP_NONE );
 }

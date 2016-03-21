@@ -48,7 +48,21 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, level *l, int playerID,int team
     this->gRenderer = *gRenderer;
     this->myKind = PLAYER;
     this->reflect=false;
-    loadMedia(&texture, gRenderer, "./textures/carre.png");
+    switch (teamID)
+    {
+        case 1:
+            loadMedia(&texture, gRenderer, "./textures/squarerouge.png");
+            break;
+        case 2:
+            loadMedia(&texture,gRenderer,"./textures/square2.png");
+            break;
+        case 3:
+            loadMedia(&texture,gRenderer,"./textures/squarevert.png");
+            break;
+        case 4:
+            loadMedia(&texture,gRenderer,"./textures/squareviolet.png");
+            break;
+    }
     if (texture == NULL) {
         std::cout << "no texture loaded" << std::endl;
     }

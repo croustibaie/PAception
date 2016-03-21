@@ -19,7 +19,7 @@ level::level (SDL_Renderer* gRenderer,int numPlayer)
         std::cout<<"In level constructor, no valid renderer"<<std::endl;
     }
     loadMedia(&pauseTexture,&gRenderer,"./textures/pausescreen.png");
-    loadMedia(&backGroundTexture,&gRenderer,"./textures/fond_ecran_PA.jpg");
+    loadMedia(&backGroundTexture,&gRenderer,"./textures/fond1230x960.jpg");
     if (backGroundTexture==NULL)
     {
         std::cout<<"level has no background texture"<<std::endl;
@@ -253,21 +253,21 @@ int level::getNum()
 
 bool level::win()
 {
-    std::map<int,bloc*>::iterator it=PlayerblocMap.begin();
-    int potentialWinner = it->second->getTeamNumber();
-    for (;it!=PlayerblocMap.end();it++)
-    {
-        if (it->second->getTeamNumber()!=potentialWinner)
-        {
-            std::cout<<"no winner"<<std::endl;
-            return false;
-        }
-    }
-   // std::cout << "team "<< potentialWinner<< " won!"<<std::endl;
+   if (PlayerblocMap.size()==0)
+   {
+       return true;
+   }
+    else
+   {
+       std::map<int,bloc*>::iterator it=PlayerblocMap.begin();
+       int potentialWinner = it->second->getTeamNumber();
+       for (; it != PlayerblocMap.end(); it++)
+       {
+           if (it->second->getTeamNumber() != potentialWinner)
+           {
+               return false;
+           }
+       }
+       return true;
+   }
 }
-
-
-
-
-
-

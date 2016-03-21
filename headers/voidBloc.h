@@ -9,13 +9,15 @@
 #define EPS 200
 
 class voidBloc: public bloc {
-
+private:
+    double angle;
 public:
     voidBloc();
     voidBloc(SDL_Renderer** gRenderer,level* l,int x,int y);
     ~voidBloc();
     bool react(struct controllerState** state,unsigned int elapsedTime);
     bool collisionReaction(bloc* b);
+    void draw();
 };
 
 #endif //PACEPTION_VOIDBLOC_H_H
