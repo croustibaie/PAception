@@ -153,6 +153,78 @@
         <ypos>510</ypos>
     </voidhorz11>
 
+    <voidhorz12>
+        <type>void</type>
+        <xpos>1200</xpos>
+        <ypos>510</ypos>
+    </voidhorz12>
+
+    <voidhorz13>
+        <type>void</type>
+        <xpos>1260</xpos>
+        <ypos>510</ypos>
+    </voidhorz13>
+
+    <voidhorz14>
+        <type>void</type>
+        <xpos>1320</xpos>
+        <ypos>510</ypos>
+    </voidhorz14>
+
+    <voidhorz15>
+        <type>void</type>
+        <xpos>1380</xpos>
+        <ypos>510</ypos>
+    </voidhorz15>
+
+    <voidhorz16>
+        <type>void</type>
+        <xpos>1440</xpos>
+        <ypos>510</ypos>
+    </voidhorz16>
+
+    <voidhorz17>
+        <type>void</type>
+        <xpos>1500</xpos>
+        <ypos>510</ypos>
+    </voidhorz17>
+
+    <voidhorz18>
+        <type>void</type>
+        <xpos>1560</xpos>
+        <ypos>510</ypos>
+    </voidhorz18>
+
+    <freezehorz2>
+        <type>void</type>
+        <xpos>1620</xpos>
+        <ypos>510</ypos>
+    </freezehorz2>
+
+    <voidhorz19>
+        <type>void</type>
+        <xpos>1680</xpos>
+        <ypos>510</ypos>
+    </voidhorz19>
+
+    <voidhorz20>
+        <type>void</type>
+        <xpos>1740</xpos>
+        <ypos>510</ypos>
+    </voidhorz20>
+
+    <voidhorz21>
+        <type>void</type>
+        <xpos>1800</xpos>
+        <ypos>510</ypos>
+    </voidhorz21>
+
+    <voidhorz22>
+        <type>void</type>
+        <xpos>1860</xpos>
+        <ypos>510</ypos>
+    </voidhorz22>
+
     <!-- ** CENTRAL PULSE BLOC ** -->
 
     <centralpulse>
