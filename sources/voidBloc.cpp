@@ -5,6 +5,7 @@
 #include "../headers/voidBloc.h"
 #include "../headers/playerBloc.h"
 #include "../headers/level.h"
+#include <math.h>
 
 voidBloc::voidBloc()
 {
@@ -93,10 +94,10 @@ bool voidBloc::collisionReaction(bloc *b)
         b_center_y = b->getRect().y + b->getRect().h/2 ;
 
         // square of the euclidean distance
-        dist_center = (void_center_x - b_center_x)*(void_center_x - b_center_x)
-                      + (void_center_y - b_center_y)*(void_center_y - b_center_y) ;
+        dist_center = sqrt((void_center_x - b_center_x)*(void_center_x - b_center_x)
+                      + (void_center_y - b_center_y)*(void_center_y - b_center_y)) ;
 
-        if (dist_center <= EPS)
+        if (dist_center <= KILLZONE)
         {
             this->l->deleteBloc(b->getBlocId(),b->getKind());
         }

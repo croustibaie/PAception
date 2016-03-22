@@ -22,28 +22,22 @@
         <ypos>120</ypos>
     </voidvert3>
 
-    <voidvert3>
-        <type>void</type>
-        <xpos>930</xpos>
-        <ypos>180</ypos>
-    </voidvert3>
-
     <freezevert1>
         <type>freeze</type>
         <xpos>930</xpos>
-        <ypos>240</ypos>
+        <ypos>180</ypos>
     </freezevert1>
 
     <voidvert4>
         <type>void</type>
         <xpos>930</xpos>
-        <ypos>300</ypos>
+        <ypos>240</ypos>
     </voidvert4>
 
     <voidvert5>
         <type>void</type>
         <xpos>930</xpos>
-        <ypos>360</ypos>
+        <ypos>300</ypos>
     </voidvert5>
 
     <!-- Vertical gap left for the pulse bloc -->
@@ -85,8 +79,21 @@
         <ypos>1020</ypos>
     </voidvert10>
 
+    <!-- ** CENTRAL PULSE BLOC ** -->
 
+    <centralpulse>
+        <type>pulse</type>
+        <xpos>930</xpos>
+        <ypos>510</ypos>
+    </centralpulse>
 
+    <!-- ** PLAYER BLOCS ** -->
+
+    <player1>
+        <type>player</type>
+        <xpos>100</xpos>
+        <ypos>100</ypos>
+    </player1>
 
 
 </root>
