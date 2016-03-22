@@ -79,6 +79,80 @@
         <ypos>1020</ypos>
     </voidvert10>
 
+    <!-- ** CENTRAL HORIZONTAL LINE ** -->
+
+    <voidhorz1>
+        <type>void</type>
+        <xpos>0</xpos>
+        <ypos>510</ypos>
+    </voidhorz1>
+
+    <voidhorz2>
+        <type>void</type>
+        <xpos>60</xpos>
+        <ypos>510</ypos>
+    </voidhorz2>
+
+    <voidhorz3>
+        <type>void</type>
+        <xpos>120</xpos>
+        <ypos>510</ypos>
+    </voidhorz3>
+
+    <voidhorz4>
+        <type>void</type>
+        <xpos>180</xpos>
+        <ypos>510</ypos>
+    </voidhorz4>
+
+    <freezehorz1>
+        <type>freeze</type>
+        <xpos>240</xpos>
+        <ypos>510</ypos>
+    </freezehorz1>
+
+    <voidhorz5>
+        <type>void</type>
+        <xpos>300</xpos>
+        <ypos>510</ypos>
+    </voidhorz5>
+
+    <voidhorz6>
+        <type>void</type>
+        <xpos>360</xpos>
+        <ypos>510</ypos>
+    </voidhorz6>
+
+    <voidhorz7>
+        <type>void</type>
+        <xpos>420</xpos>
+        <ypos>510</ypos>
+    </voidhorz7>
+
+    <voidhorz8>
+        <type>void</type>
+        <xpos>480</xpos>
+        <ypos>510</ypos>
+    </voidhorz8>
+
+    <voidhorz9>
+        <type>void</type>
+        <xpos>540</xpos>
+        <ypos>510</ypos>
+    </voidhorz9>
+
+    <voidhorz10>
+        <type>void</type>
+        <xpos>600</xpos>
+        <ypos>510</ypos>
+    </voidhorz10>
+
+    <voidhorz11>
+        <type>void</type>
+        <xpos>660</xpos>
+        <ypos>510</ypos>
+    </voidhorz11>
+
     <!-- ** CENTRAL PULSE BLOC ** -->
 
     <centralpulse>
