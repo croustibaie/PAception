@@ -5,6 +5,8 @@
 #ifndef PA_BLOC_H
 #define PA_BLOC_H
 
+#define BLOCSIZE 60
+
 class level;
 #include <iostream>
 #include <vector>

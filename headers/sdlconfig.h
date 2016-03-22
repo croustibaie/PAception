@@ -9,8 +9,8 @@
 #include <string>
 #include<iostream>
 
-const int SCREEN_WIDTH = 820;
-const int SCREEN_HEIGHT = 640;
+const int SCREEN_WIDTH = 1920;
+const int SCREEN_HEIGHT = 1080;
 const int LASER_WIDTH = 10;
 const int LASER_HEIGHT = 10;
 /* This structure will be used to get the current state of an xBox controller*/

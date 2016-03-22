@@ -40,8 +40,8 @@ diamondBloc::diamondBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
         this->rect.x=0; //TODO : see for throwing an exception
         this->rect.y=0;
     }
-    this->rect.w=50;
-    this->rect.h=50;
+    this->rect.w=BLOCSIZE;
+    this->rect.h=BLOCSIZE;
     texture=NULL;
     this->speed=0;
     this->xMove=0;

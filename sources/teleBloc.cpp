@@ -10,8 +10,8 @@
 
 teleBloc::teleBloc()
 {
-    this->rect.x=50;
-    this->rect.y =50;
+    this->rect.x=BLOCSIZE;
+    this->rect.y =BLOCSIZE;
     this->rect.w=10;
     this->rect.h=10;
     this->speed=0;
@@ -43,8 +43,8 @@ teleBloc::teleBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
         this->rect.x=0; //TODO : see for throwing an exception
         this->rect.y=0;
     }
-    this->rect.w=50;
-    this->rect.h=50;
+    this->rect.w=BLOCSIZE;
+    this->rect.h=BLOCSIZE;
     texture=NULL;
     this->speed=0;
     this->xMove=0;
