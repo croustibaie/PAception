@@ -111,6 +111,5 @@ void voidBloc::draw()
     {
         std::cout<<"no texture"<<std::endl;
     }
-    printf("%f \n",this->angle);
     SDL_RenderCopyEx(gRenderer,texture, NULL, &this->rect,angle,NULL,SDL_FLIP_NONE );
 }

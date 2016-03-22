@@ -30,18 +30,12 @@ bool init(SDL_Window** gWindow, SDL_Renderer** gRenderer, SDL_GameController** g
             {
                 gGameController[i] = SDL_GameControllerOpen(i);
 
-                SDL_Joystick* joystick=SDL_GameControllerGetJoystick(*gGameController);
-                std::cout<< "axes :"<<SDL_JoystickNumAxes(joystick)<<std::endl;
-                std::cout<<"buttons :" <<SDL_JoystickNumButtons(joystick)<<std::endl;
-                std::cout<<"hats :" <<SDL_JoystickNumHats(joystick)<<std::endl;
-                 // Unquote to get joystick's specs
                 if (gGameController[i] == NULL) {
                     std::cout << "unable to open controller" << std::endl;
                 }
                 if (SDL_IsGameController(0)) {
                     std::cout << "It is a good controller" << std::endl;
                 }
-                printf("Controller %i is mapped as \"%s\".\n", i, SDL_GameControllerMapping(gGameController[i]));
             }
         }
         int imgFlags=IMG_INIT_JPG;
