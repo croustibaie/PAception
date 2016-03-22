@@ -39,8 +39,8 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, level *l, int playerID,int team
     }
     this->dx=0;
     this->dy=0;
-    this->rect.w = 50;
-    this->rect.h = 50;
+    this->rect.w = BLOCSIZE;
+    this->rect.h = BLOCSIZE;
     texture = NULL;
     this->speed = INITIALSPEED;
     this->xMove = 0;
