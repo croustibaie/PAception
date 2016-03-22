@@ -246,13 +246,13 @@
         <xpos>1500</xpos>
         <ypos>630</ypos>
     </lowright2>
-
+    <!--
     <lowright3>
-        <type>mirror</type>
+        <type>static</type>
         <xpos>1500</xpos>
         <ypos>810</ypos>
     </lowright3>
-
+    <!--
     <lowright4>
         <type>mirror</type>
         <xpos>1500</xpos>
@@ -276,7 +276,7 @@
         <xpos>1400</xpos>
         <ypos>870</ypos>
     </lowright7>
-
+    -->
     <!-- ** PLAYER BLOCS ** -->
 
     <player1>
