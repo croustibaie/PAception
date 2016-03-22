@@ -2,7 +2,88 @@
 
 <root>
 
+    <!-- ** CENTRAL VERTICAL LINE ** -->
 
+    <voidvert1>
+        <type>void</type>
+        <xpos>930</xpos>
+        <ypos>0</ypos>
+    </voidvert1>
+
+    <voidvert2>
+        <type>void</type>
+        <xpos>930</xpos>
+        <ypos>60</ypos>
+    </voidvert2>
+
+    <voidvert3>
+        <type>void</type>
+        <xpos>930</xpos>
+        <ypos>120</ypos>
+    </voidvert3>
+
+    <voidvert3>
+        <type>void</type>
+        <xpos>930</xpos>
+        <ypos>180</ypos>
+    </voidvert3>
+
+    <freezevert1>
+        <type>freeze</type>
+        <xpos>930</xpos>
+        <ypos>240</ypos>
+    </freezevert1>
+
+    <voidvert4>
+        <type>void</type>
+        <xpos>930</xpos>
+        <ypos>300</ypos>
+    </voidvert4>
+
+    <voidvert5>
+        <type>void</type>
+        <xpos>930</xpos>
+        <ypos>360</ypos>
+    </voidvert5>
+
+    <!-- Vertical gap left for the pulse bloc -->
+
+    <voidvert6>
+        <type>void</type>
+        <xpos>930</xpos>
+        <ypos>720</ypos>
+    </voidvert6>
+
+    <voidvert7>
+        <type>void</type>
+        <xpos>930</xpos>
+        <ypos>780</ypos>
+    </voidvert7>
+
+    <freezevert2>
+        <type>freeze</type>
+        <xpos>930</xpos>
+        <ypos>840</ypos>
+    </freezevert2>
+
+    <voidvert8>
+        <type>void</type>
+        <xpos>930</xpos>
+        <ypos>900</ypos>
+    </voidvert8>
+
+    <voidvert9>
+        <type>void</type>
+        <xpos>930</xpos>
+        <ypos>960</ypos>
+    </voidvert9>
+
+
+    <voidvert10>
+        <type>void</type>
+        <xpos>930</xpos>
+        <ypos>1020</ypos>
+    </voidvert10>
 
 
 
