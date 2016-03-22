@@ -20,13 +20,13 @@ using namespace rapidxml;
 
 levelCreator::levelCreator()
 {
-    blocArray= new bloc*[30];
+    blocArray= new bloc*[NB_BLOC];
     numBloc=0;
     l= new level();
 }
 levelCreator::levelCreator(SDL_Renderer* gRenderer, int pTeam[4])
 {
-    blocArray= new bloc*[30];
+    blocArray= new bloc*[NB_BLOC];
     numBloc=0;
     if (gRenderer==NULL)
     {
@@ -57,7 +57,7 @@ level* levelCreator::parse()
     int xpos;
     int ypos;
     xml_document<> doc; //create xml_document object
-    file<> xmlFile("./levels/level1.xml"); //open file
+    file<> xmlFile("./levels/voidLabyrinth.xml"); //open file
     doc.parse<0>(xmlFile.data()); //parse the contents of file
     xml_node<>* root = doc.first_node("root");//find our root node
     xml_node<>* n;
