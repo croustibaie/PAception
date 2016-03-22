@@ -80,6 +80,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, level *l, int playerID,int team
     this->hp= PLAYER_HP;
     this->reloadTimer=0;
     this->shieldTimer=0;
+    this->lastShieldTimer=0;
     this->shield=false;
     switch(playerID)
     {
@@ -256,8 +257,6 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
     }
     else
     {
-        std::cout<<getdx()<<std::endl;
-        std::cout<<getdy()<<std::endl;
         xMove = (int) (correctedSpeed * getdx());
         yMove = (int) (correctedSpeed * getdy());
     }
