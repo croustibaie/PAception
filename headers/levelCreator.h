@@ -32,6 +32,7 @@ public:
     ~levelCreator();
     level* parse();
     void createObject(std::string type,int xpos, int ypos);
+    void createTeleBlocs(int xpos1, int ypos1,int xpos2, int ypos2);
     void resetLevel();
 };
 

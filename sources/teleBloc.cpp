@@ -122,19 +122,8 @@ bool teleBloc::collisionReaction(bloc *b)
 
 
 
-void teleBloc::setteleBloc(teleBloc* t2)
+void teleBloc::setTeleBloc(teleBloc* t2)
 {
-    /*
-
-    this->x_tele = t2->getRect().x + t2->getRect().w / 2;
-    this->y_tele = t2->getRect().y + t2->getRect().h / 2;
-
-    //t1 téléporte vers t2 et réciproquement
-
-    t2->x_tele = this->getRect().x + this->getRect().w / 2;
-    t2->y_tele = this->getRect().y + this->getRect().h / 2;
-
-    */
     this->t=t2;
     t2->setSibling(this);
 }

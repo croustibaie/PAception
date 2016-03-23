@@ -26,7 +26,7 @@ public:
 
     teleBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, level *l, int x, int y);
 
-    void setteleBloc(teleBloc *t2);
+    void setTeleBloc(teleBloc *t2);
 
     ~teleBloc();
 

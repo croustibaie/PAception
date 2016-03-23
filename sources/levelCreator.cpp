@@ -14,9 +14,9 @@
 #include "../libs/rapidxml/rapidxml_utils.hpp"
 #include "../headers/mirrorBloc.h"
 #include "../headers/freezeBloc.h"
+#include "../headers/teleBloc.h"
 
 using namespace rapidxml;
-
 
 levelCreator::levelCreator()
 {
@@ -71,11 +71,32 @@ level* levelCreator::parse()
     {
         xml_node<>* objectNode= n->first_node();
         type= objectNode->value();
-        objectNode=objectNode->next_sibling();
-        xpos=atoi(objectNode->value());
-        objectNode=objectNode->next_sibling();
-        ypos=atoi(objectNode->value());
-        createObject(type,xpos,ypos);
+
+        if (type=="tele")
+        {
+            // creating the first telebloc
+            objectNode=objectNode->next_sibling();
+            int xpos1=atoi(objectNode->value());
+            objectNode=objectNode->next_sibling();
+            int ypos1=atoi(objectNode->value());
+
+            // creating the second telebloc
+            objectNode=objectNode->next_sibling();
+            int xpos2=atoi(objectNode->value());
+            objectNode=objectNode->next_sibling();
+            int ypos2=atoi(objectNode->value());
+
+            createTeleBlocs(xpos1,ypos1,xpos2,ypos2);
+        }
+        else
+        {
+            objectNode=objectNode->next_sibling();
+            xpos=atoi(objectNode->value());
+            objectNode=objectNode->next_sibling();
+            ypos=atoi(objectNode->value());
+            createObject(type,xpos,ypos);
+        }
+
     }
     for (int i=0;i<numBloc;i++)
     {
@@ -122,7 +143,6 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
         numBloc++;
         std::cout<<"creating a freeze at "<<xpos<< " , " <<ypos<<std::endl;
     }
-
     if (type=="player")
     {
         if(pTeam[this->playerIndex]!=0)
@@ -138,5 +158,21 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
             playerIndex++;
         }
     }
+}
+
+void levelCreator::createTeleBlocs(int xpos1 , int ypos1 , int xpos2 , int ypos2)
+{
+    teleBloc *t1 = new teleBloc(l->getRenderer(),textures->getTexture(10),l,xpos1,ypos1);
+    teleBloc *t2 = new teleBloc(l->getRenderer(),textures->getTexture(10),l,xpos2,ypos2);
+
+    t1->setTeleBloc(t2) ;
+
+    blocArray[numBloc] = t1;
+    blocArray[numBloc+1] = t2;
+
+    numBloc+=2;
+
+    std::cout<<"creating a pair of teleblocs at "<<xpos1<< " , " <<ypos1<<
+                                           "and" <<xpos2<< " , " <<ypos2<< std::endl;
 }
 

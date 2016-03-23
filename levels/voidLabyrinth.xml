@@ -248,7 +248,7 @@
     </lowright2>
 
     <lowright3>
-        <type>static</type>
+        <type>mirror</type>
         <xpos>1500</xpos>
         <ypos>810</ypos>
     </lowright3>
@@ -261,19 +261,19 @@
 
     <lowright5>
         <type>mirror</type>
-        <xpos>1460</xpos>
+        <xpos>1440</xpos>
         <ypos>870</ypos>
     </lowright5>
 
     <lowright6>
         <type>mirror</type>
-        <xpos>1400</xpos>
+        <xpos>1380</xpos>
         <ypos>870</ypos>
     </lowright6>
 
     <lowright7>
         <type>mirror</type>
-        <xpos>1400</xpos>
+        <xpos>1320</xpos>
         <ypos>870</ypos>
     </lowright7>
 
@@ -294,32 +294,93 @@
     <upperleft3>
         <type>mirror</type>
         <xpos>360</xpos>
-        <ypos>270</ypos>
+        <ypos>210</ypos>
     </upperleft3>
 
     <upperleft4>
         <type>mirror</type>
         <xpos>360</xpos>
-        <ypos>210</ypos>
+        <ypos>150</ypos>
     </upperleft4>
 
     <upperleft5>
         <type>mirror</type>
         <xpos>420</xpos>
-        <ypos>210</ypos>
+        <ypos>150</ypos>
     </upperleft5>
 
     <upperleft6>
         <type>mirror</type>
         <xpos>480</xpos>
-        <ypos>210</ypos>
+        <ypos>150</ypos>
     </upperleft6>
 
     <upperleft7>
         <type>mirror</type>
         <xpos>540</xpos>
-        <ypos>210</ypos>
+        <ypos>150</ypos>
     </upperleft7>
+
+    <!-- ** TELEBLOCS ** -->
+
+    <tele1>
+        <type>tele</type>
+        <xpos>420</xpos>
+        <ypos>780</ypos>
+        <xpos>1440</xpos>
+        <ypos>240</ypos>
+    </tele1>
+
+    <!-- ** BUMP BLOCS ** -->
+
+    <bumplowleft1>
+        <type>bump</type>
+        <xpos>340</xpos>
+        <ypos>700</ypos>
+    </bumplowleft1>
+
+    <bumplowleft2>
+        <type>bump</type>
+        <xpos>500</xpos>
+        <ypos>860</ypos>
+    </bumplowleft2>
+
+    <bumplowleft3>
+        <type>bump</type>
+        <xpos>500</xpos>
+        <ypos>700</ypos>
+    </bumplowleft3>
+
+    <bumplowleft4>
+        <type>bump</type>
+        <xpos>340</xpos>
+        <ypos>860</ypos>
+    </bumplowleft4>
+
+    <bumpupright1>
+        <type>bump</type>
+        <xpos>1360</xpos>
+        <ypos>160</ypos>
+    </bumpupright1>
+
+    <bumpupright2>
+        <type>bump</type>
+        <xpos>1520</xpos>
+        <ypos>320</ypos>
+    </bumpupright2>
+
+    <bumpupright3>
+        <type>bump</type>
+        <xpos>1520</xpos>
+        <ypos>160</ypos>
+    </bumpupright3>
+
+    <bumpupright4>
+        <type>bump</type>
+        <xpos>1360</xpos>
+        <ypos>320</ypos>
+    </bumpupright4>
+
 
     <!-- ** PLAYER BLOCS ** -->
 
