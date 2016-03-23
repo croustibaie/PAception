@@ -21,7 +21,7 @@ staticBloc::staticBloc()
     this->wallCollided=false;
 }
 
-staticBloc::staticBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
+staticBloc::staticBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, level *l,int x,int y)
 {
     this->l=l;
     if (*gRenderer==NULL)
@@ -47,9 +47,8 @@ staticBloc::staticBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->myKind=SOLID;
     this->reflect=false;
     this->shield=false;
-    loadMedia(&texture,gRenderer,"./textures/black.bmp");
     this->isBumped=false;
-    loadMedia(&texture,gRenderer,"./textures/blocfixe2.png");
+    this->texture=itexture;
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;
@@ -62,10 +61,6 @@ staticBloc::staticBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
 
 staticBloc::~staticBloc()
 {
-    if (texture!=NULL)
-    {
-        SDL_DestroyTexture(texture);
-    }
 }
 
 bool staticBloc::react(struct controllerState **state, unsigned int elapsedTime)

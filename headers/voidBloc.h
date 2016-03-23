@@ -13,7 +13,7 @@ private:
     double angle;
 public:
     voidBloc();
-    voidBloc(SDL_Renderer** gRenderer,level* l,int x,int y);
+    voidBloc(SDL_Renderer** gRenderer,SDL_Texture* texture,level* l,int x,int y);
     ~voidBloc();
     bool react(struct controllerState** state,unsigned int elapsedTime);
     bool collisionReaction(bloc* b);

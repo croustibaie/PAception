@@ -24,7 +24,7 @@ diamondBloc::diamondBloc()
     this->laser_counter = 1;
 }
 
-diamondBloc::diamondBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
+diamondBloc::diamondBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture,SDL_Texture* laserTexture, level *l,int x,int y)
 {
     this->l=l;
     if (*gRenderer==NULL)
@@ -50,7 +50,7 @@ diamondBloc::diamondBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->myKind=SOLID;
     this->reflect=false;
     this->shield=false;
-    loadMedia(&texture,gRenderer,"./textures/carre2.png");
+    this->texture=itexture;
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;
@@ -62,7 +62,7 @@ diamondBloc::diamondBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->wallCollided=false;
     for (int i = 0; i < NB_LASERS3; i++)
     {
-        this->laser[i] = new laserBloc(gRenderer, l, 50, 50, 1, 0);
+        this->laser[i] = new laserBloc(gRenderer,laserTexture, l, 50, 50, 1, 0);
     }
     this->nextLaser=0;
     this->laser_counter = 1; // defines the vertex of the cube from which the refracted laser

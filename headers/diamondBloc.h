@@ -24,7 +24,7 @@ private:
                        // will be issued
 public:
     diamondBloc();
-    diamondBloc(SDL_Renderer** gRenderer,level* l,int x,int y);
+    diamondBloc(SDL_Renderer** gRenderer,SDL_Texture* itexture, SDL_Texture* laserTexture,level* l,int x,int y);
     ~diamondBloc();
     bool react(struct controllerState** state,unsigned int elapsedTime);
     bool collisionReaction(bloc* b);

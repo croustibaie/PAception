@@ -25,7 +25,7 @@ teleBloc::teleBloc()
     this->wallCollided=false;
 }
 
-teleBloc::teleBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
+teleBloc::teleBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, level *l,int x,int y)
 {
     this->l=l;
     this->isBumped=false;
@@ -51,7 +51,7 @@ teleBloc::teleBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->yMove=0;
     this->gRenderer=*gRenderer;
     this->myKind=NONSOLID;
-    loadMedia(&texture,gRenderer,"./textures/black.bmp");
+    this->texture=itexture;
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;
@@ -64,10 +64,6 @@ teleBloc::teleBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
 
 teleBloc::~teleBloc()
 {
-    if (texture!=NULL)
-    {
-        SDL_DestroyTexture(texture);
-    }
 }
 
 void teleBloc::setSibling(teleBloc *t)

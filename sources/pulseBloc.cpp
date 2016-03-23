@@ -25,7 +25,7 @@ pulseBloc::pulseBloc()
 
 }
 
-pulseBloc::pulseBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
+pulseBloc::pulseBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture,SDL_Texture* laserTexture, level *l,int x,int y)
 {
     this->isBumped=false;
     this->l=l;
@@ -53,7 +53,7 @@ pulseBloc::pulseBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->reflect=false;
     this->shield=false;
     this->compteur=0; // compteur d'absorptions ;
-    loadMedia(&texture,gRenderer,"./textures/leopard.bmp");
+    this->texture=itexture;
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;
@@ -64,20 +64,13 @@ pulseBloc::pulseBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->wallCollided=false;
     for (int i = 0; i < NB_LASERS2; i++)
     {
-        this->laser[i] = new laserBloc(gRenderer, l, 50, 50, 1, 0);
+        this->laser[i] = new laserBloc(gRenderer,laserTexture, l, 50, 50, 1, 0);
     }
     this->nextLaser=0;
-
-
-
 }
 
 pulseBloc::~pulseBloc()
 {
-    if (texture!=NULL)
-    {
-        SDL_DestroyTexture(texture);
-    }
     for (int i = 0; i < NB_LASERS2; i++)
     {
         delete(this->laser[i]);

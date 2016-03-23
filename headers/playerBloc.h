@@ -34,7 +34,7 @@ private:
     float dy;// current y direction if not bumped y direction of bumping otherwise
 public:
     playerBloc();
-    playerBloc(SDL_Renderer** gRenderer,level* l, int playerID,int teamId, int x, int y);
+    playerBloc(SDL_Renderer** gRenderer,SDL_Texture* itexture, SDL_Texture* laserTexture,level* l, int playerID,int teamId, int x, int y);
     ~playerBloc();
     bool react(struct controllerState** state,unsigned int elapsedTime);//Player bloc's reaction is to do a tryMove and check whether he's dead (false) or not (true)
     bool collisionReaction(bloc* b);// Player's reaction to a collision with a bloc b

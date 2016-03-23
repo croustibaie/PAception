@@ -12,7 +12,7 @@ class freezeBloc: public bloc {
 
 public:
     freezeBloc();
-    freezeBloc(SDL_Renderer** gRenderer,level* l,int x,int y);
+    freezeBloc(SDL_Renderer** gRenderer,SDL_Texture* itexture,level* l,int x,int y);
     ~freezeBloc();
     bool react(struct controllerState** state,unsigned int elapsedTime);
     bool collisionReaction(bloc* b);

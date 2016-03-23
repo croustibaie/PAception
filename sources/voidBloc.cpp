@@ -24,7 +24,7 @@ voidBloc::voidBloc()
     this->wallCollided=false;
 }
 
-voidBloc::voidBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
+voidBloc::voidBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, level *l,int x,int y)
 {
     this->isBumped=false;
     this->l=l;
@@ -51,8 +51,8 @@ voidBloc::voidBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->myKind=NONSOLID;
     this->reflect=false;
     this->shield=false;
-    loadMedia(&texture,gRenderer,"./textures/blackhole.png");
-    if (texture==NULL)
+    this->texture=itexture;
+    if (this->texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;
     }
@@ -65,10 +65,6 @@ voidBloc::voidBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
 
 voidBloc::~voidBloc()
 {
-    if (texture!=NULL)
-    {
-        SDL_DestroyTexture(texture);
-    }
 }
 
 bool voidBloc::react(struct controllerState **state, unsigned int elapsedTime)

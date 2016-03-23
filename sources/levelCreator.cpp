@@ -39,6 +39,11 @@ levelCreator::levelCreator(SDL_Renderer* gRenderer, int pTeam[4])
     {
         this->pTeam[i]=pTeam[i];
     }
+    this->textures= new textureMaster(gRenderer);
+    if (textures->getTexture(3)==NULL)
+    {
+        std::cout<<"in lc, the texture from texture creator is null"<<std::endl;
+    }
 }
 
 levelCreator::~levelCreator()
@@ -49,6 +54,7 @@ levelCreator::~levelCreator()
     }
     delete[](this->blocArray);
     delete(this->l);
+    delete (this->textures);
 }
 
 level* levelCreator::parse()
@@ -82,37 +88,37 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
 {
     if (type=="pulse")
     {
-        blocArray[numBloc]= new pulseBloc(l->getRenderer(),l,xpos,ypos);
+        blocArray[numBloc]= new pulseBloc(l->getRenderer(),textures->getTexture(11),textures->getTexture(13),l,xpos,ypos);
         numBloc++;
         std::cout<<"creating a pulse at"<<xpos<< " , " <<ypos<<std::endl;
     }
     if (type=="static")
     {
-        blocArray[numBloc]= new staticBloc(l->getRenderer(),l,xpos,ypos);
+        blocArray[numBloc]= new staticBloc(l->getRenderer(),textures->getTexture(12),l,xpos,ypos);
         numBloc++;
         std::cout<<"creating a static at "<<xpos<< " , " <<ypos<<std::endl;
     }
     if (type=="void")
     {
-        blocArray[numBloc]= new voidBloc(l->getRenderer(),l,xpos,ypos);
+        blocArray[numBloc]= new voidBloc(l->getRenderer(),textures->getTexture(9),l,xpos,ypos);
         numBloc++;
         std::cout<<"creating a void at "<<xpos<< " , " <<ypos<<std::endl;
     }
     if (type=="bump")
     {
-        blocArray[numBloc]= new bumpBloc(l->getRenderer(),l,xpos,ypos,0,0);
+        blocArray[numBloc]= new bumpBloc(l->getRenderer(),textures->getTexture(4),l,xpos,ypos,0,0);
         numBloc++;
         std::cout<<"creating a bump at "<<xpos<< " , " <<ypos<<std::endl;
     }
     if (type=="mirror")
     {
-        blocArray[numBloc]= new mirrorBloc(l->getRenderer(),l,xpos,ypos);
+        blocArray[numBloc]= new mirrorBloc(l->getRenderer(),textures->getTexture(7),l,xpos,ypos);
         numBloc++;
         std::cout<<"creating a mirro at "<<xpos<< " , " <<ypos<<std::endl;
     }
     if (type=="freeze")
     {
-        blocArray[numBloc]= new freezeBloc(l->getRenderer(),l,xpos,ypos);
+        blocArray[numBloc]= new freezeBloc(l->getRenderer(),textures->getTexture(10),l,xpos,ypos);
         numBloc++;
         std::cout<<"creating a freeze at "<<xpos<< " , " <<ypos<<std::endl;
     }
@@ -121,7 +127,8 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
     {
         if(pTeam[this->playerIndex]!=0)
         {
-            blocArray[numBloc] = new playerBloc(l->getRenderer(), l, this->playerIndex,this->pTeam[this->playerIndex], xpos, ypos);
+            int teamColor=this->pTeam[this->playerIndex]-1;
+            blocArray[numBloc] = new playerBloc(l->getRenderer(),textures->getTexture(teamColor),textures->getTexture((4+teamColor)), l, this->playerIndex,this->pTeam[this->playerIndex], xpos, ypos);
             numBloc++;
             playerIndex++;
             std::cout << "creating a player at " << xpos << " , " << ypos << std::endl;
