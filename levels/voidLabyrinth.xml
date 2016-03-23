@@ -335,14 +335,14 @@
 
     <bumplowleft1>
         <type>bump</type>
-        <xpos>340</xpos>
-        <ypos>700</ypos>
+        <xpos>280</xpos>
+        <ypos>640</ypos>
     </bumplowleft1>
 
     <bumplowleft2>
         <type>bump</type>
-        <xpos>500</xpos>
-        <ypos>860</ypos>
+        <xpos>560</xpos>
+        <ypos>920</ypos>
     </bumplowleft2>
 
     <bumplowleft3>
@@ -359,14 +359,14 @@
 
     <bumpupright1>
         <type>bump</type>
-        <xpos>1360</xpos>
-        <ypos>160</ypos>
+        <xpos>1300</xpos>
+        <ypos>100</ypos>
     </bumpupright1>
 
     <bumpupright2>
         <type>bump</type>
-        <xpos>1520</xpos>
-        <ypos>320</ypos>
+        <xpos>1580</xpos>
+        <ypos>380</ypos>
     </bumpupright2>
 
     <bumpupright3>
@@ -381,14 +381,31 @@
         <ypos>320</ypos>
     </bumpupright4>
 
+    <bumpupleft>
+        <type>bump</type>
+        <xpos>540</xpos>
+        <ypos>300</ypos>
+    </bumpupleft>
+
+    <bumplowright>
+        <type>bump</type>
+        <xpos>1320</xpos>
+        <ypos>720</ypos>
+    </bumplowright>
 
     <!-- ** PLAYER BLOCS ** -->
 
     <player1>
         <type>player</type>
-        <xpos>100</xpos>
-        <ypos>100</ypos>
+        <xpos>260</xpos>
+        <ypos>300</ypos>
     </player1>
+
+    <player2>
+        <type>player</type>
+        <xpos>460</xpos>
+        <ypos>100</ypos>
+    </player2>
 
 
 </root>
