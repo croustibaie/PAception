@@ -186,7 +186,8 @@ int bloc::getyMove() const
 
 bool bloc::collisionReaction(bloc *b) // Method used for static blocs
 {
-    return tryMove(0,0);
+    //return tryMove(0,0);
+    return true;
 }
 
 // Kill bloc

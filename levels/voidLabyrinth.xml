@@ -196,7 +196,7 @@
     </voidhorz18>
 
     <freezehorz2>
-        <type>void</type>
+        <type>freeze</type>
         <xpos>1620</xpos>
         <ypos>510</ypos>
     </freezehorz2>
@@ -233,6 +233,50 @@
         <ypos>510</ypos>
     </centralpulse>
 
+    <!-- ** LOWER RIGHT PART  ** -->
+
+    <lowright1>
+        <type>mirror</type>
+        <xpos>1500</xpos>
+        <ypos>570</ypos>
+    </lowright1>
+
+    <lowright2>
+        <type>mirror</type>
+        <xpos>1500</xpos>
+        <ypos>630</ypos>
+    </lowright2>
+    <!--
+    <lowright3>
+        <type>static</type>
+        <xpos>1500</xpos>
+        <ypos>810</ypos>
+    </lowright3>
+    <!--
+    <lowright4>
+        <type>mirror</type>
+        <xpos>1500</xpos>
+        <ypos>870</ypos>
+    </lowright4>
+
+    <lowright5>
+        <type>mirror</type>
+        <xpos>1460</xpos>
+        <ypos>870</ypos>
+    </lowright5>
+
+    <lowright6>
+        <type>mirror</type>
+        <xpos>1400</xpos>
+        <ypos>870</ypos>
+    </lowright6>
+
+    <lowright7>
+        <type>mirror</type>
+        <xpos>1400</xpos>
+        <ypos>870</ypos>
+    </lowright7>
+    -->
     <!-- ** PLAYER BLOCS ** -->
 
     <player1>
