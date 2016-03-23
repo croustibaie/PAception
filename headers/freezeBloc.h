@@ -6,7 +6,7 @@
 #define PACEPTION_FREEZEBLOC_H_H
 #include "bloc.h"
 #include <map>
-#define FREEZETIME 3000
+#define FREEZETIME 1500
  // time during which a bloc is slowed in ms
 class freezeBloc: public bloc {
 

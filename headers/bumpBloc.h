@@ -9,7 +9,7 @@ class level;
 class playerBloc;
 #include "bloc.h"
 #include <map>
-#define BUMPTIME 1000
+#define BUMPTIME 500
 class bumpBloc: public bloc {
 private :
     float dx;// bloc's actual x direction

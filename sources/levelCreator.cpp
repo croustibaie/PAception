@@ -127,7 +127,7 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
     }
     if (type=="bump")
     {
-        blocArray[numBloc]= new bumpBloc(l->getRenderer(),textures->getTexture(4),l,xpos,ypos,0,0);
+        blocArray[numBloc]= new bumpBloc(l->getRenderer(),textures->getTexture(14),l,xpos,ypos,0,0);
         numBloc++;
         std::cout<<"creating a bump at "<<xpos<< " , " <<ypos<<std::endl;
     }
