@@ -24,7 +24,7 @@ laserBloc::laserBloc()
     this->wallCollided=false;
 }
 
-laserBloc::laserBloc(SDL_Renderer **gRenderer, level *l,int x,int y,int dx,int dy)
+laserBloc::laserBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, level *l,int x,int y,int dx,int dy)
 {
     this->isBumped=false;
     this->dx=(float)(dx/sqrt((double)(dx*dx+dy*dy)));
@@ -48,10 +48,9 @@ laserBloc::laserBloc(SDL_Renderer **gRenderer, level *l,int x,int y,int dx,int d
     }
     this->rect.w=LASER_WIDTH;
     this->rect.h=LASER_HEIGHT;
-    texture=NULL;
     this->speed=10;
     this->gRenderer=*gRenderer;
-    loadMedia(&texture,gRenderer,"./textures/redarrow.png");
+    this->texture=itexture;
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;

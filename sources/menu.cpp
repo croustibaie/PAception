@@ -36,26 +36,26 @@ menu::menu(SDL_Renderer *gRenderer)
     this->pConfirm[1]=false;
     this->pConfirm[2]=false;
     this->pConfirm[3]=false;
-    this->xboxRect[0].x=350;
-    this->xboxRect[0].w=40;
-    this->xboxRect[0].y=280;
-    this->xboxRect[0].h=30;
-    this->xboxRect[1].x=150;
-    this->xboxRect[1].w=40;
+    this->xboxRect[0].x=820;
+    this->xboxRect[0].w=50;
+    this->xboxRect[0].y=480;
+    this->xboxRect[0].h=40;
+    this->xboxRect[1].x=400;
+    this->xboxRect[1].w=50;
     this->xboxRect[1].y=200;
-    this->xboxRect[1].h=30;
-    this->xboxRect[2].x=600;
-    this->xboxRect[2].w=40;
+    this->xboxRect[1].h=40;
+    this->xboxRect[2].x=1400;
+    this->xboxRect[2].w=50;
     this->xboxRect[2].y=200;
-    this->xboxRect[2].h=30;
-    this->xboxRect[3].x=150;
-    this->xboxRect[3].w=40;
-    this->xboxRect[3].y=480;
-    this->xboxRect[3].h=30;
-    this->xboxRect[4].x=600;
-    this->xboxRect[4].w=40;
-    this->xboxRect[4].y=480;
-    this->xboxRect[4].h=30;
+    this->xboxRect[2].h=40;
+    this->xboxRect[3].x=1400;
+    this->xboxRect[3].w=50;
+    this->xboxRect[3].y=800;
+    this->xboxRect[3].h=40;
+    this->xboxRect[4].x=400;
+    this->xboxRect[4].w=50;
+    this->xboxRect[4].y=800;
+    this->xboxRect[4].h=40;
 }
 
 menu::~menu()
@@ -150,11 +150,11 @@ bool menu::teamSelectionHandleInputs(controllerState **cs, int playerNo)  //true
     }
     if(cs[playerNo]->leftStickVertical>0 && cs[playerNo]->leftStickHorizontal>0 && !(pConfirm[playerNo]))
     {
-        pTeam[playerNo]=4;
+        pTeam[playerNo]=3;
     }
     if(cs[playerNo]->leftStickVertical>0 && cs[playerNo]->leftStickHorizontal<0 && !(pConfirm[playerNo]))
     {
-        pTeam[playerNo] = 3;
+        pTeam[playerNo] = 4;
     }
     if(cs[playerNo]->leftStickVertical<0 && cs[playerNo]->leftStickHorizontal<0&& !(pConfirm[playerNo]))
     {
@@ -238,18 +238,18 @@ void menu::drawTeamSelectionMenu()
                 break;
             case 1:
                 tmp = xboxRect[pTeam[i]];
-                tmp.x += 100;
+                tmp.x += 200;
                 SDL_RenderCopy(gRenderer,xboxControllerTexture,NULL,&tmp);
                 break;
             case 2:
                 tmp=xboxRect[pTeam[i]];
-                tmp.x+=100;
-                tmp.y+=50;
+                tmp.x+=200;
+                tmp.y+=100;
                 SDL_RenderCopy(gRenderer,xboxControllerTexture,NULL,&tmp);
                 break;
             case 3:
                 tmp=xboxRect[pTeam[i]];
-                tmp.y+=50;
+                tmp.y+=100;
                 SDL_RenderCopy(gRenderer,xboxControllerTexture,NULL,&tmp);
                 break;
         }

@@ -24,7 +24,7 @@ mirrorBloc::mirrorBloc()
     this->wallCollided=false;
 }
 
-mirrorBloc::mirrorBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
+mirrorBloc::mirrorBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, level *l,int x,int y)
 {
     this->isBumped=false;
     this->l=l;
@@ -50,7 +50,7 @@ mirrorBloc::mirrorBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->gRenderer=*gRenderer;
     this->myKind=SOLID;
     this->reflect=true;
-    loadMedia(&texture,gRenderer,"./textures/black.bmp");
+    this->texture=itexture;
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;
@@ -63,10 +63,6 @@ mirrorBloc::mirrorBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
 
 mirrorBloc::~mirrorBloc()
 {
-    if (texture!=NULL)
-    {
-        SDL_DestroyTexture(texture);
-    }
 }
 
 bool mirrorBloc::react(struct controllerState **state, unsigned int elapsedTime)

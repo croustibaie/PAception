@@ -14,10 +14,12 @@ class bloc;
 #include <stdlib.h>
 #include <string>
 #include <SDL_render.h>
+#include "textureMaster.h"
 
 class levelCreator {
 private:
     level* l;
+    textureMaster* textures;
     std::string descriptionFile;
     bloc** blocArray;
     int numBloc;

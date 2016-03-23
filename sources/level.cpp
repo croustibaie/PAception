@@ -19,7 +19,7 @@ level::level (SDL_Renderer* gRenderer,int numPlayer)
         std::cout<<"In level constructor, no valid renderer"<<std::endl;
     }
     loadMedia(&pauseTexture,&gRenderer,"./textures/pausescreen.png");
-    loadMedia(&backGroundTexture,&gRenderer,"./textures/fond_ecran_PA.jpg");
+    loadMedia(&backGroundTexture,&gRenderer,"./textures/fond1230x960.jpg");
     if (backGroundTexture==NULL)
     {
         std::cout<<"level has no background texture"<<std::endl;

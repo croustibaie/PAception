@@ -29,7 +29,7 @@ bumpBloc::bumpBloc()
     this->bumpingedge=NONE;
 }
 
-bumpBloc::bumpBloc(SDL_Renderer **gRenderer, level *l,int x,int y,float dx,float dy)
+bumpBloc::bumpBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, level *l,int x,int y,float dx,float dy)
 {
     this->l=l;
     if (*gRenderer==NULL)
@@ -58,7 +58,7 @@ bumpBloc::bumpBloc(SDL_Renderer **gRenderer, level *l,int x,int y,float dx,float
     this->dy=(float)(0);
     this->gRenderer=*gRenderer;
     this->myKind=SOLID;
-    loadMedia(&texture,gRenderer,"./textures/cannabis.bmp");
+    this->texture=itexture;
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;

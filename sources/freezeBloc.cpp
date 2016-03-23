@@ -21,7 +21,7 @@ freezeBloc::freezeBloc()
     this->wallCollided=false;
 }
 
-freezeBloc::freezeBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
+freezeBloc::freezeBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, level *l,int x,int y)
 {
     this->isBumped=false;
     this->l=l;
@@ -48,7 +48,7 @@ freezeBloc::freezeBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
     this->myKind=NONSOLID;
     this->reflect=false;
     this->shield=false;
-    loadMedia(&texture,gRenderer,"./textures/green.bmp");
+    this->texture=itexture;
     if (texture==NULL)
     {
         std::cout<<"no texture loaded"<<std::endl;
@@ -61,10 +61,6 @@ freezeBloc::freezeBloc(SDL_Renderer **gRenderer, level *l,int x,int y)
 
 freezeBloc::~freezeBloc()
 {
-    if (texture!=NULL)
-    {
-        SDL_DestroyTexture(texture);
-    }
 }
 
 bool freezeBloc::collisionReaction(bloc *b)

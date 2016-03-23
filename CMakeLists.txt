@@ -40,7 +40,9 @@ set(SOURCE_FILES
         sources/teleBloc.cpp
         sources/levelCreator.cpp
         headers/mirrorBloc.h
-        sources/mirrorBloc.cpp) #Set l'ensemble des sources, ici peu élégant
+        sources/mirrorBloc.cpp
+        sources/textureMaster.cpp
+        headers/textureMaster.h) #Set l'ensemble des sources, ici peu élégant
         
 
 add_executable(PAception ${SOURCE_FILES}) #exécutable PAception génération par les fichiers sources

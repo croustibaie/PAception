@@ -16,7 +16,7 @@ private:
 
     public:
     laserBloc();//Default constructor, should never be used
-    laserBloc(SDL_Renderer** gRenderer,level* l, int x,int y,int dx,int dy);//Correct constructor
+    laserBloc(SDL_Renderer** gRenderer,SDL_Texture* itexture,level* l, int x,int y,int dx,int dy);//Correct constructor
     ~laserBloc();//destructor
     bool react(struct controllerState** state,unsigned int elapsedTime);//Laser's reaction to user inputs
     bool collisionReaction(bloc* b);//Laser's reaction to a collision with a bloc b

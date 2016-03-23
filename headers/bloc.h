@@ -12,7 +12,7 @@ class level;
 #include <vector>
 #include <SDL_surface.h>
 #include "sdlconfig.h"
-
+#include "textureMaster.h"
 
 enum edge {
     UP,

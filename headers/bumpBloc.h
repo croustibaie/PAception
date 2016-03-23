@@ -18,7 +18,7 @@ private :
     float evolvingspeed; // non integer speed to alllow acceleration
 public:
     bumpBloc();
-    bumpBloc(SDL_Renderer** gRenderer,level* l,int x,int y,float dx, float dy);
+    bumpBloc(SDL_Renderer** gRenderer,SDL_Texture* itexture,level* l,int x,int y,float dx, float dy);
     ~bumpBloc();
     bool react(struct controllerState** state,unsigned int elapsedTime);
     bool collisionReaction(bloc* b);

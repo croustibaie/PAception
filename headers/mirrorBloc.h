@@ -11,7 +11,7 @@ class mirrorBloc: public bloc {
 
 public:
     mirrorBloc();
-    mirrorBloc(SDL_Renderer** gRenderer,level* l,int x,int y);
+    mirrorBloc(SDL_Renderer** gRenderer,SDL_Texture* itexture,level* l,int x,int y);
     ~mirrorBloc();
     bool react(struct controllerState** state,unsigned int elapsedTime);
 };

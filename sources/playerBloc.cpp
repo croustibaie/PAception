@@ -23,7 +23,7 @@ playerBloc::playerBloc()
     this->wallCollided=false;
 }
 
-playerBloc::playerBloc(SDL_Renderer **gRenderer, level *l, int playerID,int teamID, int x, int y) {
+playerBloc::playerBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, SDL_Texture* laserTexture, level *l, int playerID,int teamID, int x, int y) {
     this->l = l;
     if (*gRenderer == NULL) {
         std::cout << "In bloc constructor, no render" << std::endl;
@@ -48,21 +48,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, level *l, int playerID,int team
     this->gRenderer = *gRenderer;
     this->myKind = PLAYER;
     this->reflect=false;
-    switch (teamID)
-    {
-        case 1:
-            loadMedia(&texture, gRenderer, "./textures/squarerouge.png");
-            break;
-        case 2:
-            loadMedia(&texture,gRenderer,"./textures/square2.png");
-            break;
-        case 3:
-            loadMedia(&texture,gRenderer,"./textures/squarevert.png");
-            break;
-        case 4:
-            loadMedia(&texture,gRenderer,"./textures/squareviolet.png");
-            break;
-    }
+    this->texture=itexture;
     if (texture == NULL) {
         std::cout << "no texture loaded" << std::endl;
     }
@@ -72,7 +58,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, level *l, int playerID,int team
     this->lastShotTimer = 0;
     for (int i = 0; i < NB_LASERS; i++)
     {
-        this->laser[i] = new laserBloc(gRenderer, l, 50, 50, 1, 0);
+        this->laser[i] = new laserBloc(gRenderer,laserTexture, l, 50, 50, 1, 0);
     }
     this->nextLaser=0;
     this->ammo=MAX_AMMO;
@@ -194,7 +180,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer, level *l, int playerID,int team
     this->isBumped=false;
     this->teamNumber=teamID; //Make sure that everyone's team is different if teams are not set
     hpTexture=NULL;
-    loadMedia(&hpTexture,gRenderer,"./textures/red.bmp");
+    loadMedia(&hpTexture,gRenderer,"./textures/red.png");
     if (hpTexture==NULL)
     {
         std::cout<<"no HP texture loaded"<<std::endl;
@@ -277,7 +263,7 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
     else
     {
         unsigned int time=SDL_GetTicks();
-        if (time - this->reloadTimer>1000)
+        if (time - this->reloadTimer>300)
         {
             this->reloadTimer=SDL_GetTicks();
             if (this->ammo<MAX_AMMO)
@@ -503,7 +489,7 @@ void playerBloc::shoot( struct controllerState **state)
 {
     int elapsedTime=SDL_GetTicks();
     elapsedTime-= lastShotTimer;
-    if (elapsedTime>300 && ammo>0)
+    if (elapsedTime>100 && ammo>0)
     {
         int x1 = state[playerID]->rightStickHorizontal;
         int y1 = state[playerID]->rightStickVertical;
