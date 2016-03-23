@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!-- ** PULSE BLOC ** -->
+
+    <centralpulse>
+        <type>pulse</type>
+        <xpos>930</xpos>
+        <ypos>510</ypos>
+    </centralpulse>
+
+    <!-- ** DIAMOND BLOC ** -->
+
+    <diamond1>
+        <type>diamond</type>
+        <xpos>930</xpos>
+        <ypos>810</ypos>
+    </diamond1>
+
+    <diamond2>
+        <type>diamond</type>
+        <xpos>930</xpos>
+        <ypos>210</ypos>
+    </diamond2>
+
+    <diamond3>
+        <type>diamond</type>
+        <xpos>630</xpos>
+        <ypos>510</ypos>
+    </diamond3>
+
+    <diamond4>
+        <type>diamond</type>
+        <xpos>1230</xpos>
+        <ypos>510</ypos>
+    </diamond4>
+
+    <!-- ** VOID BLOCS ** -->
+
+    <freeze1>
+        <type>freeze</type>
+        <xpos>510</xpos>
+        <ypos>510</ypos>
+    </freeze1>
+
+    <freeze2>
+        <type>void</type>
+        <xpos>1350</xpos>
+        <ypos>510</ypos>
+    </freeze2>
+
+    <!-- ** PLAYER BLOCS ** -->
+
+    <player1>
+        <type>player</type>
+        <xpos>200</xpos>
+        <ypos>510</ypos>
+    </player1>
+
+    <player2>
+        <type>player</type>
+        <xpos>1720</xpos>
+        <ypos>510</ypos>
+    </player2>
+
+    <player3>
+        <type>player</type>
+        <xpos>930</xpos>
+        <ypos>200</ypos>
+    </player3>
+
+    <player4>
+        <type>player</type>
+        <xpos>930</xpos>
+        <ypos>880</ypos>
+    </player4>
+
+</root>

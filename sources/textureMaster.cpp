@@ -16,7 +16,7 @@ textureMaster::textureMaster(SDL_Renderer *gRenderer)
     loadMedia(&(this->textureArray[6]),&gRenderer,"./textures/laservert.png");
     loadMedia(&(this->textureArray[7]),&gRenderer,"./textures/laserviolet.png");
     loadMedia(&(this->textureArray[8]),&gRenderer,"./textures/blocdiamant3.png");
-    loadMedia(&(this->textureArray[9]),&gRenderer,"./textures/blackhole.png");
+    loadMedia(&(this->textureArray[9]),&gRenderer,"./textures/bump1.png");
     loadMedia(&(this->textureArray[10]),&gRenderer,"./textures/freeze.png");
     loadMedia(&(this->textureArray[11]),&gRenderer,"./textures/pulsebloc.png");
     loadMedia(&(this->textureArray[12]),&gRenderer,"./textures/blocfixe3.png");

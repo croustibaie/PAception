@@ -70,10 +70,14 @@ laserBloc::~laserBloc()
 
 bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
 {
-    if (l->collide(this->blocId,this->getRect(),this->ignoredBlocs)!= nullptr)
+    bloc* firstIntersect = l->collide(this->blocId,this->getRect(),this->getIgnoredBlocs());
+    if (firstIntersect!= nullptr)
     {
-        l->deleteBloc(this->blocId,this->getKind());
-        return false;
+        if (firstIntersect->getKind()!=NONSOLID) {
+            l->deleteBloc(this->blocId, this->getKind());
+            return false;
+        }
+        else ignoredBlocs.push_back(firstIntersect);
     }
     int xmove = (int)(speed*dx*float(elapsedTime)/20);
     int ymove = (int)(speed*dy*float(elapsedTime)/20);
@@ -87,12 +91,18 @@ bool laserBloc::collisionReaction(bloc *b)
     bool isAlive;
     if (!(b->isReflector()))
     {
-        if (!((b->getKind() == PLAYER) && (b->shieldState())))
+        if ((b->getKind()==SOLID) || (b->getKind()==PLAYER && !(b->shieldState())))
         {
+            std::cout<<"in laser collisionr react, laser kills itslef"<<std::endl;
             this->l->deleteBloc(this->blocId, this->getKind());
             isAlive = false;
             return isAlive;
         }
+    }
+    if (b->getKind()==NONSOLID)
+    {
+        ignoredBlocs.push_back(b);
+        return tryMove(xMove,yMove);
     }
     float tx, ty;
     tx = 0;

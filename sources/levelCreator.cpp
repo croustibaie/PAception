@@ -15,6 +15,7 @@
 #include "../headers/mirrorBloc.h"
 #include "../headers/freezeBloc.h"
 #include "../headers/teleBloc.h"
+#include "../headers/diamondBloc.h"
 
 using namespace rapidxml;
 
@@ -63,7 +64,7 @@ level* levelCreator::parse()
     int xpos;
     int ypos;
     xml_document<> doc; //create xml_document object
-    file<> xmlFile("./levels/voidLabyrinth.xml"); //open file
+    file<> xmlFile("./levels/reactor.xml"); //open file
     doc.parse<0>(xmlFile.data()); //parse the contents of file
     xml_node<>* root = doc.first_node("root");//find our root node
     xml_node<>* n;
@@ -140,6 +141,12 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
     if (type=="freeze")
     {
         blocArray[numBloc]= new freezeBloc(l->getRenderer(),textures->getTexture(10),l,xpos,ypos);
+        numBloc++;
+        std::cout<<"creating a freeze at "<<xpos<< " , " <<ypos<<std::endl;
+    }
+    if (type=="diamond")
+    {
+        blocArray[numBloc]= new diamondBloc(l->getRenderer(),textures->getTexture(8),textures->getTexture(4),l,xpos,ypos);
         numBloc++;
         std::cout<<"creating a freeze at "<<xpos<< " , " <<ypos<<std::endl;
     }

@@ -5,8 +5,8 @@
 #ifndef PACEPTION_PLAYERBLOC_H
 #define PACEPTION_PLAYERBLOC_H
 #define MAX_AMMO 15
-#define NB_LASERS 20
-#define PLAYER_HP 3
+#define NB_LASERS 30
+#define PLAYER_HP 10
 #define INITIALSPEED 8
 #define SHIELD_MAX 300
 #include "laserBloc.h"
