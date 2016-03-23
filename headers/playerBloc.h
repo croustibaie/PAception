@@ -4,8 +4,8 @@
 
 #ifndef PACEPTION_PLAYERBLOC_H
 #define PACEPTION_PLAYERBLOC_H
-#define MAX_AMMO 10
-#define NB_LASERS 10
+#define MAX_AMMO 15
+#define NB_LASERS 20
 #define PLAYER_HP 3
 #define INITIALSPEED 8
 #define SHIELD_MAX 300

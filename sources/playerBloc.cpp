@@ -180,7 +180,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, SDL_Textu
     this->isBumped=false;
     this->teamNumber=teamID; //Make sure that everyone's team is different if teams are not set
     hpTexture=NULL;
-    loadMedia(&hpTexture,gRenderer,"./textures/red.bmp");
+    loadMedia(&hpTexture,gRenderer,"./textures/red.png");
     if (hpTexture==NULL)
     {
         std::cout<<"no HP texture loaded"<<std::endl;
@@ -263,7 +263,7 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
     else
     {
         unsigned int time=SDL_GetTicks();
-        if (time - this->reloadTimer>1000)
+        if (time - this->reloadTimer>300)
         {
             this->reloadTimer=SDL_GetTicks();
             if (this->ammo<MAX_AMMO)
@@ -489,7 +489,7 @@ void playerBloc::shoot( struct controllerState **state)
 {
     int elapsedTime=SDL_GetTicks();
     elapsedTime-= lastShotTimer;
-    if (elapsedTime>300 && ammo>0)
+    if (elapsedTime>100 && ammo>0)
     {
         int x1 = state[playerID]->rightStickHorizontal;
         int y1 = state[playerID]->rightStickVertical;
