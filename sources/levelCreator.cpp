@@ -146,7 +146,7 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
     }
     if (type=="diamond")
     {
-        blocArray[numBloc]= new diamondBloc(l->getRenderer(),textures->getTexture(8),textures->getTexture(4),l,xpos,ypos);
+        blocArray[numBloc]= new diamondBloc(l->getRenderer(),textures->getTexture(8),textures->getTexture(13),l,xpos,ypos);
         numBloc++;
         std::cout<<"creating a freeze at "<<xpos<< " , " <<ypos<<std::endl;
     }

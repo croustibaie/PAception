@@ -14,40 +14,171 @@
     <diamond1>
         <type>diamond</type>
         <xpos>930</xpos>
-        <ypos>810</ypos>
+        <ypos>690</ypos>
     </diamond1>
 
     <diamond2>
         <type>diamond</type>
         <xpos>930</xpos>
-        <ypos>210</ypos>
+        <ypos>330</ypos>
     </diamond2>
 
     <diamond3>
         <type>diamond</type>
-        <xpos>630</xpos>
+        <xpos>690</xpos>
         <ypos>510</ypos>
     </diamond3>
 
     <diamond4>
         <type>diamond</type>
-        <xpos>1230</xpos>
+        <xpos>1170</xpos>
         <ypos>510</ypos>
     </diamond4>
 
-    <!-- ** VOID BLOCS ** -->
+    <!-- ** FREEZE BLOCS ** -->
+
+    <freeze2>
+        <type>freeze</type>
+        <xpos>1550</xpos>
+        <ypos>510</ypos>
+    </freeze2>
+
+    <!-- ** LEFT SIDE OF THE CORE -->
+
+    <mirror1>
+        <type>mirror</type>
+        <xpos>310</xpos>
+        <ypos>810</ypos>
+    </mirror1>
+
+    <mirror2>
+        <type>mirror</type>
+        <xpos>310</xpos>
+        <ypos>750</ypos>
+    </mirror2>
+
+    <mirror3>
+        <type>mirror</type>
+        <xpos>310</xpos>
+        <ypos>690</ypos>
+    </mirror3>
+
+    <mirror4>
+        <type>mirror</type>
+        <xpos>310</xpos>
+        <ypos>630</ypos>
+    </mirror4>
 
     <freeze1>
         <type>freeze</type>
-        <xpos>510</xpos>
-        <ypos>510</ypos>
+        <xpos>310</xpos>
+        <ypos>570</ypos>
     </freeze1>
 
     <freeze2>
-        <type>void</type>
-        <xpos>1350</xpos>
+        <type>freeze</type>
+        <xpos>310</xpos>
         <ypos>510</ypos>
     </freeze2>
+
+    <freeze3>
+        <type>freeze</type>
+        <xpos>310</xpos>
+        <ypos>450</ypos>
+    </freeze3>
+
+    <mirror5>
+        <type>mirror</type>
+        <xpos>310</xpos>
+        <ypos>390</ypos>
+    </mirror5>
+
+    <mirror6>
+        <type>mirror</type>
+        <xpos>310</xpos>
+        <ypos>330</ypos>
+    </mirror6>
+
+    <mirror7>
+        <type>mirror</type>
+        <xpos>310</xpos>
+        <ypos>270</ypos>
+    </mirror7>
+
+    <mirror8>
+        <type>mirror</type>
+        <xpos>310</xpos>
+        <ypos>210</ypos>
+    </mirror8>
+
+    <!-- ** RIGHT SIDE OF THE CORE -->
+
+    <mirror1>
+        <type>mirror</type>
+        <xpos>1550</xpos>
+        <ypos>810</ypos>
+    </mirror1>
+
+    <mirror2>
+        <type>mirror</type>
+        <xpos>1550</xpos>
+        <ypos>750</ypos>
+    </mirror2>
+
+    <mirror3>
+        <type>mirror</type>
+        <xpos>1550</xpos>
+        <ypos>690</ypos>
+    </mirror3>
+
+    <mirror4>
+        <type>mirror</type>
+        <xpos>1550</xpos>
+        <ypos>630</ypos>
+    </mirror4>
+
+    <freeze1>
+        <type>freeze</type>
+        <xpos>1550</xpos>
+        <ypos>570</ypos>
+    </freeze1>
+
+    <freeze2>
+        <type>freeze</type>
+        <xpos>1550</xpos>
+        <ypos>510</ypos>
+    </freeze2>
+
+    <freeze3>
+        <type>freeze</type>
+        <xpos>1550</xpos>
+        <ypos>450</ypos>
+    </freeze3>
+
+    <mirror5>
+        <type>mirror</type>
+        <xpos>1550</xpos>
+        <ypos>390</ypos>
+    </mirror5>
+
+    <mirror6>
+        <type>mirror</type>
+        <xpos>1550</xpos>
+        <ypos>330</ypos>
+    </mirror6>
+
+    <mirror7>
+        <type>mirror</type>
+        <xpos>1550</xpos>
+        <ypos>270</ypos>
+    </mirror7>
+
+    <mirror8>
+        <type>mirror</type>
+        <xpos>1550</xpos>
+        <ypos>210</ypos>
+    </mirror8>
+
 
     <!-- ** PLAYER BLOCS ** -->
 

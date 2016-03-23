@@ -93,7 +93,6 @@ bool laserBloc::collisionReaction(bloc *b)
     {
         if ((b->getKind()==SOLID) || (b->getKind()==PLAYER && !(b->shieldState())))
         {
-            std::cout<<"in laser collisionr react, laser kills itslef"<<std::endl;
             this->l->deleteBloc(this->blocId, this->getKind());
             isAlive = false;
             return isAlive;
