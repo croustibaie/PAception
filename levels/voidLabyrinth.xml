@@ -246,13 +246,13 @@
         <xpos>1500</xpos>
         <ypos>630</ypos>
     </lowright2>
-    <!--
+
     <lowright3>
         <type>static</type>
         <xpos>1500</xpos>
         <ypos>810</ypos>
     </lowright3>
-    <!--
+
     <lowright4>
         <type>mirror</type>
         <xpos>1500</xpos>
@@ -276,7 +276,51 @@
         <xpos>1400</xpos>
         <ypos>870</ypos>
     </lowright7>
-    -->
+
+    <!-- ** UPPER LEFT PART  ** -->
+
+    <upperleft1>
+        <type>mirror</type>
+        <xpos>360</xpos>
+        <ypos>450</ypos>
+    </upperleft1>
+
+    <upperleft2>
+        <type>mirror</type>
+        <xpos>360</xpos>
+        <ypos>390</ypos>
+    </upperleft2>
+
+    <upperleft3>
+        <type>mirror</type>
+        <xpos>360</xpos>
+        <ypos>270</ypos>
+    </upperleft3>
+
+    <upperleft4>
+        <type>mirror</type>
+        <xpos>360</xpos>
+        <ypos>210</ypos>
+    </upperleft4>
+
+    <upperleft5>
+        <type>mirror</type>
+        <xpos>420</xpos>
+        <ypos>210</ypos>
+    </upperleft5>
+
+    <upperleft6>
+        <type>mirror</type>
+        <xpos>480</xpos>
+        <ypos>210</ypos>
+    </upperleft6>
+
+    <upperleft7>
+        <type>mirror</type>
+        <xpos>540</xpos>
+        <ypos>210</ypos>
+    </upperleft7>
+
     <!-- ** PLAYER BLOCS ** -->
 
     <player1>
