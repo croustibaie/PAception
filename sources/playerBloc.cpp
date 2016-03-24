@@ -68,7 +68,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, SDL_Textu
     this->shieldTimer=0;
     this->lastShieldTimer=0;
     this->shield=false;
-    switch(playerID)
+    /*switch(playerID)
     {
         case 0:
         for(int i = 0;i<MAX_AMMO+PLAYER_HP+2;i++)
@@ -176,7 +176,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, SDL_Textu
             break;
 
 
-            }
+            }*/
     this->isBumped=false;
     this->teamNumber=teamID; //Make sure that everyone's team is different if teams are not set
     hpTexture=NULL;
@@ -520,6 +520,7 @@ void playerBloc::shoot( struct controllerState **state)
 
 void playerBloc::draw()
 {
+
     if (texture == NULL) {
         std::cout << "no texture" << std::endl;
     }
@@ -527,24 +528,95 @@ void playerBloc::draw()
     if (heartTexture == NULL) {
         std::cout << "no heart texture" << std::endl;
     }
-    SDL_RenderCopy(gRenderer, heartTexture, NULL, &rectBase[0]);
-    if (hpTexture == NULL) {
-        std::cout << "no hp texture" << std::endl;
-    }
-    for (int i = 1; i < hp + 1; i++) {
-        SDL_RenderCopy(gRenderer, hpTexture, NULL, &rectBase[i]);
-    }
     if (bulletTexture == NULL) {
         std::cout << "no bullet texture" << std::endl;
     }
-    SDL_RenderCopy(gRenderer, bulletTexture, NULL, &rectBase[PLAYER_HP + 1]);
     if (ammoTexture == NULL) {
         std::cout << "no ammo texture" << std::endl;
     }
-    for (int i = PLAYER_HP + 2; i < PLAYER_HP + ammo + 2; i++) {
-        SDL_RenderCopy(gRenderer, ammoTexture, NULL, &rectBase[i]);
+    if (hpTexture == NULL) {
+        std::cout << "no hp texture" << std::endl;
     }
-
+    SDL_Rect rectBase;
+    switch(playerID)
+    {
+        case 0:
+            rectBase.x = 5;
+            rectBase.y = 5;
+            rectBase.w = 10;
+            rectBase.h = 10;
+            SDL_RenderCopy(gRenderer, heartTexture, NULL, &rectBase);
+            for (int i = 1; i < hp + 1; i++) {
+                rectBase.x = 5 + 10*i;
+                SDL_RenderCopy(gRenderer, hpTexture, NULL, &rectBase);
+            }
+            rectBase.x = 5;
+            rectBase.y = 30;
+            SDL_RenderCopy(gRenderer, bulletTexture, NULL, &rectBase);
+            rectBase.w = 5;
+            for (int i = 1; i < ammo + 1; i++) {
+                rectBase.x = 5 + 10*i;
+                SDL_RenderCopy(gRenderer, ammoTexture, NULL, &rectBase);
+            }
+            break;
+        case 1:
+            rectBase.x = 5;
+            rectBase.y = SCREEN_HEIGHT -10 -5 ;
+            rectBase.w = 10;
+            rectBase.h = 10;
+            SDL_RenderCopy(gRenderer, heartTexture, NULL, &rectBase);
+            for (int i = 1; i < hp + 1; i++) {
+                rectBase.x = 5 + 10*i;
+                SDL_RenderCopy(gRenderer, hpTexture, NULL, &rectBase);
+            }
+            rectBase.x = 5;
+            rectBase.y = SCREEN_HEIGHT - 10 - 30;
+            SDL_RenderCopy(gRenderer, bulletTexture, NULL, &rectBase);
+            rectBase.w = 5;
+            for (int i = 1; i < ammo + 1; i++) {
+                rectBase.x = 5 + 10*i;
+                SDL_RenderCopy(gRenderer, ammoTexture, NULL, &rectBase);
+            }
+            break;
+        case 2:
+            rectBase.x = SCREEN_WIDTH -10 - 5;
+            rectBase.y = 5;
+            rectBase.w = 10;
+            rectBase.h = 10;
+            SDL_RenderCopy(gRenderer, heartTexture, NULL, &rectBase);
+            for (int i = 1; i < hp + 1; i++) {
+                rectBase.x =SCREEN_WIDTH -10 -( 5 + 10*i);
+                SDL_RenderCopy(gRenderer, hpTexture, NULL, &rectBase);
+            }
+            rectBase.x = SCREEN_WIDTH -10 - 5;
+            rectBase.y = 30;
+            SDL_RenderCopy(gRenderer, bulletTexture, NULL, &rectBase);
+            rectBase.w = 5;
+            for (int i = 1; i < ammo + 1; i++) {
+                rectBase.x = SCREEN_WIDTH -10 -( 5 + 10*i);
+                SDL_RenderCopy(gRenderer, ammoTexture, NULL, &rectBase);
+            }
+            break;
+        case 3:
+            rectBase.x = SCREEN_WIDTH -10 - 5;
+            rectBase.y = SCREEN_HEIGHT - 10 - 5;
+            rectBase.w = 10;
+            rectBase.h = 10;
+            SDL_RenderCopy(gRenderer, heartTexture, NULL, &rectBase);
+            for (int i = 1; i < hp + 1; i++) {
+                rectBase.x =SCREEN_WIDTH -10 -( 5 + 10*i);
+                SDL_RenderCopy(gRenderer, hpTexture, NULL, &rectBase);
+            }
+            rectBase.x = SCREEN_WIDTH -10 - 5;
+            rectBase.y = SCREEN_HEIGHT -10 - 30;
+            SDL_RenderCopy(gRenderer, bulletTexture, NULL, &rectBase);
+            rectBase.w = 5;
+            for (int i = 1; i < ammo + 1; i++) {
+                rectBase.x = SCREEN_WIDTH -10 -( 5 + 10*i);
+                SDL_RenderCopy(gRenderer, ammoTexture, NULL, &rectBase);
+            }
+            break;
+    }
 }
 void playerBloc::setDirection(float dirx, float diry )
 {
