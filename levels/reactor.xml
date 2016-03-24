@@ -1020,32 +1020,52 @@
         <ypos>150</ypos>
     </mirror9>
 
+    <!-- **************** -->
+    <!-- ** TELE BLOCS ** -->
+    <!-- **************** -->
+
+    <tele_upright_lowleft>
+        <type>tele</type>
+        <xpos>1860</xpos>
+        <ypos>0</ypos>
+        <xpos>0</xpos>
+        <ypos>1020</ypos>
+    </tele_upright_lowleft>
+
+    <tele_upleft_lowright>
+        <type>tele</type>
+        <xpos>0</xpos>
+        <ypos>0</ypos>
+        <xpos>1860</xpos>
+        <ypos>1020</ypos>
+    </tele_upleft_lowright>
+
     <!-- ****************** -->
     <!-- ** PLAYER BLOCS ** -->
     <!-- ****************** -->
 
     <player1>
         <type>player</type>
-        <xpos>100</xpos>
+        <xpos>80</xpos>
         <ypos>510</ypos>
     </player1>
 
     <player2>
         <type>player</type>
-        <xpos>1720</xpos>
+        <xpos>1780</xpos>
         <ypos>510</ypos>
     </player2>
 
     <player3>
         <type>player</type>
         <xpos>930</xpos>
-        <ypos>200</ypos>
+        <ypos>80</ypos>
     </player3>
 
     <player4>
         <type>player</type>
         <xpos>930</xpos>
-        <ypos>880</ypos>
+        <ypos>940</ypos>
     </player4>
 
 </root>
