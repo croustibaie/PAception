@@ -5,7 +5,7 @@
 #ifndef PACEPTION_LEVELCREATOR_H
 #define PACEPTION_LEVELCREATOR_H
 
-#define NB_BLOC 100
+#define NB_BLOC 200
 
 class level;
 class bloc;
