@@ -50,4 +50,9 @@
         <xpos>500</xpos>
         <ypos>500</ypos>
     </node10>
+    <node10>
+        <type>life</type>
+        <xpos>900</xpos>
+        <ypos>900</ypos>
+    </node10>
 </root>
