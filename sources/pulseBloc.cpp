@@ -91,7 +91,7 @@ bool pulseBloc::collisionReaction(bloc *b) {
         }
 
     }
-
+    return true;
 }
 
 void pulseBloc::shoot()
