@@ -48,7 +48,7 @@ bumpBloc::bumpBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, level *l,int 
     this->rect.w=BLOCSIZE;
     this->rect.h=BLOCSIZE;
     texture=NULL;
-    this->speed=6;
+    this->speed=BUMPSPEED;
     this->evolvingspeed=float(6);
     this->acceleration=float(-0.05);
     this->xMove=0;
@@ -94,6 +94,7 @@ bool bumpBloc::collisionReaction(bloc *b)
     if (b->getKind()==SOLID)
     {
         bumpingedge=NONE;
+        setDirection(0,0);
     }
 
          // edge of the bumpBloc touched by the player
@@ -371,5 +372,6 @@ bool bumpBloc::bump(enum edge touchededge,bloc* b) // touchededge is the edge of
        }
    }
 };
+
 
 
