@@ -16,6 +16,7 @@
 #include "../headers/freezeBloc.h"
 #include "../headers/teleBloc.h"
 #include "../headers/diamondBloc.h"
+#include "../headers/lifeBloc.h"
 
 using namespace rapidxml;
 
@@ -64,7 +65,7 @@ level* levelCreator::parse()
     int xpos;
     int ypos;
     xml_document<> doc; //create xml_document object
-    file<> xmlFile("./levels/reactor.xml"); //open file
+    file<> xmlFile("./levels/level1.xml"); //open file
     doc.parse<0>(xmlFile.data()); //parse the contents of file
     xml_node<>* root = doc.first_node("root");//find our root node
     xml_node<>* n;
@@ -164,6 +165,12 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
         {
             playerIndex++;
         }
+    }
+    if (type=="life")
+    {
+        blocArray[numBloc]= new lifeBloc(l->getRenderer(),textures->getTexture(10),l,xpos,ypos);
+        numBloc++;
+        std::cout<<"creating a life at "<<xpos<< " , " <<ypos<<std::endl;
     }
 }
 

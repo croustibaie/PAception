@@ -627,14 +627,19 @@ void playerBloc::setDirection(float dirx, float diry )
 float playerBloc::getdx()
 {
     return(dx);
-};
+}
 
 float playerBloc::getdy()
 {
     return(dy);
-};
+}
 
 int playerBloc::getTeamNumber()
 {
     return this->teamNumber;
+}
+
+void playerBloc::addHp(int hp)
+{
+  this->hp+=hp;
 }

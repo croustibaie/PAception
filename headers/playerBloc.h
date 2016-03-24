@@ -44,6 +44,7 @@ public:
     float getdx();
     float getdy();
     int getTeamNumber();
+    void addHp(int hp); // method to add some healthpoints
 };
 
 

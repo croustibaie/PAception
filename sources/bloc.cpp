@@ -273,3 +273,8 @@ int bloc::getTeamNumber()
 {
     return -1;
 }
+
+void bloc::addHp(int hp)
+{
+
+};

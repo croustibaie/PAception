@@ -38,7 +38,7 @@ protected:
     bool killOnTouch; //Does the bloc kill players?
     bool isBumped; // Is the bloc bumped ?
     bool reflect; //Does the bloc reflect lasers ?
-    enum kind myKind; // Kind can be LASER,PLAYER or STATIC so far. Useful to determine a generic bloc's type
+    enum kind myKind; // Kind can be SOLID, NONSOLID or PLAYER so far. Useful to determine a generic bloc's type
     bool wallCollided; //Return true if the bloc collided with a wall and it hasn't been resolved yet
     std::vector<bloc*> ignoredBlocs;
 public:
@@ -83,6 +83,8 @@ public:
     virtual bool bump(enum edge touchededge, bloc* b);
     // NB : Any bloc that is killed must be killed in his own collisionReaction
     bool shieldState();
+
+    virtual void addHp(int hp);// overcharged only in playerBloc, this version should not be used
 };
 
 #endif
