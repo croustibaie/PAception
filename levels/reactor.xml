@@ -860,6 +860,12 @@
     <!-- ** LEFT LIMIT OF THE MAP ** -->
     <!-- *************************** -->
 
+    <mirror0>
+        <type>mirror</type>
+        <xpos>0</xpos>
+        <ypos>870</ypos>
+    </mirror0>
+
     <mirror1>
         <type>mirror</type>
         <xpos>0</xpos>
@@ -884,23 +890,23 @@
         <ypos>630</ypos>
     </mirror4>
 
-    <freeze1>
-        <type>freeze</type>
+    <mirrorcentral1>
+        <type>mirror</type>
         <xpos>0</xpos>
         <ypos>570</ypos>
-    </freeze1>
+    </mirrorcentral1>
 
-    <freeze2>
-        <type>freeze</type>
+    <mirrorcentral2>
+        <type>mirror</type>
         <xpos>0</xpos>
         <ypos>510</ypos>
-    </freeze2>
+    </mirrorcentral2>
 
-    <freeze3>
-        <type>freeze</type>
+    <mirrorcentral3>
+        <type>mirror</type>
         <xpos>0</xpos>
         <ypos>450</ypos>
-    </freeze3>
+    </mirrorcentral3>
 
     <mirror5>
         <type>mirror</type>
@@ -936,6 +942,12 @@
     <!-- ** RIGHT LIMIT OF THE MAP ** -->
     <!-- **************************** -->
 
+    <mirror-1>
+        <type>mirror</type>
+        <xpos>0</xpos>
+        <ypos>870</ypos>
+    </mirror-1>
+
     <mirror1>
         <type>mirror</type>
         <xpos>1860</xpos>
@@ -960,23 +972,23 @@
         <ypos>630</ypos>
     </mirror4>
 
-    <freeze1>
-        <type>freeze</type>
+    <mirrorcentral1>
+        <type>mirror</type>
         <xpos>1860</xpos>
         <ypos>570</ypos>
-    </freeze1>
+    </mirrorcentral1>
 
-    <freeze2>
-        <type>freeze</type>
+    <mirrorcentral2>
+        <type>mirror</type>
         <xpos>1860</xpos>
         <ypos>510</ypos>
-    </freeze2>
+    </mirrorcentral2>
 
-    <freeze3>
-        <type>freeze</type>
+    <mirrorcentral3>
+        <type>mirror</type>
         <xpos>1860</xpos>
         <ypos>450</ypos>
-    </freeze3>
+    </mirrorcentral3>
 
     <mirror5>
         <type>mirror</type>
@@ -1001,6 +1013,12 @@
         <xpos>1860</xpos>
         <ypos>210</ypos>
     </mirror8>
+
+    <mirror9>
+        <type>mirror</type>
+        <xpos>1860</xpos>
+        <ypos>150</ypos>
+    </mirror9>
 
     <!-- ****************** -->
     <!-- ** PLAYER BLOCS ** -->
