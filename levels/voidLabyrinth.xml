@@ -349,7 +349,9 @@
         <ypos>870</ypos>
     </tele2>
 
+    <!-- **************** -->
     <!-- ** BUMP BLOCS ** -->
+    <!-- **************** -->
 
     <bumplowleft1>
         <type>bump</type>
