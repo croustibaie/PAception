@@ -2,7 +2,9 @@
 
 <root>
 
+    <!-- *************************** -->
     <!-- ** CENTRAL VERTICAL LINE ** -->
+    <!-- *************************** -->
 
     <voidvert1>
         <type>void</type>
@@ -39,8 +41,6 @@
         <xpos>930</xpos>
         <ypos>300</ypos>
     </voidvert5>
-
-    <!-- Vertical gap left for the pulse bloc -->
 
     <voidvert6>
         <type>void</type>
@@ -79,7 +79,9 @@
         <ypos>1020</ypos>
     </voidvert10>
 
+    <!-- ***************************** -->
     <!-- ** CENTRAL HORIZONTAL LINE ** -->
+    <!-- ***************************** -->
 
     <voidhorz1>
         <type>void</type>
@@ -225,7 +227,9 @@
         <ypos>510</ypos>
     </voidhorz22>
 
+    <!-- ************************ -->
     <!-- ** CENTRAL PULSE BLOC ** -->
+    <!-- ************************ -->
 
     <centralpulse>
         <type>pulse</type>
@@ -233,7 +237,9 @@
         <ypos>510</ypos>
     </centralpulse>
 
+    <!-- *********************** -->
     <!-- ** LOWER RIGHT PART  ** -->
+    <!-- *********************** -->
 
     <lowright1>
         <type>mirror</type>
@@ -277,7 +283,9 @@
         <ypos>870</ypos>
     </lowright7>
 
+    <!-- ********************** -->
     <!-- ** UPPER LEFT PART  ** -->
+    <!-- ********************** -->
 
     <upperleft1>
         <type>mirror</type>
@@ -321,7 +329,9 @@
         <ypos>150</ypos>
     </upperleft7>
 
+    <!-- *************** -->
     <!-- ** TELEBLOCS ** -->
+    <!-- *************** -->
 
     <tele1>
         <type>tele</type>
@@ -330,6 +340,14 @@
         <xpos>1440</xpos>
         <ypos>240</ypos>
     </tele1>
+
+    <tele2>
+        <type>tele</type>
+        <xpos>150</xpos>
+        <ypos>150</ypos>
+        <xpos>1710</xpos>
+        <ypos>870</ypos>
+    </tele2>
 
     <!-- ** BUMP BLOCS ** -->
 
