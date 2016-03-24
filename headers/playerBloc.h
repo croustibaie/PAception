@@ -25,7 +25,7 @@ private:
     unsigned int reloadTimer;
     int shieldTimer;
     unsigned int lastShieldTimer;
-    SDL_Rect rectBase[MAX_AMMO+PLAYER_HP+2]; //size and number of the health point rectangles
+   // SDL_Rect rectBase[MAX_AMMO+PLAYER_HP+2]; //size and number of the health point rectangles
     SDL_Texture *hpTexture; // color of health point bar
     SDL_Texture *heartTexture; //Indicator of health point
     SDL_Texture *ammoTexture; // color of ammunition bar
@@ -44,6 +44,7 @@ public:
     float getdx();
     float getdy();
     int getTeamNumber();
+    void addHp(int hp); // method to add some healthpoints
 };
 
 

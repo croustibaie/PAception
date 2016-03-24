@@ -10,6 +10,7 @@ class playerBloc;
 #include "bloc.h"
 #include <map>
 #define BUMPTIME 500
+#define BUMPSPEED 6
 class bumpBloc: public bloc {
 private :
     float dx;// bloc's actual x direction

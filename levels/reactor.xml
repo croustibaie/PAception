@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
+    <!-- **************** -->
     <!-- ** PULSE BLOC ** -->
+    <!-- **************** -->
 
     <centralpulse>
         <type>pulse</type>
@@ -9,7 +11,9 @@
         <ypos>510</ypos>
     </centralpulse>
 
+    <!-- ****************** -->
     <!-- ** DIAMOND BLOC ** -->
+    <!-- ****************** -->
 
     <diamond1>
         <type>diamond</type>
@@ -35,175 +39,1033 @@
         <ypos>510</ypos>
     </diamond4>
 
-    <!-- ** FREEZE BLOCS ** -->
-
-    <freeze2>
-        <type>freeze</type>
-        <xpos>1550</xpos>
-        <ypos>510</ypos>
-    </freeze2>
-
+    <!-- ************************ -->
     <!-- ** LEFT SIDE OF THE CORE -->
+    <!-- ************************ -->
 
     <mirror1>
         <type>mirror</type>
-        <xpos>310</xpos>
+        <xpos>150</xpos>
         <ypos>810</ypos>
     </mirror1>
 
     <mirror2>
         <type>mirror</type>
-        <xpos>310</xpos>
+        <xpos>150</xpos>
         <ypos>750</ypos>
     </mirror2>
 
     <mirror3>
         <type>mirror</type>
-        <xpos>310</xpos>
+        <xpos>150</xpos>
         <ypos>690</ypos>
     </mirror3>
 
     <mirror4>
         <type>mirror</type>
-        <xpos>310</xpos>
+        <xpos>150</xpos>
         <ypos>630</ypos>
     </mirror4>
 
     <freeze1>
         <type>freeze</type>
-        <xpos>310</xpos>
+        <xpos>150</xpos>
         <ypos>570</ypos>
     </freeze1>
 
     <freeze2>
         <type>freeze</type>
-        <xpos>310</xpos>
+        <xpos>150</xpos>
         <ypos>510</ypos>
     </freeze2>
 
     <freeze3>
         <type>freeze</type>
-        <xpos>310</xpos>
+        <xpos>150</xpos>
         <ypos>450</ypos>
     </freeze3>
 
     <mirror5>
         <type>mirror</type>
-        <xpos>310</xpos>
+        <xpos>150</xpos>
         <ypos>390</ypos>
     </mirror5>
 
     <mirror6>
         <type>mirror</type>
-        <xpos>310</xpos>
+        <xpos>150</xpos>
         <ypos>330</ypos>
     </mirror6>
 
     <mirror7>
         <type>mirror</type>
-        <xpos>310</xpos>
+        <xpos>150</xpos>
         <ypos>270</ypos>
     </mirror7>
 
     <mirror8>
         <type>mirror</type>
-        <xpos>310</xpos>
+        <xpos>150</xpos>
         <ypos>210</ypos>
     </mirror8>
 
+    <mirror9>
+        <type>mirror</type>
+        <xpos>150</xpos>
+        <ypos>150</ypos>
+    </mirror9>
+
+    <!-- ************************* -->
     <!-- ** RIGHT SIDE OF THE CORE -->
+    <!-- ************************* -->
 
     <mirror1>
         <type>mirror</type>
-        <xpos>1550</xpos>
+        <xpos>1710</xpos>
         <ypos>810</ypos>
     </mirror1>
 
     <mirror2>
         <type>mirror</type>
-        <xpos>1550</xpos>
+        <xpos>1710</xpos>
         <ypos>750</ypos>
     </mirror2>
 
     <mirror3>
         <type>mirror</type>
-        <xpos>1550</xpos>
+        <xpos>1710</xpos>
         <ypos>690</ypos>
     </mirror3>
 
     <mirror4>
         <type>mirror</type>
-        <xpos>1550</xpos>
+        <xpos>1710</xpos>
         <ypos>630</ypos>
     </mirror4>
 
     <freeze1>
         <type>freeze</type>
-        <xpos>1550</xpos>
+        <xpos>1710</xpos>
         <ypos>570</ypos>
     </freeze1>
 
     <freeze2>
         <type>freeze</type>
-        <xpos>1550</xpos>
+        <xpos>1710</xpos>
         <ypos>510</ypos>
     </freeze2>
 
     <freeze3>
         <type>freeze</type>
-        <xpos>1550</xpos>
+        <xpos>1710</xpos>
         <ypos>450</ypos>
     </freeze3>
 
     <mirror5>
         <type>mirror</type>
-        <xpos>1550</xpos>
+        <xpos>1710</xpos>
         <ypos>390</ypos>
     </mirror5>
 
     <mirror6>
         <type>mirror</type>
-        <xpos>1550</xpos>
+        <xpos>1710</xpos>
         <ypos>330</ypos>
     </mirror6>
 
     <mirror7>
         <type>mirror</type>
-        <xpos>1550</xpos>
+        <xpos>1710</xpos>
         <ypos>270</ypos>
     </mirror7>
 
     <mirror8>
         <type>mirror</type>
-        <xpos>1550</xpos>
+        <xpos>1710</xpos>
         <ypos>210</ypos>
     </mirror8>
 
+    <!-- *********************** -->
+    <!-- ** TOP SIDE OF THE CORE -->
+    <!-- *********************** -->
 
+    <mirror-2>
+        <type>mirror</type>
+        <xpos>150</xpos>
+        <ypos>150</ypos>
+    </mirror-2>
+
+    <mirror-1>
+        <type>mirror</type>
+        <xpos>210</xpos>
+        <ypos>150</ypos>
+    </mirror-1>
+
+    <mirror0>
+        <type>mirror</type>
+        <xpos>270</xpos>
+        <ypos>150</ypos>
+    </mirror0>
+
+    <mirror1>
+        <type>mirror</type>
+        <xpos>330</xpos>
+        <ypos>150</ypos>
+    </mirror1>
+
+    <mirror2>
+        <type>mirror</type>
+        <xpos>390</xpos>
+        <ypos>150</ypos>
+    </mirror2>
+
+    <mirror3>
+        <type>mirror</type>
+        <xpos>450</xpos>
+        <ypos>150</ypos>
+    </mirror3>
+
+    <mirror4>
+        <type>mirror</type>
+        <xpos>510</xpos>
+        <ypos>150</ypos>
+    </mirror4>
+
+    <mirror5>
+        <type>mirror</type>
+        <xpos>570</xpos>
+        <ypos>150</ypos>
+    </mirror5>
+
+    <mirror6>
+        <type>mirror</type>
+        <xpos>630</xpos>
+        <ypos>150</ypos>
+    </mirror6>
+
+    <mirror7>
+        <type>mirror</type>
+        <xpos>690</xpos>
+        <ypos>150</ypos>
+    </mirror7>
+
+    <mirror8>
+        <type>mirror</type>
+        <xpos>750</xpos>
+        <ypos>150</ypos>
+    </mirror8>
+
+    <mirror9>
+        <type>mirror</type>
+        <xpos>810</xpos>
+        <ypos>150</ypos>
+    </mirror9>
+
+    <freeze1>
+        <type>freeze</type>
+        <xpos>870</xpos>
+        <ypos>150</ypos>
+    </freeze1>
+
+    <freeze2>
+        <type>freeze</type>
+        <xpos>930</xpos>
+        <ypos>150</ypos>
+    </freeze2>
+
+    <freeze3>
+        <type>freeze</type>
+        <xpos>990</xpos>
+        <ypos>150</ypos>
+    </freeze3>
+
+    <mirror10>
+        <type>mirror</type>
+        <xpos>1050</xpos>
+        <ypos>150</ypos>
+    </mirror10>
+
+    <mirror11>
+        <type>mirror</type>
+        <xpos>1110</xpos>
+        <ypos>150</ypos>
+    </mirror11>
+
+    <mirror12>
+        <type>mirror</type>
+        <xpos>1170</xpos>
+        <ypos>150</ypos>
+    </mirror12>
+
+    <mirror13>
+        <type>mirror</type>
+        <xpos>1230</xpos>
+        <ypos>150</ypos>
+    </mirror13>
+
+    <mirror14>
+        <type>mirror</type>
+        <xpos>1290</xpos>
+        <ypos>150</ypos>
+    </mirror14>
+
+    <mirror15>
+        <type>mirror</type>
+        <xpos>1350</xpos>
+        <ypos>150</ypos>
+    </mirror15>
+
+    <mirror16>
+        <type>mirror</type>
+        <xpos>1410</xpos>
+        <ypos>150</ypos>
+    </mirror16>
+
+    <mirror17>
+        <type>mirror</type>
+        <xpos>1470</xpos>
+        <ypos>150</ypos>
+    </mirror17>
+
+    <mirror18>
+        <type>mirror</type>
+        <xpos>1530</xpos>
+        <ypos>150</ypos>
+    </mirror18>
+
+    <mirror19>
+        <type>mirror</type>
+        <xpos>1590</xpos>
+        <ypos>150</ypos>
+    </mirror19>
+
+    <mirror20>
+        <type>mirror</type>
+        <xpos>1650</xpos>
+        <ypos>150</ypos>
+    </mirror20>
+
+    <mirror21>
+        <type>mirror</type>
+        <xpos>1710</xpos>
+        <ypos>150</ypos>
+    </mirror21>
+
+
+    <!-- ************************ -->
+    <!-- ** DOWN SIDE OF THE CORE -->
+    <!-- ************************ -->
+
+    <mirror-2>
+        <type>mirror</type>
+        <xpos>150</xpos>
+        <ypos>870</ypos>
+    </mirror-2>
+
+    <mirror-1>
+        <type>mirror</type>
+        <xpos>210</xpos>
+        <ypos>870</ypos>
+    </mirror-1>
+
+    <mirror0>
+        <type>mirror</type>
+        <xpos>270</xpos>
+        <ypos>870</ypos>
+    </mirror0>
+
+    <mirror1>
+        <type>mirror</type>
+        <xpos>330</xpos>
+        <ypos>870</ypos>
+    </mirror1>
+
+    <mirror2>
+        <type>mirror</type>
+        <xpos>390</xpos>
+        <ypos>870</ypos>
+    </mirror2>
+
+    <mirror3>
+        <type>mirror</type>
+        <xpos>450</xpos>
+        <ypos>870</ypos>
+    </mirror3>
+
+    <mirror4>
+        <type>mirror</type>
+        <xpos>510</xpos>
+        <ypos>870</ypos>
+    </mirror4>
+
+    <mirror5>
+        <type>mirror</type>
+        <xpos>570</xpos>
+        <ypos>870</ypos>
+    </mirror5>
+
+    <mirror6>
+        <type>mirror</type>
+        <xpos>630</xpos>
+        <ypos>870</ypos>
+    </mirror6>
+
+    <mirror7>
+        <type>mirror</type>
+        <xpos>690</xpos>
+        <ypos>870</ypos>
+    </mirror7>
+
+    <mirror8>
+        <type>mirror</type>
+        <xpos>750</xpos>
+        <ypos>870</ypos>
+    </mirror8>
+
+    <mirror9>
+        <type>mirror</type>
+        <xpos>810</xpos>
+        <ypos>870</ypos>
+    </mirror9>
+
+    <freeze1>
+        <type>freeze</type>
+        <xpos>870</xpos>
+        <ypos>870</ypos>
+    </freeze1>
+
+    <freeze2>
+        <type>freeze</type>
+        <xpos>930</xpos>
+        <ypos>870</ypos>
+    </freeze2>
+
+    <freeze3>
+        <type>freeze</type>
+        <xpos>990</xpos>
+        <ypos>870</ypos>
+    </freeze3>
+
+    <mirror10>
+        <type>mirror</type>
+        <xpos>1050</xpos>
+        <ypos>870</ypos>
+    </mirror10>
+
+    <mirror11>
+        <type>mirror</type>
+        <xpos>1110</xpos>
+        <ypos>870</ypos>
+    </mirror11>
+
+    <mirror12>
+        <type>mirror</type>
+        <xpos>1170</xpos>
+        <ypos>870</ypos>
+    </mirror12>
+
+    <mirror13>
+        <type>mirror</type>
+        <xpos>1230</xpos>
+        <ypos>870</ypos>
+    </mirror13>
+
+    <mirror14>
+        <type>mirror</type>
+        <xpos>1290</xpos>
+        <ypos>870</ypos>
+    </mirror14>
+
+    <mirror15>
+        <type>mirror</type>
+        <xpos>1350</xpos>
+        <ypos>870</ypos>
+    </mirror15>
+
+    <mirror16>
+        <type>mirror</type>
+        <xpos>1410</xpos>
+        <ypos>870</ypos>
+    </mirror16>
+
+    <mirror17>
+        <type>mirror</type>
+        <xpos>1470</xpos>
+        <ypos>870</ypos>
+    </mirror17>
+
+    <mirror18>
+        <type>mirror</type>
+        <xpos>1530</xpos>
+        <ypos>870</ypos>
+    </mirror18>
+
+    <mirror19>
+        <type>mirror</type>
+        <xpos>1590</xpos>
+        <ypos>870</ypos>
+    </mirror19>
+
+    <mirror20>
+        <type>mirror</type>
+        <xpos>1650</xpos>
+        <ypos>870</ypos>
+    </mirror20>
+
+    <mirror21>
+        <type>mirror</type>
+        <xpos>1710</xpos>
+        <ypos>870</ypos>
+    </mirror21>
+
+    <!-- **************************** -->
+    <!-- ** UPPER LIMIT OF THE MAP ** -->
+    <!-- **************************** -->
+
+    <mirror-3>
+        <type>mirror</type>
+        <xpos>150</xpos>
+        <ypos>0</ypos>
+    </mirror-3>
+
+    <mirror-2>
+        <type>mirror</type>
+        <xpos>210</xpos>
+        <ypos>0</ypos>
+    </mirror-2>
+
+    <mirror-1>
+        <type>mirror</type>
+        <xpos>270</xpos>
+        <ypos>0</ypos>
+    </mirror-1>
+
+    <mirror0>
+        <type>mirror</type>
+        <xpos>330</xpos>
+        <ypos>0</ypos>
+    </mirror0>
+
+    <mirror1>
+        <type>mirror</type>
+        <xpos>330</xpos>
+        <ypos>0</ypos>
+    </mirror1>
+
+    <mirror2>
+        <type>mirror</type>
+        <xpos>390</xpos>
+        <ypos>0</ypos>
+    </mirror2>
+
+    <mirror3>
+        <type>mirror</type>
+        <xpos>450</xpos>
+        <ypos>0</ypos>
+    </mirror3>
+
+    <mirror4>
+        <type>mirror</type>
+        <xpos>510</xpos>
+        <ypos>0</ypos>
+    </mirror4>
+
+    <mirror5>
+        <type>mirror</type>
+        <xpos>570</xpos>
+        <ypos>0</ypos>
+    </mirror5>
+
+    <mirror6>
+        <type>mirror</type>
+        <xpos>630</xpos>
+        <ypos>0</ypos>
+    </mirror6>
+
+    <mirror7>
+        <type>mirror</type>
+        <xpos>690</xpos>
+        <ypos>0</ypos>
+    </mirror7>
+
+    <mirror8>
+        <type>mirror</type>
+        <xpos>750</xpos>
+        <ypos>0</ypos>
+    </mirror8>
+
+    <mirror9>
+        <type>mirror</type>
+        <xpos>810</xpos>
+        <ypos>0</ypos>
+    </mirror9>
+
+    <mirror10>
+        <type>mirror</type>
+        <xpos>870</xpos>
+        <ypos>0</ypos>
+    </mirror10>
+
+    <mirror11>
+        <type>mirror</type>
+        <xpos>930</xpos>
+        <ypos>0</ypos>
+    </mirror11>
+
+    <mirror12>
+        <type>mirror</type>
+        <xpos>990</xpos>
+        <ypos>0</ypos>
+    </mirror12>
+
+    <mirror13>
+        <type>mirror</type>
+        <xpos>1050</xpos>
+        <ypos>0</ypos>
+    </mirror13>
+
+    <mirror14>
+        <type>mirror</type>
+        <xpos>1110</xpos>
+        <ypos>0</ypos>
+    </mirror14>
+
+    <mirror15>
+        <type>mirror</type>
+        <xpos>1170</xpos>
+        <ypos>0</ypos>
+    </mirror15>
+
+    <mirror16>
+        <type>mirror</type>
+        <xpos>1230</xpos>
+        <ypos>0</ypos>
+    </mirror16>
+
+    <mirror17>
+        <type>mirror</type>
+        <xpos>1290</xpos>
+        <ypos>0</ypos>
+    </mirror17>
+
+    <mirror18>
+        <type>mirror</type>
+        <xpos>1350</xpos>
+        <ypos>0</ypos>
+    </mirror18>
+
+    <mirror19>
+        <type>mirror</type>
+        <xpos>1410</xpos>
+        <ypos>0</ypos>
+    </mirror19>
+
+    <mirror20>
+        <type>mirror</type>
+        <xpos>1470</xpos>
+        <ypos>0</ypos>
+    </mirror20>
+
+    <mirror21>
+        <type>mirror</type>
+        <xpos>1530</xpos>
+        <ypos>0</ypos>
+    </mirror21>
+
+    <mirror22>
+        <type>mirror</type>
+        <xpos>1590</xpos>
+        <ypos>0</ypos>
+    </mirror22>
+
+    <mirror23>
+        <type>mirror</type>
+        <xpos>1650</xpos>
+        <ypos>0</ypos>
+    </mirror23>
+
+    <mirror23>
+        <type>mirror</type>
+        <xpos>1710</xpos>
+        <ypos>0</ypos>
+    </mirror23>
+
+    <!-- *************************** -->
+    <!-- ** DOWN LIMIT OF THE MAP ** -->
+    <!-- *************************** -->
+
+    <mirror-2>
+        <type>mirror</type>
+        <xpos>150</xpos>
+        <ypos>1020</ypos>
+    </mirror-2>
+
+    <mirror-1>
+        <type>mirror</type>
+        <xpos>270</xpos>
+        <ypos>1020</ypos>
+    </mirror-1>
+
+    <mirror0>
+        <type>mirror</type>
+        <xpos>330</xpos>
+        <ypos>1020</ypos>
+    </mirror0>
+
+    <mirror1>
+        <type>mirror</type>
+        <xpos>330</xpos>
+        <ypos>1020</ypos>
+    </mirror1>
+
+    <mirror2>
+        <type>mirror</type>
+        <xpos>390</xpos>
+        <ypos>1020</ypos>
+    </mirror2>
+
+    <mirror3>
+        <type>mirror</type>
+        <xpos>450</xpos>
+        <ypos>1020</ypos>
+    </mirror3>
+
+    <mirror4>
+        <type>mirror</type>
+        <xpos>510</xpos>
+        <ypos>1020</ypos>
+    </mirror4>
+
+    <mirror5>
+        <type>mirror</type>
+        <xpos>570</xpos>
+        <ypos>1020</ypos>
+    </mirror5>
+
+    <mirror6>
+        <type>mirror</type>
+        <xpos>630</xpos>
+        <ypos>1020</ypos>
+    </mirror6>
+
+    <mirror7>
+        <type>mirror</type>
+        <xpos>690</xpos>
+        <ypos>1020</ypos>
+    </mirror7>
+
+    <mirror8>
+        <type>mirror</type>
+        <xpos>750</xpos>
+        <ypos>1020</ypos>
+    </mirror8>
+
+    <mirror9>
+        <type>mirror</type>
+        <xpos>810</xpos>
+        <ypos>1020</ypos>
+    </mirror9>
+
+    <mirror10>
+        <type>mirror</type>
+        <xpos>870</xpos>
+        <ypos>1020</ypos>
+    </mirror10>
+
+    <mirror11>
+        <type>mirror</type>
+        <xpos>930</xpos>
+        <ypos>1020</ypos>
+    </mirror11>
+
+    <mirror12>
+        <type>mirror</type>
+        <xpos>990</xpos>
+        <ypos>1020</ypos>
+    </mirror12>
+
+    <mirror13>
+        <type>mirror</type>
+        <xpos>1050</xpos>
+        <ypos>1020</ypos>
+    </mirror13>
+
+    <mirror14>
+        <type>mirror</type>
+        <xpos>1110</xpos>
+        <ypos>1020</ypos>
+    </mirror14>
+
+    <mirror15>
+        <type>mirror</type>
+        <xpos>1170</xpos>
+        <ypos>1020</ypos>
+    </mirror15>
+
+    <mirror16>
+        <type>mirror</type>
+        <xpos>1230</xpos>
+        <ypos>1020</ypos>
+    </mirror16>
+
+    <mirror17>
+        <type>mirror</type>
+        <xpos>1290</xpos>
+        <ypos>1020</ypos>
+    </mirror17>
+
+    <mirror18>
+        <type>mirror</type>
+        <xpos>1350</xpos>
+        <ypos>1020</ypos>
+    </mirror18>
+
+    <mirror19>
+        <type>mirror</type>
+        <xpos>1410</xpos>
+        <ypos>1020</ypos>
+    </mirror19>
+
+    <mirror20>
+        <type>mirror</type>
+        <xpos>1470</xpos>
+        <ypos>1020</ypos>
+    </mirror20>
+
+    <mirror21>
+        <type>mirror</type>
+        <xpos>1530</xpos>
+        <ypos>1020</ypos>
+    </mirror21>
+
+    <mirror22>
+        <type>mirror</type>
+        <xpos>1590</xpos>
+        <ypos>1020</ypos>
+    </mirror22>
+
+    <mirror23>
+        <type>mirror</type>
+        <xpos>1650</xpos>
+        <ypos>1020</ypos>
+    </mirror23>
+
+    <mirror24>
+        <type>mirror</type>
+        <xpos>1710</xpos>
+        <ypos>1020</ypos>
+    </mirror24>
+
+    <!-- *************************** -->
+    <!-- ** LEFT LIMIT OF THE MAP ** -->
+    <!-- *************************** -->
+
+    <mirror0>
+        <type>mirror</type>
+        <xpos>0</xpos>
+        <ypos>870</ypos>
+    </mirror0>
+
+    <mirror1>
+        <type>mirror</type>
+        <xpos>0</xpos>
+        <ypos>810</ypos>
+    </mirror1>
+
+    <mirror2>
+        <type>mirror</type>
+        <xpos>0</xpos>
+        <ypos>750</ypos>
+    </mirror2>
+
+    <mirror3>
+        <type>mirror</type>
+        <xpos>0</xpos>
+        <ypos>690</ypos>
+    </mirror3>
+
+    <mirror4>
+        <type>mirror</type>
+        <xpos>0</xpos>
+        <ypos>630</ypos>
+    </mirror4>
+
+    <mirrorcentral1>
+        <type>mirror</type>
+        <xpos>0</xpos>
+        <ypos>570</ypos>
+    </mirrorcentral1>
+
+    <mirrorcentral2>
+        <type>mirror</type>
+        <xpos>0</xpos>
+        <ypos>510</ypos>
+    </mirrorcentral2>
+
+    <mirrorcentral3>
+        <type>mirror</type>
+        <xpos>0</xpos>
+        <ypos>450</ypos>
+    </mirrorcentral3>
+
+    <mirror5>
+        <type>mirror</type>
+        <xpos>0</xpos>
+        <ypos>390</ypos>
+    </mirror5>
+
+    <mirror6>
+        <type>mirror</type>
+        <xpos>0</xpos>
+        <ypos>330</ypos>
+    </mirror6>
+
+    <mirror7>
+        <type>mirror</type>
+        <xpos>0</xpos>
+        <ypos>270</ypos>
+    </mirror7>
+
+    <mirror8>
+        <type>mirror</type>
+        <xpos>0</xpos>
+        <ypos>210</ypos>
+    </mirror8>
+
+    <mirror9>
+        <type>mirror</type>
+        <xpos>0</xpos>
+        <ypos>150</ypos>
+    </mirror9>
+
+    <!-- **************************** -->
+    <!-- ** RIGHT LIMIT OF THE MAP ** -->
+    <!-- **************************** -->
+
+    <mirror-1>
+        <type>mirror</type>
+        <xpos>0</xpos>
+        <ypos>870</ypos>
+    </mirror-1>
+
+    <mirror1>
+        <type>mirror</type>
+        <xpos>1860</xpos>
+        <ypos>810</ypos>
+    </mirror1>
+
+    <mirror2>
+        <type>mirror</type>
+        <xpos>1860</xpos>
+        <ypos>750</ypos>
+    </mirror2>
+
+    <mirror3>
+        <type>mirror</type>
+        <xpos>1860</xpos>
+        <ypos>690</ypos>
+    </mirror3>
+
+    <mirror4>
+        <type>mirror</type>
+        <xpos>1860</xpos>
+        <ypos>630</ypos>
+    </mirror4>
+
+    <mirrorcentral1>
+        <type>mirror</type>
+        <xpos>1860</xpos>
+        <ypos>570</ypos>
+    </mirrorcentral1>
+
+    <mirrorcentral2>
+        <type>mirror</type>
+        <xpos>1860</xpos>
+        <ypos>510</ypos>
+    </mirrorcentral2>
+
+    <mirrorcentral3>
+        <type>mirror</type>
+        <xpos>1860</xpos>
+        <ypos>450</ypos>
+    </mirrorcentral3>
+
+    <mirror5>
+        <type>mirror</type>
+        <xpos>1860</xpos>
+        <ypos>390</ypos>
+    </mirror5>
+
+    <mirror6>
+        <type>mirror</type>
+        <xpos>1860</xpos>
+        <ypos>330</ypos>
+    </mirror6>
+
+    <mirror7>
+        <type>mirror</type>
+        <xpos>1860</xpos>
+        <ypos>270</ypos>
+    </mirror7>
+
+    <mirror8>
+        <type>mirror</type>
+        <xpos>1860</xpos>
+        <ypos>210</ypos>
+    </mirror8>
+
+    <mirror9>
+        <type>mirror</type>
+        <xpos>1860</xpos>
+        <ypos>150</ypos>
+    </mirror9>
+
+    <!-- **************** -->
+    <!-- ** TELE BLOCS ** -->
+    <!-- **************** -->
+
+    <tele_upright_lowleft>
+        <type>tele</type>
+        <xpos>1860</xpos>
+        <ypos>0</ypos>
+        <xpos>0</xpos>
+        <ypos>1020</ypos>
+    </tele_upright_lowleft>
+
+    <tele_upleft_lowright>
+        <type>tele</type>
+        <xpos>0</xpos>
+        <ypos>0</ypos>
+        <xpos>1860</xpos>
+        <ypos>1020</ypos>
+    </tele_upleft_lowright>
+
+    <!-- ****************** -->
     <!-- ** PLAYER BLOCS ** -->
+    <!-- ****************** -->
 
     <player1>
         <type>player</type>
-        <xpos>200</xpos>
+        <xpos>80</xpos>
         <ypos>510</ypos>
     </player1>
 
     <player2>
         <type>player</type>
-        <xpos>1720</xpos>
+        <xpos>1780</xpos>
         <ypos>510</ypos>
     </player2>
 
     <player3>
         <type>player</type>
         <xpos>930</xpos>
-        <ypos>200</ypos>
+        <ypos>80</ypos>
     </player3>
 
     <player4>
         <type>player</type>
         <xpos>930</xpos>
-        <ypos>880</ypos>
+        <ypos>940</ypos>
     </player4>
 
 </root>

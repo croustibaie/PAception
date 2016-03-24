@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!-- **************** -->
+    <!-- ** Life BLOC ** -->
+    <!-- **************** -->
+
+    <centrallife>
+        <type>life</type>
+        <xpos>930</xpos>
+        <ypos>510</ypos>
+    </centrallife>
+
+       <life1>
+        <type>life</type>
+        <xpos>930</xpos>
+        <ypos>690</ypos>
+    </life1>
+
+    <life2>
+        <type>life</type>
+        <xpos>930</xpos>
+        <ypos>330</ypos>
+    </life2>
+
+    <life3>
+        <type>life</type>
+        <xpos>690</xpos>
+        <ypos>510</ypos>
+    </life3>
+
+    <life4>
+        <type>life</type>
+        <xpos>1170</xpos>
+        <ypos>510</ypos>
+    </life4>
+
+    <!-- **************** -->
+    <!-- ** Void BLOC ** -->
+    <!-- **************** -->
+
+    <void1>
+        <type>void</type>
+        <xpos>930</xpos>
+        <ypos>790</ypos>
+    </void1>
+
+    <void2>
+        <type>void</type>
+        <xpos>930</xpos>
+        <ypos>230</ypos>
+    </void2>
+
+    <void3>
+        <type>void</type>
+        <xpos>610</xpos>
+        <ypos>510</ypos>
+    </void3>
+
+    <void4>
+        <type>void</type>
+        <xpos>1250</xpos>
+        <ypos>510</ypos>
+    </void4>
+
+
+    <!-- **************** -->
+    <!-- ** TELE BLOCS ** -->
+    <!-- **************** -->
+
+    <tele_upright_lowleft>
+        <type>tele</type>
+        <xpos>1860</xpos>
+        <ypos>0</ypos>
+        <xpos>830</xpos>
+        <ypos>620</ypos>
+    </tele_upright_lowleft>
+
+    <tele_upleft_lowright>
+        <type>tele</type>
+        <xpos>0</xpos>
+        <ypos>0</ypos>
+        <xpos>1030</xpos>
+        <ypos>620</ypos>
+    </tele_upleft_lowright>
+
+    <tele_lowleft_upright>
+        <type>tele</type>
+        <xpos>0</xpos>
+        <ypos>1020</ypos>
+        <xpos>1030</xpos>
+        <ypos>400</ypos>
+    </tele_lowleft_upright>
+
+    <tele_upleft_lowright>
+        <type>tele</type>
+        <xpos>1860</xpos>
+        <ypos>1020</ypos>
+        <xpos>830</xpos>
+        <ypos>400</ypos>
+    </tele_upleft_lowright>
+
+
+    <!-- ********************** -->
+    <!-- ** UPPER LEFT CORNER  ** -->
+    <!-- ********************** -->
+
+    <upperleft1>
+        <type>static</type>
+        <xpos>120</xpos>
+        <ypos>0</ypos>
+    </upperleft1>
+
+    <upperleft2>
+        <type>pulse</type>
+        <xpos>120</xpos>
+        <ypos>60</ypos>
+    </upperleft2>
+
+    <upperleft3>
+        <type>static</type>
+        <xpos>120</xpos>
+        <ypos>120</ypos>
+    </upperleft3>
+
+
+    <upperleft5>
+        <type>pulse</type>
+        <xpos>60</xpos>
+        <ypos>120</ypos>
+    </upperleft5>
+
+    <upperleft6>
+        <type>static</type>
+        <xpos>0</xpos>
+        <ypos>120</ypos>
+    </upperleft6>
+
+
+    <!-- ********************** -->
+    <!-- ** UPPER RIGHT CORNER  ** -->
+    <!-- ********************** -->
+
+    <upperright1>
+        <type>static</type>
+        <xpos>1740</xpos>
+        <ypos>0</ypos>
+    </upperright1>
+
+    <upperright2>
+        <type>pulse</type>
+        <xpos>1740</xpos>
+        <ypos>60</ypos>
+    </upperright2>
+
+    <upperright3>
+        <type>static</type>
+        <xpos>1740</xpos>
+        <ypos>120</ypos>
+    </upperright3>
+
+
+    <upperright4>
+        <type>pulse</type>
+        <xpos>1800</xpos>
+        <ypos>120</ypos>
+    </upperright4>
+
+    <upperright5>
+        <type>static</type>
+        <xpos>1860</xpos>
+        <ypos>120</ypos>
+    </upperright5>
+
+
+    <!-- ********************** -->
+    <!-- ** DOWN LEFT CORNER  ** -->
+    <!-- ********************** -->
+
+    <downleft1>
+        <type>static</type>
+        <xpos>0</xpos>
+        <ypos>900</ypos>
+    </downleft1>
+
+    <downleft2>
+        <type>pulse</type>
+        <xpos>60</xpos>
+        <ypos>900</ypos>
+    </downleft2>
+
+    <downleft3>
+        <type>static</type>
+        <xpos>120</xpos>
+        <ypos>900</ypos>
+    </downleft3>
+
+
+    <downleft4>
+        <type>pulse</type>
+        <xpos>120</xpos>
+        <ypos>960</ypos>
+    </downleft4>
+
+    <downleft5>
+        <type>static</type>
+        <xpos>120</xpos>
+        <ypos>1020</ypos>
+    </downleft5>
+
+
+    <!-- ********************** -->
+    <!-- ** DOWN RIGHT CORNER  ** -->
+    <!-- ********************** -->
+
+    <downright1>
+        <type>static</type>
+        <xpos>1860</xpos>
+        <ypos>900</ypos>
+    </downright1>
+
+    <downright2>
+        <type>pulse</type>
+        <xpos>1800</xpos>
+        <ypos>900</ypos>
+    </downright2>
+
+    <downright3>
+        <type>static</type>
+        <xpos>1740</xpos>
+        <ypos>900</ypos>
+    </downright3>
+
+
+    <downright4>
+    <type>pulse</type>
+    <xpos>1740</xpos>
+    <ypos>960</ypos>
+</downright4>
+
+    <downright4>
+        <type>pulse</type>
+        <xpos>1740</xpos>
+        <ypos>1020</ypos>
+    </downright4>
+
+
+    <!-- ** PLAYER BLOCS ** -->
+
+    <player1>
+        <type>player</type>
+        <xpos>260</xpos>
+        <ypos>300</ypos>
+    </player1>
+
+
+
+
+</root>

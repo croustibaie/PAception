@@ -42,7 +42,9 @@ set(SOURCE_FILES
         headers/mirrorBloc.h
         sources/mirrorBloc.cpp
         sources/textureMaster.cpp
-        headers/textureMaster.h) #Set l'ensemble des sources, ici peu élégant
+        headers/textureMaster.h
+        headers/lifeBloc.h
+        sources/lifeBloc.cpp) #Set l'ensemble des sources, ici peu élégant
         
 
 add_executable(PAception ${SOURCE_FILES}) #exécutable PAception génération par les fichiers sources
