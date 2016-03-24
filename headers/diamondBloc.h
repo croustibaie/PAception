@@ -18,6 +18,7 @@
 class diamondBloc: public bloc {
 
 private:
+    int position;
     laserBloc* laser[NB_LASERS3]; //Pool of player's lasers.
     int nextLaser; // Number of next laser that should be shot
     int laser_counter; // defines the vertex of the cube from which the refracted laser
@@ -29,6 +30,7 @@ public:
     bool react(struct controllerState** state,unsigned int elapsedTime);
     bool collisionReaction(bloc* b);
     void shoot(double tht);
+    void draw();
 };
 
 

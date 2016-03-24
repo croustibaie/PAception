@@ -22,6 +22,7 @@ diamondBloc::diamondBloc()
     nextBlocId++;
     this->wallCollided=false;
     this->laser_counter = 1;
+    this->position=0;
 }
 
 diamondBloc::diamondBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture,SDL_Texture* laserTexture, level *l,int x,int y)
@@ -66,7 +67,7 @@ diamondBloc::diamondBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture,SDL_Text
     }
     this->nextLaser=0;
     this->laser_counter = 1; // defines the vertex of the cube from which the refracted laser
-                             // will be issued
+    this->position =0;// will be issued
 }
 
 diamondBloc::~diamondBloc()
@@ -95,18 +96,22 @@ bool diamondBloc::collisionReaction(bloc *b)
         {
             case 1 :
                 shoot(0);
+                position++;
                 laser_counter +=1;
                 break;
             case 2 :
                 shoot(-M_PI/2);
+                position++;
                 laser_counter +=1;
                 break;
             case 3 :
                 shoot(M_PI);
+                position++;
                 laser_counter +=1;
                 break;
             case 4 :
                 shoot(M_PI/2);
+                position=0;
                 laser_counter = 1;
                 break;
         }
@@ -191,4 +196,26 @@ void diamondBloc::shoot(double tht)
         l->insertBloc(laser[nextLaser]);
 
         nextLaser=(nextLaser+1)%NB_LASERS3;
+}
+
+void diamondBloc::draw()
+{
+    switch (position)
+    {
+        case 0:
+            SDL_RenderCopyEx(gRenderer,texture, NULL, &this->rect,90,NULL,SDL_FLIP_NONE );
+            break;
+        case 1:
+            SDL_RenderCopyEx(gRenderer,texture, NULL, &this->rect,0,NULL,SDL_FLIP_NONE );
+            break;
+        case 2:
+            SDL_RenderCopyEx(gRenderer,texture, NULL, &this->rect,-90,NULL,SDL_FLIP_NONE );
+            break;
+        case 3:
+            SDL_RenderCopyEx(gRenderer,texture, NULL, &this->rect,180,NULL,SDL_FLIP_NONE );
+            break;
+        default:
+        std::cout<<"wrong position value"<< this->position<< " "<<std::endl;
+
+    }
 }

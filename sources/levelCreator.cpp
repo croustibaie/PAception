@@ -134,7 +134,7 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
     }
     if (type=="mirror")
     {
-        blocArray[numBloc]= new mirrorBloc(l->getRenderer(),textures->getTexture(7),l,xpos,ypos);
+        blocArray[numBloc]= new mirrorBloc(l->getRenderer(),textures->getTexture(8),l,xpos,ypos);
         numBloc++;
         std::cout<<"creating a mirro at "<<xpos<< " , " <<ypos<<std::endl;
     }
@@ -146,7 +146,7 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
     }
     if (type=="diamond")
     {
-        blocArray[numBloc]= new diamondBloc(l->getRenderer(),textures->getTexture(8),textures->getTexture(13),l,xpos,ypos);
+        blocArray[numBloc]= new diamondBloc(l->getRenderer(),textures->getTexture(15),textures->getTexture(13),l,xpos,ypos);
         numBloc++;
         std::cout<<"creating a freeze at "<<xpos<< " , " <<ypos<<std::endl;
     }

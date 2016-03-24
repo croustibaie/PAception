@@ -16,12 +16,13 @@ textureMaster::textureMaster(SDL_Renderer *gRenderer)
     loadMedia(&(this->textureArray[6]),&gRenderer,"./textures/laservert.png");
     loadMedia(&(this->textureArray[7]),&gRenderer,"./textures/laserviolet.png");
     loadMedia(&(this->textureArray[8]),&gRenderer,"./textures/blocdiamant3.png");
-    loadMedia(&(this->textureArray[9]),&gRenderer,"./textures/bump1.png");
-    loadMedia(&(this->textureArray[10]),&gRenderer,"./textures/freeze.png");
+    loadMedia(&(this->textureArray[9]),&gRenderer,"./textures/void.png");
+    loadMedia(&(this->textureArray[10]),&gRenderer,"./textures/freeze2.png");
     loadMedia(&(this->textureArray[11]),&gRenderer,"./textures/pulsebloc.png");
     loadMedia(&(this->textureArray[12]),&gRenderer,"./textures/blocfixe3.png");
     loadMedia(&(this->textureArray[13]),&gRenderer,"./textures/laserjaune.png");
     loadMedia(&(this->textureArray[14]),&gRenderer,"./textures/bump2.png");
+    loadMedia(&(this->textureArray[15]),&gRenderer,"./textures/fleche.png");
 }
 
 textureMaster::~textureMaster() //TODO: Investigate on how to correctly delete
@@ -41,6 +42,7 @@ textureMaster::~textureMaster() //TODO: Investigate on how to correctly delete
     SDL_DestroyTexture(textureArray[12]);
     SDL_DestroyTexture(textureArray[13]);
     SDL_DestroyTexture(textureArray[14]);
+    SDL_DestroyTexture(textureArray[15]);
 }
 
 
