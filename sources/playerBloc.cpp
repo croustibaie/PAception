@@ -450,7 +450,7 @@ void playerBloc::draw()
                 SDL_RenderCopy(gRenderer, ammoTexture, NULL, &rectBase);
             }
             break;
-        case 1:
+        case 2:
             rectBase.x = 5;
             rectBase.y = SCREEN_HEIGHT -10 -5 ;
             rectBase.w = 10;
@@ -469,7 +469,7 @@ void playerBloc::draw()
                 SDL_RenderCopy(gRenderer, ammoTexture, NULL, &rectBase);
             }
             break;
-        case 2:
+        case 1:
             rectBase.x = SCREEN_WIDTH -10 - 5;
             rectBase.y = 5;
             rectBase.w = 10;
