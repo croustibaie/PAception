@@ -4,11 +4,12 @@
 
 #ifndef PACEPTION_MENU_H
 #define PACEPTION_MENU_H
-#include<string>
-#include "sdlconfig.h"
 class level;
 class userInterface;
 class levelCreator;
+#include<string>
+#include "sdlconfig.h"
+#define NB_MAP 4
 
 class menu {
 
@@ -30,7 +31,8 @@ private:
     int currentSelection;
     int pTeam[4];
     bool pConfirm[4];
-    std::string map;
+    unsigned int inputTimer;
+    std::string maps[NB_MAP];
 
 public:
     menu(SDL_Renderer* gRenderer);
@@ -41,6 +43,7 @@ public:
     void mapSelectionMenu();
     bool playMenuHandleInputs(controllerState** cs, int playerNo);
     bool teamSelectionHandleInputs(controllerState** cs, int playerNo);
+    bool mapSelectionHandleInputs(controllerState** cs, int playerNo);
     void drawPlayMenu();
     void drawTeamSelectionMenu();
     void drawMapSelectionMenu();

@@ -48,7 +48,7 @@ laserBloc::laserBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, level *l,in
     }
     this->rect.w=LASER_WIDTH;
     this->rect.h=LASER_HEIGHT;
-    this->speed=10;
+    this->speed=14;
     this->gRenderer=*gRenderer;
     this->texture=itexture;
     if (texture==NULL)

@@ -96,7 +96,7 @@ void close(SDL_Renderer* gRenderer, SDL_Window* gWindow, SDL_GameController** gG
     {
         SDL_GameControllerClose( gGameController[i] );
     }
-    delete[] gGameController;
+    //delete[] gGameController;
     //Destroy window
     SDL_DestroyWindow( gWindow );
     //Quit SDL subsystems

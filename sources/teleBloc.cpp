@@ -60,6 +60,8 @@ teleBloc::teleBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, level *l,int 
     this->blocId=nextBlocId;
     nextBlocId++;
     this->wallCollided=false;
+    this->reflect=false;
+    this->timerTele=0;
 }
 
 teleBloc::~teleBloc()

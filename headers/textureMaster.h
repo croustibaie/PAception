@@ -10,7 +10,7 @@
 class textureMaster {
 private:
     SDL_Renderer *gRenderer;
-    SDL_Texture* textureArray[16];
+    SDL_Texture* textureArray[17];
 public:
     textureMaster(SDL_Renderer *gRenderer);
     ~textureMaster();

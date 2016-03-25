@@ -68,115 +68,6 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, SDL_Textu
     this->shieldTimer=0;
     this->lastShieldTimer=0;
     this->shield=false;
-    /*switch(playerID)
-    {
-        case 0:
-        for(int i = 0;i<MAX_AMMO+PLAYER_HP+2;i++)
-        {
-
-                if (i < PLAYER_HP + 1)
-                {
-                    this->rectBase[i].x = 5 + 10*i;
-                    this->rectBase[i].y = 5;
-                    this->rectBase[i].w = 10;
-                    this->rectBase[i].h = 10;
-                }
-                else
-                {
-                    this->rectBase[i].x = 5 + 10*(i-PLAYER_HP-1);
-                    this->rectBase[i].y = 30;
-                    if(i==PLAYER_HP+1)
-                    {
-                        this->rectBase[i].w=10;
-                    }
-                    else
-                    {
-                        this->rectBase[i].w = 5;
-                    }
-                    this->rectBase[i].h = 10;
-                }
-
-        }
-        break;
-
-        case 1:
-            for(int i = 0;i<MAX_AMMO+PLAYER_HP+2;i++)
-            {
-
-                if (i < PLAYER_HP + 1)
-                {
-                    this->rectBase[i].x = 5 + 10*i;
-                    this->rectBase[i].y = SCREEN_HEIGHT -10 - 5;
-                    this->rectBase[i].w = 10;
-                    this->rectBase[i].h = 10;
-                }
-                else
-                {
-                    this->rectBase[i].x = 5 + 10*(i-PLAYER_HP-1);
-                    this->rectBase[i].y = SCREEN_HEIGHT - 10 -30;
-                    if(i==PLAYER_HP+1)
-                    {
-                        this->rectBase[i].w=10;
-                    }
-                    else
-                    {
-                        this->rectBase[i].w = 5;
-                    }
-                    this->rectBase[i].h = 10;
-                }
-
-            }
-            break;
-
-        case 2:
-            for(int i = 0;i<MAX_AMMO+PLAYER_HP+2 ; i++) {
-
-                if (i < PLAYER_HP + 1) {
-                    this->rectBase[i].x = SCREEN_WIDTH - 10 - 5 - 10 * i;
-                    this->rectBase[i].y = 5;
-                    this->rectBase[i].w = 10;
-                    this->rectBase[i].h = 10;
-                }
-                else {
-                    this->rectBase[i].x = SCREEN_WIDTH - 10 - 5 - 10 * (i - PLAYER_HP - 1);
-                    this->rectBase[i].y = 30;
-                    if (i == PLAYER_HP + 1) {
-                        this->rectBase[i].w = 10;
-                    }
-                    else {
-                        this->rectBase[i].w = 5;
-                    }
-                    this->rectBase[i].h = 10;
-                }
-            }
-
-            break;
-
-        case 3:
-                    for (int i = 0; i < MAX_AMMO + PLAYER_HP + 2; i++) {
-
-                        if (i < PLAYER_HP + 1) {
-                            this->rectBase[i].x = SCREEN_WIDTH - 10 - 5 - 10 * i;
-                            this->rectBase[i].y = SCREEN_HEIGHT - 10 - 5;
-                            this->rectBase[i].w = 10;
-                            this->rectBase[i].h = 10;
-                        }
-                        else {
-                            this->rectBase[i].x = SCREEN_WIDTH - 10 - 5 - 10 * (i - PLAYER_HP - 1);
-                            this->rectBase[i].y = SCREEN_HEIGHT -10 - 30;
-                            if (i == PLAYER_HP + 1) {
-                                this->rectBase[i].w = 10;
-                            }
-                            else {
-                                this->rectBase[i].w = 5;
-                            }
-                            this->rectBase[i].h = 10;
-                        }
-                    }
-            break;
-
-
-            }*/
     this->isBumped=false;
     this->teamNumber=teamID; //Make sure that everyone's team is different if teams are not set
     hpTexture=NULL;
@@ -263,7 +154,7 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
     else
     {
         unsigned int time=SDL_GetTicks();
-        if (time - this->reloadTimer>300)
+        if (time - this->reloadTimer>200)
         {
             this->reloadTimer=SDL_GetTicks();
             if (this->ammo<MAX_AMMO)
@@ -292,7 +183,7 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
         std::cout << "shield unavailable" << std::endl;
     }
 
-    if ((time-this->lastShieldTimer>5000)&&(!(this->shield))&&(this->shieldTimer!=0)) //Time for the shield to be reloaded
+    if ((time-this->lastShieldTimer>10000)&&(!(this->shield))&&(this->shieldTimer!=0)) //Time for the shield to be reloaded
     {
         this->shieldTimer = 0;
         std::cout << "shield available" << std::endl;
@@ -489,7 +380,7 @@ void playerBloc::shoot( struct controllerState **state)
 {
     int elapsedTime=SDL_GetTicks();
     elapsedTime-= lastShotTimer;
-    if (elapsedTime>100 && ammo>0)
+    if (elapsedTime>50 && ammo>0)
     {
         int x1 = state[playerID]->rightStickHorizontal;
         int y1 = state[playerID]->rightStickVertical;

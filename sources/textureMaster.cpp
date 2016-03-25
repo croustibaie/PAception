@@ -23,26 +23,15 @@ textureMaster::textureMaster(SDL_Renderer *gRenderer)
     loadMedia(&(this->textureArray[13]),&gRenderer,"./textures/laserjaune.png");
     loadMedia(&(this->textureArray[14]),&gRenderer,"./textures/bump2.png");
     loadMedia(&(this->textureArray[15]),&gRenderer,"./textures/fleche.png");
+    loadMedia(&(this->textureArray[16]),&gRenderer,"./textures/healbloc.png");
 }
 
 textureMaster::~textureMaster() //TODO: Investigate on how to correctly delete
 {
-    SDL_DestroyTexture(textureArray[0]);
-    SDL_DestroyTexture(textureArray[1]);
-    SDL_DestroyTexture(textureArray[2]);
-    SDL_DestroyTexture(textureArray[3]);
-    SDL_DestroyTexture(textureArray[4]);
-    SDL_DestroyTexture(textureArray[5]);
-    SDL_DestroyTexture(textureArray[6]);
-    SDL_DestroyTexture(textureArray[7]);
-    SDL_DestroyTexture(textureArray[8]);
-    SDL_DestroyTexture(textureArray[9]);
-    SDL_DestroyTexture(textureArray[10]);
-    SDL_DestroyTexture(textureArray[11]);
-    SDL_DestroyTexture(textureArray[12]);
-    SDL_DestroyTexture(textureArray[13]);
-    SDL_DestroyTexture(textureArray[14]);
-    SDL_DestroyTexture(textureArray[15]);
+    for (int i=0 ; i< 16;i++)
+    {
+        SDL_DestroyTexture(textureArray[i]);
+    }
 }
 
 

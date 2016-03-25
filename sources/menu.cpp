@@ -56,12 +56,17 @@ menu::menu(SDL_Renderer *gRenderer)
     this->xboxRect[4].w=50;
     this->xboxRect[4].y=800;
     this->xboxRect[4].h=40;
+    this->inputTimer=0;
+    maps[0]="./levels/FrenzyArena.xml";
+    maps[1]="./levels/level1.xml";
+    maps[2]="./levels/reactor.xml";
+    maps[3]="./levels/voidLabyrinth.xml";
 }
 
 menu::~menu()
 {
-    delete(this->ui);
-    delete(this->lc);
+        delete(this->ui);
+        delete(this->lc);
 }
 
 
@@ -259,8 +264,66 @@ void menu::drawTeamSelectionMenu()
 
 void menu::mapSelectionMenu()
 {
-    this->lc = new levelCreator(gRenderer,pTeam);
-    l=lc->parse();
-    l->play();
+    this->currentSelection=0;
+    bool quit=false;
+    while (ui->play() && (!quit))
+    {
+        for (int i=0;i<SDL_NumJoysticks();i++)
+        {
+            if(mapSelectionHandleInputs(ui->getCS(),i))
+            {
+                quit=true;
+            }
+        }
+        drawMapSelectionMenu();
+    }
+    if (this->currentSelection==-1)
+    {
+        return;
+    }
+    else
+    {
+        this->lc = new levelCreator(gRenderer, pTeam);
+        l = lc->parse(maps[this->currentSelection]);
+        l->play();
+    }
     return;
+}
+
+bool menu::mapSelectionHandleInputs(controllerState **cs, int playerNo)
+{
+    if (cs[playerNo]->aButton)
+    {
+        std::cout<<"pressed a"<<std::endl;
+        cs[playerNo]->aButton=false;
+        return true;
+    }
+    if (cs[playerNo]->bButton)
+    {
+        cs[playerNo]->bButton=false;
+        this->currentSelection=-1;
+        return true;
+    }
+    if (cs[playerNo]->leftStickVertical>0 && SDL_GetTicks()-this->inputTimer>300)
+        {
+            this->currentSelection=(this->currentSelection+1)%NB_MAP;
+            this->inputTimer=SDL_GetTicks();
+            std::cout<<"current selection is" << maps[this->currentSelection] << std::endl;
+            return false;
+        }
+    if (cs[playerNo]->leftStickVertical<0 && SDL_GetTicks()-this->inputTimer>300 && this->currentSelection>0)
+    {
+        this->currentSelection--;
+        this->inputTimer=SDL_GetTicks();
+        std::cout<<"current selection is" << maps[this->currentSelection] << std::endl;
+        return false;
+    }
+    return false;
+}
+
+void menu::drawMapSelectionMenu()
+{
+    SDL_RenderClear(gRenderer);
+    SDL_RenderCopy(gRenderer,backGroundTexture,NULL,NULL);
+    SDL_RenderPresent(gRenderer);
 }

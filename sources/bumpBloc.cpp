@@ -68,6 +68,7 @@ bumpBloc::bumpBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, level *l,int 
     nextBlocId++;
     this->wallCollided=false;
     this->bumpingedge=NONE;
+    this->reflect=false;
 }
 
 bumpBloc::~bumpBloc()

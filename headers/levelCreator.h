@@ -30,7 +30,7 @@ public:
     levelCreator();
     levelCreator(SDL_Renderer* gRenderer, int pTeam[4]);
     ~levelCreator();
-    level* parse();
+    level* parse(std::string path);
     void createObject(std::string type,int xpos, int ypos);
     void createTeleBlocs(int xpos1, int ypos1,int xpos2, int ypos2);
     void resetLevel();

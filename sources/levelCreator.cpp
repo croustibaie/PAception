@@ -59,13 +59,13 @@ levelCreator::~levelCreator()
     delete (this->textures);
 }
 
-level* levelCreator::parse()
+level* levelCreator::parse(std::string path)
 {
     std::string type;
     int xpos;
     int ypos;
     xml_document<> doc; //create xml_document object
-    file<> xmlFile("./levels/FrenzyArena.xml"); //open file
+    file<> xmlFile(path.c_str()); //open file
     doc.parse<0>(xmlFile.data()); //parse the contents of file
     xml_node<>* root = doc.first_node("root");//find our root node
     xml_node<>* n;
@@ -168,7 +168,7 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
     }
     if (type=="life")
     {
-        blocArray[numBloc]= new lifeBloc(l->getRenderer(),textures->getTexture(10),l,xpos,ypos);
+        blocArray[numBloc]= new lifeBloc(l->getRenderer(),textures->getTexture(16),l,xpos,ypos);
         numBloc++;
         std::cout<<"creating a life at "<<xpos<< " , " <<ypos<<std::endl;
     }
