@@ -115,7 +115,7 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
         {
             if((b->kill())&&(!(this->shield)))
             {
-                l->deleteBloc(this->blocId, this->getKind());
+                l->deleteBloc(this->blocId, this->getKind()); //TODO: Change this to avoid instant kill
                 return false;
             }
         }
@@ -139,13 +139,7 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
     }
 
     bool isAlive;
-    if (xMove != 0 || yMove != 0) {
-        isAlive = tryMove(xMove, yMove);
-    }
-    else
-    {
-        isAlive = true;
-    }
+
 
     if (state[playerID]->RT)
     {
@@ -188,7 +182,13 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
         this->shieldTimer = 0;
         std::cout << "shield available" << std::endl;
     }
-
+    if (xMove != 0 || yMove != 0) {
+        isAlive = tryMove(xMove, yMove);
+    }
+    else
+    {
+        isAlive = true;
+    }
 
 
     return(isAlive);
@@ -450,12 +450,12 @@ void playerBloc::draw()
                 SDL_RenderCopy(gRenderer, ammoTexture, NULL, &rectBase);
             }
             break;
-        case 2:
+        case 3:
             rectBase.x = 5;
             rectBase.y = SCREEN_HEIGHT -10 -5 ;
             rectBase.w = 10;
             rectBase.h = 10;
-            SDL_RenderCopy(gRenderer, heartTexture, NULL, &rectBase);
+            SDL_RenderCopyEx(gRenderer, heartTexture, NULL, &rectBase,180,NULL,SDL_FLIP_NONE);
             for (int i = 1; i < hp + 1; i++) {
                 rectBase.x = 5 + 10*i;
                 SDL_RenderCopy(gRenderer, hpTexture, NULL, &rectBase);
@@ -488,12 +488,12 @@ void playerBloc::draw()
                 SDL_RenderCopy(gRenderer, ammoTexture, NULL, &rectBase);
             }
             break;
-        case 3:
+        case 2:
             rectBase.x = SCREEN_WIDTH -10 - 5;
             rectBase.y = SCREEN_HEIGHT - 10 - 5;
             rectBase.w = 10;
             rectBase.h = 10;
-            SDL_RenderCopy(gRenderer, heartTexture, NULL, &rectBase);
+            SDL_RenderCopyEx(gRenderer, heartTexture, NULL, &rectBase,180,NULL,SDL_FLIP_NONE);
             for (int i = 1; i < hp + 1; i++) {
                 rectBase.x =SCREEN_WIDTH -10 -( 5 + 10*i);
                 SDL_RenderCopy(gRenderer, hpTexture, NULL, &rectBase);

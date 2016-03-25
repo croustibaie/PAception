@@ -68,9 +68,8 @@ bool freezeBloc::collisionReaction(bloc *b)
     if(b->getKind()==PLAYER)
     {
         b->setSpeed(4); // set the speed of a player bloc to 4
+        frozenbloc.insert(std::pair<bloc*,unsigned int>(b,SDL_GetTicks()));
     }
-    frozenbloc.insert(std::pair<bloc*,unsigned int>(b,SDL_GetTicks()));
-
     return(true);
 }
 

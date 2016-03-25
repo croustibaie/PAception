@@ -264,28 +264,38 @@ void menu::drawTeamSelectionMenu()
 
 void menu::mapSelectionMenu()
 {
-    this->currentSelection=0;
-    bool quit=false;
-    while (ui->play() && (!quit))
+    bool back=false;
+    while (!back)
     {
-        for (int i=0;i<SDL_NumJoysticks();i++)
+        this->currentSelection = 0;
+        bool quit = false;
+        while (ui->play() && (!quit))
         {
-            if(mapSelectionHandleInputs(ui->getCS(),i))
+            for (int i = 0; i < SDL_NumJoysticks(); i++)
             {
-                quit=true;
+                if (mapSelectionHandleInputs(ui->getCS(), i))
+                {
+                    quit = true;
+                }
+            }
+            drawMapSelectionMenu();
+        }
+        if (this->currentSelection == -1)
+        {
+            back=true;
+            return;
+        }
+        else
+        {
+            this->lc = new levelCreator(gRenderer, pTeam);
+            l = lc->parse(maps[this->currentSelection]);
+            while (l->play())
+            {
+                delete (lc);
+                lc = new levelCreator(gRenderer, pTeam);
+                l = lc->parse(maps[this->currentSelection]);
             }
         }
-        drawMapSelectionMenu();
-    }
-    if (this->currentSelection==-1)
-    {
-        return;
-    }
-    else
-    {
-        this->lc = new levelCreator(gRenderer, pTeam);
-        l = lc->parse(maps[this->currentSelection]);
-        l->play();
     }
     return;
 }

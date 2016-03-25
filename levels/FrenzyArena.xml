@@ -252,6 +252,21 @@
         <xpos>260</xpos>
         <ypos>300</ypos>
     </player1>
+    <player2>
+        <type>player</type>
+        <xpos>860</xpos>
+        <ypos>300</ypos>
+    </player2>
+    <player3>
+        <type>player</type>
+        <xpos>860</xpos>
+        <ypos>600</ypos>
+    </player3>
+    <player4>
+        <type>player</type>
+        <xpos>260</xpos>
+        <ypos>600</ypos>
+    </player4>
 
 
 

@@ -20,6 +20,10 @@ level::level (SDL_Renderer* gRenderer,int numPlayer)
     }
     loadMedia(&pauseTexture,&gRenderer,"./textures/pausescreen.png");
     loadMedia(&backGroundTexture,&gRenderer,"./textures/fond1230x960.jpg");
+    loadMedia(&playAgainTexture,&gRenderer,"./textures/playbutton.png");
+    loadMedia(&playAgainTextureSelected,&gRenderer,"./textures/playButtonSelected.png");
+    loadMedia(&quitTexture,&gRenderer,"./textures/quitButton.png");
+    loadMedia(&quitTextureSelected,&gRenderer,"./textures/quitButtonSelected.png");
     if (backGroundTexture==NULL)
     {
         std::cout<<"level has no background texture"<<std::endl;
@@ -39,6 +43,16 @@ level::level (SDL_Renderer* gRenderer,int numPlayer)
     this->pauseRect.w=SCREEN_WIDTH/4;
     this->pauseRect.y=SCREEN_HEIGHT/8*3;
     this->pauseRect.h=SCREEN_HEIGHT/6;
+    this->replay=false;
+    this->inputTimer=0;
+    this->playAgainRect.x=800;
+    this->playAgainRect.y=350;
+    this->playAgainRect.w=150;
+    this->playAgainRect.h=100;
+    this->quitRect.x=800;
+    this->quitRect.y=500;
+    this->quitRect.w=150;
+    this->quitRect.h=100;
 
 }
 
@@ -92,12 +106,11 @@ void level::blocDraw()
 
     SDL_RenderPresent(gRenderer);
 }
-enum gameStatus level::play ()
+bool level::play () //Returns true if players want to play again
 {
     lastTime=SDL_GetTicks();
     elapsedTime=20; // We have to initialize the elapsed time for the very first frame, chose 20ms by default
-
-    while((ui->play())&&((this->numPlayer>1)||TEST))
+    while(((ui->play())&&(!win()))||TEST)
     {
         while(ui->isPaused())
         {
@@ -112,17 +125,9 @@ enum gameStatus level::play ()
         blocDraw();
         elapsedTime= tmptime-lastTime;
         lastTime=tmptime;
-        win();
     }
-
-    if((this->numPlayer)<=1)
-    {
-        return GAMEOVER;
-    }
-    else
-    {
-        return PLAY;
-    }
+    std::cout<<"calling play again"<<std::endl;
+    return playAgain();
 }
 void level::deleteBloc(int blocID , enum kind blocKind)
 {
@@ -251,9 +256,9 @@ int level::getNum()
     return(this->numPlayer);
 }
 
-bool level::win()
+bool level::win() //returns true if there is a winner
 {
-   if (PlayerblocMap.size()==0)
+   if (PlayerblocMap.size()==0) //No more player in game
    {
        return true;
    }
@@ -263,11 +268,94 @@ bool level::win()
        int potentialWinner = it->second->getTeamNumber();
        for (; it != PlayerblocMap.end(); it++)
        {
-           if (it->second->getTeamNumber() != potentialWinner)
+           if (it->second->getTeamNumber() != potentialWinner) //There is a player from another team
            {
                return false;
            }
        }
-       return true;
+       std::cout<<"a player won"<<std::endl;
+       return true; //Default, only one team is alive
    }
+}
+
+bool level::playAgain()
+{
+    bool quit=false;
+    while(ui->play()&&(!quit))
+    {
+        for (int i=0;i<SDL_NumJoysticks();i++)
+        {
+            if (playAgainHandleInputs(ui->getCS(),i))
+            {
+                return this->replay;
+            }
+        }
+        drawPlayAgain();
+    }
+}
+
+void level::drawPlayAgain()
+{
+    SDL_RenderClear(gRenderer);
+    SDL_RenderCopy(gRenderer,backGroundTexture,NULL,NULL);
+    std::map<int,bloc*>::iterator it;
+
+
+    for (it= NonSolidblocMap.begin();it!=NonSolidblocMap.end();it++)//Make sure blocMap.end is recomputed on every loop, could be the cause of seg faults
+    {
+        it->second->draw();
+    }
+
+
+    for (it= SolidblocMap.begin();it!=SolidblocMap.end();it++)//Make sure blocMap.end is recomputed on every loop, could be the cause of seg faults
+    {
+        it->second->draw();
+    }
+
+    for (it= PlayerblocMap.begin();it!=PlayerblocMap.end();it++)//Make sure blocMap.end is recomputed on every loop, could be the cause of seg faults
+    {
+        it->second->draw();
+    }
+
+    if (this->replay)
+    {
+        SDL_RenderCopy(gRenderer,playAgainTextureSelected,NULL,&playAgainRect);
+    }
+    else
+    {
+        SDL_RenderCopy(gRenderer,playAgainTexture,NULL,&playAgainRect);
+    }
+    if (this->replay)
+    {
+        SDL_RenderCopy(gRenderer,quitTexture,NULL,&quitRect);
+    }
+    else
+    {
+        SDL_RenderCopy(gRenderer,quitTextureSelected,NULL,&quitRect);
+    }
+    SDL_RenderPresent(gRenderer);
+}
+
+bool level::playAgainHandleInputs(struct controllerState **cs, int playerID)
+{
+    if (cs[playerID]->aButton)
+    {
+        cs[playerID]->aButton=false;
+        return true;
+    }
+    if (cs[playerID]->bButton)
+    {
+        cs[playerID]->bButton=false;
+        this->replay=false;
+        return true;
+    }
+    if (cs[playerID]->leftStickVertical>0 && SDL_GetTicks()-this->inputTimer>300)
+    {
+        this->replay=false;
+    }
+    if (cs[playerID]->leftStickVertical<0 && SDL_GetTicks()-this->inputTimer>300)
+    {
+        this->replay=true;
+    }
+    return false;
 }
