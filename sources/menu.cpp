@@ -17,6 +17,9 @@ menu::menu(SDL_Renderer *gRenderer)
     loadMedia(&this->quitButtonTextureSelected,&gRenderer,"./textures/quitButtonSelected.png");
     loadMedia(&this->nbPlayerBackgroundTexture,&gRenderer,"./textures/teamchoose.png");
     loadMedia(&this->xboxControllerTexture,&gRenderer,"./textures/xbox.png");
+    loadMedia(&this->mapTextures[0],&gRenderer,"./textures/frenzyarena.png");
+    loadMedia(&this->mapTextures[1],&gRenderer,"./textures/reactor.png");
+    loadMedia(&this->mapTextures[2],&gRenderer,"./textures/voidlabyrinth.png");
     this->playRect.x=SCREEN_WIDTH/8*3;
     this->playRect.w=SCREEN_WIDTH/3;
     this->playRect.y=SCREEN_HEIGHT/4;
@@ -32,6 +35,10 @@ menu::menu(SDL_Renderer *gRenderer)
     this->pTeam[1]=0;
     this->pTeam[2]=0;
     this->pTeam[3]=0;
+    this->pPos[0]=0;
+    this->pPos[1]=0;
+    this->pPos[2]=0;
+    this->pPos[3]=0;
     this->pConfirm[0]=false;
     this->pConfirm[1]=false;
     this->pConfirm[2]=false;
@@ -58,15 +65,15 @@ menu::menu(SDL_Renderer *gRenderer)
     this->xboxRect[4].h=40;
     this->inputTimer=0;
     maps[0]="./levels/FrenzyArena.xml";
-    maps[1]="./levels/level1.xml";
-    maps[2]="./levels/reactor.xml";
-    maps[3]="./levels/voidLabyrinth.xml";
+    maps[1]="./levels/reactor.xml";
+    maps[2]="./levels/voidLabyrinth.xml";
 }
 
 menu::~menu()
 {
-        delete(this->ui);
-        delete(this->lc);
+    delete(this->ui);
+    delete(this->lc);
+    SDL_DestroyTexture(backGroundTexture);
 }
 
 
@@ -173,6 +180,23 @@ bool menu::teamSelectionHandleInputs(controllerState **cs, int playerNo)  //true
     {
         pTeam[playerNo]=0;
     }
+    if (cs[playerNo]->RT && SDL_GetTicks()-this->inputTimer>500)
+    {
+        this->pPos[playerNo]=(this->pPos[playerNo]+1)%4;
+        this->inputTimer=SDL_GetTicks();
+    }
+    if (cs[playerNo]->LT && SDL_GetTicks()-this->inputTimer>500)
+    {
+        if (this->pPos[playerNo]==0)
+        {
+            this->pPos[playerNo]=3;
+        }
+        else
+        {
+            this->pPos[playerNo]=this->pPos[playerNo]-1;
+        }
+        this->inputTimer=SDL_GetTicks();
+    }
     return false;
 }
 
@@ -239,23 +263,23 @@ void menu::drawTeamSelectionMenu()
         {
             case 0:
                 tmp=xboxRect[pTeam[i]];
-                SDL_RenderCopy(gRenderer,xboxControllerTexture,NULL,&tmp);
+                SDL_RenderCopyEx(gRenderer,xboxControllerTexture,NULL,&tmp,this->pPos[i]*90,NULL,SDL_FLIP_NONE);
                 break;
             case 1:
                 tmp = xboxRect[pTeam[i]];
                 tmp.x += 200;
-                SDL_RenderCopy(gRenderer,xboxControllerTexture,NULL,&tmp);
+                SDL_RenderCopyEx(gRenderer,xboxControllerTexture,NULL,&tmp,this->pPos[i]*90,NULL,SDL_FLIP_NONE);
                 break;
             case 2:
                 tmp=xboxRect[pTeam[i]];
                 tmp.x+=200;
                 tmp.y+=100;
-                SDL_RenderCopy(gRenderer,xboxControllerTexture,NULL,&tmp);
+                SDL_RenderCopyEx(gRenderer,xboxControllerTexture,NULL,&tmp,this->pPos[i]*90,NULL,SDL_FLIP_NONE);
                 break;
             case 3:
                 tmp=xboxRect[pTeam[i]];
                 tmp.y+=100;
-                SDL_RenderCopy(gRenderer,xboxControllerTexture,NULL,&tmp);
+                SDL_RenderCopyEx(gRenderer,xboxControllerTexture,NULL,&tmp,this->pPos[i]*90,NULL,SDL_FLIP_NONE);
                 break;
         }
     }
@@ -287,12 +311,12 @@ void menu::mapSelectionMenu()
         }
         else
         {
-            this->lc = new levelCreator(gRenderer, pTeam);
+            this->lc = new levelCreator(gRenderer, pTeam,pPos);
             l = lc->parse(maps[this->currentSelection]);
             while (l->play())
             {
                 delete (lc);
-                lc = new levelCreator(gRenderer, pTeam);
+                lc = new levelCreator(gRenderer, pTeam,pPos);
                 l = lc->parse(maps[this->currentSelection]);
             }
         }
@@ -318,14 +342,19 @@ bool menu::mapSelectionHandleInputs(controllerState **cs, int playerNo)
         {
             this->currentSelection=(this->currentSelection+1)%NB_MAP;
             this->inputTimer=SDL_GetTicks();
-            std::cout<<"current selection is" << maps[this->currentSelection] << std::endl;
             return false;
         }
-    if (cs[playerNo]->leftStickVertical<0 && SDL_GetTicks()-this->inputTimer>300 && this->currentSelection>0)
+    if (cs[playerNo]->leftStickVertical<0 && SDL_GetTicks()-this->inputTimer>300 )
     {
-        this->currentSelection--;
+        if (this->currentSelection==0)
+        {
+            this->currentSelection=NB_MAP-1;
+        }
+        else
+        {
+            this->currentSelection--;
+        }
         this->inputTimer=SDL_GetTicks();
-        std::cout<<"current selection is" << maps[this->currentSelection] << std::endl;
         return false;
     }
     return false;
@@ -335,5 +364,11 @@ void menu::drawMapSelectionMenu()
 {
     SDL_RenderClear(gRenderer);
     SDL_RenderCopy(gRenderer,backGroundTexture,NULL,NULL);
+    SDL_Rect r;
+    r.x=700;
+    r.w=400;
+    r.y=400;
+    r.h=300;
+    SDL_RenderCopy(gRenderer,mapTextures[this->currentSelection],NULL,&r);
     SDL_RenderPresent(gRenderer);
 }

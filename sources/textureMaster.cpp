@@ -28,9 +28,12 @@ textureMaster::textureMaster(SDL_Renderer *gRenderer)
 
 textureMaster::~textureMaster() //TODO: Investigate on how to correctly delete
 {
-    for (int i=0 ; i< 16;i++)
+    for (int i=0 ; i< 17;i++)
     {
-        SDL_DestroyTexture(textureArray[i]);
+        if(textureArray[i]!=NULL)
+        {
+            SDL_DestroyTexture(textureArray[i]);
+        }
     }
 }
 

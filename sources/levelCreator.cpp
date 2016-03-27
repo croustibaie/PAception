@@ -26,7 +26,7 @@ levelCreator::levelCreator()
     numBloc=0;
     l= new level();
 }
-levelCreator::levelCreator(SDL_Renderer* gRenderer, int pTeam[4])
+levelCreator::levelCreator(SDL_Renderer* gRenderer, int pTeam[4], int pPos[4])
 {
     blocArray= new bloc*[NB_BLOC];
     numBloc=0;
@@ -40,6 +40,11 @@ levelCreator::levelCreator(SDL_Renderer* gRenderer, int pTeam[4])
     for (int i=0;i<4;i++)
     {
         this->pTeam[i]=pTeam[i];
+    }
+    for (int i=0;i<4;i++)
+    {
+        this->pPos[i]=pPos[i];
+        std::cout<<"pPos is "<< pPos[i]<<std::endl;
     }
     this->textures= new textureMaster(gRenderer);
     if (textures->getTexture(3)==NULL)
@@ -156,10 +161,11 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
         if(pTeam[this->playerIndex]!=0)
         {
             int teamColor=this->pTeam[this->playerIndex]-1;
-            blocArray[numBloc] = new playerBloc(l->getRenderer(),textures->getTexture(teamColor),textures->getTexture((4+teamColor)), l, this->playerIndex,this->pTeam[this->playerIndex], xpos, ypos);
+            blocArray[numBloc] = new playerBloc(l->getRenderer(),textures->getTexture(teamColor),textures->getTexture((4+teamColor)), l, this->playerIndex,this->pTeam[this->playerIndex],this->pPos[this->playerIndex], xpos, ypos);
+            std::cout<<"player index is "<< playerIndex << std::endl;
+            std::cout << "creating a player at " << xpos << " , " << ypos << " with position "<< this->pPos[this->playerIndex]<< std::endl;
             numBloc++;
             playerIndex++;
-            std::cout << "creating a player at " << xpos << " , " << ypos << std::endl;
         }
         else
         {

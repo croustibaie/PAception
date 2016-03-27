@@ -9,7 +9,7 @@ class userInterface;
 class levelCreator;
 #include<string>
 #include "sdlconfig.h"
-#define NB_MAP 4
+#define NB_MAP 3
 
 class menu {
 
@@ -22,6 +22,7 @@ private:
     SDL_Texture* quitButtonTextureSelected;
     SDL_Texture* nbPlayerBackgroundTexture;
     SDL_Texture* xboxControllerTexture;
+    SDL_Texture* mapTextures[NB_MAP];
     SDL_Rect playRect;
     SDL_Rect quitRect;
     SDL_Rect xboxRect[5];
@@ -29,7 +30,8 @@ private:
     levelCreator* lc;
     SDL_Renderer* gRenderer;
     int currentSelection;
-    int pTeam[4];
+    int pTeam[4]; //Players' teams
+    int pPos[4]; // Players' position around the table
     bool pConfirm[4];
     unsigned int inputTimer;
     std::string maps[NB_MAP];

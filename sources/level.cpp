@@ -19,7 +19,7 @@ level::level (SDL_Renderer* gRenderer,int numPlayer)
         std::cout<<"In level constructor, no valid renderer"<<std::endl;
     }
     loadMedia(&pauseTexture,&gRenderer,"./textures/pausescreen.png");
-    loadMedia(&backGroundTexture,&gRenderer,"./textures/fond1230x960.jpg");
+    loadMedia(&backGroundTexture,&gRenderer,"./textures/levelBackground.png");
     loadMedia(&playAgainTexture,&gRenderer,"./textures/playbutton.png");
     loadMedia(&playAgainTextureSelected,&gRenderer,"./textures/playButtonSelected.png");
     loadMedia(&quitTexture,&gRenderer,"./textures/quitButton.png");
@@ -110,7 +110,8 @@ bool level::play () //Returns true if players want to play again
 {
     lastTime=SDL_GetTicks();
     elapsedTime=20; // We have to initialize the elapsed time for the very first frame, chose 20ms by default
-    while(((ui->play())&&(!win()))||TEST)
+    while (ui->play())
+    //while(((ui->play())&&(!win()))||TEST)
     {
         while(ui->isPaused())
         {
@@ -273,7 +274,6 @@ bool level::win() //returns true if there is a winner
                return false;
            }
        }
-       std::cout<<"a player won"<<std::endl;
        return true; //Default, only one team is alive
    }
 }

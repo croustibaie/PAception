@@ -100,6 +100,7 @@ void close(SDL_Renderer* gRenderer, SDL_Window* gWindow, SDL_GameController** gG
     //Destroy window
     SDL_DestroyWindow( gWindow );
     //Quit SDL subsystems
+    IMG_Quit();
     SDL_Quit();
 }
 

@@ -25,10 +25,11 @@ private:
     int numBloc;
     int playerIndex;
     int pTeam[4];
+    int pPos[4]; // Players' position around the table
 
 public:
     levelCreator();
-    levelCreator(SDL_Renderer* gRenderer, int pTeam[4]);
+    levelCreator(SDL_Renderer* gRenderer, int pTeam[4], int pPos[4]);
     ~levelCreator();
     level* parse(std::string path);
     void createObject(std::string type,int xpos, int ypos);

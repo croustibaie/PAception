@@ -23,7 +23,7 @@ playerBloc::playerBloc()
     this->wallCollided=false;
 }
 
-playerBloc::playerBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, SDL_Texture* laserTexture, level *l, int playerID,int teamID, int x, int y) {
+playerBloc::playerBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, SDL_Texture* laserTexture, level *l, int playerID,int teamID,int pPos, int x, int y) {
     this->l = l;
     if (*gRenderer == NULL) {
         std::cout << "In bloc constructor, no render" << std::endl;
@@ -58,7 +58,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, SDL_Textu
     this->lastShotTimer = 0;
     for (int i = 0; i < NB_LASERS; i++)
     {
-        this->laser[i] = new laserBloc(gRenderer,laserTexture, l, 50, 50, 1, 0);
+        this->laser[i] = laserBloc(gRenderer,laserTexture, l, 50, 50, 1, 0);
     }
     this->nextLaser=0;
     this->ammo=MAX_AMMO;
@@ -70,6 +70,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, SDL_Textu
     this->shield=false;
     this->isBumped=false;
     this->teamNumber=teamID; //Make sure that everyone's team is different if teams are not set
+    this->pPos=pPos;
     hpTexture=NULL;
     loadMedia(&hpTexture,gRenderer,"./textures/red.png");
     if (hpTexture==NULL)
@@ -99,10 +100,6 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, SDL_Textu
 
 playerBloc::~playerBloc()
 {
-    for (int i=0;i<NB_LASERS;i++)
-    {
-        delete laser[i];
-    }
 }
 
 bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
@@ -113,11 +110,16 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
     {
         if(b->getKind()!=NONSOLID)
         {
-            if((b->kill())&&(!(this->shield)))
+            std::cout<<"Initial hit"<<std::endl;
+            this->collisionReaction(b);
+            std::cout<<"laser reacting"<<std::endl;
+            b->collisionReaction(this);
+            /*if((b->kill())&&(!(this->shield)))
             {
                 l->deleteBloc(this->blocId, this->getKind()); //TODO: Change this to avoid instant kill
                 return false;
             }
+             */
         }
     }
 
@@ -130,7 +132,25 @@ bool playerBloc::react(struct controllerState **state, unsigned int elapsedTime)
     {
         xMove = (int) (correctedSpeed * (float) (state[playerID]->leftStickHorizontal) / 32000);
         yMove = (int) (correctedSpeed * (float) (state[playerID]->leftStickVertical) / 32000);
-       setDirection((float) (state[playerID]->leftStickHorizontal) / 32000, (float) (state[playerID]->leftStickVertical) / 32000);
+        int tmp=xMove;
+        switch (pPos)
+        {
+            case 0:
+                break;
+            case 1:
+                xMove=-yMove;
+                yMove=tmp;
+                break;
+            case 2:
+                xMove=-xMove;
+                yMove=-yMove;
+                break;
+            case 3:
+                xMove=yMove;
+                yMove=-tmp;
+                break;
+        }
+        setDirection((float) (state[playerID]->leftStickHorizontal) / 32000, (float) (state[playerID]->leftStickVertical) / 32000);
     }
     else
     {
@@ -217,6 +237,7 @@ bool playerBloc::collisionReaction(bloc *b)
             isAlive = false;
             return isAlive;
         }
+        ignoredBlocs.push_back(b);
     }
 
 
@@ -250,16 +271,13 @@ bool playerBloc::collisionReaction(bloc *b)
         if (yMove >0)
         {
             touchededge = UP;
-            std::cout << "pl : touch UP" << std::endl;
         }
         else if (yMove<0)
         {
             touchededge=DOWN;
-            std::cout << "pl : touch DOWN" << std::endl;
         }
         yMove= yMove==0 ? 0:yMove/(abs(yMove))*(deltaY);
         setBumped(b->bump(touchededge,this));
-        std::cout<< getBumped()<<std::endl;
         isAlive=tryMove(xMove, yMove );
         return isAlive;
 
@@ -271,17 +289,14 @@ bool playerBloc::collisionReaction(bloc *b)
          if (xMove >0)
         {
             touchededge=LEFT;
-            std::cout << "pl : touch LEFT" << std::endl;
         }
 
         else if (xMove<0)
         {
             touchededge=RIGHT;
-            std::cout << "pl : touch RIGHT" << std::endl;
         }
         xMove=  xMove==0 ? 0 : xMove/(abs(xMove))*(deltaX);
         setBumped(b->bump(touchededge,this));
-        std::cout<< getBumped()<<std::endl;
         isAlive=tryMove(xMove, yMove );
         return isAlive;
     }
@@ -292,17 +307,14 @@ bool playerBloc::collisionReaction(bloc *b)
         if (yMove >0)
         {
             touchededge=UP;
-            std::cout << "pl : touch UP" << std::endl;
         }
 
         else if (yMove<0)
         {
             touchededge=DOWN;
-            std::cout << "pl : touch DOWN" << std::endl;
         }
          yMove= yMove == 0 ? 0: yMove/(abs(yMove))*(deltaY);
         setBumped(b->bump(touchededge,this));
-        std::cout<< getBumped()<<std::endl;
         isAlive=tryMove(xMove, yMove );
         return isAlive;
 
@@ -313,21 +325,17 @@ bool playerBloc::collisionReaction(bloc *b)
         if (xMove >0)
         {
             touchededge=LEFT;
-            std::cout << "pl : touch LEFT" << std::endl;
         }
 
         else if (xMove<0)
         {
             touchededge=RIGHT;
-            std::cout << "pl : touch RIGHT" << std::endl;
         }
         xMove= xMove == 0 ? 0 : xMove/(abs(xMove))*(deltaX);
         if (touchededge==NONE)
         {
-            std::cout<< "transmitting no touched edge"<<std::endl;
         }
         setBumped(b->bump(touchededge,this));
-        std::cout<< getBumped()<<std::endl;
         isAlive=tryMove(xMove, yMove );
         return isAlive;
 
@@ -341,17 +349,14 @@ bool playerBloc::collisionReaction(bloc *b)
              if (xMove>0)
             {
                 touchededge=LEFT;
-                std::cout << "pl : touch LEFT" << std::endl;
             }
             else
             {
                 touchededge=RIGHT;
-                std::cout << "pl : touch RIGHT" << std::endl;
             }
 
         xMove=xMove/(abs(xMove))*(deltaX);
         setBumped(b->bump(touchededge,this));
-        std::cout<< getBumped()<<std::endl;
         isAlive=tryMove(xMove, yMove );
         return isAlive;
     }
@@ -360,16 +365,13 @@ bool playerBloc::collisionReaction(bloc *b)
          if (yMove>0)
             {
                 touchededge=UP;
-                std::cout << "pl : touch UP" << std::endl;
             }
             else
             {
                 touchededge=DOWN;
-                std::cout << "pl : touch DOWN" << std::endl;
             }
          yMove=yMove/(abs(yMove))*(deltaY);
         setBumped(b->bump(touchededge,this));
-        std::cout<< getBumped()<<std::endl;
         isAlive=tryMove(xMove, yMove );
         return isAlive;
     }
@@ -384,6 +386,24 @@ void playerBloc::shoot( struct controllerState **state)
     {
         int x1 = state[playerID]->rightStickHorizontal;
         int y1 = state[playerID]->rightStickVertical;
+        int tmp=x1;
+        switch (pPos)
+        {
+            case 0:
+                break;
+            case 1:
+                x1=-y1;
+                y1=tmp;
+                break;
+            case 2:
+                x1=-x1;
+                y1=-y1;
+                break;
+            case 3:
+                x1=y1;
+                y1=-tmp;
+                break;
+        }
         if((x1==0)&&(y1==0))
         {
             return;
@@ -398,10 +418,10 @@ void playerBloc::shoot( struct controllerState **state)
         double rLaser = sqrt(double(LASER_HEIGHT/2*LASER_HEIGHT/2+LASER_WIDTH/2*LASER_WIDTH/2));
         xPos =(int)(rect.x + a + (r+rLaser+1)*ctheta);
         yPos =(int)(rect.y + b + (r+rLaser+1)*stheta);
-        laser[nextLaser]->setPosition(xPos,yPos);
-        laser[nextLaser]->setDirection(ctheta,stheta);
+        laser[nextLaser].setPosition(xPos,yPos);
+        laser[nextLaser].setDirection(ctheta,stheta);
 
-        l->insertBloc(laser[nextLaser]);
+        l->insertBloc(&laser[nextLaser]);
 
         ammo--;
         nextLaser=(nextLaser+1)%NB_LASERS;

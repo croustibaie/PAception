@@ -64,17 +64,13 @@ pulseBloc::pulseBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture,SDL_Texture*
     this->wallCollided=false;
     for (int i = 0; i < NB_LASERS2; i++)
     {
-        this->laser[i] = new laserBloc(gRenderer,laserTexture, l, 50, 50, 1, 0);
+        this->laser[i] =  laserBloc(gRenderer,laserTexture, l, 50, 50, 1, 0);
     }
     this->nextLaser=0;
 }
 
 pulseBloc::~pulseBloc()
 {
-    for (int i = 0; i < NB_LASERS2; i++)
-    {
-        delete(this->laser[i]);
-    }
 }
 
 bool pulseBloc::collisionReaction(bloc *b) {
@@ -108,9 +104,9 @@ void pulseBloc::shoot()
             double stheta = sin(M_PI/4*i);
 
 
-            laser[nextLaser]->setPosition(x_init+radius*ctheta,y_init+radius*stheta);
-            laser[nextLaser]->setDirection(ctheta,stheta);
-            l->insertBloc(laser[nextLaser]);
+            laser[nextLaser].setPosition(x_init+radius*ctheta,y_init+radius*stheta);
+            laser[nextLaser].setDirection(ctheta,stheta);
+            l->insertBloc(&laser[nextLaser]);
 
             nextLaser=(nextLaser+1)%NB_LASERS2;
 

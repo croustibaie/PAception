@@ -15,7 +15,7 @@ class pulseBloc: public bloc {
 
 private:
     unsigned int Timer;//
-    laserBloc* laser[NB_LASERS2]; //P
+    laserBloc laser[NB_LASERS2]; //P
     int nextLaser;
     unsigned int TimerPulse;
 
