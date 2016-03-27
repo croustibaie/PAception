@@ -427,5 +427,16 @@
         <ypos>300</ypos>
     </player2>
 
+    <player3>
+        <type>player</type>
+        <xpos>1600</xpos>
+        <ypos>720</ypos>
+    </player3>
+
+    <player4>
+        <type>player</type>
+        <xpos>1400</xpos>
+        <ypos>720</ypos>
+    </player4>
 
 </root>
