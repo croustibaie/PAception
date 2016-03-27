@@ -10,7 +10,7 @@
 
 class userInterface {
 private:
-    struct controllerState *cs = NULL ; //Array of controllerStates, contains the controllers' states
+    struct controllerState **cs = NULL ; //Array of controllerStates, contains the controllers' states
     SDL_Event e;
     bool pause;
 

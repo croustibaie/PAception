@@ -9,7 +9,7 @@ userInterface::userInterface()
 {
     if (SDL_NumJoysticks()>0)
     {
-        cs = new controllerState[SDL_NumJoysticks()];
+        cs = new controllerState*[SDL_NumJoysticks()];
     }
     else
     {
@@ -17,18 +17,19 @@ userInterface::userInterface()
     }
     for(int i = 0;i<SDL_NumJoysticks();i++)
     {
+        cs[i] = new controllerState;
 
-        this->cs[i].aButton = false;
-        this->cs[i].xButton = false;
-        this->cs[i].yButton = false;
-        this->cs[i].bButton = false;
-        this->cs[i].leftStickVertical = 0;
-        this->cs[i].leftStickHorizontal = 0;
-        this->cs[i].rightStickVertical = 0;
-        this->cs[i].rightStickHorizontal = 0;
-        this->cs[i].startButton = false;
-        this->cs[i].RT=false;
-        this->cs[i].LT=false;
+        this->cs[i]->aButton = false;
+        this->cs[i]->xButton = false;
+        this->cs[i]->yButton = false;
+        this->cs[i]->bButton = false;
+        this->cs[i]->leftStickVertical = 0;
+        this->cs[i]->leftStickHorizontal = 0;
+        this->cs[i]->rightStickVertical = 0;
+        this->cs[i]->rightStickHorizontal = 0;
+        this->cs[i]->startButton = false;
+        this->cs[i]->RT=false;
+        this->cs[i]->LT=false;
     }
     pause=false;
 }
@@ -67,11 +68,11 @@ void userInterface::motion(SDL_JoystickID id, SDL_Event e)
         {
             if (abs(e.jaxis.value) > 8000)
             {
-                cs[id].leftStickHorizontal = e.jaxis.value;
+                cs[id]->leftStickHorizontal = e.jaxis.value;
             }
             else
             {
-                cs[id].leftStickHorizontal = 0;
+                cs[id]->leftStickHorizontal = 0;
             }
             return;
         }
@@ -80,11 +81,11 @@ void userInterface::motion(SDL_JoystickID id, SDL_Event e)
         {
             if (abs(e.jaxis.value) > 8000)
             {
-                cs[id].leftStickVertical = e.jaxis.value;
+                cs[id]->leftStickVertical = e.jaxis.value;
             }
             else
             {
-                cs[id].leftStickVertical = 0;
+                cs[id]->leftStickVertical = 0;
             }
             return;
         }
@@ -94,11 +95,11 @@ void userInterface::motion(SDL_JoystickID id, SDL_Event e)
         {
             if (abs(e.jaxis.value) > 100)
             {
-                cs[id].rightStickHorizontal = e.jaxis.value;
+                cs[id]->rightStickHorizontal = e.jaxis.value;
             }
             else
             {
-                cs[id].rightStickHorizontal = 0;
+                cs[id]->rightStickHorizontal = 0;
             }
             return;
         }
@@ -106,11 +107,11 @@ void userInterface::motion(SDL_JoystickID id, SDL_Event e)
         {
             if (abs(e.jaxis.value) > 100)
             {
-                cs[id].rightStickVertical = e.jaxis.value;
+                cs[id]->rightStickVertical = e.jaxis.value;
             }
             else
             {
-                cs[id].rightStickVertical = 0;
+                cs[id]->rightStickVertical = 0;
             }
             return;
         }
@@ -118,22 +119,22 @@ void userInterface::motion(SDL_JoystickID id, SDL_Event e)
     {
         if (e.jaxis.value>0)
         {
-            cs[id].RT=true;
+            cs[id]->RT=true;
         }
         else
         {
-            cs[id].RT=false;
+            cs[id]->RT=false;
         }
     }
     if (e.jaxis.axis==2)
     {
         if (e.jaxis.value>0)
         {
-            cs[id].LT=true;
+            cs[id]->LT=true;
         }
         else
         {
-            cs[id].LT=false;
+            cs[id]->LT=false;
         }
     }
 }
@@ -142,23 +143,23 @@ void userInterface::handleButtonDown(SDL_JoystickID id,SDL_Event e)
 {
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_START )
     {
-        cs[id].startButton=true;
+        cs[id]->startButton=true;
     }
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_A)
     {
-        cs[id].aButton=true;
+        cs[id]->aButton=true;
     }
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_B)
     {
-        cs[id].bButton=true;
+        cs[id]->bButton=true;
     }
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_X)
     {
-        cs[id].xButton=true;
+        cs[id]->xButton=true;
     }
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_Y)
     {
-        cs[id].yButton=true;
+        cs[id]->yButton=true;
     }
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_BACK)
     {
@@ -181,23 +182,23 @@ void userInterface::handleButtonUp(SDL_JoystickID id,SDL_Event e)
 {
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_START )
     {
-        cs[id].startButton=false;
+        cs[id]->startButton=false;
     }
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_A)
     {
-        cs[id].aButton=false;
+        cs[id]->aButton=false;
     }
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_B)
     {
-        cs[id].bButton=false;
+        cs[id]->bButton=false;
     }
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_X)
     {
-        cs[id].xButton=false;
+        cs[id]->xButton=false;
     }
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_Y)
     {
-        cs[id].yButton=false;
+        cs[id]->yButton=false;
     }
     if (e.jbutton.button==SDL_CONTROLLER_BUTTON_BACK)
     {
@@ -207,14 +208,17 @@ void userInterface::handleButtonUp(SDL_JoystickID id,SDL_Event e)
 
 userInterface::~userInterface()
 {
-
+    for(int i = 0;i<SDL_NumJoysticks();i++)
+    {
+        delete (cs[i]);
+    }
     std::cout<<"ui deleted"<<std::endl;
     delete[] cs;
 }
 
 struct controllerState** userInterface::getCS()
 {
-    return &cs;
+    return cs;
 }
 
 bool userInterface::isPaused()
