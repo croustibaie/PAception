@@ -35,9 +35,9 @@ private:
     bool pConfirm[4];
     unsigned int inputTimer;
     std::string maps[NB_MAP];
-
+    SDL_GameController** gGameController;
 public:
-    menu(SDL_Renderer* gRenderer);
+    menu(SDL_Renderer* gRenderer,SDL_GameController** igGameController);
     ~menu();
 
     void playMenu();

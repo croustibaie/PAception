@@ -12,7 +12,7 @@
 #include "userInterface.h"
 
 enum gameStatus {PAUSE,PLAY,GAMEOVER};
-const bool TEST =true;
+const bool TEST =false;
 // true if you want to run a test without the menu
 /* Level's purpose is to control all of the in game action by capturing the inputs and sending the update orders to
  * the blocs*/

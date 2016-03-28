@@ -7,17 +7,18 @@
 
 userInterface::userInterface()
 {
+    addplayer=false;
     if (SDL_NumJoysticks()>0)
     {
-        cs = new controllerState*[SDL_NumJoysticks()];
+        cs = new controllerState*[4];
     }
     else
     {
         cs= nullptr;
     }
-    for(int i = 0;i<SDL_NumJoysticks();i++)
+    for(int i = 0;i<4;i++)
     {
-        cs[i] = new controllerState;
+        cs[i] = new controllerState();
 
         this->cs[i]->aButton = false;
         this->cs[i]->xButton = false;
@@ -39,6 +40,11 @@ bool userInterface::play()
 {
     while (SDL_PollEvent(&e)!=0 )
     {
+        if(e.type == SDL_JOYDEVICEADDED)
+        {
+            std::cout<<"new joystick added number: "<<SDL_NumJoysticks()<<std::endl;
+            this->addplayer=true;
+        }
         if( e.type == SDL_QUIT ) //If someone closes the window
         {
             return false;
@@ -208,12 +214,12 @@ void userInterface::handleButtonUp(SDL_JoystickID id,SDL_Event e)
 
 userInterface::~userInterface()
 {
-    for(int i = 0;i<SDL_NumJoysticks();i++)
+    for(int i = 0;i<4;i++)
     {
         delete (cs[i]);
     }
     std::cout<<"ui deleted"<<std::endl;
-    delete[] cs;
+    delete[] (cs);
 }
 
 struct controllerState** userInterface::getCS()
@@ -224,4 +230,14 @@ struct controllerState** userInterface::getCS()
 bool userInterface::isPaused()
 {
     return pause;
+}
+
+bool userInterface::newPlayer()
+{
+    return addplayer;
+}
+
+void userInterface::resetNewPlayer()
+{
+    this->addplayer=false;
 }

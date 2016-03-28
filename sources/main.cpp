@@ -32,7 +32,7 @@ int main( int argc, char* args[] )
     {
         printf( "Failed to initialize!\n" );
     }
-    menu m = menu(gRenderer);
+    menu m = menu(gRenderer,gGameController);
     m.playMenu();
     //Free resources and close SDL
     close(gRenderer,gWindow,gGameController);

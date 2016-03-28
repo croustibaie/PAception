@@ -10,9 +10,10 @@
 
 class userInterface {
 private:
-    struct controllerState **cs = NULL ; //Array of controllerStates, contains the controllers' states
+    struct controllerState** cs ; //Array of controllerStates, contains the controllers' states
     SDL_Event e;
     bool pause;
+    bool addplayer;
 
 public:
     userInterface(); //Destructor automatically detects the number of controllers
@@ -27,6 +28,8 @@ public:
     void handleButtonDown(SDL_JoystickID id, SDL_Event e);
     void handleButtonUp(SDL_JoystickID id, SDL_Event e);
     bool isPaused();
+    bool newPlayer();
+    void resetNewPlayer();
 };
 
 

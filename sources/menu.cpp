@@ -7,8 +7,9 @@
 #include "../headers/levelCreator.h"
 #include "../headers/userInterface.h"
 
-menu::menu(SDL_Renderer *gRenderer)
+menu::menu(SDL_Renderer *gRenderer,SDL_GameController** igGameController)
 {
+    this->gGameController=igGameController;
     this->gRenderer=gRenderer;
     loadMedia(&this->backGroundTexture,&gRenderer,"./textures/menuBG.png");
     loadMedia(&this->playButtonTexture,&gRenderer,"./textures/playbutton.png");
@@ -85,7 +86,10 @@ void menu::playMenu()
     bool confirm=false;
     while(ui->play() and (!quit))
     {
-        confirm=playMenuHandleInputs(ui->getCS(),0);
+        for (int i=0;i<SDL_NumJoysticks();i++)
+        {
+            confirm=confirm||playMenuHandleInputs(ui->getCS(),i);
+        }
         drawPlayMenu();
         if (currentSelection==0 && confirm)
         {
@@ -231,6 +235,10 @@ void menu::teamSelectionMenu()
     currentSelection=0;
     while (ui->play() and (!quit))
     {
+        if (ui->newPlayer())
+        {
+            gGameController[SDL_NumJoysticks()-1]=SDL_GameControllerOpen(SDL_NumJoysticks()-1);
+        }
         for (int i=0;i<SDL_NumJoysticks();i++)
         {
             if(teamSelectionHandleInputs(ui->getCS(),i)==true)

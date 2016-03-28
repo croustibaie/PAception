@@ -75,7 +75,8 @@ bool laserBloc::react(struct controllerState **state, unsigned int elapsedTime)
     {
         std::cout<<"In laserreact: initial hit"<<std::endl;
         firstIntersect->collisionReaction(this);
-        l->deleteBloc(this->blocId, this->getKind());
+        //l->deleteBloc(this->blocId, this->getKind());
+        this->collisionReaction(firstIntersect);
         return false;
         /*if (firstIntersect->getKind()!=NONSOLID) {
             l->deleteBloc(this->blocId, this->getKind());

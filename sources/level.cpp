@@ -110,8 +110,7 @@ bool level::play () //Returns true if players want to play again
 {
     lastTime=SDL_GetTicks();
     elapsedTime=20; // We have to initialize the elapsed time for the very first frame, chose 20ms by default
-    while (ui->play())
-    //while(((ui->play())&&(!win()))||TEST)
+    while(((ui->play())&&(!win()))||TEST)
     {
         while(ui->isPaused())
         {
