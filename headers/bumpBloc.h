@@ -9,7 +9,7 @@ class level;
 class playerBloc;
 #include "bloc.h"
 #include <map>
-#define BUMPTIME 500
+#define BUMPTIME 1500
 #define BUMPSPEED 6
 class bumpBloc: public bloc {
 private :
