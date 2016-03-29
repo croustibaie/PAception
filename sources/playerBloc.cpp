@@ -23,17 +23,20 @@ playerBloc::playerBloc()
     this->wallCollided=false;
 }
 
-playerBloc::playerBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, SDL_Texture* laserTexture, level *l, int playerID,int teamID,int pPos, int x, int y) {
+playerBloc::playerBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, SDL_Texture* laserTexture,SDL_Texture* shieldTexture, level *l, int playerID,int teamID,int pPos, int x, int y) {
     this->l = l;
-    if (*gRenderer == NULL) {
+    if (*gRenderer == NULL)
+    {
         std::cout << "In bloc constructor, no render" << std::endl;
     }
     this->playerID = playerID;
-    if ((x < SCREEN_WIDTH - 50) && (y < SCREEN_HEIGHT - 50)) {
+    if ((x < SCREEN_WIDTH - 50) && (y < SCREEN_HEIGHT - 50))
+    {
         this->rect.x = x;
         this->rect.y = y;
     }
-    else {
+    else
+    {
         this->rect.x = 0; //TODO : see for throwing an exception
         this->rect.y = 0;
     }
@@ -49,6 +52,7 @@ playerBloc::playerBloc(SDL_Renderer **gRenderer,SDL_Texture* itexture, SDL_Textu
     this->myKind = PLAYER;
     this->reflect=false;
     this->texture=itexture;
+    this->shieldTexture=shieldTexture;
     if (texture == NULL) {
         std::cout << "no texture loaded" << std::endl;
     }
@@ -416,8 +420,8 @@ void playerBloc::shoot( struct controllerState **state)
 
         double r = sqrt(a*a + b*b);
         double rLaser = sqrt(double(LASER_HEIGHT/2*LASER_HEIGHT/2+LASER_WIDTH/2*LASER_WIDTH/2));
-        xPos =(int)(rect.x + a + (r+rLaser+1)*ctheta);
-        yPos =(int)(rect.y + b + (r+rLaser+1)*stheta);
+        xPos =(int)(rect.x + a + (r+rLaser+10)*ctheta);
+        yPos =(int)(rect.y + b + (r+rLaser+10)*stheta);
         laser[nextLaser].setPosition(xPos,yPos);
         laser[nextLaser].setDirection(ctheta,stheta);
 
@@ -435,7 +439,15 @@ void playerBloc::draw()
     if (texture == NULL) {
         std::cout << "no texture" << std::endl;
     }
-    SDL_RenderCopy(gRenderer, texture, NULL, &rect);
+    if (this->shield)
+    {
+        SDL_RenderCopy(gRenderer,shieldTexture,NULL,&rect);
+    }
+    else
+    {
+        SDL_RenderCopy(gRenderer, texture, NULL, &rect);
+    }
+
     if (heartTexture == NULL) {
         std::cout << "no heart texture" << std::endl;
     }

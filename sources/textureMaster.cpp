@@ -24,6 +24,8 @@ textureMaster::textureMaster(SDL_Renderer *gRenderer)
     loadMedia(&(this->textureArray[14]),&gRenderer,"./textures/bump2.png");
     loadMedia(&(this->textureArray[15]),&gRenderer,"./textures/fleche.png");
     loadMedia(&(this->textureArray[16]),&gRenderer,"./textures/healbloc.png");
+    loadMedia(&(this->textureArray[17]),&gRenderer,"./textures/teleporterbloc.png");
+    loadMedia(&(this->textureArray[18]),&gRenderer,"./textures/goldensquare.png");
 }
 
 textureMaster::~textureMaster() //TODO: Investigate on how to correctly delete

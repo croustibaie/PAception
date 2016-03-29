@@ -161,7 +161,7 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
         if(pTeam[this->playerIndex]!=0)
         {
             int teamColor=this->pTeam[this->playerIndex]-1;
-            blocArray[numBloc] = new playerBloc(l->getRenderer(),textures->getTexture(teamColor),textures->getTexture((4+teamColor)), l, this->playerIndex,this->pTeam[this->playerIndex],this->pPos[this->playerIndex], xpos, ypos);
+            blocArray[numBloc] = new playerBloc(l->getRenderer(),textures->getTexture(teamColor),textures->getTexture((4+teamColor)),textures->getTexture(18), l, this->playerIndex,this->pTeam[this->playerIndex],this->pPos[this->playerIndex], xpos, ypos);
             std::cout<<"player index is "<< playerIndex << std::endl;
             std::cout << "creating a player at " << xpos << " , " << ypos << " with position "<< this->pPos[this->playerIndex]<< std::endl;
             numBloc++;
@@ -182,8 +182,8 @@ void levelCreator::createObject(std::string type, int xpos, int ypos)
 
 void levelCreator::createTeleBlocs(int xpos1 , int ypos1 , int xpos2 , int ypos2)
 {
-    teleBloc *t1 = new teleBloc(l->getRenderer(),textures->getTexture(10),l,xpos1,ypos1);
-    teleBloc *t2 = new teleBloc(l->getRenderer(),textures->getTexture(10),l,xpos2,ypos2);
+    teleBloc *t1 = new teleBloc(l->getRenderer(),textures->getTexture(17),l,xpos1,ypos1);
+    teleBloc *t2 = new teleBloc(l->getRenderer(),textures->getTexture(17),l,xpos2,ypos2);
 
     t1->setTeleBloc(t2) ;
 
