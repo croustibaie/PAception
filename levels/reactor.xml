@@ -39,6 +39,35 @@
         <ypos>510</ypos>
     </diamond4>
 
+    <!-- ****************** -->
+    <!-- ** LIFE BLOC ** -->
+    <!-- ****************** -->
+
+    <life1>
+        <type>life</type>
+        <xpos>690</xpos>
+        <ypos>330</ypos>
+    </life1>
+
+    <life2>
+        <type>life</type>
+        <xpos>690</xpos>
+        <ypos>690</ypos>
+    </life2>
+
+    <life3>
+        <type>life</type>
+        <xpos>1170</xpos>
+        <ypos>330</ypos>
+    </life3>
+
+    <life4>
+        <type>life</type>
+        <xpos>1170</xpos>
+        <ypos>690</ypos>
+    </life4>
+
+
     <!-- ************************ -->
     <!-- ** LEFT SIDE OF THE CORE -->
     <!-- ************************ -->

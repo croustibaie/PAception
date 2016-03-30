@@ -423,8 +423,8 @@
 
     <player2>
         <type>player</type>
-        <xpos>660</xpos>
-        <ypos>300</ypos>
+        <xpos>260</xpos>
+        <ypos>720</ypos>
     </player2>
 
     <player3>
@@ -435,8 +435,8 @@
 
     <player4>
         <type>player</type>
-        <xpos>1400</xpos>
-        <ypos>720</ypos>
+        <xpos>1600</xpos>
+        <ypos>300</ypos>
     </player4>
 
 </root>
